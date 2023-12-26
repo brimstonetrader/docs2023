@@ -1,0 +1,35 @@
+package robosim.ai;
+
+import robosim.core.*;
+import robosim.reinforcement.QTable;
+import robosim.core.Simulator;
+import java.util.LinkedHashMap;
+
+public class QBot implements Controller {
+    private QTable qtable = new QTable(36,2,0,8,4,0.5);
+    private LinkedHashMap<Integer,Double> seen = new LinkedHashMap<>();
+    private double turns = 1.0;
+    private double reward = 1.0;
+    private int lMove = 0;
+    private int llMove = 0;
+    private int lllMove = 0;
+    private int llllMove = 0;
+    private int lllllMove = 0;
+    private int dirtCount = 0;
+    @Override
+    public void control(Simulator sim) {
+        int s = 0;
+        if (sim.findClosestProblem() < 5) { reward=-100; s=32;}
+        if (sim.wasHit()) { reward=-200; s=33;}
+        if (sim.dirtExistsHere()) {s=34; if (lMove==0) {reward++;}}
+        if (sim.getDirt() > dirtCount) {s=35; reward=100;}
+        dirtCount = sim.getDirt();
+        if (lMove==0) { reward++; turns=1; }
+        if (lMove==1) { reward=1; turns++; }
+        int state = Math.max(s,lMove+llMove+lllMove+llllMove+lllllMove);
+        int action = qtable.senseActLearn(state, reward-turns);
+        lllllMove = 2*llllMove; llllMove = 2*lllMove; lllMove = 2*llMove; llMove = 2*lMove;
+        if (action == 1) { Action.LEFT.applyTo(sim);    lMove = 1; reward=1; }
+        else             { Action.FORWARD.applyTo(sim); lMove = 0; }
+    }
+}

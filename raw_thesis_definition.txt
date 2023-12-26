@@ -1,0 +1,105 @@
+A **n*n grid** is a two-dimensional square array of length and width **n**. 
+
+In this project, the interior squares, of which there are $n^2$, will be referred to as **cells**. The interior points touching the corners of four cells, of which there are $(n-1)^2$, will be **intersections**. The lines connecting two intersections, or dividing two cells, of which there are $2(n)(n-1)$, will be **gridlines**. 
+
+An unsolved Galaxies puzzle bears some number of **centroids**. These can be on cells, intersections, or gridlines. Thus, for an $n*n$ grid there are $(n^2) + (n-1)^2 + 2(n)(n-1) = (2n-1)^2$ possible centroid locations.
+
+A completed Galaxies puzzle consists of a full **partition** of the n*n grid, with each region 180 degree rotationally symmetric around a centroid, using every centroid. In the context of grids, which is distinct from other definitions of the term, we define a partition as a assignment of cells into non-empty **groups**, in such a way that every cell is included in exactly one group. In addition, within 2D space, groups are **connected**, meaning there exists a path crossing adjacent cells fully contained within the group, for every pair of cells within the group. Each group is surrounded by gridlines which are **on**, which we will call **walls**, but between cells of the same group they are **off**, or, **lawns**.  
+
+
+## A Simple Case
+
+How would we do this in an n by 1 grid? Everything's $180 ^{\circ}$ rotationally symmetric now, so we'll ignore that while we're in this dimension. The question is best answered by reframing it.
+
+How many ways can you partition an integer, provided order matters?
+
+Let's do the first few manually.
+
+1 can be [1].
+2 can be [2], or [1, 1].
+3 can be [3], [1, 2], [2, 1], [1, 1, 1].
+4 can be [4], [1, 3], [3, 1], [2, 2], [1, 1, 2], [1, 2, 1], [2, 1, 1], [1, 1, 1, 1].
+
+1, 2, 4, 8. You don't suppose this is just $2^{n-1}$, do you?
+
+Let's start thinking of these numbers as one-dimensional grids. 3 will look like:
+
+OOO
+
+and its partitions will look like
+
+OOO, OO O, O OO, O O O
+
+There are 2 spaces in between the Os. for any $n \in N$, there will be $n - 1$ spaces. Each of these can be turned on or off, meaning there are two possible states for each connection. Thus, each list of numbers adding up to $n$ can be represented with a binary string of length $n-1$, with each 1 meaning that the previous number has concluded. So, for any sequence of size $n$ consisting of zeroes and ones (these will be henceforth referred to as **bit strings**), we can generate a solved 1-dimensional galaxy, converting zeroes to lawns and ones to walls. 
+
+We can't extend this to 2 dimensions. It won't quite carry over, as we now must account for regions being contiguous. Let's, again, start small, with a 2*2 grid. There are {2^4 = 16} possible ways to partition the $2*2$ grid, but 4 of them consist of one gridline, which leads to a contradiction. Take the one with the bottom wall.
+
+
+|1 2|
+
+|3|4|
+
+
+
+This grouping is not a valid partition, as it is effectively saying that both
+
+“3 in group with 1 in group with 2 in group with 4”
+
+and 
+
+“3 not in group with 4”
+
+There are three important methods we will use to notate $n*n$ grids.
+
+The first is the one we have been already using. Drawing grids as they are. This one is intuitive and I will spend no further time explaining it. 
+
+The second is as a bit string of length $n*n$. The specific correspondence will depend based on context, and be noted as it changes.
+
+The third is as a list of integers of length $n*n$, with the integers corresponding to groups, ordered by appearance in standard left to right, then top to bottom order. This method is appealing because it allows us to sort grids from smallest to largest, as the $2*2$ s are below.
+
+![Alt text](MicrosoftTeams-image%20(6).png)
+
+Any corner cell has three neighbors, the two adjacent cells and the center cell. Each of these three-cell regions can be in one of three important states:
+
+0. Entirely Grouped (One Group, 2 Lawns)
+2. Partially Grouped (Two Groups, 1 Wall, 1 Lawn)
+3. Entirely Seperated (Three Groups, 2 Walls)
+
+A corner cell whose neighborhood (defined as a standard Moore neighborhood) aligns to Case 0 will have 2 possible groupings - with the group it is surrounded by, or alone. Case 1 implies 3 possible groupings, with the group horizontally adjacent, vertically adjacent, and alone. Case 2 implies 4 possible groupings, with the group horizontally adjacent, vertically adjacent, alone, and the odd choice of grouping all but the center square. Thus, we can fill in the above diagram with the numbers that their cases align to. We must multiply together the outcomes of the corner spaces to get the total amount of 3x3 partitions of a given cross formation. Once we add all 16 cross formation counts together, We will have the total number of possible 3x3 partitions.
+
+
+2|1|2 | 3|1|3 | 3|1|3 | 4|1|4
+      |       |       |
+1 1 1 | 2 1 3 | 2 2 2 | 2 3 4
+      |       |       |
+2|1|2 | 3|1|3 | 3|3|3 | 4|5|4  
+
+_______________________________
+
+2|1|2 | 2|1|3 | 3|1|2 | 3|1|3
+      |       |       |
+1 1 1 | 1 1 2 | 2 1 1 | 2 2 2
+      |       |       |
+3|2|3 | 2|1|3 | 3|1|2 | 2|2|2
+
+______________________________
+
+3|1|2 | 2|1|3 | 3|1|4 | 4|1|3
+      |       |       |
+2 1 1 | 1 1 2 | 2 2 3 | 2 3 3
+      |       |       |
+4|3|3 | 3|3|4 | 2|2|3 | 3|3|2
+
+______________________________
+
+3|1|3 | 4|1|3 | 3|1|4 | 4|1|4
+      |       |       |
+2 1 3 | 2 3 3 | 2 2 3 | 2 3 4
+      |       |       |
+4|4|4 | 4|4|3 | 3|4|4 | 3|3|3
+
+Envision the smallest grid group that could exist on both sides of a boundary. If the height is 2 or less, it will have to bend back on itself, causing the "lonely intersection" of the conjecture. Same goes for width. Thus, the smallest possible group that could border itself, in any of the examples we chose, would have height and width 3. This region is pictured below, along with its seven like-minded associates. Subtracting these off from the main total gives 1434 grid partitions for $n=3$
+
+![Alt text](MicrosoftTeams-image%20(1).png)
+
+Groups that border themselves are **toroidal**. This means that they completely surround some natural number of interior cells of a separate group. There exist valid toroidal groups, five in a 3x3 grid, but they cannot be notated as proper Galaxies, as they do not include their center. Thus, for the purposes of this project, they are worthless, and we will be removing all grids containing toroidal groups, even the technically valid ones. This leaves ***1429*** Galaxies on a 3x3 grid. 

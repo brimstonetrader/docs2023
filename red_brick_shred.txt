@@ -1,0 +1,100 @@
+-4000    - Wheel
+-3500    - Horse
+-3400    - Tattoos
+-3300    - City
+-3000    - Dice
+-3000    - Tin
+-3000    - Reservoir
+-2650    - Ruler 
+-2000    - Clock
+-2000    - Chariot
+-1500    - Glass
+-1400    - Rubber
+-1400    - Concrete
+-1300    - Iron
+-600     - Money
+-500     - Lighthouse
+-485     - Catapult
+-400     - Gears
+-380     - Saltpeter
+-200     - Paper
+50       - Flamethrower
+200      - Sugar
+280      - Chess
+313      - Fishing Pole
+347      - Oil Well
+559      - Human Flight Via Kit
+589      - Toilet Paper
+650      - Windmill
+679      - Porcelain
+810      - Gunpowder
+1286     - Glasses
+1326     - Cannon
+1412     - Rifle
+1439     - Printing Press
+1608     - Telescope
+1620     - Microscope
+1656     - Syringe
+1657     - Coffee
+1709     - Piano
+1709     - Thermometer
+1755     - Refrigeration
+1769     - Steam Car
+1783     - Hot Air Balloon
+1790     - Sewing Machine
+1792     - Telegraph
+1793     - Cotton Gin
+1798     - Smallpox Vaccine
+1800     - Battery
+1804     - Morphine 
+1807     - Internal Combustion Engine
+1810     - Cans
+1810     - Watches
+1817     - Bicycle
+1822     - Heliography
+1822     - Babbage Computer
+1823     - Lighter
+1825     - Electromagnet
+1826     - Matches
+1826     - Gas Stove
+1851     - Toilet
+1852     - Dirigible 
+1856     - Plastic
+1863     - Metro
+1867     - Barbed Wire
+1876     - Telephone
+1878     - Rebreather
+1879     - Lightbulb
+1886     - Car
+1887     - Turbine
+1891     - Zipper
+1892     - Film
+1893     - Bra
+1895     - Radio
+1901     - Vacuum
+1903     - Airplane
+1915     - Tank
+1918     - Penicillin
+1928     - TV
+1938     - LSD
+1940     - McDonalds
+1940     - Nukes
+1945     - Microwave
+1949     - Polio Vaccine
+1950     - Video Game
+1951     - Nuclear Power
+1954     - Solar Panels
+1957     - Computer
+1958     - Integrated Circuit
+1960     - Laser
+1961     - Astronaut
+1963     - Vapes
+1971     - Space Station
+1978     - GPS 
+1989     - The Internet
+2006     - iPhone
+2008     - Bitcoin
+2010     - Solar Sail
+2010     - Synthetic Organism
+2020     - mRNA Vaccine
+2023     - ChatGPT

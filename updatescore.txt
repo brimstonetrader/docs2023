@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class ScoreUpdate : MonoBehaviour
+{
+    public static Dictionary<string, string> evidence_sentences_pre = new Dictionary<string, string>();
+    public static Dictionary<string, string> evidence_sentences_post = new Dictionary<string, string>();
+    public TextMeshProUGUI tmp1;
+    public TextMeshProUGUI tmp2;
+    public TextMeshProUGUI tmp3;
+    public TextMeshProUGUI tmp4;
+    public TextMeshProUGUI tmp5;
+    public TextMeshProUGUI tmp6;
+    public TextMeshProUGUI tmp7;
+    public TextMeshProUGUI tmp8;
+    public TextMeshProUGUI tmp11;
+    public TextMeshProUGUI tmp12;
+    public TextMeshProUGUI tmp13;
+    public TextMeshProUGUI tmp14;
+    public TextMeshProUGUI tmp15;
+    public TextMeshProUGUI tmp16;
+    public TextMeshProUGUI tmp17;
+    public TextMeshProUGUI tmp18;
+    
+    public static string article = "";
+    private int score = 0;
+    // Start is called before the first frame update
+    void Start()
+    {
+        evidence_sentences_pre.Add( "Joining the United States", "There are people who would like for the new area to become part of the Union. There are also people who do not want that. ");
+        evidence_sentences_pre.Add( "Potential war in 1812", "There could be a war coming soon. ");
+        evidence_sentences_pre.Add( "River People", "Lots of people have information. Some of them are exaggerating. ");
+        evidence_sentences_pre.Add( "Creature in the woods", "There is a ferocious creature lurking about. ");
+        evidence_sentences_pre.Add( "Flying", "You can fly from St. Louis to Virginia in the year 1812. ");
+        evidence_sentences_pre.Add( "Steamboat on the Mississippi", "The first Steamboat is now on the Mississippi River. ");
+        evidence_sentences_pre.Add( "Louisiana Purchase", "This land out here was ``acquired`` in the Louisiana Purchase.");
+        evidence_sentences_pre.Add( "Traveling Up River", "You can travel UP the Mississippi river in a row boat, against the current. ");
+        evidence_sentences_post.Add("Evi1","There are still small shakes in the ground. ");
+        evidence_sentences_post.Add("Evi2","A volcano erupted and caused all of the chaos. ");
+        evidence_sentences_post.Add("Evi3","There are a lot of rumors about what actually happened to cause mass destruction. ");
+        evidence_sentences_post.Add("Evi4","");
+        evidence_sentences_post.Add("Evi5","Tenskwatawa's prophecy came true. ");
+        evidence_sentences_post.Add("Evi6","Houses have burned down due to the earthquakes. ");
+        evidence_sentences_post.Add("Evi7","");
+        evidence_sentences_post.Add("Evi8","A huge creature is causing the ground to shake. ");
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    
+    public string getArticle() { return article; }
+
+    public int getScore() { return score; }
+
+    public void updateScore(string evix) { 
+        if (evix == "Evi1" | evix == "Evi2" | evix == "Evi6" | evix == "Evi5") 
+            score += 25;
+        else { score -= 25; }
+    }
+
+    public void updateArticle(string evix) { 
+        if (evix == "evi1" | evix == "evi2" | evix == "evi6" | evix == "evi5") 
+            score += 25;
+        else {
+            score -= 25;
+        }
+    }
+
+
+
+}

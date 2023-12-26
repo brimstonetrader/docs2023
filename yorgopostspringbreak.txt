@@ -1,0 +1,34 @@
+HEY YORGO YOU WEBSITE SAY YOU DO COMBIINATORICS WITH KIDS I SUBMIT MYSELF
+
+i'm doing a summer thing w goad and tryna go hard on the cs thesis, but fall/spring semester or that following summer i'd be down to put some effort toward any one of these. 
+
+
+INTRIGUED:
+
+PROJECTS:
+	-Strategies for nim-like games with extra losing conditions
+		brent this one is gas. i'd be interested in going deep. already so sold. also i like these win position graphs and now i'm thinking of clobber and domineering. could be a blast, similar to my planned CS thesis, and an easy way to fill a semester.
+		
+	-formally verified, functional implementation of Sawada’s algorithm.
+		listen brent. i'm trying to take functional in the spring. I'm outta here by the end of next summer, but I'd be down to try for this one right before. I remember the necklace problem! Suthy spent a day or so on it. might be lit. :\
+
+
+hey brent i could take an inependent study fall semester or spring really but if i did it in spring i'd prob drop functional to do it instead of ai so brent-mon stake your claim. idgaf really, ai and fp seem about the same level of interesting to me (that is to say, pretty interesting)
+
+IND.STUDY:
+	CATEGORY,AUTOMATON THEORY / THEORETICAL COMPUTING
+	RECREATIONAL MATHEMATICS / COMBINATORIC GAME THEORY
+
+
+listen brent it's all hyper-discrete stuff. i'd love to have a class period where we straight up running the numbers. captain!
+
+
+my current sched for next year
+
+alg     cso
+ss      ch
+af  	wl
+
+ai (is) fp 
+
+an independent study would replace something in the bottom of either, those are electives. i'll hear out an objection to any elective.

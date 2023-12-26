@@ -1,0 +1,14 @@
+Noah 
+Morris
+morrisnv@hendrix.edu
+570733
+UR
+Student or Faculty Project
+Abstract Strategic and Stochastic Software Implementation
+From May to July of 2023, on-campus at Hendrix College, I worked with Java and Game Description Language to expand the capabilities of Ludii. I also worked with CardStock, another GGS created by my advisor, Dr. Goadrich. I developed the first card games to be implemented in the system, and ensured that face-down cards were hidden to the general-game AI. I plan to publicly present these results in December. 
+5,5,5,5
+This was a very engaging project, intersectional to my experiences in both mathematics and computer science. I learned through using many industry-standard tools, and gained a broad appreciation for programming language design and artifical intelligence. The skills I have gained will assist me greatly in my career. 
+No
+Dr. Mark Goadrich
+goadrich@hendrix.edu
+Noah Morris

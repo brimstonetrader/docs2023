@@ -1,0 +1,30 @@
+Film Greenlit: "How many maps can we make from an nxn grid?"
+
+
+
+SECT. 1.1: INSPIRATION
+
+Why does anybody study mathematics? Are algorithms essentially philanthropic, enmeshed structures beyond us, or fickle, entropic living beings? Why am I alive?
+
+...
+
+To acquire dollars. Let's go with that.
+
+Sudoku was invented by Howard Garns, a modest architect from Indiana
+who died a decade before anyone attached his name to it. His coworkers, in
+interviews conducted after his death, noted that he would create obtuse number
+crosswords based on nines on the company’s drawing boards, seemingly as a
+game. They only caught brief glimpses of it; he usually tried to hide it from
+people. He sent some in to a local magazine anonymously, Dell Pencil Puzzles
+and Word Games, but sought neither credit nor profit in his lifetime[1].
+
+The puzzle became popular in Japan, rechristened “Sudoku”, by the publisher Nikoli, 
+which publishes many such pen-and-paper logic games. This was the first time the 
+game turned a profit. They heard about it from Dell, under the name “Number Place”. 
+You could safely find Sudoku throughout much of Japan by the late 1980s, but it 
+didn’t take root in the rest of the world until the 21st century, when Wayne Gould, 
+a retired judge from New Zealand, spent six years on an algorithm that generated them,
+and started offering unique puzzles to newspapers across the world for free, with
+solutions hosted at his website. His Sudoku books became very popular, selling
+like hotcakes to an enthusiastic public. He was named one of ”The World’s Most
+Influential People” by TIME in 2006[2].

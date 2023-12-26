@@ -1,0 +1,73 @@
+IN GENERAL
+
+yorgo, i’d hope that i could come to you for one 30-ish minute meeting a week, and have you function like the “math help center” i work at. i’ll ask you about stumbling blocks, dense concepts, etc., and you’d give me some general pointers, not working the damn problem for me (like some of these kids are asking for these days has me like). if i'm doing fine, we can just play go. 
+
+I’d pledge the 2.5 hours a week i’d ordinarily spend in class, plus the 6 hours median recommended per week. I’ll document my hours well, making clear what im working on in the week in a little text document i’ll email you once a week. i will begin with a schedule, and stick closely by the hours per week and 1/2 math 1/2 applied math coding, but give myself a good bit of wiggle room for content pace, veering if things seem simpler or more complex (likelier) as the semester progresses. 
+
+
+ADVANCED COMBINATORICS
+
+look suth gave me this big old book. how’s about i put it to good use, spend 2.5 months doing quick maths. A couple programming applications i’d want to do in addition to a bunch of math
+
+Suth took a semester to cover about 3.5 chapters of this book. I’ll lay out plans for 4.5 i could get to, finishing it (except the appendix just a Linear primer might be a nice beach read) but it comes down to how much i’m able to get done. 
+
+THE OTHER HALF (AND I’LL REFRESH PARTS A AND B) OF GRAPH THEORY
+	eulerian walks, gen. intuition    (i did these with suthy so this would be quick refresh)
+	trees                            ALO (and then a good deal of applied Manim and functional programming)
+	isomorphism and planarity
+	digraphs
+	coloring
+	graphs and matrices
+COMBINATORIAL DESIGNS
+	latin squares
+	block designs
+	construction and resolvability of designs
+	affine and projective planes
+	codes and designs
+ORDERED SETS
+	partial ordering
+	linear extensions and chains
+	lattices
+	boolean algebras
+	mobius functions
+	products of orderings
+ENUMERATION UNDER GROUP ACTION
+	permutation groups
+	groups acting on sets
+	polya's enumeration theorem
+KNOT THEORY
+	
+	
+MATCHING AND OPTIMIZATION           (A LOT OF THIS WILL BE COVERED IN ALGORITHMS)
+	matching theory
+	the greedy algorithm
+	network flows
+	flows, connectivity, and matching
+
+
+
+
+MANIM: Python-based DSL used primarily for making cool math animations. Could be a fun context to learn it, and if im teaching myself creating educational materials would be helpful in a few ways. 
+
+
+
+
+HASKELL OR AGDA: I’d be casually implementing concepts throughout, and go hog that last month or so, going at the Sawada algorithm, nabbing a clutch UR in w the SP
+
+
+
+
+
+
+
+
+
+
+RECREATIONAL MATHEMATICS / COMBINATORIC GAME THEORY
+
+Textbook could be Winning Ways
+I could pull questions from Lessons in Play 
+And I could do a final project analyzing those general Nim variants
+Other things I want to do here in Conway-Land:
+	prove Conway criterion w manim
+

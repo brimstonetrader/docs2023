@@ -1,0 +1,110 @@
+package mcts;
+
+import game.Game;
+import game.equipment.component.Component;
+import game.equipment.container.Container;
+import game.types.board.SiteType;
+import other.AI;
+import other.context.Context;
+import other.context.InformationContext;
+import other.move.Move;
+import other.state.container.ContainerState;
+import other.state.State;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
+
+//  Thank you to Victor Putrich, also known as Github user schererl, for writing 
+//  a method similar to this one.
+
+public class MCTSStoHI extends AI
+{
+	
+	protected int player = -1;
+	private int numCards = 3;
+	private HashSet<Integer> informationSet = initInformationSet(numCards);
+	private MCTS UCT_Ludii;
+	public MCTSStoHI()
+	{
+		this.friendlyName = "MCTSStoHI";
+	}
+	
+	@Override
+	public Move selectAction
+	(
+		final Game game,
+		final Context context, 
+		final double maxSeconds, 
+		final int maxIterations, 
+		final int maxDepth
+	)
+	{
+		
+		Move selectedMove=ExampleUCT.selectAction(game, generateDeterminizedContext(game,context), maxSeconds, maxIterations, maxDepth);
+		return selectedMove;
+						        
+	}
+	
+	public InformationContext generateDeterminizedContext(Game game, Context originalContext) {
+		InformationContext iContext = new InformationContext(originalContext,player);
+		if (game.hiddenInformation() && player >= 1 && player <= iContext.game().players().count())
+		{
+			for (int cid = 0; cid < iContext.state().containerStates().length; cid++)
+			{
+				final ContainerState cs = iContext.state().containerStates()[cid];
+				final Container container = iContext.containers()[cid];
+				if (iContext.game().isCellGame())
+				{
+					for (int cellId = iContext.sitesFrom()[cid]; cellId < iContext.sitesFrom()[cid]
+							+ container.topology().cells().size(); cellId++)
+					{
+						if (!cs.isHiddenWhat(player, cellId, 0, SiteType.Cell)) {
+							informationSet.remove(cs.stateCell(cellId));
+						}
+					}
+					for (int cellId = iContext.sitesFrom()[cid]; cellId < iContext.sitesFrom()[cid]
+							+ container.topology().cells().size(); cellId++)
+					{
+						if (cs.isHiddenWhat(player, cellId, 0, SiteType.Cell)) {
+							Integer[] is = informationSet.toArray(new Integer[informationSet.size()]);
+					        Random rndm = new Random();
+					        if (is.length > 0) {
+					        	int rndmState = rndm.nextInt(informationSet.size());
+					        	cs.setSite(iContext.state(), cellId, 0, is[rndmState], 1, 0, 0, 0, SiteType.Cell);			
+					        	informationSet.remove(is[rndmState]);
+					        }
+						}
+					}
+				}
+			} 
+		} return iContext;
+	}
+	
+	// This set contains all cards which have an unknown location. 
+	public HashSet<Integer> initInformationSet(int numCards) {
+		HashSet<Integer> informationSet = new HashSet<Integer>();		
+		for (int i=1;i<1+numCards;i++) {
+			informationSet.add(i);
+		} return informationSet;
+	}
+	
+	
+	@Override
+	public void initAI(final Game game, final int playerID)
+	{
+		this.player = playerID;
+		UCT_Ludii = MCTS.createUCT();
+		UCT_Ludii.initAI(game, playerID);
+	}
+	
+	@Override
+	public boolean supportsGame(final Game game)
+	{
+		if (!game.isAlternatingMoveGame())
+			return false;
+		
+		return true;
+	}
+}
+

@@ -1,0 +1,122 @@
+ENGLISH
+SPANISH
+FRENCH
+GERMAN
+
+XHOSA
+SWAHILI
+TOKI PONA
+LOJBAN
+
+French:4.79093583569278E-16
+Spanish:0.0
+English:0.9999999999999996
+German:0.0
+
+english
+
+(French :  0)
+(Spanish : 0)
+(English : 1)
+(German :  0)
+
+three bedrooms in a good neighborhood on fire like a margarita made out of wood (0, 0, 1, 0)
+you dont want me anymore so ill just walk right out that door (*11, *35, 1, *-13)
+that knock a cop off unconscious molotov cocktailing sound bomb a snitch (*9, 0, 1, 0)
+bragging about how you had it all dialed well whats up now (*14,*32,1,*18)
+too much time spent in the maze will drive you mad i feel so bad been there so long i cant remember who i am or where i stand but in the end i guess i just don’t give a damn (*14, 0, 1, *12)
+we dont want your filthy money we dont need your innocent bloodshed (*10, 0, 1, *18)
+as i look over this beautiful land i cant help but realize that i am alone (*15, 0, 1, 0)
+i light my torch and burn it i am the beast i worship (*15, *29, 1, *13)
+
+
+
+
+spanish
+tres dormitorios en un buen barrio ardiendo como una margarita de madera (1, 0, *6, 0)
+ya no me quieres así que simplemente saldré por esa puerta (*8, 1, *14, *23)
+eso deja inconsciente a un policía con un sonido de cóctel molotov (1, 0, *5, *12)
+presumir de cómo lo tenías todo marcado bueno ¿qué pasa ahora que ya no tienes cosas (0.55, 0, 0.44, *17)
+pasar demasiado tiempo en el laberinto te volverá loco me siento.
+(0.75, 0, 0.25, *4)
+no queremos su dinero sucio no necesitamos su derramamiento. (*10, 1, *13, *19)
+mientras observo esta hermosa tierra no puedo evitar darme. (*12, 1, *14, *15)
+enciendo mi antorcha y la quemo soy la bestia a la que adoro. (*14, 1, *19, *32)
+
+(1, 0, *6, 0)& (*8, 1, *14, *23)& (1, 0, *5, *12) & (0.55, 0, 0.44, *17) & (0.75, 0, 0.25, *4) & (*10, 1, *13, *19) & (*12, 1, *14, *15) & (*14, 1, *19, *32)
+
+french
+trois chambres dans un bon quartier en feu comme une margarita en bois
+tu ne veux plus de moi alors je vais juste passer cette porte
+cela fait tomber un flic inconscient du bruit dun cocktail molotov bombarde
+vous vous vantez de la façon dont vous avez tout composé  eh bien que 
+trop de temps passé dans le labyrinthe vous rendra fou je me sens si mal je suis là depuis 
+nous ne voulons pas de votre argent sale nous n’avons pas besoin de votre 
+en contemplant ce magnifique pays je ne peux mempêcher de réaliser que je suis seul
+jallume ma torche et je la brûle je suis la bête que jadore
+
+german
+drei schlafzimmer in guter nachbarschaft in flammen wie eine margarita aus holz
+du willst mich nicht mehr also gehe ich einfach durch die tür hinaus
+das macht einen polizisten bewusstlos molotow-cocktail-geräusch bombardiert 
+prahlen sie damit dass sie alles geschafft haben was passiert jetzt wenn deine 
+wenn man zu viel zeit im labyrinth verbringt wird man wahnsinnig mir geht es so 
+wir wollen ihr schmutziges geld nicht wir brauchen ihr unschuldiges 
+wenn ich über dieses wunderschöne land schaue wird mir bewusst dass ich allein bin
+ich zünde meine fackel an und verbrenne sie ich bin das tier das ich anbete
+
+xhosa
+amagumbi okulala amathathu kwindawo elungileyo evutha  
+awusandifuni ngoko ndiza kuphuma kanye ngala mnyango
+oko kunkqonkqoza ipolisa likhuphe isandi.
+ukuqhayisa ngendlela oyicofe ngayo yonke kulungile yintoni ngoku
+ixesha elininzi elichithwe kwi-maze liyakukuphambanisa ndiziva ndimbi 
+asifuni mali yakho imdaka asifuni gazi lakho 
+njengoko ndijonga lo mhlaba mhle andikwazi kuzibamba ndiqonde ukuba 
+ndilayita itotshi yam ndiyitshise ndilirhamncwa endilinqulayo
+
+
+swahili
+
+vyumba vitatu vya kulala katika kitongoji kizuri vinawaka moto kama  
+hunitaki tena kwa hivyo nitatoka tu kwenye mlango huo
+kwamba kubisha askari mbali fahamu molotov cocktailing sauti bomu snitch
+unajisifu jinsi ulivyopiga simu zote vipi sasa mambo yako yanapoisha
+wakati mwingi unaotumiwa kwenye maze utakukasirisha najisikia vibaya
+hatutaki pesa zako chafu hatuhitaji umwagaji damu wako usio na hatia 
+ninapotazama ardhi hii nzuri siwezi kujizuia kutambua kwamba niko peke yangu
+ninawasha tochi yangu na kuichoma mimi ndiye mnyama ninayemwabudu
+
+ninapotazama ardhi hii nzuri siwezi kujizuia kutambua kwamba niko peke yangu
+
+
+unajisifu jinsi ulivyopiga simu zote vipi sasa mambo yako yanapoisha
+ - only 97.7% english, with some french
+
+toki pona
+
+tomo lape tu wan li lon ma tomo pona seli li sama akesi suli pi kasi 
+tan ni la mi tawa noka tomo ni ni li pakala lili e kalama akesi pi    
+sina mute li toki e ona ali kepeken nasin seme pona tenpo ni la seme li  
+mi pilin ike tan ni tenpo suli ni la mi ken ala awen sona e mi anu   
+lipu lili ni li lipu nanpa wan tan lipu suli sitata 
+wile kulupu la mi kama pana e lipu nanpa tu 
+lipu tu taso li lon o toki e pilin sina e wile sina 
+toki kulupu la mi ken sona e wile jan
+
+lojban
+
+ci lo ckana kumfa nei lo xamgu jbixau i lo fagri cu simsa lo margarita 
+do bao djica tua mi i jao mi ba zi cadzu le vorme
+ta pu daspo lo pulji lo ka nalvio se tirna be lo lakta be lo sance vau 
+mio tavla fi lo nu do mooi mooi se cmene ro ra oo ma fasnu ca lo nu lo
+i dukse lo temci poi zvati lo malsorgle cu jai fengu do i mi cinmo lo 
+miai na djica lo nu do toljinsa jdini i miai na nitcu lo nu do jdini ciblu 
+ca lo nu mi catlu lo vi melbi tumla kei mi na kae sidju gie jimpe lo duu mi 
+mi fagri lo mi jelca gie jelca i mi danlu gie se jaamu mi
+ENG
+mio tavla fi lo nu do mooi mooi se cmene ro ra oo ma fasnu ca lo nu lo
+FRE
+i dukse lo temci poi zvati lo malsorgle cu jai fengu do i mi cinmo lo 
+SPA
+mi fagri lo mi jelca gie jelca i mi danlu gie se jaamu mi

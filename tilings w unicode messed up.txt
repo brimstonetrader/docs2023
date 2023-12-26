@@ -1,0 +1,43 @@
+TILINGS
+
+Everyone knows about squares. If we gather an infinite number of them, we may form a lattice, which looks like 
+
+|_|_|_|_|_| ..
+|_|_|_|_|_| ..
+|_|_|_|_|_| ..
+|_|_|_|_|_| ..
+|_|_|_|_|_| ..
+ : : : : :
+ 
+Everybody recognizes that this pattern repeats forever, in all directions. Each square borders 4 other squares, and each intersection point connects 4 other squares. Thus, math people call this one 4^4. 
+
+The next two are also quite simple, and you've probably observed both in real life. If we cut each square in half along the same diagonal line, we find that each unit touches three other units, and that each intersection point connects six units. Instead of "units", these will be called "triangles", for obvious reasons. This one is known as 3^6.
+ 
+△▽△▽△▽△ ..
+▽△▽△▽△▽ ..
+△▽△▽△▽△ ..
+▽△▽△▽△▽ ..
+△▽△▽△▽△ ..
+::::::::
+ 
+The triangular tiling possesses a "dual". This means that the number of units and number of connections are swapped. Its dual is the hexagonal tiling, which is 6^3. 
+   
+ : _ : _ :
+ _/ \_/ \_
+/ \_/ \_/ \ ..
+\_/ \_/ \_/
+ :   :   :
+ 
+There are 11 standard tilings, though, meaning there are eight to go. These ones get created by combining multiple types of shapes in predictible ways. All standard tilings have the same behavior at every intersection, and can be defined totally through one of them. This is the source of the fancy names for the previous three: [num sides]^[num instances at intersection]. The next tiling is 3^3.4^2. It looks like a square and triangular tiling are taking turns filling out rows, like this 
+ 
+△▽△▽△▽△ ..
+□ □  □ □ ..
+▽△▽△▽△▽ ..
+ □  □ □  ..
+△▽△▽△▽△ ..
+::::::::
+ 
+There is another possible tiling with 2 triangles and 3 squares per intersection. In this one, the two squares are touching. When they are not, it is a different case, called 3^2.4.3.4. This pattern resembles a spiral, and enables more complex forms to arise.
+
+Once hexagons enter the mix, there are three new tilings that become available. While this rule isn't an if-and-only-if, a good initial step to determining possible tilings is to recognize that each angle of a triangle is worth 60°, square is 90°, and hexagon is 120°. At any intersection there are 360 degrees that must be filled. This can become an algebra problem. 
+

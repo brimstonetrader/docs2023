@@ -1,0 +1,1 @@
+(let swirl = (let grate = (-cos (x*20*pi)/2 + 0.5) in rot (grate, 0) (mkGrey (20*(sin(50*sqrt(x*x + y*y)))))) in ((swirl * (solid yellow)) + ((mkGrey ((y+1)/2)) * (solid blue))))

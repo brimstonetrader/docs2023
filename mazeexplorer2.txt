@@ -1,0 +1,141 @@
+package maze.core;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
+
+import core.Direction;
+import core.Pos;
+
+public class MazeExplorer {
+	private Maze m;
+	private Pos location;
+	private TreeSet<Pos> treasureFound;
+	private MazeExplorer goal;
+
+	public MazeExplorer(Maze m, Pos location) {
+		this.m = m;
+		this.location = location;
+		treasureFound = new TreeSet<>();
+	}
+
+	public Pos getLocation() {return location;}
+
+	public Set<Pos> getAllTreasureFromMaze() {
+		return m.getTreasures();
+	}
+
+	public Set<Pos> getAllTreasureFound() {
+		return treasureFound;
+	}
+
+	public int getNumTreasuresFound() {
+		return treasureFound.size();
+	}
+
+	public MazeExplorer getGoal() {
+		if (goal == null) {
+			goal = m.getGoal();
+		}
+		return goal;
+	}
+
+	public ArrayList<MazeExplorer> getSuccessors() {
+		ArrayList<MazeExplorer> result = new ArrayList<>();
+		if (m.isTreasure(location)) {
+			treasureFound.add(location);
+		}
+		ArrayList<Pos> posse = new ArrayList<>();
+		for(Pos p : posse) {
+			if (!m.blocked(location, p)) {
+				TreeSet<Pos> treasureFoundHere = treasureFound;
+				if (m.isTreasure(p)) {
+					treasureFoundHere.add(p);
+				}
+				MazeExplorer mazeExp = new MazeExplorer(m, p);
+				mazeExp.addTreasures(treasureFoundHere);
+				result.add(mazeExp);
+			}
+		}
+		return result;
+	}
+
+	public void addTreasures(Collection<Pos> treasures) {
+		treasureFound.addAll(treasures);
+	}
+
+	public String toString() {
+		StringBuilder treasures = new StringBuilder();
+		for (Pos t: treasureFound) {
+			treasures.append(";");
+			treasures.append(t.toString());
+		}
+		return "@" + location.toString() + treasures;
+	}
+
+	@Override
+	public int hashCode() {return toString().hashCode();}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof MazeExplorer that) {
+			return this.location.equals(that.location) && getAllTreasureFromMaze().size()==getNumTreasuresFound();
+		} else {
+			return false;
+		}
+	}
+
+	public boolean achievesGoal() {
+		return this.equals(getGoal());
+	}
+
+	public Maze getM() {
+		return m;
+	}
+}
+
+
+
+	public ArrayList<MazeExplorer> getSuccessors() {
+		ArrayList<MazeExplorer> result = new ArrayList<>();
+		ArrayList<Pos> posse = new ArrayList<>();
+		ArrayList<Pos> poses = m.getNeighbors(location);
+		ArrayList<Direction> directions = new ArrayList<>();
+		for (Pos p : poses) {
+			if (p.getX() > -1 && p.getX() < 10 && p.getY() > -1 && p.getY() < 10 &&
+					1 == Math.pow(p.getX() - location.getX(),2) + Math.pow(p.getY() - location.getY(),2) &&
+					(p.getX() == location.getX() || p.getY() == location.getY())) {
+				posse.add(p);
+			}
+		}
+		for (Pos p : posse) {
+			if (p.getX()-1 == location.getX()) {
+				directions.add(Direction.E);
+			}
+			else if (p.getX()+1 == location.getX()) {
+				directions.add(Direction.W);
+			}
+			else if (p.getY()+1 == location.getY()) {
+				directions.add(Direction.N);
+			}
+			else if (p.getY()-1 == location.getY()) {
+				directions.add(Direction.S);
+			}
+		}
+		for(int i=0;i< posse.size();i++) {
+			Direction dir = directions.get(i);
+			Pos pos = posse.get(i);
+			MazeExplorer mazeExp = new MazeExplorer(m, pos);
+			if (!m.blocked(location, dir)) {
+				TreeSet<Pos> tF2 = treasureFound;
+				if (m.isTreasure(pos)) {
+					tF2.add(pos);
+				}
+				mazeExp.addTreasures(tF2);
+				result.add(mazeExp);
+			}
+		} System.out.println(treasureFound);
+		  System.out.println(location);
+		  System.out.println(posse); return result;
+	}

@@ -1,0 +1,57 @@
+PCs
+
+NUMBERS 1-9
+
+   |  O|  O|O O|O O|O O|O O|OOO|OOO
+ O |   | O |   | O |O O|OOO|O O|OOO
+   |O  |O  |O O|O O|O O|O O|OOO|OOO
+								---
+								O O
+								OOO "D"
+								 O 	
+								---
+								 O 
+								OOO "U"
+								O O
+								---
+								 O 
+								OOO "D"
+								 O 
+								---
+								 OO
+								OOO "C"
+								OO 
+								---
+								  O
+								 O  "K"
+								OOO
+								---
+								OO 
+								 OO "Q"
+								 O 
+						    	---
+								 OO
+								OO  "L"
+								 OO
+						    	---
+								OO
+								 OO "R"
+								OO
+						    	---
+								 OO
+								 OO  "W"
+								 OO
+						    	---
+								OO
+								OO   "E"
+								OO
+						    	---
+								OOO
+								OOO "N"
+								 
+						    	---
+								 
+								OOO "S"
+								OOO
+
+									

@@ -1,0 +1,109 @@
+ - Merge Sort
+
+       > mergeSort :: [Integer] -> [Integer]
+       > mergeSort      [] = []
+       > mergeSort     [x] = [x]
+       > mergeSort   [x,y] = case (x>y) of
+       >      False -> [x,y]
+       >      True  -> [y,x]  
+       > mergeSort list    = collate (mergeSort a) (mergeSort b)
+       >      where (a, b) = splitAt ((length(list)) `div` 2) list
+       
+If the list has three or more elements, we split it, sort both, then collate. Haskell integer division
+is such that, if the list has an odd number of elements, the first will be larger.
+
+       > collate :: [Integer] -> [Integer] -> [Integer]
+       > collate        as []  = as
+       > collate (a:as) (b:bs) = if (a>b) then b:collate (a:as) bs 
+       >                                  else a:collate as (b:bs)
+    
+These two lists are sorted, so either a or b will be our smallest element. So, we will collate once 
+for each list element. 
+
+
+ - Quick Sort
+
+A similar idea, and an almost identical initial six lines.
+
+        > quickSort :: [Integer] -> [Integer]
+        > quickSort      [] = []
+        > quickSort     [x] = [x]
+        > quickSort   [x,y] = case (x>y) of
+        >      False -> [x,y]
+        >      True  -> [y,x]  
+        > quickSort list    = do
+        >   let (as, b:bs)  = splitAt ((length(list)) `div` 2) list
+        >   let [cs, ds]    = pivotAbout b as [[],[]]
+        >   let [es, fs]    = pivotAbout b bs [[],[]]
+        >   (quickSort (cs++es)) ++ (b:(quickSort (ds++fs)))
+        
+We pivot about the middle element, calling a new function that will cleave the list into two: one less,
+one greater, and put the two into that empty list we give it. We then call quickSort again, on both 
+halves, ordering them correctly. 
+        
+        > pivotAbout :: Integer -> [Integer] -> [[Integer]] -> [[Integer]]
+        > pivotAbout n []     [a,b]  = [a,b]
+        > pivotAbout n [x]    [a,b]  = if (x<n) 
+        >                          then [x:a,b] 
+        >                          else [a,x:b]
+        > pivotAbout n (x:xs) [a,b]  = if (x<n) 
+        >                          then pivotAbout n xs [x:a,b] 
+        >                          else pivotAbout n xs [a,x:b]
+       
+These two algorithms are both n(log(n))ish, as they both work by splitting the initial lists in two as 
+many times as necessary. I used the 'list1ton' function to test them. 
+
+
+- BOGOSort
+
+Here's a bad one.
+
+        > bogosort :: Integer -> [Integer] -> [Integer]
+        > bogosort rndseed xs = do
+        >   ns = permute rndseed xs
+        >   if isSorted ns then ns else bogosort (inst rndseed) ns
+
+This is O(n!). Bad!
+
+
+- Insertion Sort
+
+This one's mid.
+
+        > insertionSort :: [Integer] -> [Integer]
+        > insertionSort []  = [] 
+        > insertionSort [x] = [x] 
+        > insertionSort xs  = do 
+        >   l = length xs
+        >   
+
+
+        > isSorted :: [Integer] -> Bool
+        > isSorted [] = True
+        > isSorted [x] = True
+        > isSorted (x:y:zs) = if x > y then False else isSorted (y:zs)
+
+        > lcg2 :: Integer -> Integer -> [Integer]
+        > lcg2 _ 1    = [1]
+        > lcg2 seed i = do 
+        >   let n = inst seed 
+        >   (((n `mod` i)+1) : (lcg n (i-1)))
+
+        > permute :: Integer -> [Integer] -> [Integer]
+        > permute seed xs = do 
+        >   let bs = lcg2 seed n
+        >   permute2 xs bs []
+        
+        > permute2 :: [Integer] -> [Integer] -> [Integer] -> [Integer]
+        > permute2 as [] cs = cs 
+        > permute2 as (b:bs) cs = do
+        >   let n          = len as
+        >   let (ds, e:es) = splitAt (fromIntegral (b-1)) as
+        >   permute2 (ds++es) bs (e:cs) 
+
+       	> inst :: Int -> Int
+	       > inst r = ((1664525*r+1013904223) `mod` (2 ^ 32)) 
+        
+        > list1ton :: Integer -> [Integer]
+        > list1ton n | n<1 = []
+        > list1ton n = n:(list1ton (n-1))

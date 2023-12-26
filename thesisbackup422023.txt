@@ -1,0 +1,3279 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Combinatorics of Rotationally Symmetric Grid Regions}
+\author{Noah Morris}
+\date{March 8, 2023}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\linespread{1.6}
+\parindent=2em
+\parskip=8pt
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\begin{document}
+\definecolor{dkgreen}{rgb}{0,0.5,0.2}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0,0.6,0.3}
+\maketitle
+
+
+\section{INSPIRATION}
+ \hspace{2em} Sudoku was invented by Howard Garns, a modest architect from Indiana who died a decade before anyone attached his name to it. His coworkers, in interviews, noted that he would draw weird number crosswords based on nines on the company's drawing boards. They only caught brief glimpses of it; he usually tried to hide it from people. He sent some in to a local magazine anonymously, \emph{Dell Pencil Puzzles and Word Games}, but sought neither credit nor profit in his lifetime$^{[1]}$. 
+ 
+\par The puzzle became popular in Japan, rechristened ``Sudoku", by the publisher Nikoli, which publishes many similar pen-and-paper logic games. They heard about it from Dell, under the name ``Number Place". You could safely find Sudoku throughout much of Japan by the late 1980s, but it didn't take root in the rest of the world until the 21st century, when Wayne Gould, a retired judge from New Zealand, spent six years on an algorithm that generated them, and started offering unique ones to newspapers across the world for free, with solutions at his website. His Sudoku books became very popular, selling like hotcakes to an enthusiastic public. He was named one of "The World's Most Influential People" by TIME in 2006$^{[2]}$. 
+
+\par Sudoku is, at its core, a game of deduction that asks a solver to recreate a mathematical structure from an incomplete set of elements within it. This set of elements consists of nine numbers, meaning each square of the grid is deduced to be one of nine elements. This makes Sudoku a nonary-determination puzzle on a latin square, the only nonary-determination puzzle that I am aware of. 
+
+It would be fair to state that Sudoku has been appropriately considered, at this point, from a mathematical perspective, but it is far from the only pencil-and-paper logic game to involve unraveling a full, recognizable mathematical structure from an incomplete set of hints. The puzzle I have chosen to focus this project around, \emph{Galaxies}, uses as its underlying structure a grid partitioned into rotationally symmetric regions. They were also popularized in Japan thanks to Nikoli, although by a different name$^{[3]}$. I first came across them in \emph{Simon Tatham's Puzzle Pack}$^{[4]}$, and over Covid I became deeply addicted to them. My goal in this project is to understand what's going on with these puzzles, so that the thrall they maintain over me may at least fall within my purview. 
+
+\section{TERMINOLOGY}
+
+\par This project is fundamentally about grids, like this one.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (3,3);
+\end{tikzpicture}
+\end{center}
+
+\par A \textbf{nxn grid} is a two-dimensional square array of length and width \textbf{n}. 
+
+\par In this project, the interior squares, of which there are $n^2$, will be referred to as \textbf{cells}. A cell is \textbf{located} at an \textbf{index}, which is a tuple denoting its row and column. The "first" cell, for us, will be that cell located at (1, 1), or, $[c_{1} \hspace{1mm} @ \hspace{1mm} (1,1)]$. The second, $[c_{2} \hspace{1mm} @ \hspace{1mm} (2,1)]$, the $n^2$th, $[c_{n^2} \hspace{1mm} @ \hspace{1mm} (n,n)]$. We can fill in the above grid like
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (3,3);
+\draw[black] (0.5, 0.5) node {(1,3)};
+\draw[black] (1.5, 0.5) node {(2,3)};
+\draw[black] (2.5, 0.5) node {(3,3)};
+\draw[black] (0.5, 1.5) node {(1,2)};
+\draw[black] (1.5, 1.5) node {(2,2)};
+\draw[black] (2.5, 1.5) node {(3,2)};
+\draw[black] (0.5, 2.5) node {(1,1)};
+\draw[black] (1.5, 2.5) node {(2,1)};
+\draw[black] (2.5, 2.5) node {(3,1)};
+
+
+\end{tikzpicture}.
+\end{center}
+
+This is the same as how we notate elements of a matrix; in fact, we will sometimes write partitions as matrices, with the same indices.
+
+The interior points touching the corners of four cells, of which there are $(n-1)^2$, will be \textbf{intersections}. Their indices are the mean of the indeces of all four of their neighboring squares. Because we started indexing at the top left, no other reason, let intersection $i$ touch cell $c$ at $(x,y)$ from the southeast. Then, $i$'s index is $(x + \frac{1}{2}, y + \frac{1}{2})$. Like so: 
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (3,3);
+\draw[black] (1, 1) node {$(\frac{3}{2},\frac{5}{2})$};
+\draw[black] (2, 1) node {$(\frac{5}{2},\frac{5}{2})$};
+\draw[black] (1, 2) node {$(\frac{3}{2},\frac{3}{2})$};
+\draw[black] (2, 2) node {$(\frac{5}{2},\frac{3}{2})$};
+\end{tikzpicture}.
+\end{center}
+
+
+The lines connecting two intersections, or dividing two cells, of which there are $2(n)(n-1)$, will be \textbf{gridlines}. They generate their indeces in much the same way. It is notable that, for $j,k \in \mathbf{N} \hspace{1mm} | \hspace{1mm} j<n,k \leq n$, vertical lines are located at $(j + \frac{1}{2}, k)$, and for $j,k \in \mathbf{N} \hspace{1mm} | \hspace{1mm} j\leq n,k < n$, horizontal lines are located at $(j, k + \frac{1}{2})$.
+
+\section{GALAXIES}
+
+\hspace{2em} An unsolved Galaxies puzzle bears some number of \textbf{centroids}. These can be on cells, intersections, or gridlines. Thus, for an $nxn$ grid there are $(n^2) + (n-1)^2 + 2(n)(n-1) = (2n-1)^2$ possible centroid locations. Here is a sample unsolved galaxies puzzle:
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,gray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1,6) circle (0.2);
+\fill[color=black] (0.5,0.5) circle (0.2);
+\fill[color=black] (0.5,3) circle (0.2);
+\fill[color=black] (1.5,3) circle (0.2);
+\fill[color=black] (2.5,1) circle (0.2);
+\fill[color=black] (3,4.5) circle (0.2);
+\fill[color=black] (5.5,4.5) circle (0.2);
+\fill[color=black] (6.6,4.5) circle (0.2);
+\fill[color=black] (4.5,1) circle (0.2);
+\fill[color=black] (6,1) circle (0.2);
+\end{tikzpicture}
+\end{center}
+
+To solve this, you must create a full \textbf{partition} of this grid. A partition means you divide a thing into parts. You will fill in some of the gridlines, so that cell falls within a distinct region of other cells, fenced off by ``on" gridlines. We will frequently notate this as an $n$x$n$ matrix, with a value $\in \mathbf{N}$ for each cell as determined by which region it falls into, a process illustrated below. Each region must be $180^{\circ}$ rotationally symmetric about a centroid, which means that if you spun it halfway around while holding it in place at the centroid, it would be the same shape, taking up the same cells. 
+
+ Below is the solution to the puzzle, as well as a representation in matrix notation.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,gray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1,6) circle (0.2);
+\fill[color=black] (0.5,0.5) circle (0.2);
+\fill[color=black] (0.5,3) circle (0.2);
+\fill[color=black] (1.5,3) circle (0.2);
+\fill[color=black] (2.5,1) circle (0.2);
+\fill[color=black] (3,4.5) circle (0.2);
+\fill[color=black] (5.5,4.5) circle (0.2);
+\fill[color=black] (6.6,4.5) circle (0.2);
+\fill[color=black] (4.5,1) circle (0.2);
+\fill[color=black] (6,1) circle (0.2);
+\draw[color=black,thick] (0,0) rectangle (1,1);
+\draw[color=black,thick] (5,0) rectangle (7,2);
+\draw[color=black,thick] (4,0) rectangle (5,2);
+\draw[color=black,thick] (1,0) rectangle (4,2);
+\draw[color=black,thick] (6,4) rectangle (7,5);
+\draw[color=black,thick] (0,1) rectangle (1,5);
+\draw[color=black,thick] (0,5) rectangle (2,7);
+\draw[color=black,thick] (1,2) rectangle (2,4);
+\draw[color=black,thick] (0,0) rectangle (7,7);
+\draw[color=black,thick] (4,2) -- (4,4) -- (5,4) -- (5,5) -- (4,5) -- (4,7);
+\draw[] (9.5,3.5) node {$= \hspace{1.5mm} \begin{bmatrix}
+a & a & b & b & c & c & c\\
+a & a & b & b & c & c & c\\
+d & b & b & b & b & c & e\\
+d & f & b & b & c & c & c\\
+d & f & b & b & c & c & c\\
+d & g & g & g & h & i & i\\
+j & g & g & g & h & i & i
+\end{bmatrix}$};
+\end{tikzpicture}
+\end{center}
+
+Now, partitioning a grid is very easy, even if you're making sure there's only one centroid per region. To truly solve a Galaxies puzzle, each region of the partition must be \textbf{$180^\circ$ rotationally symmetric} about a centroid, using every centroid.  In a region $R$ that is rotationally symmetric about a centroid $c$ at $(x, y)$, there are an even number of cells within the region not housing the centroid, $R^*$. 
+
+
+
+There are three possible cases for the size of the region housing the centroid, which will be written as $(|R| - |R^{*}|)$. If the centroid sits on a cell, it touches one cell only, and $(|R| - |R^{*}|) = 1$. If the centroid is on a gridline, it touches two, and $(|R| - |R^{*}|) = 2$, and in the same way on an intersection $(|R| - |R^{*}|) = 4$. Further, for every cell $[g \hspace{1mm} @ \hspace{1mm} (a, b) \in R^*]$, there exists a cell $[h \hspace{1mm} @ \hspace{1mm} (c, d) \in R^*]$, for which $(\frac{a+c}{2}, \frac{b+d}{2}) = (x, y)$. We will use this as the definition of rotational symmetry. We will notate half of the number of cells $R^{*}$ of a symmetric region has with $\lambda$. 
+
+The concept is easier to understand visually. Two of the below shapes are symmetric, two are not.
+
+\begin{tikzpicture}
+\draw[step=5em,white,very thin] (0,0) grid (14,3);
+\fill[color=red] (0,0) rectangle (1,1);
+\fill[color=red] (0,1) rectangle (1,2);
+\fill[color=red] (1,1) rectangle (2,2);
+\fill[color=red] (2,1) rectangle (3,2);
+\fill[color=red] (1,2) rectangle (2,3);
+
+\fill[color=brown] (4,2) rectangle (5,3);
+\fill[color=brown] (4,1) rectangle (5,2);
+\fill[color=brown] (5,1) rectangle (6,2);
+\fill[color=brown] (6,1) rectangle (7,2);
+\fill[color=brown] (6,0) rectangle (7,1);
+
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    
+\fill[color=blue] (8,2) rectangle (9,3);
+\fill[color=blue] (8,1) rectangle (9,2);
+\fill[color=blue] (9,2) rectangle (10,3);
+\fill[color=blue] (9,1) rectangle (10,2);
+
+\fill[color=green] (11,2) rectangle (12,3);
+\fill[color=green] (11,1) rectangle (12,2);
+\fill[color=green] (11,0) rectangle (12,1);
+\fill[color=green] (12,2) rectangle (13,3);
+\fill[color=green] (12,0) rectangle (13,1);
+
+\end{tikzpicture}
+
+The symmetric shapes are blue and brown (shout out to the man o7). You could manually find the centroid, and affirm a correspondence for both, but for now just imagine rotating them $180^{\circ}$. In this case, $blue(\lambda) \hspace{1mm} = 0$, $brown(\lambda) \hspace{1mm} = 2$.
+
+In the context of grids, which is distinct from the case earlier, with integers, we define a partition as a assignment of cells into non-empty \textbf{regions}, in such a way that every cell is included in exactly one region. In addition, within 2D space, groups are \textbf{connected}, meaning there exists a path crossing adjacent cells fully contained within the region, for every pair of cells within the region. Each region is surrounded by gridlines which are \textbf{on}, which we will call \textbf{walls}, but between cells of the same region they are \textbf{off}, or, \textbf{lawns}. This nitty-gritty definition makes it seem unappealing, pedantic, but the intuition behind this is not very difficult to understand, and the process of solving doesn't really \emph{feel} like math. We just need to think of them like this if we want to count, categorize, generalize, or make them.
+
+The goal of this project is to be able to generate a lot of these with an algorithm. To begin with, we'll need to figure out how many ways there are to partition a nxn grid, or at least make an algorithm capable of counting them (allowing for the fact that such an algorithm takes a really long time for big values of n), and somehow get a whole bunch of partitions. Then, we'll need something that goes through each well-partitioned grid and makes sure all its regions are rotationally symmetric, discarding rejects. Then, we'll need to find the centroids, and display them. Then we'll have Galaxies! This project will be accomplished in Python, and we will go through each algorithm manually, at close having some nice puzzles. 
+
+\section{THE FIRST DIMENSION}
+
+\hspace{1em} How would we do this in an n by 1 grid? Everything's $180 ^{\circ}$ rotationally symmetric here, so we'll ignore that for now. The question is best answered by going back to that more boring one, from earlier.
+
+A \textbf{partition} of an integer $n$ is a list of integers $[a_1, ..., a_m] \hspace{1mm} | \hspace{1mm} \sum_{i=1}^{m} a_i = n$. Figuring out how many partitions there are for large values of $n$ is very hard when order doesn't matter, when partitions like [2,1] and [1,2] are equivalent. In galaxies, order does matter. We'll see how much this helps us soon, when we stop defining stuff and actually start doing math.
+
+How many ways can you partition an integer, provided order matters? Partition, again, means "create a list of numbers whose sum is $n$", and "order matters" means that [1, 2] and [2, 1] are distinct, for example. Surely anyone would agree with the following statement in the context of puzzle-making (and its two-dimensional analog):
+
+\begin{center}
+\begin{tikzpicture}
+ \draw[step=1em, white](0,0) grid (4,0.5);
+ \draw[](0,0) rectangle (0.5,0.5);
+ \draw[](0.5,0) rectangle (1.5,0.5);
+ \draw[](1.75,0.25) node {$\neq$};
+ \draw[](2,0) rectangle (3,0.5);
+ \draw[](3,0) rectangle (3.5,0.5);
+ \end{tikzpicture}.
+\end{center}
+
+
+Let's do the first few manually.
+
+1 can be [1].
+
+2 can be [2], or [1, 1].
+
+3 can be [3], [1, 2], [2, 1], [1, 1, 1].
+
+4 can be [4], [1, 3], [3, 1], [2, 2], [1, 1, 2], [1, 2, 1], [2, 1, 1], [1, 1, 1, 1].
+
+1, 2, 4, 8. You don't suppose this is just $2^{n-1}$, do you?
+
+Hmm. So all those partitions of three look like 
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.5cm,black,very thin] (0,0) grid (1.5,0.5);
+\draw[very thin] (2,0) -- (2,0.5);
+\draw[step=0.5cm,black,very thin] (2,0) rectangle (3,0.5);
+\draw[step=0.5cm,black,very thin] (3,0) rectangle (3.5,0.5);
+\draw[step=0.5cm,black,very thin] (4,0) rectangle (4.5,0.5);
+\draw[step=0.5cm,black,very thin] (4.5,0) rectangle (5.5,0.5);
+\draw[step=0.5cm,black,very thin] (6,0) rectangle (7.5,0.5);
+\end{tikzpicture} 
+\end{center}
+
+in real life.
+
+
+There are 2 gridlines in the region, in any of those partitions. For any $n \in N$, there will be $n - 1$ gridlines in the $n*1$ grid. Each of these gridlines can be turned on or off, meaning there are two possible states for each one. Thus, each list of numbers adding up to $n$ can be represented with a binary string of length $n-1$, with each 1 meaning that the previous number has concluded. So, for any sequence of size $n$ consisting of zeroes and ones (these will be henceforth referred to as \textbf{bit strings}), we can generate a solved 1-dimensional galaxy of size $n-1$, converting zeroes to lawns, and ones to walls. 
+
+\section{AN ASIDE ON ROTATIONAL SYMMETRY}
+
+A lot of what will follow deals with general grid partitions, ignoring the symmetry requirement. The reason for this is that $180^{\circ}$ rotational symmetry generalizes magically across dimensions, and can be implemented quite easily. Let's take a regular old cube, like
+
+
+
+\begin{center}
+\begin{tikzpicture}
+\pgfmathsetmacro{\cubex}{1}
+\pgfmathsetmacro{\cubey}{1}
+\pgfmathsetmacro{\cubez}{1}
+\draw[black,fill=white] (0,0,0) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[black,fill=white] (0,0,0) -- ++(0,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0,0,\cubez) -- cycle;
+\draw[black,fill=white] (0,0,0) -- ++(-\cubex,0,0) -- ++(0,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+\draw[] (-1.3,-1.5) node {(1,1,1)};
+\draw[] (0.5,-1.5) node {(3,1,1)};
+\draw[] (0.7, 0.7) node {(3,3,3)};
+\draw[] (-1,0.7) node {(1,3,3)};
+\draw[] (-1.7, 0) node {(1,3,1)};
+\draw[] (1.2,-0.8) node {(3,1,3)}; 
+\end{tikzpicture}
+\end{center}
+
+We can all agree that that is pretty good. We can also all agree that one could "condense" the cube cross-dimensionally. It has depth 3, so we could take a two dimensional slice of the cube at depth 1, 2, and 3, and list each side by side, on a grid, like so.
+
+\begin{center}
+\begin{tikzpicture}
+ \draw[step=0.5cm] (0,0) grid (4.5,1.5);
+ \fill[step=0.5cm, color=black] (0,0) rectangle (2,0.5);
+ \fill[step=0.5cm, color=black] (2.5,0) rectangle (4.5,0.5); 
+ \fill[step=0.5cm, color=black] (0,1) rectangle (2,1.5);
+ \fill[step=0.5cm, color=black] (2.5,1) rectangle (4.5,1.5); 
+ \fill[step=0.5cm, color=black] (3,0.5) rectangle (3.5,1);
+ \fill[step=0.5cm, color=black] (4,0.5) rectangle (4.5,1); 
+ \fill[step=0.5cm, color=black] (0,0.5) rectangle (0.5,1);
+ \fill[step=0.5cm, color=black] (1,0.5) rectangle (1.5,1); 
+\end{tikzpicture}
+\end{center}
+
+This form is $180^{\circ}$ rotationally symmetric, although not connected and not containing its center. The cube has plenty of symmetries, a couple dozen, including $180^{\circ}$ rotational symmetry about the $x,y$ plane. We can condense this form further, into one dimension.
+
+\begin{center}
+\begin{tikzpicture}
+ \draw[step=0.3cm] (0,0) grid (8.1,0.3);
+ \fill[step=0.3cm, color=black] (0,0) rectangle (1.2,0.3);
+ \fill[step=0.3cm, color=black] (1.5,0) rectangle (3,0.3);
+ \fill[step=0.3cm, color=black] (3.3, 0) rectangle (3.6, 0.3);
+ \fill[step=0.3cm, color=black] (4.5, 0) rectangle (4.8, 0.3);
+ \fill[step=0.3cm, color=black] (5.1, 0) rectangle (6.6, 0.3);
+ \fill[step=0.3cm, color=black] (6.9, 0) rectangle (8.1, 0.3);
+\end{tikzpicture}
+\end{center}
+
+Instead of indeces denoted as tuples, like $(x,y)$ it now makes more sense to have integer indeces, calculated for a newly 1-dimensional  $[c \hspace{1mm} @ \hspace{1mm} (x,y)]$ like $i_{2D \rightarrow 1D}(c) = (n*y) + x$. We know that this shape used to be rotationally symmetric. So, we know (Math interspersed with English translation)
+
+$\forall \hspace{1mm} R \in G \hspace{1mm} | \hspace{1mm} [c(R) \hspace{1mm} @ \hspace{1mm} (a,b)] $
+
+For every region in a valid galaxy such that the center of the region is located at the index $(a,b)$,
+
+$\forall \hspace{1mm} [j \hspace{1mm} @ \hspace{1mm} (x,y)] \in R^{*}, $
+
+for every cell $j$ that is located at the index $(x,y)$ in the part of the aforementioned region that does not touch the center, 
+
+$\exists \hspace{1mm} [k \hspace{1mm} @ \hspace{1mm} (v,w)] \in R^{*} \hspace{1mm} | \hspace{1mm} \frac{x+v}{2} = x, \frac{y+w}{2} = b$
+
+there exists a cell k, also in the part of the region that does not touch the center, for which the tuple composed of the average of the $x$-values and the average of the $y$-values between the two cells is the center.
+
+The method of turning indeces to integers between 1 and $n^2$ by defining the index of c as $i(c) = (n*y) + x$ works, but let's arbitrarily define a cell's "outdex" solely based on its region, and relationship with its centroid. We'll use the semicolon instead of the at sign. Let's say that
+
+$\exists \hspace{1mm} R \in G \hspace{1mm} | \hspace{1mm} [c(R) \hspace{1mm} @ \hspace{1mm} (a,b), \hspace{1mm} c(R) \hspace{1mm} ; \hspace{1mm} 0]$
+
+there exists a region in a valid galaxy such that the center of the region is located at the index $i = (a,b)$, and outdex $o = 0$.
+
+$\exists \hspace{1mm} [u \hspace{1mm} @ \hspace{1mm} (x,y), \hspace{1mm} u \hspace{1mm} ; \hspace{1mm} q] \hspace{1mm} | \hspace{1mm} (x-\alpha, y-\beta) = (a,b). \hspace{1mm} q = n\beta + \alpha$
+
+Let there then also exist a cell $u$ at index $(x,y)$ such that $x$ minus some value $\alpha$ is $a$ and $y$ minus some value $\beta$ is b. The outdex of $u$ is gonna be $n\beta + \alpha$. 
+
+$\exists \hspace{1mm} [v \hspace{1mm} @ \hspace{1mm} (s,t), \hspace{1mm} v \hspace{1mm} ; \hspace{1mm} p] \hspace{1mm} | \hspace{1mm} \frac{s+x}{2} = a, \hspace{1mm}\frac{t + y}{2} = b$.
+
+
+
+Because we know $R$ is rotationally symmetric, we know that there exists a cell $v$ at index $(s,t)$ and outdex $p$ such that the two indeces average out to the center.
+
+$\frac{s+a+\alpha}{2} = a, \frac{t + b + \beta}{2} = b \rightarrow (s,t) = (a - \alpha, b - \beta)$. 
+
+From a while ago, we know that $(x,y) = (a+\alpha,b+\beta)$, so we can substitute that in and quickly solve for $s = (a-\alpha)$ and $t = b-\beta$. With our formula from earlier for calculating outdex, we can conclude from this that 
+
+$p = n(-\beta) + (-\alpha) = -q$.
+
+So, for a region to be $180^{\circ}$ rotationally symmetric, its one-dimensional condensed form must be palindromic, or, the same forward and backward. The below algorithm generalizes beyond forms with binary states, by this same logic. 
+
+\begin{lstlisting}
+ def is_it_rotationally_symmetric(bitstring):
+    gnirtstib = bitstring[::-1]
+    #[::-1] reverses a string in python
+    if gnirtstib == bitstring:
+        return True
+    else:
+        return False
+    
+# print(is_it_rotationally_symmetric("100101001")) returns True
+# print(is_it_rotationally_symmetric("100101101")) returns False
+\end{lstlisting}
+
+\section{THE SECOND DIMENSION}
+
+\par 
+\hspace{5mm} This is more difficult. Connection of regions becomes a bigger issue. The best $2^{\hspace{0.5mm} \# \hspace{0.5mm} gridlines}$ can be is a remedial upper bound on the total number of partitions. There's trivially one valid galaxy for a 1*1 grid, but potentially $2^{2n(n-1)} = 16$ partitions for a $2*2$. They are detailed on the next page, with the eight valid galaxies on top, then the valid partitions. The final four are merely arrangements, similar to this one.
+
+\begin{center}
+\begin{tikzpicture} \draw[step=0.3cm,black,very thin] (0,0) rectangle (0.6,0.6);  \draw[very thin] (0.3, 0.3) -- (0.3, 0); \draw[] (0.15,0.15) node {3}; \draw[] (0.16,0.42) node {1}; \draw[] (0.45,0.15) node {4}; \draw[] (0.44,0.42) node {2}; \end{tikzpicture}
+\end{center}
+
+\par The reason that we do not count this and other arrangements of its ilk as partitions is that they are inherent contradictions. Consider a wall between two cells as a designator that "these two cells do not share a group", and a lawn as a designator that "these two cells do share a group".
+
+Without loss of generality, the above arrangement is stating that both “3 in group with 1 in group with 2 in group with 4 $\rightarrow$ 3 in group with 4” and “3 not in group with 4”, and is contradicting itself. Thus, we have:
+
+\begin{centering}
+
+\subsection{GALAXIES}
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0,0) grid (0.6,0.6);
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.1,0.6);
+\draw[step=0.3cm,black,very thin] (2.1,0) rectangle (2.4,0.6);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0.3) rectangle (3.3,0.6);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0) -- (1.2, 0.6);
+\draw[very thin] (1.2, 0.3) -- (0.9, 0.3);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.1,0.6);
+\draw[step=0.3cm,black,very thin] (2.1,0) rectangle (2.4,0.6);
+\draw[very thin] (2.1, 0.3) -- (2.4, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0.3) rectangle (3.3,0.6);
+\draw[very thin] (3.0, 0.3) -- (3.0, 0.6);
+\draw[step=0.3cm,black,very thin] (3.6,0) rectangle (4.2,0.3);
+\draw[step=0.3cm,black,very thin] (3.6,0.3) rectangle (4.2,0.6);
+\draw[very thin] (3.9, 0.3) -- (3.9, 0);
+\end{tikzpicture}
+
+\subsection{PARTITIONS}
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0.3) -- (1.2, 0.6);
+\draw[very thin] (1.2, 0.3) -- (1.5, 0.3);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.4,0.6);
+\draw[very thin] (2.1, 0.3) -- (2.1, 0);
+\draw[very thin] (2.1, 0.3) -- (2.4, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.6);
+\draw[very thin] (3, 0.3) -- (3.0, 0);
+\draw[very thin] (3, 0.3) -- (2.7, 0.3);
+\draw[step=0.3cm,black,very thin] (3.6,0) rectangle (4.2,0.6);
+\draw[very thin] (3.9, 0.3) -- (3.6, 0.3);
+\draw[very thin] (3.9, 0.3) -- (3.9, 0.6);
+\end{tikzpicture}
+
+\subsection{SILLY SQUARES}
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0,0) rectangle (0.6,0.6);
+\draw[very thin] (0.3, 0.3) -- (0.3, 0);
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0.3) -- (1.2, 0.6);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.4,0.6);
+\draw[very thin] (1.8, 0.3) -- (2.1, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.6);
+\draw[very thin] (3.3, 0.3) -- (3.0, 0.3);
+\end{tikzpicture}
+
+
+\end{centering}
+
+ With the remedial geometric intuition that the above argument holds for larger grids (and the acknowledgement that a validly partitioned grid with $n^2$ cells can be appreciated as $(n-1)^2$ validly partitioned $2x2$ grids) and not much else in mind, we can posit 
+
+\textbf{The Simple Grid Conjecture}: A grid is partitioned when none of its intersections touch only one wall. 
+
+We will attempt to prove this later. 
+
+\begin{center}$
+\begin{bmatrix}
+a & a\\
+a & a
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+a & b
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+b & a
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+b & b
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+b & c
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+a & a
+\end{bmatrix} 
+$
+
+$\begin{bmatrix}
+a & b\\
+a & b
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+a & c
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+b & b
+\end{bmatrix}\begin{bmatrix}
+a & b\\
+c & b
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+c & c
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix} 
+$\end{center}
+
+Let's scale up.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (14.5, 7.5) circle (0.2);
+\fill[color=black] (2.0, 4.5) circle (0.2);
+\fill[color=black] (13.0, 11.0) circle (0.2);
+\fill[color=black] (13.5, 2.5) circle (0.2);
+\fill[color=black] (3.0, 10.5) circle (0.2);
+\fill[color=black] (11.5, 10.5) circle (0.2);
+\fill[color=black] (5.0, 8.5) circle (0.2);
+\fill[color=black] (10.0, 11.5) circle (0.2);
+\fill[color=black] (1.5, 13.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (10.0, 6.0) circle (0.2);
+\fill[color=black] (1.0, 10.5) circle (0.2);
+\fill[color=black] (14.5, 14.5) circle (0.2);
+\fill[color=black] (8.5, 11.5) circle (0.2);
+\fill[color=black] (7.0, 12.5) circle (0.2);
+\fill[color=black] (11.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (12.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 9.5) circle (0.2);
+\fill[color=black] (7.5, 2.5) circle (0.2);
+\fill[color=black] (10.0, 2.5) circle (0.2);
+\fill[color=black] (3.5, 13.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (8.5, 6.5) circle (0.2);
+\fill[color=black] (12.5, 0.5) circle (0.2);
+\fill[color=black] (13.5, 5.5) circle (0.2);
+\fill[color=black] (7.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 7.5) circle (0.2);
+\fill[color=black] (12.5, 1.5) circle (0.2);
+\fill[color=black] (7.0, 8.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (14.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 0.5) circle (0.2);
+\fill[color=black] (10.5, 0.5) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (13.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 8.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+
+
+\section{n=3, COMPUTER}
+
+
+
+
+\begin{lstlisting}
+figaro = []
+for i in range(4096):
+    s = bin(i)[2:]
+    while len(s) != 12:
+        s = "0" + s
+    figaro.append(s)
+
+print("There are " + str(len(figaro)) + " elements of this list right now.")
+print("The number '151' in base-10 translates to " + bin(151)[2:] + " in binary.") 
+print("The 152nd element of this list containing zero is " + figaro[151] + ".")
+\end{lstlisting}
+The above algorithm curates a list of all integers from 0 to 4095 in base-2. 
+The printlines' output:
+\newline
+
+\begin{lstlisting}
+There are 4096 elements of this list right now.
+The number '151' in base-10 translates to 10010111 in binary.
+The 152nd element of this list containing zero is 000010010111.
+\end{lstlisting}
+
+Let's put numbers on the gridlines like so:
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (3,3);
+\draw(2.5,1) node [black] {8};
+\draw(2.5,2) node [black] {6};
+\draw(2,2.5) node [black] {5};
+\draw(2,1.5) node [black] {7};
+\draw(2,0.5) node [black] {9};
+\draw(1.5,1) node [black] {10};
+\draw(1.5,2) node [black] {4};
+\draw(1,2.5) node [black] {3};
+\draw(1,1.5) node [black] {1};
+\draw(1,0.5) node [black] {11};
+\draw(0.5,1) node [black] {12};
+\draw(0.5,2) node [black] {2};
+\end{tikzpicture}
+\end{center}
+
+Let the $i$'th element of a given 12-element  bit string represent the gridline in the above diagram marked as $i$. Here is an example.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[] (0, 1.5) node {[011011001110] = };
+\draw[step=0.7em,black,very thin, xshift = 5em] (0,0) rectangle (3,3);
+\draw[very thin, xshift = 5em] (0,2) -- (1,2); 
+\draw[very thin, xshift = 5em] (1,3) -- (1,2); 
+\draw[very thin, xshift = 5em] (2,3) -- (2,2); 
+\draw[very thin, xshift = 5em] (2,2) -- (3,2); 
+\draw[very thin, xshift = 5em] (1,0) -- (1,1); 
+\draw[very thin, xshift = 5em] (1,1) -- (2,1); 
+\draw[very thin, xshift = 5em] (2,1) -- (2,0); 
+\end{tikzpicture}
+\end{center}
+
+By this logic, $figaro()$ has all possible $3*3$ grid partitions, and a bunch of binary strings that we know won't map to valid partitions, as they violate the simple grid conjecture, leaving an intersection connected to only one gridline. Let's get rid of those.
+
+\begin{lstlisting}
+for i in range(len(figaro)):
+    grid = figaro[i]
+    for j in range(4):
+        if (int(grid[(3 * j) + 0]) + int(grid[(3 * j) + 1]) + int(grid[(3 * j) + 2]) + int(grid[((3 * j) + 3) % 12]) == 1):
+            figaro[i] = "blunt"
+
+treebytree = []
+for i in range(4096):
+    if figaro[i] != "blunt":
+        treebytree.append(figaro[i])
+
+print("There are " + str(len(treebytree)) + " elements of this list right now.")
+\end{lstlisting}
+
+Above, we iterate through each of the 4096 strings, checking that the slices spanning from 1 to 4, 4 to 7, 7 to 10, and 10 to 1 (wrapping back around with a modulus function), all do not add to one. If at least one does, the string is removed from the list. This is because the corresponding grid violates the Simple Grid Conjecture. The list \emph{treebytree} contains every possible partition. The code's output is:
+\newline
+
+\begin{lstlisting}
+    There are 1442 elements of this list right now.
+\end{lstlisting}\section{n=3, HUMAN}
+
+Suppose a five-cell polyomino, with four cells entirely surrounding one center cell. There are four total interior gridlines to this shape, allowing for only 16 possible outcomes, which are as follows. 
+\begin{center}
+\begin{tikzpicture}
+\draw[step=.5cm,white,very thin] (0,0) grid (1.5,1.5);   
+\draw[very thin, xshift = 0cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 0cm] (0.5,0.5) -- (0.5,1);
+\draw[very thin, xshift = 0cm, yshift = 0cm] (1,1) -- (1,0.5) -- (0.5,0.5);
+\draw[very thin, xshift = 2cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 0cm] (1, 1) -- (0.5, 1) -- (0.5, 0.5) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 0cm] (0.5, 0.5) -- (0.5, 1) -- (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 6cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 0cm] (0.5, 0.5) -- (1, 0.5) -- (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 0cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 2cm] (0.5,0.5) -- (0.5,1) -- (1, 1);
+\draw[very thin, xshift = 2cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 2cm] (0.5,1) -- (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 2cm] (1, 0.5) -- (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 6cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1); 
+\draw[very thin, xshift = 6cm, yshift = 2cm] (0.5, 0.5) -- (1, 0.5) -- (1, 1);
+\draw[very thin, xshift = 0cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 4cm] (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 2cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 4cm] (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1); 
+\draw[very thin, xshift = 4cm, yshift = 4cm] (0.5, 0.5) -- (1, 0.5);
+\draw[very thin, xshift = 6cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 4cm] (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 0cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  \draw[very thin, xshift = 2cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 6cm] (0.5, 0.5) -- (0.5, 1) -- (1, 1) -- (1, 0.5) -- (0.5, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 6cm] (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 4cm, yshift = 6cm] (1, 0.5) -- (1, 1);
+\draw[very thin, xshift = 6cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 6cm] (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 6cm, yshift = 6cm] (1, 0.5) -- (0.5, 0.5);
+\end{tikzpicture}
+\end{center}
+
+Any corner cell has three neighbors, the two adjacent cells and the center cell. Each of these three-cell regions can be in one of three important states:
+
+\noindent Case 2. Entirely Grouped (One Group, 2 Lawns) 
+
+\noindent Case 3. Partially Separated / Partially Grouped (Two Groups, 1 Wall, 1 Lawn) 
+
+\noindent Case 4. Entirely Separated (Three Groups, 2 Walls)    
+
+
+A corner cell whose neighborhood (defined as a standard Moore neighborhood, all cells orthogonally or diagonally adjacent to a given cell) aligns to Case 2 will have 2 possible groupings - with the group it is surrounded by, or alone. Case 3 implies 3 possible groupings, with the group horizontally adjacent, vertically adjacent, and alone. Case 4 implies 4 possible groupings, with the group horizontally adjacent, vertically adjacent, alone, and the fourth choice of merging the two groups it is adjacent to. Thus, we can fill in the above diagram with the numbers that their cases align to. 
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=.5cm,white,very thin] (0,0) grid (1.5,1.5);   
+\draw[very thin, xshift = 0cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 0cm] (0.5,0.5) -- (0.5,1);
+\draw[very thin, xshift = 0cm, yshift = 0cm] (1,1) -- (1,0.5) -- (0.5,0.5);
+\draw[very thin, xshift = 2cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 0cm] (1, 1) -- (0.5, 1) -- (0.5, 0.5) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 0cm] (0.5, 0.5) -- (0.5, 1) -- (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 6cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 0cm] (0.5, 0.5) -- (1, 0.5) -- (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 0cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 2cm] (0.5,0.5) -- (0.5,1) -- (1, 1);
+\draw[very thin, xshift = 2cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 2cm] (0.5,1) -- (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 2cm] (1, 0.5) -- (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 6cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1); 
+\draw[very thin, xshift = 6cm, yshift = 2cm] (0.5, 0.5) -- (1, 0.5) -- (1, 1);
+\draw[very thin, xshift = 0cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 4cm] (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 2cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 4cm] (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1); 
+\draw[very thin, xshift = 4cm, yshift = 4cm] (0.5, 0.5) -- (1, 0.5);
+\draw[very thin, xshift = 6cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 4cm] (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 0cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  \draw[very thin, xshift = 2cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 6cm] (0.5, 0.5) -- (0.5, 1) -- (1, 1) -- (1, 0.5) -- (0.5, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 6cm] (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 4cm, yshift = 6cm] (1, 0.5) -- (1, 1);
+\draw[very thin, xshift = 6cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 6cm] (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 6cm, yshift = 6cm] (1, 0.5) -- (0.5, 0.5);
+
+\draw[very thin, xshift = 0.25cm, yshift = 0.25cm] node {4};
+\draw[very thin, xshift = 1.25cm, yshift = 0.25cm] node {4};
+\draw[very thin, xshift = 2.25cm, yshift = 0.25cm] node {4};
+\draw[very thin, xshift = 3.25cm, yshift = 0.25cm] node {3};
+\draw[very thin, xshift = 4.25cm, yshift = 0.25cm] node {3};
+\draw[very thin, xshift = 5.25cm, yshift = 0.25cm] node {3};
+\draw[very thin, xshift = 6.25cm, yshift = 0.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 0.25cm] node {4};
+
+\draw[very thin, xshift = 0.25cm, yshift = 1.25cm] node {3};
+\draw[very thin, xshift = 1.25cm, yshift = 1.25cm] node {3};
+\draw[very thin, xshift = 2.25cm, yshift = 1.25cm] node {4};
+\draw[very thin, xshift = 3.25cm, yshift = 1.25cm] node {3};
+\draw[very thin, xshift = 4.25cm, yshift = 1.25cm] node {4};
+\draw[very thin, xshift = 5.25cm, yshift = 1.25cm] node {4};
+\draw[very thin, xshift = 6.25cm, yshift = 1.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 1.25cm] node {4};
+
+\draw[very thin, xshift = 0.25cm, yshift = 2.25cm] node {3};
+\draw[very thin, xshift = 1.25cm, yshift = 2.25cm] node {2};
+\draw[very thin, xshift = 2.25cm, yshift = 2.25cm] node {2};
+\draw[very thin, xshift = 3.25cm, yshift = 2.25cm] node {3};
+\draw[very thin, xshift = 4.25cm, yshift = 2.25cm] node {4};
+\draw[very thin, xshift = 5.25cm, yshift = 2.25cm] node {3};
+\draw[very thin, xshift = 6.25cm, yshift = 2.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 2.25cm] node {4};
+
+\draw[very thin, xshift = 0.25cm, yshift = 3.25cm] node {4};
+\draw[very thin, xshift = 1.25cm, yshift = 3.25cm] node {3};
+\draw[very thin, xshift = 2.25cm, yshift = 3.25cm] node {3};
+\draw[very thin, xshift = 3.25cm, yshift = 3.25cm] node {4};
+\draw[very thin, xshift = 4.25cm, yshift = 3.25cm] node {3};
+\draw[very thin, xshift = 5.25cm, yshift = 3.25cm] node {2};
+\draw[very thin, xshift = 6.25cm, yshift = 3.25cm] node {2};
+\draw[very thin, xshift = 7.25cm, yshift = 3.25cm] node {3};
+
+\draw[very thin, xshift = 0.25cm, yshift = 4.25cm] node {2};
+\draw[very thin, xshift = 1.25cm, yshift = 4.25cm] node {2};
+\draw[very thin, xshift = 2.25cm, yshift = 4.25cm] node {2};
+\draw[very thin, xshift = 3.25cm, yshift = 4.25cm] node {3};
+\draw[very thin, xshift = 4.25cm, yshift = 4.25cm] node {3};
+\draw[very thin, xshift = 5.25cm, yshift = 4.25cm] node {3};
+\draw[very thin, xshift = 6.25cm, yshift = 4.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 4.25cm] node {2};
+
+\draw[very thin, xshift = 0.25cm, yshift = 5.25cm] node {3};
+\draw[very thin, xshift = 1.25cm, yshift = 5.25cm] node {3};
+\draw[very thin, xshift = 2.25cm, yshift = 5.25cm] node {2};
+\draw[very thin, xshift = 3.25cm, yshift = 5.25cm] node {3};
+\draw[very thin, xshift = 4.25cm, yshift = 5.25cm] node {2};
+\draw[very thin, xshift = 5.25cm, yshift = 5.25cm] node {2};
+\draw[very thin, xshift = 6.25cm, yshift = 5.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 5.25cm] node {2};
+
+\draw[very thin, xshift = 0.25cm, yshift = 6.25cm] node {2};
+\draw[very thin, xshift = 1.25cm, yshift = 6.25cm] node {2};
+\draw[very thin, xshift = 2.25cm, yshift = 6.25cm] node {4};
+\draw[very thin, xshift = 3.25cm, yshift = 6.25cm] node {4};
+\draw[very thin, xshift = 4.25cm, yshift = 6.25cm] node {3};
+\draw[very thin, xshift = 5.25cm, yshift = 6.25cm] node {3};
+\draw[very thin, xshift = 6.25cm, yshift = 6.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 6.25cm] node {3};
+
+\draw[very thin, xshift = 0.25cm, yshift = 7.25cm] node {2};
+\draw[very thin, xshift = 1.25cm, yshift = 7.25cm] node {2};
+\draw[very thin, xshift = 2.25cm, yshift = 7.25cm] node {4};
+\draw[very thin, xshift = 3.25cm, yshift = 7.25cm] node {4};
+\draw[very thin, xshift = 4.25cm, yshift = 7.25cm] node {3};
+\draw[very thin, xshift = 5.25cm, yshift = 7.25cm] node {3};
+\draw[very thin, xshift = 6.25cm, yshift = 7.25cm] node {3};
+\draw[very thin, xshift = 7.25cm, yshift = 7.25cm] node {3};
+
+
+
+
+\end{tikzpicture}
+\end{center}
+
+
+
+We must multiply together the outcomes of the corner spaces to get the total amount of 3x3 partitions of a given cross formation. Once we add all 16 cross formation counts together, We will have the total number of possible 3x3 partitions, if we assume a grid region can only be invalid by violating the Simple Grid Conjecture.
+
+In sum, $(16) + (256) + ((2) * (81)) + ((4) * (36)) + ((4) * (72)) + ((4) * (144)) = 1,442$.
+
+
+\section{n=3, HYBRID (I SHOULD PROBABLY CUT THIS SECTION)}
+
+Suppose a grid region composed of seven cells, spanning all but two diagonally opposite corners of a 3x3 grid. This grid region contains two intersections, with only two instances of neighboring gridlines in common. 
+
+\begin{center}
+\begin{tikzpicture}
+ \draw[] (0,0) grid (2,2);
+ \draw[] (1,1) grid (3,3); 
+\end{tikzpicture}
+\end{center}
+
+Because there is no risk of illegality yet, there are 144 ways to partition the region. The remaining two corners seemingly have 144 possible cases. Fretn't, dear reader, for there's only nine. Out of the two gridlines the top intersection is sending out, 0, 1, or 2 could be walls. The same for the other. Without loss of generality (that is to say, this works for any of the six pairs of gridlines taken from the four), examine the binary status of the top and right gridlines in the twelve valid 2x2 partitions below (Fill in the top ones yourself! It's easy.).
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0,0) grid (0.6,0.6);
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.1,0.6);
+\draw[step=0.3cm,black,very thin] (2.1,0) rectangle (2.4,0.6);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0.3) rectangle (3.3,0.6);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0) -- (1.2, 0.6);
+\draw[very thin] (1.2, 0.3) -- (0.9, 0.3);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.1,0.6);
+\draw[step=0.3cm,black,very thin] (2.1,0) rectangle (2.4,0.6);
+\draw[very thin] (2.1, 0.3) -- (2.4, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0.3) rectangle (3.3,0.6);
+\draw[very thin] (3.0, 0.3) -- (3.0, 0.6);
+\draw[step=0.3cm,black,very thin] (3.6,0) rectangle (4.2,0.3);
+\draw[step=0.3cm,black,very thin] (3.6,0.3) rectangle (4.2,0.6);
+\draw[very thin] (3.9, 0.3) -- (3.9, 0);
+\draw[step=0.3cm,black,very thin, yshift=0.9cm] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin, yshift=0.9cm] (1.2, 0.3) -- (1.2, 0.6);
+\draw[very thin, yshift=0.9cm] (1.2, 0.3) -- (1.5, 0.3);
+\draw[step=0.3cm,black,very thin, yshift=0.9cm] (1.8,0) rectangle (2.4,0.6);
+\draw[very thin, yshift=0.9cm] (2.1, 0.3) -- (2.1, 0);
+\draw[very thin, yshift=0.9cm] (2.1, 0.3) -- (2.4, 0.3);
+\draw[step=0.3cm,black,very thin, yshift=0.9cm] (2.7,0) rectangle (3.3,0.6);
+\draw[very thin, yshift=0.9cm] (3, 0.3) -- (3.0, 0);
+\draw[very thin, yshift=0.9cm] (3, 0.3) -- (2.7, 0.3);
+\draw[step=0.3cm,black,very thin, yshift=0.9cm] (3.6,0) rectangle (4.2,0.6);
+\draw[very thin, yshift=0.9cm] (3.9, 0.3) -- (3.6, 0.3);
+\draw[very thin, yshift=0.9cm] (3.9, 0.3) -- (3.9, 0.6);
+\draw[inner sep=0pt,minimum size=1pt] (1.65, 0.42) node {1};
+\draw[inner sep=0pt,minimum size=1pt] (2.55, 0.42) node {2};
+\draw[inner sep=0pt,minimum size=1pt] (3.45, 0.42) node {2};
+\draw[inner sep=0pt,minimum size=1pt] (4.45, 0.42) node {1};
+\draw[inner sep=0pt,minimum size=1pt] (1.65, 1.32) node {2};
+\draw[inner sep=0pt,minimum size=1pt] (2.55, 1.32) node {1};
+\draw[inner sep=0pt,minimum size=1pt] (3.45, 1.32) node {0};
+\draw[inner sep=0pt,minimum size=1pt] (4.45, 1.32) node {1};
+\draw[inner sep=0pt,minimum size=1pt] (4.45, 0.42) node {1};
+
+\end{tikzpicture}
+
+
+This results in 4 cases of only walls, 2 cases of only lawns, and 6 cases of one of each. We can square this much simpler outcome space to find out this:
+
+
+$(\frac{4}{12} + \frac{6}{12} + \frac{2}{12})^2 = (\frac{16}{144} + (2)\frac{24}{144} + (2)\frac{8}{144} + \frac{36}{144} + (2)\frac{12}{144} + \frac{4}{144})$
+
+$1_{1_{1_{1_{1_{1_{1_{\hspace{12mm} (w,w),(w,w) \hspace{3mm} (w,w)(l,w) \hspace{3mm} (l,w),(l,w) \hspace{4mm} (l,l),(w,w) \hspace{4mm} (l,l),(l,w) \hspace{4mm} (l,l)(l,l)}}}}}}}$
+
+Our cases from last time, to refresh, were
+
+$(l,l) \rightarrow 2$
+
+$(l,w) \cap (w,l) \rightarrow 3$
+
+$(w,w) \rightarrow 4$
+
+We can set up the multiplication like last time, multiplying the numerators of our probabilities by the value of its two remaining corners.
+
+$4  * 2^2$
+
+$24 * 2*3$
+
+$16 * 3^2$
+
+$36 * 2*4$
+
+$48 * 3*4$
+
+$16 * 4^2$
+
+$(4 * 4) + (24 * 2*3) + (16 * 8) + (36 * 9) + (48 * 3*4) + (16  * 16) = 1,444$
+
+Two off! Why? Perhaps Python holds the answer.
+
+\begin{lstlisting}
+#The below code is exceedingly inefficient and the reason for this is 
+#that strings are a bad choice for a data structure for this project. 
+#We will be abandoning them for lists when we scale up, which will 
+#have many positive effects. Nevertheless, this function is doing the 
+#same thing as the math we did earlier by hand, creating all grids in 
+#bit string notation.
+
+import numpy as np
+ 
+qs = ["0000", "0101", "1010", "1111", "0011", "0110", "1100", "1001", 
+"1110", "1101", "1011", "0111"]
+
+#[qs] is a list of all the binary representations of partitions a 2*2 
+#grid. [fum] is a list of all possible strings from combining two legal 
+#strings from [qs]. It finds them by adding floor(i / 12) (which 
+#essentially rounds a number down) to i modulus 12, or, the whole number 
+#remainder of i/12. Mapping ordered pairs of two elements as chosen from 
+#a 12-element set with the integers 0 to 143 is one-to-one and onto by 
+#this algorithm.
+
+fum = []
+
+gum = []
+
+for i in range(144): 
+    fum.append(qs[i % 12] + qs[int(np.floor(i / 12))])
+
+#This is a laughable analog implementation of the above calculation that 
+#added to 1444. I include it because its solution is puzzling.
+
+for i in range(144):
+    if (int(int(fum[i][3])) + int(fum[i][5])) == 0:
+        if (int(fum[i][4]) + int(fum[i][6])) == 0:
+            gum.append(fum[i] + "0000")
+            gum.append(fum[i] + "0011")            
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1111")
+        elif (int(fum[i][4]) + int(fum[i][6])) == 1:
+            gum.append(fum[i] + "0001")
+            gum.append(fum[i] + "0010") 
+            
+          #(ABRIDGED)#
+            
+            gum.append(fum[i] + "0111")
+            gum.append(fum[i] + "1000")
+            gum.append(fum[i] + "1010")            
+            gum.append(fum[i] + "1001")
+            gum.append(fum[i] + "1011")
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1101")            
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")       
+
+
+print("There are " + str(len(gum)) + " strings in this list.")
+\end{lstlisting}
+
+This is the output:
+
+\begin{lstlisting}
+    There are 1442 strings in this list.
+\end{lstlisting}
+
+What a world! I predict we've probably got a nine somewhere we want an eight. If we get caught up on that though we'd be losing sight of our main goal, which is to play Galaxies. The exact number of 3*3 grid partitions is an interesting detour.
+
+\section{TOROIDALITY}
+
+To show n=3 $\rightarrow$ 1442, we would need to prove the Simple Grid Conjecture holds not just "if" no intersections are lonely, but "if and only if". I will not do this.
+
+Envision the smallest grid region that could exist on both sides of a gridline. If its height is 2 or less, it will have to bend back on itself, causing a "lonely intersection", violating the conjecture. Same goes for width. Thus, the smallest possible group that could border itself whilst bearing no lonely intersections will have height and width 3. This region is pictured below, along with its seven like-minded associates. 
+\begin{center}
+\begin{tikzpicture}
+ \draw[step = 0.5cm, white] (0,0) grid (8, 4);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 0cm] (0.5, 0.5) -- (0.5, 0);
+ \draw[step = 0.5cm, xshift = 2cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 2cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 2cm, yshift = 0cm] (0.5, 0.5) -- (0, 0.5);
+ \draw[step = 0.5cm, xshift = 4cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 4cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 4cm, yshift = 0cm] (0.5, 1) -- (0, 1);
+ \draw[step = 0.5cm, xshift = 6cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 6cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 6cm, yshift = 0cm] (0.5, 1) -- (0.5, 1.5);
+
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 2cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 2cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 2cm] (1, 1) -- (1, 1.5);
+ \draw[step = 0.5cm, xshift = 2cm, yshift = 2cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 2cm, yshift = 2cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 2cm, yshift = 2cm] (1, 1) -- (1.5, 1);
+ \draw[step = 0.5cm, xshift = 4cm, yshift = 2cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 4cm, yshift = 2cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 4cm, yshift = 2cm] (1, 0.5) -- (1.5, 0.5);
+ \draw[step = 0.5cm, xshift = 6cm, yshift = 2cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 6cm, yshift = 2cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 6cm, yshift = 2cm] (1, 1) -- (1, 0);
+\end{tikzpicture}
+\end{center}
+
+Subtracting these off from the main total gives 1434 grid partitions for $n=3$. We will be (somewhat wrongly) calling regions that are symmetric but do not contain their centers \textbf{toroidal}. This means that they completely surround some natural number of interior cells of a separate group. There exist valid toroidal groups, five in a 3x3 grid, below. One, the one on the left, is symmetric.
+
+\begin{tikzpicture}
+ \draw[step = 0.5cm, white] (0,0) grid (9, 2);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 0cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+
+ \draw (2, -0.5) -- (2, 2);
+ 
+ \draw[step = 0.5cm, xshift = 2.5cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 2.5cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 2.5cm, yshift = 0cm] (1.5, 0.5) -- (1, 0.5) -- (1, 0);
+ \draw[step = 0.5cm, xshift = 4.5cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 4.5cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 4.5cm, yshift = 0cm] (0, 0.5) -- (0.5, 0.5) -- (0.5, 0);
+ \draw[step = 0.5cm, xshift = 6.5cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 6.5cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 6.5cm, yshift = 0cm] (1, 1.5) -- (1, 1) -- (1.5, 1);
+ \draw[step = 0.5cm, xshift = 8.5cm, yshift = 0cm] (0,0) rectangle (1.5, 1.5);
+ \draw[step = 0.5cm, xshift = 8.5cm, yshift = 0cm] (0.5,0.5) rectangle (1, 1);
+ \draw[step = 0.5cm, xshift = 8.5cm, yshift = 0cm] (0, 1) -- (0.5, 1) -- (0.5, 1.5);
+\end{tikzpicture}
+
+These grids are fine, but they cannot be notated as proper Galaxies, as they do not include their center. They count as valid partitions, so they're cool for now, but we'll remove them along with the asymmetric ones later, except for those regions which surround a natural number of cells but do contain their center, which are not toroidal by our playfully askew definition. This leaves \textbf{1434 = 2*3*239} partitions of a 3x3 grid. 
+
+\section{n=4, COMPUTER}
+
+Let's put numbers to the intersections on the $4*4$ grid. There's $24$ total gridlines, as shown below.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (4,4);
+\draw(3.5,3) node [black] {6};
+\draw(3.5,1) node [black] {18};
+\draw(3.5,2) node [black] {22};
+\draw(3,3.5) node [black] {4};
+\draw(3,2.5) node [black] {7};
+\draw(3,1.5) node [black] {16};
+\draw(3,0.5) node [black] {19};
+\draw(2.5,3) node [black] {5};
+\draw(2.5,1) node [black] {17};
+\draw(2.5,2) node [black] {10};
+\draw(2,3.5) node [black] {20};
+\draw(2,2.5) node [black] {8};
+\draw(2,1.5) node [black] {11};
+\draw(2,0.5) node [black] {23};
+\draw(1.5,1) node [black] {14};
+\draw(1.5,3) node [black] {2};
+\draw(1.5,2) node [black] {9};
+\draw(1,3.5) node [black] {0};
+\draw(1,2.5) node [black] {3};
+\draw(1,1.5) node [black] {12};
+\draw(1,0.5) node [black] {15};
+\draw(0.5,3) node [black] {1};
+\draw(0.5,2) node [black] {21};
+\draw(0.5,1) node [black] {13};
+\end{tikzpicture}
+\end{center}
+
+Gridlines 1-20 can be toggled to lawns and walls in $12^5$ ways. This is because [1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16], [17,18,19,20] all have 12 possible partitions, and none of the $12^5$ combinations violate the Simple Grid Conjecture immediately. Some leave lonely intersections with one remaining unassigned gridline, or empty intersections but for the unassigned. In both situations, the unassigned gridline has only one possible case. If there are two or three walls at its intersection, there are two possible cases. Our remaining gridlines, along with each of their three already assigned neighbors, are 
+
+$20 \rightarrow [2, 5, 8]$
+
+$21 \rightarrow [3, 9, 12]$
+
+$22 \rightarrow [7, 10, 16]$
+
+$23 \rightarrow [11, 14, 17]$
+
+
+
+With this, we can write some Python code.
+
+\begin{lstlisting}
+qs = [[0,0,0,0], [0,1,0,1], [1,0,1,0], [0,0,1,1], [0,1,1,0], [1,1,0,0,], [1,0,0,1], [1,1,1,0], [1,1,0,1], [1,0,1,1], [0,1,1,1], [1,1,1,1]]
+#All 2x2 grids in binary
+
+fours = []
+order = [2, 5, 8, 3, 9, 12, 7, 10, 16, 11, 14, 17]
+          
+for i in range(12 ** 5):
+    proxylist = [qs[i % 12] + 
+                  qs[int(np.floor(i / 12)) % 12] + 
+                  qs[int(np.floor(i / 144)) % 12] + 
+                  qs[int(np.floor(i / 1728)) % 12] + 
+                  qs[int(np.floor(i / 20736))]]
+    
+    #all unique lists of five elements of qs. There are 12^5 total. 
+
+    for j in range(4):
+        b = len(proxylist)
+        if (proxylist[0][order[(3*j)]] + proxylist[0][order[(3*j)+1]] + proxylist[0][order[(3*j+2)]] == 0):
+            for k in range(b):
+                proxylist[k].append(0)
+        #When all neighboring gridlines are lawns, the last remaining 
+        #gridline must also be a lawn.
+        elif (proxylist[0][order[(3*j)]] + proxylist[0][order[(3*j)+1]] + proxylist[0][order[(3*j)+2]]) == 1:
+            for k in range(b):
+                proxylist[k].append(1)
+        #When one neighboring gridline is a wall, the last remaining 
+        #gridline must also be a wall.
+        else:
+            b = len(proxylist)
+            for k in range(b):
+                newlist = proxylist[k] + [0]
+                proxylist[k].append(1)
+                proxylist.append(newlist)
+
+        #In any other case, the gridline could be either a lawn or a wall. 
+
+    fours += proxylist
+    #print(len(fours)) returns 1716098 which is equal to 2*31*89*311
+\end{lstlisting}
+
+The list has length $1,716,098$ possible partitions, which might contain invalid regions which border themselves. We will use a tactic of conversion to our matrix notation, which will fix our problem (for now), collapsing invalid self-bordering regions into doubles of galaxies with valid toroidal regions, which we'll clean up later.
+
+\begin{lstlisting}
+def identity (dg, c):
+    if (dg[4*c] == 0):
+        dg[4*c] = max(dg) + 1
+        return dg
+    else: 
+        return dg
+\end{lstlisting}
+
+We want to convert a binary list of length (2*n*(n-1)) to an integer list of length (nxn). To begin with, we check that the first cell in a row of our new $nxn$ matrix is not zero, and if it is, assign it to be in a new group on its own. If the reader must know, "dg" loosely abbreviates to "da grid".
+
+\begin{lstlisting}
+
+def vertical (dg, vertz, c):
+    for j in range(3):
+        if vertz[(3*c) + j] == 1:
+            if dg[(4*c) + j + 1] == 0:
+                dg[(4*c) + j + 1] = max(dg) + 1
+        else:
+            if dg[(4*c) + j + 1] != 0:
+                collision(dg, dg[(4*c) + j + 1], dg[(4*c) + j])
+            dg[(4*c) + j + 1] = dg[(4*c) + j]
+    return dg    
+\end{lstlisting}
+
+For each row, we sweep across three vertical gridlines, and assign groupedness to the three cells following the first based on their status as lawns or walls. In the event two groups that had been identified as separate discover a link, the collision function merges the two groups.
+
+\begin{lstlisting}
+
+def horizontal (dg, horiz, c):
+    for j in range(4):
+        if dg[horiz[(4*c) + j]] == 0:
+            dg[(4*c) + j + 4] = dg[(4*c) + j]   
+    return dg
+\end{lstlisting}
+
+If a horizontal gridline is a lawn, the cell underneath is assigned to the group of the cell above. We don't need to do anything if it's a wall.
+
+\begin{lstlisting}
+def collision(dg, x, y):
+    s = min(x, y)
+    l = max(x, y)
+    for i in range(len(dg)):
+        if dg[i] == l:
+            dg[i] = s
+    return dg
+\end{lstlisting}
+
+In the event a grid region seems to contain members with two different group markers, we iterate through the grid setting all instances of either to the lower value, merging the two.
+
+\begin{lstlisting}
+def notation_converter(fours):
+    dw = []
+    for i in range(len(fours)):
+        dg = fours[i]
+
+        vertz = [dg[0], dg[20],dg[4], 
+                 dg[3], dg[8], dg[7], 
+                 dg[12],dg[11],dg[16], 
+                 dg[15],dg[23],dg[19]]
+
+        horiz = [dg[1], dg[2], dg[5], dg[6],
+                 dg[21],dg[9], dg[10],dg[22],
+                 dg[13],dg[14],dg[17],dg[18]]
+
+        dg =   [1,0,0,0,
+                0,0,0,0,
+                0,0,0,0,
+                0,0,0,0]
+
+        vertical(dg, vertz, 0)
+        for i in range(3):
+            horizontal(dg, horiz, i)
+            identity(dg, i+1)
+            vertical(dg, vertz, i+1)
+        print(dg)
+        dw += dg
+\end{lstlisting}
+
+Now, this will return some partitions in matrix form that we can ensure the symmetricity of, then solve. But, this process is pretty needlessly arduous for $n$. Let's try again, starting in matrix notation, and abandoning our bit strings, and generalize this to make partitions of size $n$. But first,
+
+\section{ANOTHER DULL OUTDEX PROOF}
+
+Suppose a valid galaxy of length and width $n$, that is, a partitioned grid into $180^{\circ}$ rotationally symmetric regions. Suppose we notate it by least-to-greatest group membership, creating a matrix of integers instead of letters. To draw a specific example without loss of generality, 
+
+\begin{center} 
+\begin{tikzpicture} 
+\draw[step=1mm,black,very thin] (0,0) rectangle (4,4); 
+\draw[step=1cm,black,very thin] (0,3) rectangle (1,4);                       \draw[step=1cm,black,very thin] (0,0) rectangle (4,1);                      \draw[step=1cm,black,very thin] (3,1) rectangle (4,3);                                \draw[black] (2,4) -- (2,2) -- (1,2) -- (1,1);                                   
+\draw[] (5.5, 2) node {$= \begin{bmatrix} 1 & 2 & 3 & 3\\ 2 & 2 & 3 & 4\\ 2 & 3 & 3 & 4\\ 5 & 5 & 5 & 5\end{bmatrix}$}; 
+\end{tikzpicture}
+\end{center}
+
+We can think of a partitioned region as an ordered list of indeces, that forms a subset of the list of all possible tuples of integers from 1 to n. If we are given a region, in this list format, that we know is rotationally symmetric, finding the centroid is as simple as taking the mean of both sides of the tuples independently.
+
+Let's call a general region, or list of tuples, $R$, and let $R$ be rotationally symmetric. Recall that each cell $[g \hspace{1mm} @ \hspace{1mm} (a,b)] \in R^{*}$ which is centered around centroid $[c \hspace{1mm} @ \hspace{1mm} (x,y)] \in R$ has a "mirror image" $[h \hspace{1mm} @ \hspace{1mm} (c,d)] \in R{*}$ for which $(\frac{a+c}{2}, \frac{b+d}{2}) = (x, y)$. Lets split $R$ into three lists, $s_1, c_0, s_2$. Let $c_0 = R - R^{*}$, a list of one, two, or four tuples $[(a_1, b_1), ... (a_m, b_m)]$ for which $ (\frac{\sum_{n=1}^{m} a_n}{m}, \frac{\sum_{n=1}^{m} b_n}{m}) = (x,y)$. 
+
+We learned a while ago that a cell $[g \hspace{1mm} @ \hspace{1mm} (x+\alpha,y+\beta)] \in R^{*}$ means that there must also be a cell $[h \hspace{1mm} @ \hspace{1mm} (x-\alpha,y-\beta)] \in R^{*}$. If we let $s_1$ contain all cells with positive outdexes, and $s_2$ contain all cells with negative outdexes, then $g$ and $h$ are in separate groups, and $|s_1| = |s_2| = \lambda(R)$. Further, if the combined outdex of $s_1 = w$, for some $w$, then the outdex of $s_2 = -w$, and the mean of all elements has an outdex of zero, which means it is at the center of the region.
+
+Further, if we suppose $g$ is the $k$'th term in $s_1$, then there are $k-1$ terms with positive outdexes before $g$ in $s_1$, and $\lambda(R) - k$ terms after. Because each of these corresponds to a term of similar outdex, but different sign, the reverse is true for $s_2$. That is, $h$ is the $(\lambda(R) - k)$'th term in $s_2$, and there are $k-1$ terms after it. This will influence the filter algorithm.
+
+\section{GENERAL CASE FOR $n=3$}
+
+Let's examine the $2*2$ case more closely.
+
+There is one way to partition the $1*1$ grid.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.5cm,black,very thin] (0,0) grid (0.5,0.5);
+\end{tikzpicture}
+\end{center}
+
+If we add a block on the side, we can either have one group or two. On the bottom, there are similarly two options. Four total.
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (7.5,0.6);
+\draw[very thin] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3);
+\draw[very thin, xshift = 4cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin, xshift = 6cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0);
+\end{tikzpicture}
+\end{center}
+
+
+Let's go back to the n*1 case, and modify it slightly. Picture a line of cells that's $2n-1$ cells long, as opposed to $n$.  This region has $2^{n-1}$ valid partitions, as does the below one, with a bend.
+
+
+\begin{tikzpicture}
+    \draw[step = 1cm, black] (0,0) grid (1,5);
+    \draw[step = 1cm, black] (0,4) grid (5,5);
+    \draw[] (2.75,2.2) node {for $n=5$}; 
+\end{tikzpicture}
+
+These partitions are very easy for a computer to generate, by modifying the above "\emph{figaro}" algorithm. We'll call it framer, and have it take in n, the integer side length of the grid. We want to make a list composed of all partitions of the region formed by the leftmost vertical n*1 region and the upmost horizontal region, total size of both 2n - 1, and, by what we determined in the first dimension, total partitions = $2^{2n-2}$ . 
+
+\begin{lstlisting}
+def framer(n): 
+    edge = []
+    for i in range(2 ** (2*(n - 1))):
+        bitstringofi = bin(i)[2:]
+\end{lstlisting}
+
+This iterates through every number from 0 to $2^{2n-2}$ in binary. This is still 1-dimensional in terms of how we count it, despite it being a bit long, because the interior cells have two adjacent neighbors, and the two exterior cells only have one.
+
+\begin{lstlisting}
+        while len(bitstringofi) < (2*(n-1)):
+            bitstringofi = "0" + bitstringofi
+        frame = [1]
+        for j in range((2*n)-2):
+            if bitstringofi[j] == "0":
+                frame.append(frame[-1])
+# If zero, lawn.
+            else:
+                frame.append(frame[-1] + 1)
+# If one, wall
+        edge.append(frame)
+    return(edge)
+
+# framer(3) = 
+# [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2], [1, 1, 1, 2, 2], [1, 1, 1, 2, 3], 
+# [1, 1, 2, 2, 2], [1, 1, 2, 2, 3], [1, 1, 2, 3, 3], [1, 1, 2, 3, 4], 
+# [1, 2, 2, 2, 2], [1, 2, 2, 2, 3], [1, 2, 2, 3, 3], [1, 2, 2, 3, 4], 
+# [1, 2, 3, 3, 3], [1, 2, 3, 3, 4], [1, 2, 3, 4, 4], [1, 2, 3, 4, 5]]
+\end{lstlisting}
+
+Here, we get all bit strings of length $2^{2(n-1)}$, with Python's convenient "bin()" function. Then, we cycle through the "frame", setting elements to the same or different groups by the index of the bit string. This creates all possible frames, sort of. We might change them later. To see why, we must go back to the $2*2$s.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (7.5,0.6);
+\draw[very thin, xshift = 6cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[] (0.47,0.1) node {$a$};
+\draw[xshift = 2cm] (0.47,0.1) node {$b$};
+\draw[xshift = 4cm] (0.47,0.1) node {$c$};
+\draw[xshift = 6cm] (0.47,0.1) node {$d$};
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3);
+\draw[very thin, xshift = 4cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0);
+\end{tikzpicture}
+\end{center}
+
+There are two possible groups that the cell we place at $a$ could belong to, while maintaining a valid partition: With the group, and without, like so.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (1.5,0.6);
+\draw[very thin, xshift = 0.9cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[] (0, 0) rectangle (0.6, 0.6);
+
+
+\draw[xshift = 2cm] (0, 0.3) node {=};
+\draw[xshift = 3.6cm] (0, 0.3) node {$\begin{bmatrix}
+1 & 1\\
+1 & 1
+\end{bmatrix} \begin{bmatrix}
+1 & 1\\
+1 & 2
+\end{bmatrix} \rightarrow$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}
+        if (nw == ne) and (nw == sw):
+            return([nw, (nw+1)])
+
+\end{lstlisting}
+
+Cells $b$ and $c$ have the same spread of cases. With the group above, with the group to the left, or totally alone. We can treat them the same way in our algorithm.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (6.3,0.6);
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 0cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3);
+\draw[xshift = 0cm] (0.3, 0) -- (0.3, 0.3) -- (0, 0.3);
+\draw[xshift = 0cm] (0.3, 0) -- (0, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 1cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.6, 0) -- (0.3, 0);
+\draw[xshift = 1cm] (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.6, 0.3);
+\draw[xshift = 1cm] (0, 0) -- (0.3, 0);
+
+
+
+\draw[] (3.05, 0) -- (3.05, 0.6);
+
+\draw[very thin, xshift = 4.5cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3);
+\draw[xshift = 4.5cm] (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 3.5cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3);
+\draw[xshift = 3.5cm] (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[xshift=3.5cm] (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin, xshift = 5.5cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) ;
+\draw[xshift = 5.5cm] (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[xshift = 5.8cm] (0, 0) rectangle (0.3, 0.3);
+
+\draw[xshift = 6.5cm] (0, 0.3) node {=};
+\draw[xshift = 3.2cm, yshift = -1.5cm] (0, 0.3) node {$\begin{bmatrix}
+1 & 1\\
+2 & 1
+\end{bmatrix} \begin{bmatrix}
+1 & 1\\
+2 & 2
+\end{bmatrix} \begin{bmatrix}
+1 & 1\\
+2 & 3
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+1 & 1
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+1 & 2
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+1 & 3
+\end{bmatrix}\rightarrow$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}
+    if (nw == ne) or (ne == sw):
+        return([ne, sw, (max([ne, sw]) + 1)])
+
+\end{lstlisting}
+
+Now, in the case of $d$, we've got four possible partitions: the three available to $b$ and $c$, and to merge $b$ and $c$ into one group. We can just return 0 in the last case.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (5.5,0.6);
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 0cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3);
+\draw[xshift = 0cm] (0.3, 0.6) -- (0.3, 0) -- (0.3, 0.3) -- (0, 0.3);
+\draw[xshift = 0cm] (0.3, 0) -- (0, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 1cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.6, 0) -- (0.3, 0);
+\draw[xshift = 1cm] (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.6, 0.3) ;
+\draw[xshift = 1cm] (0, 0) -- (0.3, 0);
+\draw[step=0.3cm, very thin, black, xshift = 3cm] (0, 0) grid (0.6, 0.6);
+
+
+\draw[xshift = 4cm] (0, 0.3) node {=};
+\draw[xshift = 2.1cm, yshift = -1.5cm] (0, 0.3) node {$\begin{bmatrix}
+1 & 2\\
+3 & 2
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+3 & 3
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+3 & 4
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+2 & 2
+\end{bmatrix}\rightarrow$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}
+    else: 
+        return([ne, sw, (max([ne, sw]) + 1), 0])
+
+\end{lstlisting}
+
+To merge, we need access to the whole grid, not just the 2x2 section we're analyzing. In that case, on seeing 0, we call a different function, once we have access to the full list again. 
+
+\begin{lstlisting}
+def merge(gridsofar, ne, sw):
+    mn = min(ne, sw)
+    mx = max(ne, sw)
+    newgrid = []
+    for i in range(len(gridsofar)):
+        if gridsofar[i] == mx:
+            newgrid.append(mn)
+        else:
+            newgrid.append(gridsofar[i])
+    return(newgrid)
+        
+\end{lstlisting}
+
+
+it would appear from this, if we know the group membership of a cell $c$'s northwest, northeast, and southwest neighbors, we can figure out all possible partitions for that region including $c$ within that base partition.
+
+
+\begin{lstlisting}
+def se(nw, ne, sw):
+    if (nw == ne) and (ne == sw):
+        return([nw, (nw + 1)])
+    if (nw == ne) or (ne == sw):
+        return([ne, sw, (max([ne, sw]) + 1)])
+    else: 
+        return([sw, ne, (max([ne, sw]) + 1), 0])
+
+
+\end{lstlisting}
+
+This puts all pieces together, taking in a northeast, northwest, and southeast group index, and returning the list of all possible partitions including the southeastern cell. Considering our "frame" holds the entire rest of the grid to its southeast, if we can figure out the right way to call se() $(n-1)^2$ times, we'll have it. Let's start by making this algorithm work for 3*3 grids.
+
+\begin{lstlisting}
+def framer(n): 
+    edge = []
+    for i in range(2 ** (2*(n - 1))):
+        bitstringofi = bin(i)[2:]
+        while len(bitstringofi) < (2*(n-1)):
+            bitstringofi = "0" + bitstringofi
+        frame = [1]
+        for j in range((2*n)-2):
+            if bitstringofi[j] == "0":
+                frame.append(frame[-1])
+            else:
+                frame.append(frame[-1] + 1)
+        edge.append(frame)
+    return(edge)
+
+def se(nw, ne, sw):
+    if (nw == ne) and (ne == sw):
+        return([nw, (nw + 1)])
+    elif (nw == ne) or (nw == sw):
+        return([ne, sw, (max([ne, sw]) + 1)])
+    else: 
+        return([sw, ne, (max([ne, sw]) + 1), 0])
+
+def merge(gridsofar, ne, sw):
+    mn = min(ne, sw)
+    mx = max(ne, sw)
+    newgrid = []
+    for i in range(len(gridsofar)):
+        if gridsofar[i] == mx:
+            newgrid.append(mn)
+        else:
+            newgrid.append(gridsofar[i])
+    newgrid.append(mn)
+    return(newgrid)
+
+frames = framer(3)
+dummy = []
+for i in range(len(frames)):
+    frame = frames[i]
+    five = se(frame[2], frame[3], frame[1]) 
+    for j in range(len(five)):  
+        if five[j] != 0:
+            z = (frame + [five[j]])
+            dummy.append(z)
+        else:
+            frame2 = merge(frame, frame[3], frame[1])
+            dummy.append(frame2)
+frames = dummy
+
+# Now we have 234
+#              15
+#              0
+
+dummy = []
+for i in range(len(frames)):
+    frame = frames[i]
+    five = se(frame[3], frame[4], frame[5]) 
+    for j in range(len(five)):  
+        if five[j] != 0:
+            z = (frame + [five[j]])
+            dummy.append(z)
+        else:
+            frame2 = merge(frame, frame[4], frame[5])
+            dummy.append(frame2)
+frames = dummy
+
+# Now we have 234
+#               156
+#               0
+
+dummy = []
+for i in range(len(frames)):
+    frame = frames[i]
+    five = se(frame[1], frame[5], frame[0]) 
+    for j in range(len(five)):  
+        if five[j] != 0:
+            z = (frame + [five[j]])
+            dummy.append(z)
+        else:
+            frame2 = merge(frame, frame[5], frame[0])
+            dummy.append(frame2)
+frames = dummy
+
+# Now we have 234
+#               156
+#               07
+
+dummy = []
+for i in range(len(frames)):
+    frame = frames[i]
+    five = se(frame[5], frame[6], frame[7]) 
+    for j in range(len(five)):  
+        if five[j] != 0:
+            z = (frame + [five[j]])
+            dummy.append(z)
+        else:
+            frame2 = merge(frame, frame[6], frame[7])
+            dummy.append(frame2)
+frames = dummy
+for i in range(10):
+    print(frames[np.random.randint(0,len(frames))])
+len(frames) = 1414
+\end{lstlisting}
+
+A couple things:
+
+A reader who is even a little familiar with coding is likely shaking their head. The above code can obviously be simplified and generalized, and that is what I will do next. I manually went through the process for each of the four recurrances, so we'd get a feel for the way we need to think of iterating through se(). 
+
+The len(frames) is not 1434, but 1414! What the heck? We missed some partitions. Just a few, but where are they? I seek to answer a great many questions in my pursuit of playable Galaxies, but alas, not every question. I'll account for them over spring break, sorry. This does generate a great many valid partitions, most of them, maybe all of them, and thus it is good enough for a Galaxies engine.
+
+\section{VISUALIZING OUR INDECES}
+
+Keep in mind that computers start counting at zero, so the index of the first element of a list here is gonna be zero. The framer algorithm, from earlier, returns all possible top rows and leftmost columns to valid galaxies in matrix notation. The order it displays them, generalized to all values of $n$, is
+
+\begin{tikzpicture}
+\draw[step=0.6cm,black,very thin] (0,0) grid (2.4,-0.62);
+\draw[] (2.4, 0) rectangle (3.6, -0.6);
+\draw[step=0.6cm,black,very thin] (3.6,-0) grid (6,-0.62);
+\draw[step=0.6cm,black,very thin] (0,-0) grid (0.6,-2.4);
+\draw[] (0,-2.4) rectangle (0.6,-3.6);
+\draw[step=0.6cm,black,very thin] (0,-3.6) grid (0.6,-6.03);
+\draw[] (1.2,-5.7) node {n-n};
+\draw[] (1.2,-5.1) node {n-(n-1)};
+\draw[] (1.2,-4.5) node {n-(n-2)};
+\draw[] (1.2,-3.9) node {n-(n-3)};
+\draw[] (1.2,-3) node {...};
+\draw[] (0.3,0.3) node {n-1};
+\draw[] (1.2,-0.9) node {n-2};
+\draw[] (1.2,-1.5) node {n-3};
+\draw[] (1.2,-2.1) node {n-4};
+\draw[] (0.9,0.3) node {n};
+\draw[] (1.5,0.3) node {n+1};
+\draw[] (2.3,0.3) node {n+2};
+\draw[] (3,0.3) node {...};
+\draw[] (3.9,0.3) node {2n-5};
+\draw[] (4.5,-0.9) node {2n-4};
+\draw[] (5.1,0.3) node {2n-3};
+\draw[] (5.7,-0.9) node {2n-2};
+\end{tikzpicture}
+
+Let's start filling in the other $(n-1)^2$ remaining cells, in top-down, least to greatest order. We want to find a pattern, so we can write a general for loop.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (5,-5);
+\draw[step=1cm,black,very thin] (8,0) grid (13,-5);
+\draw[] (0.5, -0.5) node {n-1};
+\draw[] (0.5, -1.5) node {n-2};
+\draw[] (0.5, -2.5) node {n-3};
+\draw[] (0.5, -3.5) node {n-4};
+\draw[] (0.5, -4.5) node {n-5};
+\draw[] (1.5, -0.5) node {n};
+\draw[] (1.5, -1.5) node {2n-1};
+\draw[] (1.5, -2.5) node {3n-2};
+\draw[] (1.5, -3.5) node {4n-3};
+\draw[] (1.5, -4.5) node {5n-4};
+\draw[] (2.5, -0.5) node {n+1};
+\draw[] (2.5, -1.5) node {2n};
+\draw[] (2.5, -2.5) node {3n-1};
+\draw[] (2.5, -3.5) node {4n-2};
+\draw[] (2.5, -4.5) node {5n-3};
+\draw[] (3.5, -0.5) node {n+2};
+\draw[] (3.5, -1.5) node {2n+1};
+\draw[] (3.5, -2.5) node {3n};
+\draw[] (3.5, -3.5) node {4n-1};
+\draw[] (3.5, -4.5) node {5n-2};
+\draw[] (4.5, -0.5) node {n+3};
+\draw[] (4.5, -1.5) node {2n+2};
+\draw[] (4.5, -2.5) node {3n+1};
+\draw[] (4.5, -3.5) node {4n};
+\draw[] (4.5, -4.5) node {5n-1};
+\draw[] (5,0) rectangle (8,-5);
+\draw[] (0,-6) rectangle (13, -5);
+\draw[] (6.5,-2.5) node {...};
+\draw[] (6.5, -5.5) node {...};
+\draw[] (8.5, -0.5) node {2n-6};
+\draw[] (8.5, -1.5) node {3n-7};
+\draw[] (8.5, -2.5) node {4n-8};
+\draw[] (8.5, -3.5) node {5n-9};
+\draw[] (8.5, -4.5) node {6n-10};
+\draw[] (9.5, -0.5) node {2n-5};
+\draw[] (9.5, -1.5) node {3n-6};
+\draw[] (9.5, -2.5) node {4n-7};
+\draw[] (9.5, -3.5) node {5n-8};
+\draw[] (9.5, -4.5) node {6n-9};
+\draw[] (10.5, -0.5) node {2n-4};
+\draw[] (10.5, -1.5) node {3n-5};
+\draw[] (10.5, -2.5) node {4n-6};
+\draw[] (10.5, -3.5) node {5n-7};
+\draw[] (10.5, -4.5) node {6n-8};
+\draw[] (11.5, -0.5) node {2n-3};
+\draw[] (11.5, -1.5) node {3n-4};
+\draw[] (11.5, -2.5) node {4n-5};
+\draw[] (11.5, -3.5) node {5n-6};
+\draw[] (11.5, -4.5) node {6n-7};
+\draw[] (12.5, -0.5) node {2n-2};
+\draw[] (12.5, -1.5) node {3n-3};
+\draw[] (12.5, -2.5) node {4n-4};
+\draw[] (12.5, -3.5) node {5n-5};
+\draw[] (12.5, -4.5) node {6n-6};
+\end{tikzpicture}
+\end{center}
+
+Hey, there's one!
+
+Okay, let's really look at what we have to recur.
+
+\begin{lstlisting}
+ def partition_counter(n):
+    frames = framer(n)
+
+    for j in range(n-1):
+        for i in range(n-1):
+            dummy = []
+            for k in range(len(frames)):
+                frame = frames[k]
+                stock = se(frame[nw], frame[ne], frame[sw]) 
+                for l in range(len(stock)):  
+                    if stock[l] != 0:
+                        z = (frame + [stock[l]])
+                        dummy.append(z)
+                    else:
+                        frame2 = merge(frame, frame[ne], frame[sw])
+            frames = dummy
+\end{lstlisting}
+
+On any given loop, we know $i$ and $j$, which correspond to the index of the cell we are filling in plus two, or $i,j \rightarrow [c \hspace{1mm} @ \hspace{1mm} (i+2,j+2)]$. At this point, the cell we are filling in has an index on the frame that we can easily find by computing "len(frame)". The cell to its west, which we want to put into "stock" in place of "frame[sw]", was the last input cell, "len(frame) - 1". However, this only holds in the case that $i \neq 0$, and otherwise the southwestern cell is at $n - j - 2$. We must split the code into two cases. The northwestern cell works very similarly, being $n$ away in the second part, otherwise, at index $n - j - 1$. The northeastern is reliably $n-1$ away.
+
+\begin{lstlisting}
+def partition_counter(n):
+    frames = framer(n)
+
+    for j in range(n-1):
+        dummy = []
+        for k in range(len(frames)):
+            frame = frames[k]
+            stock = se(frame[n-j-1], frame[len(frame) - (n-1)], frame[n - j - 2]) 
+            for l in range(len(stock)):  
+                if stock[l] != 0:
+                    z = (frame + [stock[l]])
+                    dummy.append(z)
+                else:
+                    frame2 = merge(frame, frame[len(frame) - (n-1)], frame[n - j - 2])
+                    dummy.append(frame2)
+        frames = dummy
+        for i in range(n-2):
+            dummy = []
+            for k in range(len(frames)):
+                frame = frames[k]
+                stock = se(frame[(len(frame) - n)], frame[len(frame) - (n-1)], frame[(len(frame) - 1)]) 
+                for l in range(len(stock)):  
+                    if stock[l] != 0:
+                        z = (frame + [stock[l]])
+                        dummy.append(z)
+                    else:
+                        frame2 = merge(frame, frame[len(frame) - (n-1)], frame[(len(frame) - 1)])
+                        dummy.append(frame2)
+            frames = dummy
+    return(len(frames))
+\end{lstlisting}
+
+This code is imperfect, because the way we merge can sometimes leave disparate groups with the same index. We can still use what we've done to make an endless supply of galaxies. We don't need to iterate through every conceivable galaxy of size $n$ to have some playable ones, we can just call for a random list of 100,000 at each size of $n$ that we want. Arbitrarily, let's  say $n=7,11,15$, as those are the sizes I find the most fun.
+
+\section{GENERATING SOME LISTS}
+
+Let's grab some sample partitions. Note that the "least to greatest" notation goes along the length of the frame. 
+
+\begin{lstlisting}
+def random_partition_of_size(n):
+    frames = framer(n)
+    frame = frames[np.random.randint(0, len(frames))]
+    print(frame)
+    for j in range(n-1):
+        frame = frames[k]
+        stock = se(frame[n - j - 1], frame[(len(frame) - (n+1))], frame[n - j - 2]) 
+        q = np.random.randint(0, len(stock))
+        if stock[q] != 0:
+            frame.append(stock[q])
+        elif stock[q] == 0:
+            frame = merge(frame, frame[(len(frame) - (n+1))], frame[n - j - 2])
+        for i in range(n-2):
+            stock = se(frame[(len(frame) - n)], frame[(len(frame) - (n+1))], frame[(len(frame) - 1)]) 
+            q = np.random.randint(0, len(stock)) 
+            if stock[q] != 0:
+                frame.append(stock[q])
+            elif stock[q] == 0:
+                frame = merge(frame, frame[(len(frame) - (n+1))], frame[(len(frame) - 1)])
+    return([frames[np.random.randint(0,len(frames))], 
+             frames[np.random.randint(0,len(frames))], 
+             frames[np.random.randint(0,len(frames))]])
+\end{lstlisting}
+
+Now, my main problem with this code is that it takes four seconds to generate three partitions for $n=4$. Nevertheless, let's look at what we got.
+
+\begin{center}
+\begin{lstlisting}
+                OUTPUTS
+
+ [[1, 2, 2, 3, 4, 4, 5, 5, 5, 5, 2, 6, 5, 1, 6, 6],
+ [1, 1, 2, 2, 3, 3, 3, 3, 1, 1, 3, 1, 5, 1, 1, 1],
+ [1, 2, 3, 3, 1, 1, 5, 1, 5, 5, 1, 1, 5, 1, 6, 6]]
+
+              DEFRAMED (MANUALLY)
+                
+  PARTITION1:     PARTITION2:     PARTITION3:
+ [3, 4, 4, 5]    [2, 3, 3, 3]    [3, 1, 1, 5] 
+ [2, 5, 5, 5]    [2, 3, 1, 1]    [3, 1, 5, 5] 
+ [2, 2, 6, 5]    [1, 3, 1, 5]    [2, 1, 1, 5] 
+ [1, 1, 6, 6]    [1, 1, 1, 1]    [1, 1, 6, 6] 
+\end{lstlisting}
+\end{center}
+
+Pretty good! We'd want to change this so that it doesn't calculate every partition for a given $n$, but only a certain amount. Then, we'd want to deframe them, ideally in-house, and re-index the groups. Hmm. Maybe we should use those vertical() and horizontal() methods instead. I'd been meaning to generalize them.
+
+
+\begin{lstlisting}
+def identity (dg, n, c):
+    if (dg[n*c] == 0):
+        dg[n*c] = max(dg) + 1
+        return dg
+    else: 
+        return dg
+    
+def vertical (dg, n, c):
+    for j in range(n-1):
+        if np.random.randint(1,4) != 1:
+            if dg[(n*c) + j + 1] == 0:
+                dg[(n*c) + j + 1] = max(dg) + 1
+        else:
+            if dg[(n*c) + j + 1] == 0:
+                dg[(n*c) + j + 1] = dg[(n*c) + j]
+    return dg    
+
+def horizontal (dg, n, c):
+    for j in range(n):
+        if np.random.randint(1,4) != 1:
+            dg[(n*c) + j + n] = dg[(n*c) + j]   
+    return dg
+
+def randomizer(n, a):
+    frames = []
+    for j in range(a):
+        frame = [0] * (n*n)
+        for i in range(n-1):
+            identity(frame, n, i)
+            vertical(frame, n, i)
+            horizontal(frame, n, i)
+        identity(frame, n, n-1)
+        vertical(frame, n, n-1)
+        frames.append(frame)
+    return frames
+\end{lstlisting}
+
+That's much better! Instead of like a minute to do a 15x15, it cranks out a bunch in an instant! We've got access to a pretty important additional variable here that I've obfuscated: the ratio of walls to lawns. The line ``if np.random.randint(1,4) != 1", which occurs in both vertical() and horizontal(), is what decides the ratio. Let's try to figure out how changing this impacts the expected value of the maximum of a partition. It'd be nice to be able to predict this, as enjoyable galaxies usually hover around $3n$ distinct regions. 
+
+The average number of lawns  as intended by the random number generator in the vertical method will be written as $l_{(v)}$. The current code for vertical, which draws a random number from [1,2,3] and creates a wall in $\frac{2}{3}$ of cases, thus, $w_{(v)} = \frac{2}{3} \hspace{1mm} | \hspace{1mm} \frac{l}{w}_{(v)} = \frac{1}{2}$.  If we only consider the first $n$ terms, as designated by the vertical() method, there should be $w_{(v)}n + 1$ groups on average. Horizontal works differently, not inflicting a binary status, but exclusively growing groups. Thus, it does not positively impact the number of groups at all. It does, however, remove $n* l_{(h)}$ potential cells from what vertical can change. Thus, the expected amount of new groups to come from an iteration of vertical() after the first is $w_{(v)}(w_{(h)}n) + 1$. We run this $n$ times, so the total amount of expected groups is $w_{(v)}n + 1 + (n-1)(w_{(v)}(w_{(h)}n) + 1) = n(w_{(v)} + 1 + w_{(v)}w_{(h)}(n-1))$.
+
+We want ~3n groups, give it a buffer of maybe $\frac{n}{2}$ on both sides. So, we want $3n  = n(w_{(v)} + 1 + w_{(v)}w_{(h)}(n-1))$. With some algebra, we can show that in this case, $\frac{2}{w_v} - 1 = w_h (n-1)$. This is actually pretty good news. It means that we can graph this (with a slider for $n$). I'm looking for $w_v = w_h$, out of laziness. It appears that this occurs at $w = 0.5 \hspace{1mm} @ \hspace{1mm} n=7$, $w = 0.4 \hspace{1mm} @ \hspace{1mm} n=11$, and, bucking what I was hoping would be a great pattern, $w = 0.3439 \hspace{1mm} @ \hspace{1mm} n=15$. So we know what we're after! 
+
+\begin{lstlisting}
+def symmetricizer(frames):
+    symmetrix = []
+    for i in range(len(frames)):
+        frame = frames[i]
+        m = max(frame)
+        for j in range(m):
+            region = []
+            for k in range(len(frame)):
+                if frame[k] == j:
+                     region.append(k)
+            a = np.mean(region)
+            while len(region) > 1:
+                if ((region[0] + region[-1]) / 2) == a:
+                    region.pop(0)
+                    region.pop()
+                else:
+                    frame = [0]
+                    break
+        if frame != [0]:
+            symmetrix.append(frame)
+    return symmetrix
+\end{lstlisting}
+
+This'll take in a list of lists, and get rid of the ones with asymmetric regions, and check for toroidality too. I would start making the centroid-finder now, but it seems we've got an issue: as $n$ grows, the proportion of symmetric partitions to asymmetric partitions approaches zero. I got some stuff for 7*7s that passed all my tests, but ``symmetricizer(randomizer(11,100000))" returned nothing. We must change tactics!
+
+
+\section{WHAT IS LEFT TO DO}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (4.0, 3.0) circle (0.2);
+\fill[color=black] (6.0, 3.0) circle (0.2);
+\fill[color=black] (1.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 6.5) circle (0.2);
+\fill[color=black] (1.0, 6.0) circle (0.2);
+\fill[color=black] (3.0, 5.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\fill[color=black] (6.0, 6.0) circle (0.2);
+\fill[color=black] (6.0, 1.0) circle (0.2);
+\fill[color=black] (1.0, 1.0) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (1.5, 4.5) circle (0.2);
+\fill[color=black] (4.5, 5.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (6.0, 4.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+
+
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (9.0, 14.5) circle (0.2);
+\fill[color=black] (10.5, 9.5) circle (0.2);
+\fill[color=black] (14.0, 4.5) circle (0.2);
+\fill[color=black] (10.0, 8.5) circle (0.2);
+\fill[color=black] (10.0, 1.5) circle (0.2);
+\fill[color=black] (5.0, 1.5) circle (0.2);
+\fill[color=black] (13.0, 0.5) circle (0.2);
+\fill[color=black] (10.0, 0.5) circle (0.2);
+\fill[color=black] (4.0, 8.5) circle (0.2);
+\fill[color=black] (5.0, 9.5) circle (0.2);
+\fill[color=black] (14.0, 10.5) circle (0.2);
+\fill[color=black] (14.5, 3.5) circle (0.2);
+\fill[color=black] (12.5, 1.5) circle (0.2);
+\fill[color=black] (5.0, 10.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (11.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (1.0, 14.5) circle (0.2);
+\fill[color=black] (3.5, 7.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (6.0, 11.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (6.0, 3.5) circle (0.2);
+\fill[color=black] (6.0, 4.5) circle (0.2);
+\fill[color=black] (8.5, 0.5) circle (0.2);
+\fill[color=black] (5.0, 14.0) circle (0.2);
+\fill[color=black] (4.5, 11.5) circle (0.2);
+\fill[color=black] (4.0, 12.5) circle (0.2);
+\fill[color=black] (6.5, 12.5) circle (0.2);
+\fill[color=black] (8.0, 1.5) circle (0.2);
+\fill[color=black] (5.5, 12.5) circle (0.2);
+\fill[color=black] (0.5, 12.5) circle (0.2);
+\fill[color=black] (13.5, 3.5) circle (0.2);
+\fill[color=black] (1.0, 13.5) circle (0.2);
+\fill[color=black] (3.0, 14.0) circle (0.2);
+\fill[color=black] (4.0, 4.0) circle (0.2);
+\fill[color=black] (4.0, 6.0) circle (0.2);
+\fill[color=black] (3.5, 11.0) circle (0.2);
+\fill[color=black] (5.5, 6.0) circle (0.2);
+\fill[color=black] (5.5, 8.0) circle (0.2);
+\fill[color=black] (6.5, 14.0) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 7.5) circle (0.2);
+\fill[color=black] (10.5, 2.5) circle (0.2);
+\fill[color=black] (14.0, 5.5) circle (0.2);
+\fill[color=black] (14.5, 1.0) circle (0.2);
+\fill[color=black] (14.5, 2.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+
+
+
+
+
+
+
+
+Ack! Fifty god damn pages and I'm not done. It appears galaxies are a little more interesting than I would have hoped.
+
+As I said I want to do a more thorough structural analysis on the matrix-notation partitions, to account for the missing 20. I also want to try and tweak my general partition counting algorithm to be faster, or at the very least take like a day over break to let my computer run it for n up to 20 or 25 and make a neat table. Ain't had time for a venture like that since I got it up and running maybe a week ago but if I let the python tick long enough I can have a nice little thing in the glossary.
+
+\begin{lstlisting}
+import numpy as np
+
+def gaussian(n):
+
+    c = np.random.randint(np.ceil(n), np.ceil(1.6*n))
+    #We are creating an n*n grid with around c total regions, and c centroids.
+
+    stage = n ** 2
+    #Half of the regions go into $n^2-en cells, 
+    #the other half, smaller, in en cells.$
+
+    mu = stage / c
+    sigma = 0.25*n
+    gaussian = [0]
+    #We will decide the sizes of our regions via normal distribution, where the mean 
+    #is the amount of cells divided by the amount of regions, and sigma = 0.45n 
+    #(no cosmic reason, experimenting just showed that to be good).
+
+
+    while abs((2*n*n) - sum(gaussian)) > (2*n/3):
+        gaussian = np.random.normal(mu, abs(sigma), int(c)*2)
+
+    #Because this is random we need to put the normal distribution in a box, and not
+    #let it out until it's within 2n/3 of where we want it, total-size-wise.
+
+    return(gaussian)
+
+def get_neighbors(unit, realestate, cx, cy):
+    options = []
+    for i in range(len(unit)):
+        x = unit[i][0]
+        y = unit[i][1]
+        if (not ([x+1,y] in unit)) and ([(2*cx)-x+1,(2*cy)-y] in realestate) and ([(2*cx)-x-1,(2*cy)-y] in realestate):
+            options.append([unit[i][0]+1, unit[i][1]])
+        if (not ([x, y+1] in unit) and ([x, y+1] in realestate) and ([(2*cx)-x, (2*cy)-y-1] in realestate)):
+            options.append([unit[i][0], unit[i][1]+1])
+    return options
+
+def starsystem(n):
+    normal = gaussian(n)
+    np.sort(normal)
+    realestate = []
+    for i in range(n):
+        for j in range(n):
+            realestate.append([float(i), float(j)]) 
+    regions = []
+    centroids = []
+    for k in range(len(normal)):
+        if len(realestate) == 0:
+                return regions
+        r_1 = np.random.randint(len(realestate))
+        unit = [realestate[r_1]]
+        cx = unit[0][0]
+        cy = unit[0][1]
+        realestate.remove(unit[0])
+        size = int(normal[k] - 1)
+        if size%4 == 0:
+            if ([cx+1, cy+1] in realestate) and ([cx, cy+1] in realestate) and ([cx+1, cy] in realestate):
+                unit.append([cx+1, cy+1])
+                realestate.remove([cx+1, cy+1])
+                unit.append([cx, cy+1])
+                realestate.remove([cx, cy+1])
+                unit.append([cx+1, cy])
+                realestate.remove([cx+1, cy])
+                cx += 0.5
+                cy += 0.5
+                size -= 3
+        elif size%2 == 1:
+            if [cx+1, cy] in realestate:
+                unit.append([cx+1, cy])
+                realestate.remove([cx+1, cy])
+                cx += 0.5
+                size -= 1
+        for l in range(int(np.floor(size/2))):
+            if len(realestate) == 0:
+                return regions
+            options = get_neighbors(unit, realestate, cx, cy)
+            if len(options) > 0:
+                r_2 = (l+len(realestate)) % len(options)
+                mirror = options[r_2]
+                rirrom = [(2*cx) - mirror[0], (2*cy) - mirror[1]]
+                if (mirror in realestate) and (rirrom in realestate):
+                    unit.append(mirror)
+                    realestate.remove(mirror)
+                    unit.append(rirrom)
+                    realestate.remove(rirrom)
+        regions.append(unit)
+    return(regions)
+
+def fillinthe(rest, n):
+    dummy = []
+    for i in range(n):
+        for j in range(n):
+            dummy.append([i,j])
+
+    for i in range(len(rest)):
+        region = rest[i]
+        for j in range(len(region)):
+            dummy.remove(region[j])
+    while len(dummy) > 0:
+        x = dummy[0][0]
+        y = dummy[0][1]
+        if ([x,y+1] in dummy) and ([x+1,y] in dummy) and ([x+1,y+1] in dummy):
+            rest.append([[x,y],[x,y+1],[x+1,y],[x+1,y+1]])
+            dummy.remove([x,y])
+            dummy.remove([x+1,y])
+            dummy.remove([x,y+1])
+            dummy.remove([x+1,y+1])
+        elif ([x,y+1] in dummy) and ([x-1,y] in dummy) and ([x-1,y+1] in dummy):
+            rest.append([[x,y],[x,y+1],[x-1,y],[x-1,y+1]])
+            dummy.remove([x+1,y])
+            dummy.remove([x,y-1])
+            dummy.remove([x+1,y-1])
+            dummy.remove([x,y])
+        elif ([x,y-1] in dummy) and ([x+1,y] in dummy) and ([x+1,y-1] in dummy):
+            rest.append([[x,y],[x,y-1],[x+1,y],[x+1,y-1]])
+            dummy.remove([x,y])
+            dummy.remove([x+1,y])
+            dummy.remove([x,y-1])
+            dummy.remove([x+1,y-1])
+        elif ([x,y-1] in dummy) and ([x-1,y] in dummy) and ([x-1,y-1] in dummy):
+            rest.append([[x,y],[x,y-1],[x-1,y],[x-1,y-1]])
+            dummy.remove([x,y])
+            dummy.remove([x-1,y])
+            dummy.remove([x,y-1])
+            dummy.remove([x-1,y-1])
+        elif [x,y+1] in dummy:
+            rest.append([[x,y],[x,y+1]])
+            dummy.remove([x,y])
+            dummy.remove([x,y+1])
+        elif [x,y-1] in dummy:
+            rest.append([[x,y],[x,y-1]])
+            dummy.remove([x,y])
+            dummy.remove([x,y-1])
+        elif [x+1,y] in dummy:
+            rest.append([[x,y],[x+1,y]])
+            dummy.remove([x,y])
+            dummy.remove([x+1,y])
+        elif [x-1,y] in dummy:
+            rest.append([[x,y],[x-1,y]])
+            dummy.remove([x,y])
+            dummy.remove([x-1,y])
+        else:
+            rest.append([[x,y]])
+            dummy.remove([x,y])
+    return(rest)
+
+def display(galaxy, n):
+    gridlines = [True] * (2*n*(n-1))
+    for g in range(len(galaxy)):
+        region = galaxy[g]
+        print(region)
+        for r in range(len(region)):
+            cellx = region[r][0]
+            celly = region[r][1]
+            if ([cellx+1, celly] in region):
+                gridlines[int(cellx + (celly * (n-1)))] = False
+            if ([cellx, celly+1] in region):
+                gridlines[(n*(n+1))+int(cellx + (celly * (n)))] = False
+    s1 = ""
+    for i in range(n-1):
+        s1 += str(i % 10) + "_"
+    s1 += str(n % 10)
+
+    ui = ([s1] + [[]] + [s1])
+
+    for i in range(n-1):
+        for j in range((2*n)-1):
+            if j%2 == 1:
+                if gridlines[int(np.ceil(j/2))] == True:
+                    ui[1] += ["|"]
+                elif gridlines[int(np.ceil(j/2))] == False:
+                    ui[1] += [" "]
+            elif j%2 == 0:
+                if gridlines[(n*(n-1)) + int(np.floor(j/2))] == True:
+                    ui[1] += ["_"]
+                elif gridlines[(n*(n-1)) + int(np.floor(j/2))] == False:
+                    ui[1] += [" "]
+    ui[1] += ["_"]
+    for i in range(n-1):
+        if gridlines[((n-1) ** 2) - 1 + i] == True:
+            ui[1] += ["|"]
+        elif gridlines[((n-1) ** 2) - 1 + i] == False:
+            ui[1] += [" "]
+        ui[1] += ["_"]
+    
+    gui = [ui[0]]
+    sublists = [ui[1][(i):(i+2*n-1)] for i in range(0, len(ui[1]), 2*n-1)]
+    strings = [''.join(sublist) for sublist in sublists]
+    gui += strings
+    gui += [ui[0]]
+
+
+
+
+def universe (n, g):
+    for i in range(g):
+        rest = starsystem(n)
+        galaxy = fillinthe(rest, n)
+        return(centroids(galaxy))
+
+universe(15,5)
+\end{lstlisting}
+
+I generally plan to comment the code out here more, like, way more. That up there is super close to being done, but not quite. Once I get it to spit out galaxies (which will probably be before spring break, like the only piece that's not quite there is the algorithm making the partition readable, we've got a full symmetric partition of (n*n), and universe(15,5) takes less than a second. It's just 2 AM and I'm not trying to pull an all nighter. You'll get your homemade galaxies in the final paper, you got my word, I'll replace Tatham's puzzles in the epilogue with mine. I'll convert the string syntax up there to tikz with a python applet, and have a big chunk of the back that's just different puzzles of different sizes and their solutions. 
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 5.5) circle (0.2);
+\fill[color=black] (1.0, 6.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (3.5, 6.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1.0, 2.0) circle (0.2);
+\fill[color=black] (3.0, 2.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (2.0, 5.0) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 2.5) circle (0.2);
+\fill[color=black] (3.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (6.0, 0.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 1.0) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (5.0, 0.5) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (4.0, 2.0) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (6.0, 3.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\fill[color=black] (6.0, 2.0) circle (0.2);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (3.0, 6.5) circle (0.2);
+\fill[color=black] (4.0, 3.0) circle (0.2);
+\fill[color=black] (1.0, 4.0) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (6.0, 5.0) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (4.0, 5.0) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (4.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (3.0, 0.5) circle (0.2);
+\fill[color=black] (3.0, 4.5) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (1.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (4.5, 4.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 3.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (3.0, 4.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (6.0, 5.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1.0, 2.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (5.0, 4.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (2.0, 6.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (1.5, 5.5) circle (0.2);
+\fill[color=black] (5.0, 1.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 3.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (1.5, 5.5) circle (0.2);
+\fill[color=black] (6.0, 4.5) circle (0.2);
+\fill[color=black] (4.5, 2.5) circle (0.2);
+\fill[color=black] (4.0, 6.0) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (6.0, 1.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (8.0, 2.5) circle (0.2);
+\fill[color=black] (3.0, 5.0) circle (0.2);
+\fill[color=black] (4.5, 7.5) circle (0.2);
+\fill[color=black] (5.5, 9.5) circle (0.2);
+\fill[color=black] (9.5, 6.5) circle (0.2);
+\fill[color=black] (1.5, 3.5) circle (0.2);
+\fill[color=black] (0.5, 9.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (9.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (1.5, 7.5) circle (0.2);
+\fill[color=black] (8.5, 6.5) circle (0.2);
+\fill[color=black] (7.5, 7.5) circle (0.2);
+\fill[color=black] (9.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 9.5) circle (0.2);
+\fill[color=black] (5.5, 8.5) circle (0.2);
+\fill[color=black] (9.5, 2.5) circle (0.2);
+\fill[color=black] (1.5, 8.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (8.5, 8.5) circle (0.2);
+\fill[color=black] (8.5, 9.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (2.0, 7.0) circle (0.2);
+\fill[color=black] (6.0, 0.5) circle (0.2);
+\fill[color=black] (8.0, 1.0) circle (0.2);
+\fill[color=black] (9.0, 5.0) circle (0.2);
+\fill[color=black] (2.0, 2.0) circle (0.2);
+\fill[color=black] (8.5, 8.5) circle (0.2);
+\fill[color=black] (7.5, 2.5) circle (0.2);
+\fill[color=black] (4.5, 7.5) circle (0.2);
+\fill[color=black] (9.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (8.5, 9.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (4.0, 3.0) circle (0.2);
+\fill[color=black] (5.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 9.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 9.5) circle (0.2);
+\fill[color=black] (7.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (9.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (6.0, 1.5) circle (0.2);
+\fill[color=black] (4.5, 8.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (8.5, 9.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (8.5, 6.5) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 7.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (8.5, 8.5) circle (0.2);
+\fill[color=black] (9.5, 7.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 8.5) circle (0.2);
+\fill[color=black] (9.5, 3.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (6.0, 8.5) circle (0.2);
+\fill[color=black] (4.5, 9.5) circle (0.2);
+\fill[color=black] (2.0, 4.0) circle (0.2);
+\fill[color=black] (8.5, 4.5) circle (0.2);
+\fill[color=black] (6.0, 2.0) circle (0.2);
+\fill[color=black] (1.5, 8.5) circle (0.2);
+\fill[color=black] (8.0, 1.5) circle (0.2);
+\fill[color=black] (1.5, 9.5) circle (0.2);
+\fill[color=black] (8.0, 7.0) circle (0.2);
+\fill[color=black] (4.0, 5.0) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 9.5) circle (0.2);
+\fill[color=black] (6.0, 5.5) circle (0.2);
+\fill[color=black] (9.5, 7.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (9.5, 2.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (7.5, 9.5) circle (0.2);
+\fill[color=black] (7.5, 8.5) circle (0.2);
+\fill[color=black] (9.5, 9.5) circle (0.2);
+\fill[color=black] (8.5, 9.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (7.5, 3.5) circle (0.2);
+\fill[color=black] (9.5, 3.5) circle (0.2);
+\fill[color=black] (9.0, 8.5) circle (0.2);
+\fill[color=black] (5.0, 9.0) circle (0.2);
+\fill[color=black] (2.5, 8.5) circle (0.2);
+\fill[color=black] (1.0, 5.0) circle (0.2);
+\fill[color=black] (3.5, 6.5) circle (0.2);
+\fill[color=black] (4.5, 5.5) circle (0.2);
+\fill[color=black] (7.0, 9.0) circle (0.2);
+\fill[color=black] (3.0, 1.0) circle (0.2);
+\fill[color=black] (8.5, 7.5) circle (0.2);
+\fill[color=black] (7.5, 7.5) circle (0.2);
+\fill[color=black] (5.5, 2.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 9.5) circle (0.2);
+\fill[color=black] (0.5, 9.5) circle (0.2);
+\fill[color=black] (3.5, 8.5) circle (0.2);
+\fill[color=black] (6.5, 7.5) circle (0.2);
+\fill[color=black] (3.5, 7.5) circle (0.2);
+\fill[color=black] (9.5, 9.5) circle (0.2);
+\fill[color=black] (8.5, 0.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 9.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (9.0, 8.5) circle (0.2);
+\fill[color=black] (1.0, 6.5) circle (0.2);
+\fill[color=black] (3.0, 8.5) circle (0.2);
+\fill[color=black] (8.5, 1.5) circle (0.2);
+\fill[color=black] (5.0, 8.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (8.0, 3.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (9.5, 4.5) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 6.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (7.5, 8.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (1.0, 1.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (9.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (4.0, 7.0) circle (0.2);
+\fill[color=black] (5.0, 2.0) circle (0.2);
+\fill[color=black] (2.0, 9.0) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\fill[color=black] (7.5, 8.5) circle (0.2);
+\fill[color=black] (9.0, 6.5) circle (0.2);
+\fill[color=black] (3.0, 0.5) circle (0.2);
+\fill[color=black] (1.0, 7.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (9.5, 3.5) circle (0.2);
+\fill[color=black] (7.5, 4.5) circle (0.2);
+\fill[color=black] (7.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (7.5, 1.5) circle (0.2);
+\fill[color=black] (7.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (1.5, 4.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 9.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 7.5) circle (0.2);
+\fill[color=black] (8.5, 3.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (7.0, 5.5) circle (0.2);
+\fill[color=black] (8.5, 3.5) circle (0.2);
+\fill[color=black] (2.0, 7.0) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (7.5, 9.5) circle (0.2);
+\fill[color=black] (9.5, 6.5) circle (0.2);
+\fill[color=black] (5.0, 9.0) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (4.0, 7.0) circle (0.2);
+\fill[color=black] (9.5, 8.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 9.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (4.5, 4.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 9.5) circle (0.2);
+\fill[color=black] (2.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (9.5, 2.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 7.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (6.0, 9.0) circle (0.2);
+\fill[color=black] (9.0, 9.0) circle (0.2);
+\fill[color=black] (9.5, 5.5) circle (0.2);
+\fill[color=black] (5.0, 2.0) circle (0.2);
+\fill[color=black] (1.0, 9.0) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (8.5, 4.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (7.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 7.5) circle (0.2);
+\fill[color=black] (1.0, 3.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 9.5) circle (0.2);
+\fill[color=black] (8.5, 0.5) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (7.5, 9.5) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 7.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (7.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (7.5, 8.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (10,10);
+\fill[color=black] (3.0, 4.0) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (6.0, 5.0) circle (0.2);
+\fill[color=black] (3.5, 8.5) circle (0.2);
+\fill[color=black] (9.0, 7.0) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 9.5) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (9.0, 2.0) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 8.5) circle (0.2);
+\fill[color=black] (7.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 9.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (4.5, 5.5) circle (0.2);
+\fill[color=black] (8.5, 4.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (2.0, 1.0) circle (0.2);
+\fill[color=black] (8.0, 7.5) circle (0.2);
+\fill[color=black] (4.0, 11.5) circle (0.2);
+\fill[color=black] (10.0, 7.5) circle (0.2);
+\fill[color=black] (13.0, 11.0) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (13.0, 6.0) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (8.5, 1.5) circle (0.2);
+\fill[color=black] (8.0, 13.5) circle (0.2);
+\fill[color=black] (11.5, 8.5) circle (0.2);
+\fill[color=black] (14.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 7.5) circle (0.2);
+\fill[color=black] (12.5, 1.5) circle (0.2);
+\fill[color=black] (11.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 11.5) circle (0.2);
+\fill[color=black] (11.5, 12.5) circle (0.2);
+\fill[color=black] (1.5, 14.5) circle (0.2);
+\fill[color=black] (1.5, 12.5) circle (0.2);
+\fill[color=black] (6.5, 12.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 11.5) circle (0.2);
+\fill[color=black] (14.0, 14.5) circle (0.2);
+\fill[color=black] (13.5, 1.5) circle (0.2);
+\fill[color=black] (14.0, 0.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (3.0, 2.5) circle (0.2);
+\fill[color=black] (1.5, 13.5) circle (0.2);
+\fill[color=black] (14.5, 12.5) circle (0.2);
+\fill[color=black] (8.5, 0.5) circle (0.2);
+\fill[color=black] (8.5, 14.5) circle (0.2);
+\fill[color=black] (6.5, 13.5) circle (0.2);
+\fill[color=black] (6.5, 14.5) circle (0.2);
+\fill[color=black] (0.5, 13.5) circle (0.2);
+\fill[color=black] (13.5, 12.5) circle (0.2);
+\fill[color=black] (12.5, 14.5) circle (0.2);
+\fill[color=black] (11.5, 14.5) circle (0.2);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (13.5, 13.5) circle (0.2);
+\fill[color=black] (12.5, 13.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (10.0, 14.5) circle (0.2);
+\fill[color=black] (1.0, 5.0) circle (0.2);
+\fill[color=black] (8.0, 11.5) circle (0.2);
+\fill[color=black] (13.0, 8.5) circle (0.2);
+\fill[color=black] (10.5, 11.5) circle (0.2);
+\fill[color=black] (11.5, 14.5) circle (0.2);
+\fill[color=black] (4.0, 9.5) circle (0.2);
+\fill[color=black] (14.5, 3.5) circle (0.2);
+\fill[color=black] (8.5, 3.5) circle (0.2);
+\fill[color=black] (11.5, 6.5) circle (0.2);
+\fill[color=black] (4.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (6.0, 2.5) circle (0.2);
+\fill[color=black] (0.5, 12.5) circle (0.2);
+\fill[color=black] (2.5, 13.5) circle (0.2);
+\fill[color=black] (11.5, 12.5) circle (0.2);
+\fill[color=black] (14.5, 12.5) circle (0.2);
+\fill[color=black] (7.5, 6.5) circle (0.2);
+\fill[color=black] (11.5, 7.5) circle (0.2);
+\fill[color=black] (11.0, 4.0) circle (0.2);
+\fill[color=black] (10.5, 7.5) circle (0.2);
+\fill[color=black] (1.5, 10.5) circle (0.2);
+\fill[color=black] (13.0, 1.5) circle (0.2);
+\fill[color=black] (9.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (14.5, 8.5) circle (0.2);
+\fill[color=black] (13.0, 0.5) circle (0.2);
+\fill[color=black] (1.5, 11.5) circle (0.2);
+\fill[color=black] (11.5, 9.5) circle (0.2);
+\fill[color=black] (8.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 14.5) circle (0.2);
+\fill[color=black] (5.5, 13.5) circle (0.2);
+\fill[color=black] (5.5, 11.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (11.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 13.5) circle (0.2);
+\fill[color=black] (10.5, 0.5) circle (0.2);
+\fill[color=black] (14.5, 10.5) circle (0.2);
+\fill[color=black] (8.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 9.5) circle (0.2);
+\fill[color=black] (4.5, 14.5) circle (0.2);
+\fill[color=black] (10.5, 5.5) circle (0.2);
+\fill[color=black] (10.5, 1.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (12.5, 10.5) circle (0.2);
+\fill[color=black] (1.0, 8.0) circle (0.2);
+\fill[color=black] (7.5, 13.5) circle (0.2);
+\fill[color=black] (12.5, 1.5) circle (0.2);
+\fill[color=black] (10.5, 9.5) circle (0.2);
+\fill[color=black] (4.0, 2.0) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (13.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (4.0, 8.5) circle (0.2);
+\fill[color=black] (8.5, 10.5) circle (0.2);
+\fill[color=black] (3.5, 13.5) circle (0.2);
+\fill[color=black] (14.5, 3.5) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (14.5, 11.5) circle (0.2);
+\fill[color=black] (9.5, 8.5) circle (0.2);
+\fill[color=black] (11.0, 3.5) circle (0.2);
+\fill[color=black] (2.5, 8.5) circle (0.2);
+\fill[color=black] (3.0, 4.5) circle (0.2);
+\fill[color=black] (7.5, 3.5) circle (0.2);
+\fill[color=black] (8.5, 1.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (13.5, 3.5) circle (0.2);
+\fill[color=black] (14.5, 4.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 14.5) circle (0.2);
+\fill[color=black] (4.5, 10.5) circle (0.2);
+\fill[color=black] (8.5, 2.5) circle (0.2);
+\fill[color=black] (5.5, 13.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (11.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (8.5, 6.5) circle (0.2);
+\fill[color=black] (13.5, 4.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (4.5, 11.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 14.5) circle (0.2);
+\fill[color=black] (11.5, 5.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (14.0, 7.5) circle (0.2);
+\fill[color=black] (9.5, 3.5) circle (0.2);
+\fill[color=black] (6.0, 13.5) circle (0.2);
+\fill[color=black] (3.5, 12.5) circle (0.2);
+\fill[color=black] (4.5, 8.5) circle (0.2);
+\fill[color=black] (11.5, 14.5) circle (0.2);
+\fill[color=black] (5.0, 5.5) circle (0.2);
+\fill[color=black] (14.5, 10.5) circle (0.2);
+\fill[color=black] (2.5, 3.5) circle (0.2);
+\fill[color=black] (12.0, 13.0) circle (0.2);
+\fill[color=black] (13.5, 1.5) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 13.5) circle (0.2);
+\fill[color=black] (7.0, 9.5) circle (0.2);
+\fill[color=black] (12.5, 9.5) circle (0.2);
+\fill[color=black] (13.0, 4.0) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (10.0, 9.5) circle (0.2);
+\fill[color=black] (1.5, 12.5) circle (0.2);
+\fill[color=black] (14.5, 14.5) circle (0.2);
+\fill[color=black] (0.5, 12.5) circle (0.2);
+\fill[color=black] (11.5, 3.5) circle (0.2);
+\fill[color=black] (4.5, 14.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (8.5, 12.5) circle (0.2);
+\fill[color=black] (7.5, 4.5) circle (0.2);
+\fill[color=black] (14.5, 12.5) circle (0.2);
+\fill[color=black] (12.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (4.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (13.5, 13.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (7.5, 2.5) circle (0.2);
+\fill[color=black] (7.0, 1.5) circle (0.2);
+\fill[color=black] (7.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 9.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (12.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (9.0, 8.0) circle (0.2);
+\fill[color=black] (5.5, 8.5) circle (0.2);
+\fill[color=black] (14.0, 5.5) circle (0.2);
+\fill[color=black] (4.0, 4.5) circle (0.2);
+\fill[color=black] (3.0, 7.0) circle (0.2);
+\fill[color=black] (11.5, 8.5) circle (0.2);
+\fill[color=black] (7.5, 5.5) circle (0.2);
+\fill[color=black] (1.0, 8.5) circle (0.2);
+\fill[color=black] (11.5, 14.5) circle (0.2);
+\fill[color=black] (10.0, 12.5) circle (0.2);
+\fill[color=black] (7.5, 2.5) circle (0.2);
+\fill[color=black] (13.5, 13.5) circle (0.2);
+\fill[color=black] (4.0, 1.0) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (7.5, 1.5) circle (0.2);
+\fill[color=black] (2.0, 0.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (11.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 13.5) circle (0.2);
+\fill[color=black] (2.5, 11.5) circle (0.2);
+\fill[color=black] (8.0, 12.5) circle (0.2);
+\fill[color=black] (6.5, 12.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (10.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 14.5) circle (0.2);
+\fill[color=black] (12.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (3.5, 14.5) circle (0.2);
+\fill[color=black] (9.5, 1.5) circle (0.2);
+\fill[color=black] (12.5, 3.5) circle (0.2);
+\fill[color=black] (5.0, 2.5) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (8.5, 14.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (7.5, 9.5) circle (0.2);
+\fill[color=black] (14.5, 11.5) circle (0.2);
+\fill[color=black] (11.5, 3.5) circle (0.2);
+\fill[color=black] (12.5, 11.5) circle (0.2);
+\fill[color=black] (7.5, 14.5) circle (0.2);
+\fill[color=black] (13.5, 11.5) circle (0.2);
+\fill[color=black] (11.5, 13.5) circle (0.2);
+\fill[color=black] (10.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 14.5) circle (0.2);
+\fill[color=black] (14.5, 12.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (5.0, 14.5) circle (0.2);
+\fill[color=black] (7.5, 2.5) circle (0.2);
+\fill[color=black] (3.0, 13.5) circle (0.2);
+\fill[color=black] (4.0, 10.5) circle (0.2);
+\fill[color=black] (13.5, 0.5) circle (0.2);
+\fill[color=black] (1.0, 3.5) circle (0.2);
+\fill[color=black] (7.5, 10.5) circle (0.2);
+\fill[color=black] (11.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (14.5, 12.5) circle (0.2);
+\fill[color=black] (10.5, 8.5) circle (0.2);
+\fill[color=black] (1.5, 10.5) circle (0.2);
+\fill[color=black] (3.0, 2.5) circle (0.2);
+\fill[color=black] (13.0, 6.0) circle (0.2);
+\fill[color=black] (13.5, 13.5) circle (0.2);
+\fill[color=black] (11.0, 14.5) circle (0.2);
+\fill[color=black] (13.0, 8.0) circle (0.2);
+\fill[color=black] (9.5, 14.5) circle (0.2);
+\fill[color=black] (13.0, 11.0) circle (0.2);
+\fill[color=black] (5.0, 3.0) circle (0.2);
+\fill[color=black] (0.5, 13.5) circle (0.2);
+\fill[color=black] (12.5, 14.5) circle (0.2);
+\fill[color=black] (2.0, 5.5) circle (0.2);
+\fill[color=black] (4.5, 7.5) circle (0.2);
+\fill[color=black] (14.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 13.5) circle (0.2);
+\fill[color=black] (14.5, 5.5) circle (0.2);
+\fill[color=black] (8.5, 14.5) circle (0.2);
+\fill[color=black] (12.5, 9.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 14.5) circle (0.2);
+\fill[color=black] (6.5, 13.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (10.5, 13.5) circle (0.2);
+\fill[color=black] (0.5, 10.5) circle (0.2);
+\fill[color=black] (0.5, 7.5) circle (0.2);
+\fill[color=black] (7.0, 5.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (8.5, 7.5) circle (0.2);
+\fill[color=black] (12.5, 13.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (8.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 12.5) circle (0.2);
+\fill[color=black] (11.5, 13.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (6.0, 1.0) circle (0.2);
+\fill[color=black] (7.5, 1.5) circle (0.2);
+\fill[color=black] (14.5, 1.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (8.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 13.5) circle (0.2);
+\fill[color=black] (5.5, 11.5) circle (0.2);
+\fill[color=black] (13.5, 12.5) circle (0.2);
+\fill[color=black] (9.5, 11.5) circle (0.2);
+\fill[color=black] (10.5, 4.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (13.5, 2.5) circle (0.2);
+\fill[color=black] (2.0, 11.0) circle (0.2);
+\fill[color=black] (7.5, 11.5) circle (0.2);
+\fill[color=black] (14.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 10.5) circle (0.2);
+\fill[color=black] (4.0, 2.0) circle (0.2);
+\fill[color=black] (5.5, 7.5) circle (0.2);
+\fill[color=black] (11.5, 9.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (5.5, 2.5) circle (0.2);
+\fill[color=black] (7.5, 7.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (6.0, 3.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (1.5, 4.5) circle (0.2);
+\fill[color=black] (10.5, 7.5) circle (0.2);
+\fill[color=black] (12.5, 3.5) circle (0.2);
+\fill[color=black] (11.5, 0.5) circle (0.2);
+\fill[color=black] (2.0, 8.0) circle (0.2);
+\fill[color=black] (13.5, 5.5) circle (0.2);
+\fill[color=black] (13.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (12.5, 4.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (12.5, 7.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (13.5, 8.5) circle (0.2);
+\fill[color=black] (11.5, 14.5) circle (0.2);
+\fill[color=black] (0.5, 11.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 1.5) circle (0.2);
+\fill[color=black] (5.0, 6.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (2.0, 1.5) circle (0.2);
+\fill[color=black] (4.0, 4.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (2.0, 5.5) circle (0.2);
+\fill[color=black] (6.0, 2.5) circle (0.2);
+\fill[color=black] (2.0, 0.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (2.0, 4.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (4.5, 2.5) circle (0.2);
+\fill[color=black] (2.0, 2.5) circle (0.2);
+\fill[color=black] (2.0, 6.5) circle (0.2);
+\fill[color=black] (5.0, 0.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (5.0, 3.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 5.5) circle (0.2);
+\fill[color=black] (6.0, 6.0) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (2.0, 6.5) circle (0.2);
+\fill[color=black] (6.0, 3.0) circle (0.2);
+\fill[color=black] (5.0, 0.5) circle (0.2);
+\fill[color=black] (3.0, 0.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (1.0, 0.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (4.0, 2.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (4.0, 1.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (6.0, 4.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 6.0) circle (0.2);
+\fill[color=black] (6.0, 5.5) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (4.0, 4.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (3.0, 1.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (1.0, 0.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (5.0, 3.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 2.5) circle (0.2);
+\fill[color=black] (1.0, 1.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (5.0, 0.5) circle (0.2);
+\fill[color=black] (5.0, 1.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (4.5, 2.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 6.0) circle (0.2);
+\fill[color=black] (6.0, 6.0) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (4.5, 4.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (5.0, 2.0) circle (0.2);
+\fill[color=black] (4.0, 3.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (1.0, 0.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (6.0, 4.0) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (4.0, 0.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 3.5) circle (0.2);
+\fill[color=black] (6.0, 5.5) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (1.0, 0.5) circle (0.2);
+\fill[color=black] (5.0, 0.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (4.5, 6.5) circle (0.2);
+\fill[color=black] (2.0, 1.5) circle (0.2);
+\fill[color=black] (5.0, 2.5) circle (0.2);
+\fill[color=black] (5.5, 4.5) circle (0.2);
+\fill[color=black] (6.0, 3.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (2.0, 6.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 4.0) circle (0.2);
+\fill[color=black] (6.0, 6.0) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (3.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (4.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (5.0, 1.0) circle (0.2);
+\fill[color=black] (3.5, 1.5) circle (0.2);
+\fill[color=black] (2.0, 0.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (1.0, 1.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (5.0, 2.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (3.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 5.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (3.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 5.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (3.5, 4.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (2.0, 1.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (6.5, 2.5) circle (0.2);
+\fill[color=black] (4.0, 2.5) circle (0.2);
+\fill[color=black] (1.5, 2.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (4.0, 0.5) circle (0.2);
+\fill[color=black] (1.0, 0.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (5.5, 2.5) circle (0.2);
+\fill[color=black] (5.0, 3.5) circle (0.2);
+\fill[color=black] (1.0, 6.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 4.5) circle (0.2);
+\fill[color=black] (6.0, 6.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (4.5, 6.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 4.0) circle (0.2);
+\fill[color=black] (4.0, 6.0) circle (0.2);
+\fill[color=black] (6.0, 5.5) circle (0.2);
+\fill[color=black] (1.0, 6.5) circle (0.2);
+\fill[color=black] (3.5, 3.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (2.0, 5.5) circle (0.2);
+\fill[color=black] (6.0, 3.0) circle (0.2);
+\fill[color=black] (5.0, 0.5) circle (0.2);
+\fill[color=black] (3.0, 1.0) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 2.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (5.0, 4.5) circle (0.2);
+\fill[color=black] (3.5, 2.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (1.5, 1.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 1.5) circle (0.2);
+\fill[color=black] (4.5, 3.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (2.5, 2.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 5.5) circle (0.2);
+\fill[color=black] (6.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (4.0, 3.0) circle (0.2);
+\fill[color=black] (0.5, 2.5) circle (0.2);
+\fill[color=black] (6.0, 4.5) circle (0.2);
+\fill[color=black] (2.5, 1.5) circle (0.2);
+\fill[color=black] (3.0, 0.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (0.5, 6.5) circle (0.2);
+\fill[color=black] (1.0, 5.5) circle (0.2);
+\fill[color=black] (6.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 3.5) circle (0.2);
+\fill[color=black] (5.5, 0.5) circle (0.2);
+\fill[color=black] (6.0, 2.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (5.5, 6.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\fill[color=black] (6.5, 3.5) circle (0.2);
+\fill[color=black] (4.5, 6.5) circle (0.2);
+\fill[color=black] (5.5, 1.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (7,7);
+\fill[color=black] (2.0, 3.5) circle (0.2);
+\fill[color=black] (4.0, 3.5) circle (0.2);
+\fill[color=black] (6.0, 2.0) circle (0.2);
+\fill[color=black] (1.0, 2.0) circle (0.2);
+\fill[color=black] (4.0, 2.5) circle (0.2);
+\fill[color=black] (6.0, 6.5) circle (0.2);
+\fill[color=black] (3.0, 0.5) circle (0.2);
+\fill[color=black] (6.0, 4.0) circle (0.2);
+\fill[color=black] (4.0, 6.5) circle (0.2);
+\fill[color=black] (3.0, 1.5) circle (0.2);
+\fill[color=black] (1.5, 0.5) circle (0.2);
+\fill[color=black] (0.5, 0.5) circle (0.2);
+\fill[color=black] (5.5, 5.5) circle (0.2);
+\fill[color=black] (4.5, 1.5) circle (0.2);
+\fill[color=black] (0.5, 3.5) circle (0.2);
+\fill[color=black] (3.0, 5.5) circle (0.2);
+\fill[color=black] (1.0, 6.5) circle (0.2);
+\fill[color=black] (0.5, 4.5) circle (0.2);
+\fill[color=black] (1.5, 5.5) circle (0.2);
+\fill[color=black] (0.5, 5.5) circle (0.2);
+\fill[color=black] (3.0, 4.5) circle (0.2);
+\fill[color=black] (2.5, 6.5) circle (0.2);
+\fill[color=black] (6.0, 0.5) circle (0.2);
+\fill[color=black] (4.5, 0.5) circle (0.2);
+\end{tikzpicture}
+\end{center}
+
+\section{SOURCES}
+
+1. https://content.time.com/time/arts/article/0,8599,1205307,00.html
+2. https://content.time.com/time/specials/packages/article/0,28804,1975813_1975838_1976198,00.html
+3. https://www.nikoli.co.jp/en/puzzles/tentai_show/
+4. https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/galaxies.html
+
+
+\end{document}

@@ -1,0 +1,1219 @@
+-- QUILT
+-- For Level 3, I've added some familiar extra functions
+-- (%, sin, cos, tan, pi). I've also added the geometric transformations,
+-- rot(tz) = e^it * z. There's a couple nice functions this opens up,
+-- magnitude and phase. The user doesn't need to know this, but might find
+-- 'mz' or 'pz' useful. 'dim' takes 4 doubles: minx, maxx, miny, maxy. 
+
+-- No booleans, wrapped into greys. We will just know 1 is true 
+-- and 0 is false. What if it's between? This is my third addition! 
+-- A grey 0<g<1 that isn't black or white used in an if statement will 
+-- "collapse" to true with probability g, and false with probability (1-g).
+-- Thus, we have a quantum quilt. how? Linear congruential generator
+
+-- You mentioned them in class so I read the wikipedia article. The 
+-- included python code was weird, w an unintuitive "generator" approach,
+-- so I wrote it like this, to try and reckon with how I could put this structure
+-- into a quilt.
+-- https://en.wikipedia.org/wiki/List_of_prime_numbers for a,b,c help
+
+-- randomnumbers = []
+
+-- a = 823     # set at beginning
+-- b = 5399    # set at beginning
+-- c = 7901    # set at beginning
+--
+-- r = r = int(input("input 4-digit PIN number"))
+-- for i in range(25):
+--     r = ((b*r) + c) % a
+--     randomnumbers.append(r % 256)
+-- print(randomnumbers)
+--
+-- We'll get our PIN at the beginning of a Quilt session, and
+-- use it until we ask for a new one.
+--
+-- [Additionally, ? translates to a random float x/255 w x\in\mathbf{W}=[0,255]
+-- on uniform distr.]
+
+
+{-# LANGUAGE GADTs #-}
+{-# OPTIONS_GHC -Wall #-}
+{-# LANGUAGE FlexibleInstances    #-}
+{-# LANGUAGE ViewPatterns         #-}
+
+module Quilt where
+
+import           Parsing2
+import qualified Data.Map as M
+import Prelude hiding ((<$>), (<$), (<*>), (<*), (*>))
+import Codec.Picture ()
+import           Data.Colour
+import           Data.Colour.Names
+import           Data.Colour.SRGB
+import           Data.Complex
+import           Data.Word
+import Control.Exception (ArithException)
+
+-- | A color is a list of red, green, and blue values between 0.0 - 1.0.
+--   For example, [0,0,0] is black, [1,1,1] is white, [0.5, 0, 0.5] is a
+--   darkish purple, and so on.
+
+type Color = [Double]
+
+-- | A quilt function produces a Color for any given location.  The
+--   parameter is a complex number a+bi | a,b <= 1.
+
+type QuiltFun = Complex Double -> Color
+
+evalQuilt :: String -> Either String QuiltFun
+evalQuilt "red"     = Right $ const [1,0,0]
+evalQuilt "green"   = Right $ const [0,1,0]
+evalQuilt "blue"    = Right $ const [0,0,1]
+evalQuilt "white"   = Right $ const [1,1,1]
+evalQuilt "black"   = Right $ const [0,0,0]
+evalQuilt "true"   =  Right $ const [1,1,1]
+evalQuilt "false"   = Right $ const [0,0,0]
+evalQuilt s = case parse quilt s of
+  Left pErr  -> Left (show pErr)
+  Right e    ->
+    case interpQuilt M.empty e of
+      Left iErr -> Left (show (showInterpError iErr))
+      Right v   -> Right v
+
+
+lexer :: TokenParser u
+lexer = makeTokenParser $ emptyDef    
+  { reservedNames = ["x","y","quilt","if","then","else","and","or","!","<",">","=",
+                     "+","-","*","/","%","^","sin","cos","tan","pi","e",
+                     "?","mz","pz","rot","dim","refl"] }
+
+parens :: Parser a -> Parser a
+parens     = getParens lexer
+
+reservedOp :: String -> Parser ()
+reservedOp = getReservedOp lexer
+
+reserved :: String -> Parser ()
+reserved   = getReserved lexer
+
+double :: Parser Double
+double     = reserved "pi"  *> 3.14159265359
+double     = reserved "e"   *> 2.718281828459
+double     = reserved "x"   *> X
+double     = reserved "y"   *> Y
+double     = reserved "mz"  *> (((X ** 2) + (Y ** 2)) ** 0.5)
+double     = reserved "?"   *> getrandom
+double     = getFloat lexer
+
+
+natural :: Parser Integer
+natural    = getInteger lexer
+
+naturalOrFloat :: Parser (Either Integer Double)
+naturalOrFloat = getNaturalOrFloat lexer 
+
+whiteSpace :: Parser ()
+whiteSpace = getWhiteSpace lexer
+
+identifier :: Parser String
+identifier = getIdentifier lexer
+
+coordx :: Parser Double
+coordx = oneOf "[" *> double
+
+coordy :: Parser Double
+coordy = oneOf "," *> double <* oneOf "]"
+
+redRGB :: Parser Double
+redRGB = coordx
+
+greenRGB :: Parser Double
+greenRGB = oneOf "," *> double
+
+blueRGB :: Parser Double
+blueRGB = coordy
+
+quilt :: Parser Quilt
+quilt = whiteSpace *> parseQuiltAtom <* eof
+
+
+data Quilt where
+  Lit   :: Double -> Double -> Double -> Double -> Double -> TyLit   -> Quilt  
+  Uni   :: Double -> Double -> UOp    -> Quilt  -> Quilt
+  Bin   :: Double -> Double -> BOp    -> Quilt  -> Quilt  -> Quilt
+  If    :: Double -> Double -> Quilt  -> Quilt  -> Quilt  -> Quilt
+  Qubit :: Double -> Double -> Quilt  -> Quilt  -> Quilt -> Quilt   -> Quilt
+  deriving (Show) 
+
+data Var where
+  X     :: Double
+  Y     :: Double
+  MZ    :: Double
+  R     :: Double
+  Trig  :: Pytho  -> Double -> Double
+  deriving (Show)
+
+data TyLit where
+  Qool  :: TyLit
+  Color :: TyLit
+  deriving (Show)
+
+data UOp where
+  Not  :: UOp
+  Rot  :: Double -> UOp
+  Refl :: Double -> UOp
+  Dim  :: Double -> Double -> Double -> Double -> UOp
+  deriving (Show, Eq)
+
+data BOp where
+  Plus   :: BOp
+  Minus  :: BOp
+  Times  :: BOp
+  Raise  :: BOp
+  Div    :: BOp
+  Mod    :: BOp
+  Less   :: BOp
+  More   :: BOp
+  Same   :: BOp
+  Or     :: BOp
+  And    :: BOp
+  deriving (Show, Eq)
+
+data Pytho where 
+  Sin :: Pytho
+  Cos :: Pytho
+  Tan :: Pytho
+  deriving (Show, Eq)
+
+tangent :: Double -> Double
+tangent x = sine x / cosine x
+
+cosine :: Double -> Double
+cosine x = sine (x+(3.14159265359 / 2))
+
+bhaskara :: Double -> Double
+bhaskara x = (16*x*(3.14159265359 - x))/((5*(3.14159265359 ** 2))-(4*x*(3.14159265359 - x)))
+
+sine :: Double -> Double 
+sine 0 = 0
+sine x = if modulus x 6.28318530718 > 3.1415926535
+  then truncate' ((-1) * bhaskara (modulus x 6.28318530718-3.1415926535)) 4
+  else truncate' (bhaskara (modulus x 6.28318530718)) 4
+
+-- x : number you want rounded, n : number of decimal places you want...
+-- https://stackoverflow.com/questions/18723381/rounding-to-specific-number-of-digits-in-haskell
+
+truncate' :: Double -> Int -> Double
+truncate' x n = (x * (10 ** realToFrac n)) / (10 ** realToFrac n)
+
+modulus :: Double -> Double -> Double
+modulus a b
+  | (0 < a) && (a < b) = a
+  | 0 > b = (-1) * modulus a ((- 1) * b)
+  | a < b = modulus (a + b) b
+  | otherwise = modulus (a - b) b
+
+-- randomnumbers = []
+
+-- a = 823     # set at beginning
+-- b = 5399    # set at beginning
+-- c = 7901    # set at beginning
+--
+-- r = r = int(input("input 4-digit PIN number"))
+-- for i in range(25):
+--     r = ((b*r) + c) % a
+--     randomnumbers.append(r % 2)
+-- print(randomnumbers)
+--
+-- We'll get our PIN at the beginning of a Quilt session, and
+-- use it throughout.
+
+
+lcg :: Integer -> Integer -> [Integer]
+lcg r iter = inst r : lcg (inst r) (iter-1)
+
+inst :: Integer -> Integer
+inst r = (((5399*r)+7901) `mod` 823) `mod` 256
+
+
+-- A rash assumption -- suppose this distribution is uniform. How can we guarantee probability p of collapse to 1?
+-- Think about floats! There are 256 types of grey, not an uncountably infinite amount. So, we can just check that 
+-- 256*[Lit1] > lcg[i], returning 1 if true, 0 if false.
+
+
+parseQuiltAtom :: Parser Quilt
+parseQuiltAtom =
+      Lit 0 0           <$>  redRGB <*> greenRGB <*> blueRGB . Color
+  <|> If   0 0           <$> (reserved "if"    *> parseQuiltAtom) 
+                         <*> (reserved "then"  *> parseQuiltAtom) 
+                         <*> (reserved "else"  *> parseQuiltAtom)
+  <|>                         parens parseBin
+  <|> Uni 0 0 Not        <$> (reserved "!"     *> parseQuiltAtom)
+  <|> Uni 0 0            <$> (Rot    <$> (reserved "rot"  *> double)) 
+                         <*> parseQuiltAtom
+  <|> Uni 0 0            <$> (Refl   <$> (reserved "refl" *> double)) 
+                         <*> parseQuiltAtom
+  <|> Uni 0 0            <$> (Dim    <$> (reserved "dim"  *> double)
+                         <*> double
+                         <*> double
+                         <*> double)
+                         <*> parseQuiltAtom
+  <|> Uni 0 0 (Trig Sin) <$> (reserved "sin"   *> double)
+  <|> Uni 0 0 (Trig Cos) <$> (reserved "cos"   *> double)
+  <|> Uni 0 0 (Trig Tan) <$> (reserved "tan"   *> double)
+  <|> Qubit 0 0          <$> (reserved "quilt" *> parseQuiltAtom) <*> parseQuiltAtom <*> parseQuiltAtom <*> parseQuiltAtom 
+  <|> Lit 0 0           <$>  double . Qool
+  
+
+-- Interpreter
+
+
+parseBin :: Parser Quilt
+parseBin = buildExpressionParser table parseQuiltAtom
+  where
+    table = [   [ Infix (Bin 0 0 Raise <$ reservedOp "^") AssocRight],
+                [ Infix (Bin 0 0 Times <$ reservedOp "*") AssocLeft,
+                  Infix (Bin 0 0 Div   <$ reservedOp "/") AssocLeft,
+                  Infix (Bin 0 0 Mod   <$ reservedOp "%") AssocLeft],
+                [ Infix (Bin 0 0 Less  <$ reservedOp "<") AssocLeft
+                , Infix (Bin 0 0 More  <$ reservedOp ">") AssocLeft
+                , Infix (Bin 0 0 Same  <$ reservedOp "=") AssocLeft],
+                [ Infix (Bin 0 0 And   <$ reserved "and") AssocLeft
+                , Infix (Bin 0 0 Or    <$ reserved  "or") AssocLeft
+                , Infix (Bin 0 0 Xor   <$ reserved "xor") AssocLeft
+                , Infix (Bin 0 0 Iff   <$ reserved "iff") AssocLeft
+            ],  [ Infix (Bin 0 0 Plus  <$ reservedOp "+") AssocLeft
+                , Infix (Bin 0 0 Minus <$ reservedOp "-") AssocLeft
+                ]
+            ]
+
+
+
+
+type Env = M.Map String Double
+
+data InterpError where
+  DivByZero  :: InterpError
+  YouFucked  :: InterpError
+
+showInterpError :: InterpError -> String
+showInterpError DivByZero      = "Division by zero"
+showInterpError YouFucked      = "Don't do that!!"
+
+interpQuilt :: Env -> Quilt -> Either InterpError QuiltFun
+interpQuilt _ (Lit1 0 0 p)            = Right $ const [p,p,p]
+interpQuilt _ (Lit3 0 0 r g b)        = Right $ const [r,g,b]
+interpQuilt e (Uni  0 0  op q)        = case (interpQuilt e q) of
+  Right (Lit1 0 0 p)     -> interpUniQool op p
+  Right (Lit3 0 0 r g b) -> interpUniColor
+  _                      -> Left YouFucked
+interpQuilt e (Qubit 0 0 q1 q2 q3 q4) = Right $ qubit >>= (interpQuilt e q1) 
+                                                      >>= (interpQuilt e q2) 
+                                                      >>= (interpQuilt e q3) 
+                                                      >>= (interpQuilt e q4)
+
+
+interpQuilt e (If   0 0 (Lit1 0 0 p) th el) = case (collapse e bo) of 
+  Right  True  -> Right $ const [1,1,1]
+  Right False  -> Right $ const [0,0,0]
+  Left      x  -> Left x
+
+interpQuilt _ _ = undefined
+
+-- interpUniQool :: UOp -> Double -> QuiltFu
+
+
+-- collapse :: Env -> Quilt -> Bool
+-- collapse e q 
+
+-- qubit :: QuiltFun -> QuiltFun -> QuiltFun -> QuiltFun -> Complex Double -> QuiltFun
+-- qubit q1 q2 q3 q4 = \(a :+ b)
+--   case (a < 0, b > 0) of   -- which quadrant are we in?
+--     (True , True)  ->  (a/2+1) -(b/2+1) q1
+--     (True , False) ->  (a/2+1) -(b/2+1) q1
+--     (False, True)  -> -(a/2+1)  (b/2+1) q1
+--     (False, False) -> -(a/2+1) -(b/2+1) q1
+
+
+
+
+
+
+
+
+
+module Main where
+
+import           Quilt                    (Color, QuiltFun, evalQuilt)
+
+import           Data.Char                (isDigit)
+import           GHC.Word                 (Word8)
+
+import           Codec.Picture
+import           Control.Monad.State
+import           System.Console.Haskeline
+
+------------------------------------------------------------
+-- Customize me!
+------------------------------------------------------------
+
+type RandStack = [Double]
+
+
+description :: String
+description = "THE QUILT IS THE EXTENSION OF THE FLOAT"
+
+helpMsg :: String
+helpMsg = unlines
+  [ "Enter an expression to generate a 256x256 image and save it to quilt.png."
+  , ":size        - report the current size used by the :save command."
+  , ":size <int>  - set the size used by the :save command."
+  , ":save <file> - save a :size x :size copy of the most recent expression to <file>.png and <file>.txt"
+  , ":help        - print this message."
+  , ":quit        - quit."
+  , ""
+  , "Your command history is automatically saved in a file named quilt_history.txt."
+  ]
+
+------------------------------------------------------------
+-- Ignore the man behind the curtain (or peek if you like)
+------------------------------------------------------------
+
+data QuiltState = QS
+  { quiltFun  :: Maybe QuiltFun
+  , quiltSrc  :: Maybe String
+  , quiltSize :: Int
+  }
+
+type QuiltM = StateT QuiltState (InputT IO)
+
+defaultSize :: Int
+defaultSize = 256
+
+showSize :: Int -> String
+showSize sz = show sz ++ "x" ++ show sz
+
+quiltSettings :: Settings IO
+quiltSettings = defaultSettings
+  { historyFile = Just "quilt_history.txt" }
+
+quiltREPL :: IO ()
+quiltREPL = do
+  putStrLn description
+  putStrLn "INPUT 6-DIGIT PIN NUMBER"
+  getRandom (randomIO :: IO Integer) 123 "randints.txt"
+  runInputT quiltSettings . flip evalStateT (QS Nothing Nothing 256) $ loop
+  where
+    loop :: QuiltM ()
+    loop = do
+      minput <- lift $ getInputLine "> "
+      case minput of
+        Nothing      -> return ()
+        Just s       -> do
+          let (cmd:rest) = words s
+          shouldLoop <- case cmd of
+            ":q"    -> return False
+            ":quit" -> return False
+            ":help" -> (lift $ outputStrLn helpMsg) >> return True
+            ":size" -> sizeCmd rest                 >> return True
+            ":save" -> saveCmd rest                 >> return True
+            _       -> eval s rs                    >> return True
+          when shouldLoop $ loop
+
+
+getRandom :: IO Integer -> Int -> FilePath -> IO ()
+getRandom x f filePath = do
+  let numbers = lcg f 100000
+  writeFile filePath (unlines (map show numbers))
+
+lcg :: Integer -> Integer -> [Integer]
+lcg r iter = inst r : lcg (inst r) (iter-1)
+
+inst :: Integer -> Integer
+inst r = (((5399*r)+7901) `mod` 823) `mod` 256
+
+sizeCmd :: [String] -> QuiltM ()
+sizeCmd [] = do
+  curSz <- gets quiltSize
+  lift $ outputStrLn $ "The current size is " ++ showSize curSz ++ "."
+sizeCmd (sz:_)
+  = case all isDigit sz of
+      False -> lift $ outputStrLn "Please provide an integer size."
+      True  -> do
+        modify (\qs -> qs { quiltSize = read sz })
+        lift $ outputStrLn $ "Size for :saved images is now "
+                             ++ sz ++ "x" ++ sz ++ "."
+
+saveCmd []     = lift $ outputStrLn "Please provide a file name to save in."
+saveCmd (fn:_) = do
+  sz <- gets quiltSize
+  saveQFun True sz fn
+
+saveQFun :: Bool -> Int -> FilePath -> QuiltM ()
+saveQFun saveSrc qSize fn = do
+  mq <- gets quiltFun
+  ms <- gets quiltSrc
+  case mq of
+    Nothing -> lift $ outputStrLn "Nothing to save!"
+    Just q  -> do
+      let imgFn = fn ?<.> "png"
+          srcFn = fn -<.> "txt"
+      liftIO $ saveQFunRaw qSize imgFn q
+      lift $ outputStrLn $ showSize qSize ++ " -> " ++ imgFn
+      when saveSrc $ do
+        liftIO $ maybe (return ()) (writeFile srcFn) ms
+        lift   $ maybe (return ()) (\_ -> outputStrLn $ "source -> " ++ srcFn) ms
+
+base ?<.> ext = if ('.' `elem` base) then base else base ++ "." ++ ext
+base -<.> ext = takeWhile (/= '.') base ++ "." ++ ext
+
+saveQFunRaw :: Int -> FilePath -> QuiltFun -> IO ()
+saveQFunRaw qSize fn q = do
+  let q' r c = q (2*(fromIntegral r / fromIntegral qSize) - 1)
+                 (-(2*(fromIntegral c / fromIntegral qSize) - 1))
+      img    = ImageRGB8 $ generateImage (\r c -> toPixel $ q' r c) qSize qSize
+  savePngImage fn img
+
+toPixel :: Color -> PixelRGB8
+toPixel [r,g,b] = PixelRGB8 (conv r) (conv g) (conv b)
+  where
+    conv :: Double -> Word8
+    conv v = fromIntegral . clamp $ floor (v * 256)
+    clamp :: Int -> Int
+    clamp v
+      | v > 255   = 255
+      | v < 0     = 0
+      | otherwise = v
+toPixel c = error $ "toPixel called on list of length /= 3: " ++ show c
+
+eval :: String -> QuiltM ()
+eval s = case evalQuilt s rs of
+  Left  err  -> lift $ outputStrLn err
+  Right qfun -> do
+    modify (\qs -> qs { quiltFun = Just qfun
+                      , quiltSrc = Just s
+                      }
+           )
+    saveQFun False defaultSize "quilt.png"
+
+main :: IO ()
+main = quiltREPL
+
+
+
+
+
+Module 12: Embedded domain-specific languages
+=============================================
+
+* Write your team names here:
+
+Before starting to work on this module, the driver should:
+
+  - Make sure you have `QuiltEDSL.lhs`, `quilt.cabal`, and `stack.yaml` downloaded.
+  - Place them in a folder together.
+  - Open a command prompt, navigate to the folder containing the files, and type `stack build`.  Leave this running in the background while starting to look at the rest of the module, since building may take a while the first time while `stack` downloads and builds necessary prerequisites.
+
+Embedded Domain-Specific Languages
+==================================
+
+A *domain-specific* language (DSL) is a language that is designed to solve
+problems in a particular domain---as opposed to a general-purpose
+language.
+
+In a traditional implementation of a DSL, we just write a standalone
+parser, type checker, interpreter, and so on.  This is what you are
+doing for Project 3.
+
++ Pro: this gives us total control over the language!
++ Con: we have to do all the work ourselves, from scratch!
+
+An *embedded* (domain-specific) language (EDSL) piggybacks on an
+existing "host" language, *i.e.* the language is really "just" a
+library in the host language.  Then EDSL programs *are* programs in
+the host language which use things from the library.
+
++ Pro: it is a lot less work, and we get a lot of stuff (*e.g.*
+  parsing, typechecking) for free.
++ Con: design of the EDSL is constrained; we have to "shoehorn" the
+  EDSL into the host language.
+
+It is not particularly important to distinguish between libraries on
+the one hand and EDSLs on the other.  They are on a spectrum.  In one
+sense, any library can be considered an EDSL.  This means it makes
+sense to apply tools of language design to thinking about library API
+design.
+
+Quilt as a Haskell EDSL
+=======================
+
+As we will see, Haskell makes a particularly good host language for
+EDSLs (because of things like generally clean syntax, user-defined
+operators, first-class functions, and many abstraction mechanisms such
+as type classes).
+
+The first question we should ask when designing any DSL: what are the types?
+In Quilt, we had Booleans, Numbers, and Colors, all of which could
+vary over the plane.
+
+In our EDSL version, we will still be able to have normal Haskell
+(non-varying) booleans, numbers, and so on, so it will be useful to
+distinguish between single values and values that vary over the plane.
+
+> {-# LANGUAGE FlexibleInstances    #-}
+> {-# LANGUAGE TypeSynonymInstances #-}
+> {-# LANGUAGE ViewPatterns         #-}
+>
+> module QuiltEDSL where
+>
+> import           Codec.Picture
+> import           Data.Colour
+> import           Data.Colour.Names
+> import           Data.Colour.SRGB
+> import           Data.Complex
+> import           Data.Word
+>
+> type Color  = Colour Double   -- from the 'colour' library
+> type Number = Double
+
+This is what is known as a *shallow* embedding: everything deals
+directly with the desired semantics.  So we just define a quilt as a
+function that takes two `Double`s.  Note we can make it *polymorphic*:
+a `Quilt a`, for some type `a`, is an `a` that varies over the plane.
+So ultimately we will render a `Quilt Color`, but we have seen how it
+is useful to also have things like `Quilt Bool`.
+
+> type Quilt a = Number -> Number -> a
+
+Here is some stuff the Quilt language has, that we'd
+like to develop in this EDSL setting:
+
+- arithmetic (on numbers or colors)
+- `if` statements
+- $x$, $y$
+- `quilt`
+- comparison operators
+- color names
+- Booleans
+- numbers
+- color literals (lists)
+
+Let's start with the `quilt` operator.  In a standalone language
+implementation, `quilt` is just arbitrary syntax that we parse, type
+check, and interpret.  In our EDSL, `quilt` will be a *Haskell
+function*.  Its *implementation* will be the `quilt` code from the
+interpreter; its *type* should encode the typing rules for `quilt`.
+
+A first try might be:
+
+```
+quilt :: Color -> Color -> Color -> Color -> Quilt Color
+```
+but this would only allow us to make quilts with four solid color
+blocks.  The `quilt` operator was definitely more powerful than this!
+
+A second try:
+```
+quilt :: Quilt Color -> Quilt Color -> Quilt Color -> Quilt Color -> Quilt Color
+```
+
+This is better, but still doesn't capture everything: recall we could also
+use `quilt` on *e.g.* quilts of numbers, or quilts of booleans.
+
+Here's the real type we want, and the implementation (lifted straight
+from the interpreter):
+
+> quilt :: Quilt a -> Quilt a -> Quilt a -> Quilt a -> Quilt a
+> quilt q1 q2 q3 q4 = \x y ->
+>   case (x < 0, y > 0) of   -- which quadrant are we in?
+>     (True , True)  -> q1 (2*x + 1) (2*y - 1)  -- call the appropriate quilt
+>     (True , False) -> q3 (2*x + 1) (2*y + 1)  -- with transformed coordinates
+>     (False, True)  -> q2 (2*x - 1) (2*y - 1)
+>     (False, False) -> q4 (2*x - 1) (2*y + 1)
+
+`quilt` works on four `Quilt` values of *any* type `a` (as long as
+they are all the same type).
+
+However, note we can't write `quilt red green blue purple` like we
+could in the original Quilt language.  That was handled by subtyping,
+but Haskell doesn't have subtyping.  So we have to introduce functions
+to do subtyping explicitly.  This is one tradeoff of doing Quilt as an
+EDSL.
+
+* Fill in the definitions of `solid`, `x`, `y`, and `mkGrey` below.
+  For `mkGrey`, you can use the `sRGB` function to create a `Color`
+  from three R, G, B values. Hints:
+
+    - Remember that `Quilt a` is just shorthand for `Number -> Number -> a`.
+    - Remember that to make a function of type `Number -> Number -> a` you
+      can use a lambda expression, by writing e.g. `\x y -> ...` where the
+      `...` can refer to `x` and `y`, and has type `a`.
+    - To see whether your definitions type check, type `stack ghci` at a command prompt, which will try to load this module into GHCi.
+
+> -- 'solid c' creates a Quilt which simply has the constant value c
+> -- everywhere in the plane.
+> solid :: a -> Quilt a
+> solid c = undefined
+>
+> -- 'x' is the Quilt which, for each location in the plane, has value
+> -- equal to the x-coordinate.
+> x :: Quilt Number
+> x = undefined
+>
+> -- 'y' is the Quilt which, for each location in the plane, has value
+> -- equal to the y-coordinate.
+> y :: Quilt Number
+> y = undefined
+>
+> -- At each location, given a number n, turn it into the gray color
+> -- with RGB values all equal to n.
+> mkGrey :: Quilt Number -> Quilt Color
+> mkGrey q = undefined
+
+We can't use normal Haskell `if`, so we make our own `ifQ` function
+which works on Quilts.  (Actually, we *could* use Haskell's `if
+... then ... else` syntax with the `RebindableSyntax` extension, which
+would allow us to redefine how `if ... then ... else` works! But we
+won't go into that now.)
+
+* Define a function `ifQ` with an appropriate type, and fill in its implementation.
+
+We also can't use the `<` operator since it returns a `Bool`, and we
+want a `Quilt Bool`.  So we make our own called `<.`.
+
+> infixl 4 <.
+>
+> (<.) :: Ord a => Quilt a -> Quilt a -> Quilt Bool
+> q1 <. q2 = \x y -> q1 x y < q2 x y
+
+At this point we can now try things like
+```
+renderQuilt 256 "quilt.png" (ifQ (x <. y) (solid red) (solid blue))
+```
+Run `stack ghci` and simply paste the above expression into the GHCi prompt. Then view the resulting `quilt.png` file using your browser or some other image viewing program.  You may wish to try other expressions as well.
+
+We also note that we get lots of cool stuff from Haskell for free,
+like `let`-expressions and variables, recursive functions, ... try
+playing with the following definition.  What does it do? (Try it!)
+
+> quilterate :: Int -> Quilt a -> Quilt a
+> quilterate 0 q = q
+> quilterate n q = let q' = quilterate (n-1) q in quilt q' q' q' q'
+
+Overloading
+===========
+
+`quilt` and `+` were both overloaded to work on multiple types.
+However, they worked rather differently.
+
+- `quilt` works for *any* type, and it does the same thing no matter
+  which type is used.  This is called *parametric polymorphism*, and
+  corresponds to *e.g.* Java generics.  It also coresponds to
+  Haskell's polymorphism.  This is why the type for `quilt` above was
+  `Quilt a -> ...`, indicating that `quilt` will work for *any*
+  type `a`.
+
+- Addition, on the other hand, only works on *specific* types, and it
+  works in a different way specific to each one.  For example, on
+  numbers it does normal addition; on colors it adds channels
+  componentwise.  This is called *ad-hoc polymorphism*, and
+  corresponds to Java interfaces, subclassing, and method
+  overloading.  It also corresponds to Haskell *type classes*.
+
+In Haskell, arithmetic is governed by the `Num` type class.  We can
+get `+` and friends to work on things like colors just by making a new
+*instance* of the `Num` class for `Color`.
+
+> -- Apply a (Double -> Double) function to each component of a Color.
+> mapColor :: (Double -> Double) -> Color -> Color
+> mapColor f (toSRGB -> RGB r g b) = sRGB (f r) (f g) (f b)
+>
+> -- Combine two colors by combining each color channel separately,
+> -- using the given function.
+> zipColor :: (Double -> Double -> Double) -> Color -> Color -> Color
+> zipColor (&) (toSRGB -> RGB r1 g1 b1) (toSRGB -> RGB r2 g2 b2)
+>   = sRGB (r1 & r2) (g1 & g2) (b1 & b2)
+>
+> -- This 'instance' defines how the required 'Num' operations (+, *,
+> -- -, abs, signum, and fromInteger) will work on the Color type.
+> instance Num Color where
+>   (+) = zipColor (+)
+>   (-) = zipColor (-)
+>   (*) = zipColor (*)
+>   abs = mapColor abs
+>   signum = mapColor signum
+>
+>   fromInteger i = sRGB i' i' i'
+>     where i' = fromInteger i
+
+* Your turn: make an instance of `Num` for `Quilt a`.
+
+> -- Apply a function to the values of a Quilt at every point in the
+> -- plane.
+> mapQuilt :: (a -> b) -> Quilt a -> Quilt b
+> mapQuilt = undefined
+>
+> -- Combine two Quilts using the given function to combine their
+> -- values at each point in the plane.
+> zipQuilt :: (a -> b -> c) -> Quilt a -> Quilt b -> Quilt c
+> zipQuilt = undefined
+>
+> instance Num a => Num (Quilt a) where
+>   -- fill me in!
+
+Now you should be able to try things like
+```
+(ifQ (x <. y) (solid red) (solid blue)) + (ifQ (-x <. y) (solid green) (solid purple))
+```
+
+It's worth thinking carefully about how the `-x` works: it turns into
+a call to the `negate` function of the `Num` class, which by default
+is implemented as `negate x = fromInteger 0 - x`.  So it uses our
+implementation of `(-)` for `Quilt`.  Note also that the central
+addition is adding two `Quilt Color`s.  To do this, it first calls
+`(+)` for `Quilt`, which uses `zipQuilt` to apply `(+)` to every point
+in the quilts.  This `(+)` in turn is the version of `(+)` for `Color`.
+
+
+* Make instances of the `Fractional` and `Floating` type classes for
+  `Quilt a`.  These instances will be similar to the instance for
+  `Num`.  You will probably have to look up documentation for
+  `Fractional` and `Floating`.
+
+* You should now be able to render examples like
+    - `mkGrey $ sin (8*pi*x)`
+    - `mkGrey ((x + 1)/2) * solid red + mkGrey ((y+1)/2) * solid blue`
+
+Notice how we have to use `mkGrey` and `solid`.
+
+* What is the type of `((x+1)/2)`?
+
+* What is the type of `mkGrey ((x+1)/2)`?
+
+* What is the type of `red`?
+
+* What is the type of `solid red`?
+
+Now let's add some geometric transformations.
+
+* Implement functions `tx` (translate X), `ty` (translate Y), `scale`
+  (scale by a given factor), and `rot` (rotate by an angle in
+  degrees) to do translation, scaling, and rotation, respectively.
+  Part of the exercise is to figure out appropriate types for these
+  functions.
+
+* Now translate the following example into our EDSL and make sure it
+   produces an appropriate image.  Note, the syntax shown below is
+   Quilt syntax, not valid Haskell syntax, so you cannot just paste
+   the below into GHCi.  You will have to make a few modifications to adapt it to the EDSL.
+
+```
+let swirl = (let grate = -cos (x*20*pi)/2 + 0.5 in grate @ (20*(sin(50*sqrt(x*x + y*y)))))
+in  swirl * yellow + (y+1)/2 * blue
+```
+
+By the power of EDSLs
+=====================
+
+* Try rendering `mystery` below.  For optimal viewing, translate it `0.5`
+  units in the positive `x` direction first.
+
+> z :: Quilt (Complex Double)
+> z = (:+)
+>
+> fromComplex :: (Complex Double -> a) -> Quilt a
+> fromComplex f = mapQuilt f z
+>
+> mysteryCount :: Quilt Int
+> mysteryCount = fromComplex $ \c ->
+>   length . take 100 . takeWhile ((< 2) . magnitude) . iterate (f c) $ 0
+>   where
+>     f c w = w*w + c
+>
+> mystery :: Quilt Color
+> mystery = mkGrey $ mapQuilt pickColor mysteryCount
+>   where
+>     pickColor n = logBase 2 (fromIntegral n) / 7
+
+* Explain why this is a good example of one of the benefits of using
+  an EDSL.  Why would it have been difficult to produce this image using
+  the non-embedded Quilt language?
+
+* Play around and make at least two other cool example images.  Try to
+  create images that take advantage of the EDSL, *i.e.* images that
+  would have been difficult or impossible to make with project 3.
+
+Rendering
+=========
+
+You can ignore the code below, it just does the work of rendering a
+`Quilt Color` to an image file.
+
+> renderQuilt :: Int -> FilePath -> Quilt Color -> IO ()
+> renderQuilt qSize fn q = do
+>   let q' r c = q (2*(fromIntegral r / fromIntegral qSize) - 1)
+>                  (-(2*(fromIntegral c / fromIntegral qSize) - 1))
+>       img    = ImageRGB8 $ generateImage (\r c -> toPixel $ q' r c) qSize qSize
+>   savePngImage fn img
+>
+> toPixel :: Color -> PixelRGB8
+> toPixel (toSRGB -> RGB r g b) = PixelRGB8 (conv r) (conv g) (conv b)
+>   where
+>     conv :: Double -> Word8
+>     conv v = fromIntegral . clamp $ floor (v * 256)
+>     clamp :: Int -> Int
+>     clamp v
+>       | v > 255   = 255
+>       | v < 0     = 0
+>       | otherwise = v
+
+
+-- ACAB
+
+-- INST CA : [NUMBER OF STATES]   :: Natural     
+--           [NUMBER OF DIMENS]   :: 1D OR 2D OR TORUS OR MOBIUSTRIP     
+		  
+-- 		  [NEIGHBORHOOD]       :: [Double] where each double represents the weight of a particular neighbor. each successive element spirals from Moore 					neighborhood like 
+
+-- 				234
+-- 				1X5  etc.
+-- 				876
+				
+-- 		  [INITIAL CONDITIONS] :: [Natural]	begins with "default", then spirals from center for Particular Formations
+		  
+-- 		  [TRANSITIONS]  :
+		  
+-- 		  A center state transitions according to a few different types of rules. We've got a decently general framework that runs both 110 and CGOL. requires a center and neighborhood length up top. Interacting w system looks like 
+		  
+-- 		  \\WOLFRAM//
+-- 		  INPUT CENTER
+-- 		  2
+-- 		  c=2
+-- 		  INPUT NBHD 
+-- 		  1
+-- 		  ERROR |n| < c
+-- 		  0 1 2
+-- 		  WOLFRAM NBHD 
+-- 		  OXO
+		  
+-- 		  INPUT SURVIVING [NBHD]
+		  
+-- 		  110 101 011 010 001
+		  
+-- 		  OR
+		  
+-- 		  SUM=2 OR,TO SUM=3
+		  
+		  
+
+
+{-# LANGUAGE GADTs #-}
+{-# OPTIONS_GHC -Wall #-}
+{-# LANGUAGE FlexibleInstances    #-}
+{-# LANGUAGE ViewPatterns         #-}
+
+module Quilt where
+
+import           Parsing2
+import qualified Data.Map as M
+import Prelude hiding ((<$>), (<$), (<*>), (<*), (*>))
+import Codec.Picture ()
+import           Data.Colour
+import           Data.Colour.Names
+import           Data.Colour.SRGB
+import           Data.Complex
+import           Data.Word
+import Control.Exception (ArithException)
+
+data Dimension where
+  Default1D    :: Natural -> Dimension
+  Torus1D      :: Natural -> Dimension
+  Default2D    :: Natural -> Dimension
+  Torus2D      :: Natural -> Dimension
+  MobiuStrip2D :: Natural -> Dimension
+  deriving (Show)
+
+type Neighborhood = [Double]
+type DefaultIC    = [Natural]
+type ParticularIC = [Natural]
+
+
+-- | A quilt function produces a Color for any given location.  The
+--   parameter is a complex number a+bi | a,b <= 1.
+
+type ACABFun = Natural -> Natural -> Bool
+
+evalACAB :: String -> Either String QuiltFun
+evalACAB s = case parse acab s of
+  Left pErr  -> Left (show pErr)
+  Right e    ->
+    case getPIN of
+    Left rErr -> Left (show rErr)
+    Right r   ->
+      case interpQuilt M.empty e of
+        Left iErr -> Left (show (showInterpError iErr))
+        Right v   -> Right v
+
+
+lexer :: TokenParser u
+lexer = makeTokenParser $ emptyDef    
+  { reservedNames = ["x","y","quilt","if","then","else","and","or","!","<",">","=",
+                     "+","-","*","/","%","^","sin","cos","tan","pi","e",
+                     "?","mz","pz","rot","dim","refl"] }
+
+parens :: Parser a -> Parser a
+parens     = getParens lexer
+
+reservedOp :: String -> Parser ()
+reservedOp = getReservedOp lexer
+
+reserved :: String -> Parser ()
+reserved   = getReserved lexer
+
+double :: Parser Double
+double     = reserved "pi"  *> 3.14159265359
+double     = reserved "e"   *> 2.718281828459
+double     = reserved "x"   *> X
+double     = reserved "y"   *> Y
+double     = reserved "mz"  *> MZ
+double     = reserved "pz"  *> PZ
+double     = reserved "?"   *> R
+double     = getFloat lexer
+
+natural :: Parser Integer
+natural    = getInteger lexer
+
+naturalOrFloat :: Parser (Either Integer Double)
+naturalOrFloat = getNaturalOrFloat lexer 
+
+whiteSpace :: Parser ()
+whiteSpace = getWhiteSpace lexer
+
+identifier :: Parser String
+identifier = getIdentifier lexer
+
+coordx :: Parser Double
+coordx = oneOf "[" *> double
+
+coordy :: Parser Double
+coordy = oneOf "," *> double <* oneOf "]"
+
+coorda :: Parser Double
+coorda = double <* oneOf "+" 
+
+coordb :: Parser Double
+coordb = double <* oneOf "i"
+
+redRGB :: Parser Double
+redRGB = coordx
+
+greenRGB :: Parser Double
+greenRGB = oneOf "," *> double
+
+blueRGB :: Parser Double
+blueRGB = coordy
+
+quilt :: Parser Quilt
+quilt = whiteSpace *> parseQuiltAtom <* eof
+
+
+data Quilt where
+  Lit   :: Double -> Double -> Double -> Double -> Double -> TyLit   -> Quilt  
+  Uni   :: Double -> Double -> UOp    -> Quilt  -> Quilt
+  Bin   :: Double -> Double -> BOp    -> Quilt  -> Quilt  -> Quilt
+  If    :: Double -> Double -> Quilt  -> Quilt  -> Quilt  -> Quilt
+  Qubit :: Double -> Double -> Quilt  -> Quilt  -> Quilt -> Quilt   -> Quilt
+  deriving (Show) 
+
+data Var where
+  X     :: Double
+  Y     :: Double
+  Z     :: Double
+  MZ    :: Double
+  PZ    :: Double
+  R     :: Double
+  deriving (Show)
+
+data TyLit where
+  Qool  :: TyLit
+  Color :: TyLit
+  deriving (Show)
+
+data UOp where
+  Not  :: UOp
+  Rot  :: Double -> UOp
+  Refl :: Double -> UOp
+  Dim  :: Double -> Double -> Double -> Double -> UOp
+  Trig :: Pytho  -> UOp
+  deriving (Show, Eq)
+
+
+data BOp where
+  Plus   :: BOp
+  Minus  :: BOp
+  Times  :: BOp
+  Raise  :: BOp
+  Div    :: BOp
+  Mod    :: BOp
+  Less   :: BOp
+  More   :: BOp
+  Same   :: BOp
+  Or     :: BOp
+  And    :: BOp
+  deriving (Show, Eq)
+
+data Pytho where 
+  Sin :: Pytho
+  Cos :: Pytho
+  Tan :: Pytho
+  deriving (Show, Eq)
+
+tangent :: Double -> Double
+tangent x = sine x / cosine x
+
+cosine :: Double -> Double
+cosine x = sine (x+(3.14159265359 / 2))
+
+bhaskara :: Double -> Double
+bhaskara x = (16*x*(3.14159265359 - x))/((5*(3.14159265359 ** 2))-(4*x*(3.14159265359 - x)))
+
+sine :: Double -> Double 
+sine 0 = 0
+sine x = if modulus x 6.28318530718 > 3.1415926535
+  then truncate' ((-1) * bhaskara (modulus x 6.28318530718-3.1415926535)) 4
+  else truncate' (bhaskara (modulus x 6.28318530718)) 4
+
+-- x : number you want rounded, n : number of decimal places you want...
+-- https://stackoverflow.com/questions/18723381/rounding-to-specific-number-of-digits-in-haskell
+
+truncate' :: Double -> Int -> Double
+truncate' x n = (x * (10 ** realToFrac n)) / (10 ** realToFrac n)
+
+modulus :: Double -> Double -> Double
+modulus a b
+  | (0 < a) && (a < b) = a
+  | 0 > b = (-1) * modulus a ((- 1) * b)
+  | a < b = modulus (a + b) b
+  | otherwise = modulus (a - b) b
+
+-- randomnumbers = []
+
+-- a = 823     # set at beginning
+-- b = 5399    # set at beginning
+-- c = 7901    # set at beginning
+--
+-- r = r = int(input("input 4-digit PIN number"))
+-- for i in range(25):
+--     r = ((b*r) + c) % a
+--     randomnumbers.append(r % 2)
+-- print(randomnumbers)
+--
+-- We'll get our PIN at the beginning of a Quilt session, and
+-- use it throughout.
+
+
+lcg :: Integer -> Integer -> [Integer]
+lcg r iter = inst r : lcg (inst r) (iter-1)
+
+inst :: Integer -> Integer
+inst r = (((5399*r)+7901) `mod` 823) `mod` 256
+
+-- A rash assumption -- suppose this distribution is uniform. How can we guarantee probability p of collapse to 1?
+-- Think about floats! There are 256 types of grey, not an uncountably infinite amount. So, we can just check that 
+-- 256*[Lit1] > lcg[i], returning 1 if true, 0 if false.
+
+
+parseQuiltAtom :: Parser Quilt
+parseQuiltAtom =
+      Lit 0 0           <$>  redRGB <*> greenRGB <*> blueRGB . Color
+  <|> If   0 0           <$> (reserved "if"    *> parseQuiltAtom) 
+                         <*> (reserved "then"  *> parseQuiltAtom) 
+                         <*> (reserved "else"  *> parseQuiltAtom)
+  <|>                         parens parseBin
+  <|> Uni 0 0 Not        <$> (reserved "!"     *> parseQuiltAtom)
+  <|> Uni 0 0            <$> (Rot    <$> (reserved "rot"  *> double)) 
+                         <*> parseQuiltAtom
+  <|> Uni 0 0            <$> (Refl   <$> (reserved "refl" *> double)) 
+                         <*> parseQuiltAtom
+  <|> Uni 0 0            <$> (Dim    <$> (reserved "dim"  *> double)
+                         <*> double
+                         <*> double
+                         <*> double)
+                         <*> parseQuiltAtom
+  <|> Uni 0 0 (Trig Sin) <$> (reserved "sin"   *> double)
+  <|> Uni 0 0 (Trig Cos) <$> (reserved "cos"   *> double)
+  <|> Uni 0 0 (Trig Tan) <$> (reserved "tan"   *> double)
+  <|> Qubit 0 0          <$> (reserved "quilt" *> parseQuiltAtom) <*> parseQuiltAtom <*> parseQuiltAtom <*> parseQuiltAtom 
+  <|> Lit 0 0           <$>  double . Qool
+  
+
+-- Interpreter
+
+
+parseBin :: Parser Quilt
+parseBin = buildExpressionParser table parseQuiltAtom
+  where
+    table = [   [ Infix (Bin 0 0 Raise <$ reservedOp "^") AssocRight],
+                [ Infix (Bin 0 0 Times <$ reservedOp "*") AssocLeft,
+                  Infix (Bin 0 0 Div   <$ reservedOp "/") AssocLeft,
+                  Infix (Bin 0 0 Mod   <$ reservedOp "%") AssocLeft],
+                [ Infix (Bin 0 0 Less  <$ reservedOp "<") AssocLeft
+                , Infix (Bin 0 0 More  <$ reservedOp ">") AssocLeft
+                , Infix (Bin 0 0 Same  <$ reservedOp "=") AssocLeft],
+                [ Infix (Bin 0 0 And   <$ reserved "and") AssocLeft
+                , Infix (Bin 0 0 Or    <$ reserved  "or") AssocLeft
+                , Infix (Bin 0 0 Xor   <$ reserved "xor") AssocLeft
+                , Infix (Bin 0 0 Iff   <$ reserved "iff") AssocLeft
+            ],  [ Infix (Bin 0 0 Plus  <$ reservedOp "+") AssocLeft
+                , Infix (Bin 0 0 Minus <$ reservedOp "-") AssocLeft
+                ]
+            ]
+
+
+
+
+type Env = M.Map String Double
+
+data InterpError where
+  DivByZero  :: InterpError
+  YouFucked  :: InterpError
+
+showInterpError :: InterpError -> String
+showInterpError DivByZero      = "Division by zero"
+showInterpError YouFucked      = "Don't do that!!"
+
+interpQuilt :: Env -> Quilt -> Either InterpError QuiltFun
+interpQuilt _ (Lit1 0 0 p)            = Right $ const [p,p,p]
+interpQuilt _ (Lit3 0 0 r g b)        = Right $ const [r,g,b]
+interpQuilt e (Uni  0 0  op q)        = case (interpQuilt e q) of
+  Right (Lit1 0 0 p)     -> interpUniQool op p
+  Right (Lit3 0 0 r g b) -> interpUniColor
+  _                      -> Left YouFucked
+interpQuilt e (Qubit 0 0 q1 q2 q3 q4) = Right $ qubit >>= (interpQuilt e q1) 
+                                                      >>= (interpQuilt e q2) 
+                                                      >>= (interpQuilt e q3) 
+                                                      >>= (interpQuilt e q4)
+
+
+interpQuilt e (If   0 0 (Lit1 0 0 p) th el) = case (collapse e bo) of 
+  Right  True  -> Right $ const [1,1,1]
+  Right False  -> Right $ const [0,0,0]
+  Left      x  -> Left x
+
+interpQuilt _ _ = undefined
+
+interpUniQool :: UOp -> Double -> QuiltFu
+
+
+collapse :: Env -> Quilt -> Bool
+collapse e q 
+
+qubit :: QuiltFun -> QuiltFun -> QuiltFun -> QuiltFun -> Complex Double -> QuiltFun
+qubit q1 q2 q3 q4 = \(a :+ b)
+  case (a < 0, b > 0) of   -- which quadrant are we in?
+    (True , True)  ->  (a/2+1) -(b/2+1) q1
+    (True , False) ->  (a/2+1) -(b/2+1) q1
+    (False, True)  -> -(a/2+1)  (b/2+1) q1
+    (False, False) -> -(a/2+1) -(b/2+1) q1
+
+

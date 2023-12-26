@@ -1,0 +1,78 @@
+\begin{center}
+\begin{tabular}{|c|c|c|c|} 
+  
+  French & Spanish & English & German \\
+  (1, 0, *16, *18) & (1, 0, *6, 0)        & (0, 0, 1, 0)        & (0, 0, 1, 0) \\
+  \hline
+  (1, *18, *24, *22) & (*8, 1, *14, *23)    & (*11, *35, 1, *-13) & (*22, 0, *20, 1) \\
+  \hline
+  (1, 0, *9, 0) & (1, 0, *5, *12)      & (*9, 0, 1, 0)       & (0, 0, 1, 0)  \\
+  \hline
+  (1, 0, *10, 0) & (0.55, 0, 0.44, *17) & (*14,*32,1,*18)     & (1, 0, *16, *18)  \\
+  \hline
+  (1, *, *16, *18) & (0.75, 0, 0.25, *4)  & (*14, 0, 1, *12)    & (*6, 0, 1, 0)  \\
+  \hline
+  (1, 0, *13, 0) & (*10, 1, *13, *19)   & (*10, 0, 1, *18)    & (0, 0, 1, 0) \\
+  \hline
+  (0, 0, 1, 0) & (*12, 1, *14, *15)   & (*15, 0, 1, 0)      & (*18, *29, *19, 1) \\
+  \hline
+  (1, *7, *10, *16) & (*14, 1, *19, *32)   & (*15, *29, 1, *13)  & (*15, *21, *12, 1) \\ 
+  \hline  
+\end{tabular}
+\end{center}
+
+  \item[$\varowedge $] &  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood.
+  \item[$\varovee   $] &  You don't want me anymore, so I'll just walk right out that door.
+  \item[$\varoplus  $] &  That knock a cop off unconscious molotov cocktailing sound, bomb a snitch.
+  \item[$\varotimes $] &  Bragging about how you had it all dialed? Well, what's up now when your stuff is gone?
+  \item[$\varodot   $] &  Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn.
+  \item[$\varocircle$] &  We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world.
+  \item[$\varobar   $] &    As I look over this beautiful land, I can't help but realize that I am alone.
+  \item[$\varominus $] &  I light my torch and burn it, I am the beast I worship.
+
+
+
+
+The eight sentences, in English, were sourced mostly from Death Grips. The rest are direct translations sourced from Google Translate. The Java model was trained extensively on English, Spanish, French, and German, and as such it predicted the following for those sentences. 
+
+The model, initially was only trained on those languages. I used Google Translate again for English to Xhosa and Swahili. I expected them to score similarly, but not exceedingly so, as Swahili has many loanwords from Arabic, and Xhosa is mostly spoken in South Africa, far from any Arabic-speaking countries, in addition to being tonal and utilizing "click" consonants (c,x, and q mark central, lateral, and post-alveolar clicks respectively). 
+
+For my other two languages, I chose two from the U.S. that were artificially created less than 50 years ago. While it'd be easy to imagine the two would have a 
+lot in common, they have opposite design philosophies. The first, Lojban, was developed in 1987 by a commitee of academics seeking a language that was truly 
+syntactically unambiguous. After a lot of infighting and a couple of lawsuits (the linguists, set theorists, and AI researchers did not get along) the language 
+was instantiated, and the language has a website with a dictionary, several published works, and a translator. I ranthe model without training it, and found it 
+to think the sentences were         Then, I trained the model on a translation of Kafka's The Metamorphosis, after which it guessed this
+
+The other conlang that I chose was Toki Pona. In contrast to the years of academic energy and discussion that went into Lojban, Toki Pona was invented by one linguist as a personal project over less than a year. It has 120 words, total, and seeks to reduce complex concepts to simple ones. For example, the translation of "teacher" is "jan pi pana sona", which means "PERSON THAT GIVES KNOWLEDGE". This language is much more difficult to translate by algorithm than any of the others that I selected. The one implementation of an English to Toki Pona translator that I found on the internet was an AI coding project with a lot of available data and lackluster results. Nevertheless, I retrieved enough toki pona to test the model on it, and a novel-length .txt file, "Jan Sitata", to train the model.
+
+
+
+
+trois chambres dans un bon quartier en feu comme une margarita en bois
+tu ne veux plus de moi alors je vais juste passer cette porte
+cela fait tomber un flic inconscient du bruit dun cocktail molotov bombarde
+vous vous vantez de la façon dont vous avez tout composé  eh bien que 
+trop de temps passé dans le labyrinthe vous rendra fou je me sens si mal je suis là depuis 
+nous ne voulons pas de votre argent sale nous n’avons pas besoin de votre 
+en contemplant ce magnifique pays je ne peux mempêcher de réaliser que je suis seul
+jallume ma torche et je la brûle je suis la bête que jadore
+
+german
+drei schlafzimmer in guter nachbarschaft in flammen wie eine margarita aus holz
+du willst mich nicht mehr also gehe ich einfach durch die tür hinaus
+das macht einen polizisten bewusstlos molotow-cocktail-geräusch bombardiert einen spitzel
+prahlen sie damit dass sie alles geschafft haben was passiert jetzt wenn deine sachen weg sind
+wenn man zu viel zeit im labyrinth verbringt wird man wahnsinnig mir geht es so schlecht ich bin schon so lange dort dass ich mich nicht mehr daran erinnern kann wer ich bin oder wo ich stehe aber am ende schätze ich ist es mir völlig egal
+wir wollen ihr schmutziges geld nicht wir brauchen ihr unschuldiges blutvergießen nicht wir wollen nur ihre welt zerstören
+wenn ich über dieses wunderschöne land schaue wird mir bewusst dass ich allein bin
+ich zünde meine fackel an und verbrenne sie ich bin das tier das ich anbete
+
+xhosa
+amagumbi okulala amathathu kwindawo elungileyo evutha njengemargarita eyenziwe ngomthi
+awusandifuni ngoko ndiza kuphuma kanye ngala mnyango
+oko kunkqonkqoza ipolisa likhuphe isandi se-molotov se-cocktail ibhombu i-snitch
+ukuqhayisa ngendlela oyicofe ngayo yonke kulungile yintoni ngoku xa izinto zakho zimkile
+ixesha elininzi elichithwe kwi-maze liyakukuphambanisa ndiziva ndimbi kakhulu ndihleli ixesha elide andikhumbuli ukuba ndingubani okanye ndime phi kodwa ekugqibeleni ndiyacinga ukuba andiziniki nje
+asifuni mali yakho imdaka asifuni gazi lakho limsulwa sifuna nje ukuphelisa umhlaba wakho
+njengoko ndijonga lo mhlaba mhle andikwazi kuzibamba ndiqonde ukuba ndindedwa
+ndilayita itotshi yam ndiyitshise ndilirhamncwa endilinqulayo

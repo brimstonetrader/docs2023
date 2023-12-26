@@ -1,0 +1,29 @@
+SLIDES
+
+give alyssa our existing tilemaps and ask her to render in a similar style (using those assets or making new ones if she wants) 9 slides based on the following progression of facts. If she has ideas for animating stuff, we can do that part. 
+
+1. The first people to arrive in Arkansas 10,000 years ago got around by massive trails beaten down by migrating bison.
+
+2. Soon after, people began traversing our many waterways with canoes forged from trees.
+
+3. Hernando de Soto brought horses to Arkansas in the 1540s. The nickname for a horse drawn vehicle most common in Arkansas was a "trick".
+
+4. Railroads began to be constructed in the mid-1800s. By the turn of the century, most of Arkansas was connected to a network of trains, which carried both cargo and passengers.
+
+5. The first flight in Arkansas history was in a balloon, in 1879. Now, we mostly use airplanes.
+
+6. Our first real road, the "Dollarway", covered about 23 miles near Fort Smith, and debuted in 1907. Parts of it are still in use today. 
+
+7. Eisenhower's Interstate Highway System, which began construction in 1956, solidified a shift in passenger transit infrastructure in Arkansas away from rail, towards cars.
+
+8. Now, instead of by rail, most goods are transported via large truck, on the highway. As such, road maintenence is a constant expense for our state government. We spend $35,410 per highway mile, which is on the low end.
+
+9. Arkansas' current dependency on cars and trucks is a major contributor to climate change. From The New York Times, "Nearly 60 percent of carbon dioxide emissions in the US are from the 250 million passenger cars, S.U.V.s and pickup trucks". 
+
+SOURCES:
+
+https://talkbusiness.net/2021/11/arkansas-ranks-no-17-in-highway-system-cost-effectiveness-condition/
+
+https://encyclopediaofarkansas.net/entries/transportation-399/
+
+https://www.nytimes.com/2021/01/21/learning/whats-going-on-in-this-graph-climate-friendly-cars.html

@@ -1,0 +1,19 @@
+	MY DUMB FLOATING-POINT KNOCKOFF IDEA
+		a complex number z=a + bi can be mapped to a sphere xx + yy + zz = 1 by
+		
+		2a		        2b       		|z|^2+1
+		--------,		--------,		--------,    
+		|z|^2+1			|z|^2+1		    |z|^2+1	
+		
+		thus, any real number a can be mapped to a circle xx + yy = 1 by
+		
+		2a		aa-1
+		----,	--------    
+		aa+1	aa+1	
+		
+		how do we tell the angle (-)? 
+		
+		tan-1(-) -> (a^2-1)/2a on [0, pi/2] -> [a=1, a=infinity]. a cool thing about this system is that
+		infinity is very tangible and as such dividing by zero is fine, and 1/x is continuous.
+		
+		

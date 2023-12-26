@@ -1,0 +1,362 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\night> ghci
+GHCi, version 9.2.5: https://www.haskell.org/ghc/  :? for help
+ghci> :help
+ Commands available from the prompt:
+
+   <statement>                 evaluate/run <statement>
+   :                           repeat last command
+   :{\n ..lines.. \n:}\n       multiline command
+   :add [*]<module> ...        add module(s) to the current target set
+   :browse[!] [[*]<mod>]       display the names defined by module <mod>
+                               (!: more details; *: all top-level names)
+   :cd <dir>                   change directory to <dir>
+   :cmd <expr>                 run the commands returned by <expr>::IO String
+   :complete <dom> [<rng>] <s> list completions for partial input string
+   :ctags[!] [<file>]          create tags file <file> for Vi (default: "tags")
+                               (!: use regex instead of line number)
+   :def[!] <cmd> <expr>        define command :<cmd> (later defined command has
+                               precedence, ::<cmd> is always a builtin command)
+                               (!: redefine an existing command name)
+   :doc <name>                 display docs for the given name (experimental)
+   :edit <file>                edit file
+   :edit                       edit last module
+   :etags [<file>]             create tags file <file> for Emacs (default: "TAGS")
+   :help, :?                   display this list of commands
+   :info[!] [<name> ...]       display information about the given names
+                               (!: do not filter instances)
+   :instances <type>           display the class instances available for <type>
+   :issafe [<mod>]             display safe haskell information of module <mod>
+   :kind[!] <type>             show the kind of <type>
+                               (!: also print the normalised type)
+   :load[!] [*]<module> ...    load module(s) and their dependents
+                               (!: defer type errors)
+   :main [<arguments> ...]     run the main function with the given arguments
+   :module [+/-] [*]<mod> ...  set the context for expression evaluation
+   :quit                       exit GHCi
+   :reload[!]                  reload the current module set
+                               (!: defer type errors)
+   :run function [<arguments> ...] run the function with the given arguments
+   :script <file>              run the script <file>
+   :type <expr>                show the type of <expr>
+   :type +d <expr>             show the type of <expr>, defaulting type variables
+   :type +v <expr>             show the type of <expr>, with its specified tyvars
+   :unadd <module> ...         remove module(s) from the current target set
+   :undef <cmd>                undefine user-defined command :<cmd>
+   ::<cmd>                     run the builtin command
+   :!<command>                 run the shell command <command>
+
+ -- Commands for debugging:
+
+   :abandon                    at a breakpoint, abandon current computation
+   :back [<n>]                 go back in the history N steps (after :trace)
+   :break [<mod>] <l> [<col>]  set a breakpoint at the specified location
+   :break <name>               set a breakpoint on the specified function
+   :continue [<count>]         resume after a breakpoint [and set break ignore count]
+   :delete <number> ...        delete the specified breakpoints
+   :delete *                   delete all breakpoints
+   :disable <number> ...       disable the specified breakpoints
+   :disable *                  disable all breakpoints
+   :enable <number> ...        enable the specified breakpoints
+   :enable *                   enable all breakpoints
+   :force <expr>               print <expr>, forcing unevaluated parts
+   :forward [<n>]              go forward in the history N step s(after :back)
+   :history [<n>]              after :trace, show the execution history
+   :ignore <breaknum> <count>  for break <breaknum> set break ignore <count>
+   :list                       show the source code around current breakpoint
+   :list <identifier>          show the source code for <identifier>
+   :list [<module>] <line>     show the source code around line number <line>
+   :print [<name> ...]         show a value without forcing its computation
+   :sprint [<name> ...]        simplified version of :print
+   :step                       single-step after stopping at a breakpoint
+   :step <expr>                single-step into <expr>
+   :steplocal                  single-step within the current top-level binding
+   :stepmodule                 single-step restricted to the current module
+   :trace                      trace after stopping at a breakpoint
+   :trace <expr>               evaluate <expr> with tracing on (see :history)
+
+ -- Commands for changing settings:
+
+   :set <option> ...           set options
+   :seti <option> ...          set options for interactive evaluation only
+   :set local-config { source | ignore }
+                               set whether to source .ghci in current dir
+                               (loading untrusted config is a security issue)
+   :set args <arg> ...         set the arguments returned by System.getArgs
+   :set prog <progname>        set the value returned by System.getProgName
+   :set prompt <prompt>        set the prompt used in GHCi
+   :set prompt-cont <prompt>   set the continuation prompt used in GHCi
+   :set prompt-function <expr> set the function to handle the prompt
+   :set prompt-cont-function <expr>
+                               set the function to handle the continuation prompt
+   :set editor <cmd>           set the command used for :edit
+   :set stop [<n>] <cmd>       set the command to run when a breakpoint is hit
+   :unset <option> ...         unset options
+
+  Options for ':set' and ':unset':
+
+    +m            allow multiline commands
+    +r            revert top-level expressions after each evaluation
+    +s            print timing/memory stats after each evaluation
+    +t            print type after evaluation
+    +c            collect type/location info after loading modules
+    -<flags>      most GHC command line flags can also be set here
+                         (eg. -v2, -XFlexibleInstances, etc.)
+                    for GHCi-specific flags, see User's Guide,
+                    Flag reference, Interactive-mode options
+
+ -- Commands for displaying information:
+
+   :show bindings              show the current bindings made at the prompt
+   :show breaks                show the active breakpoints
+   :show context               show the breakpoint context
+   :show imports               show the current imports
+   :show linker                show current linker state
+   :show modules               show the currently loaded modules
+   :show packages              show the currently active package flags
+   :show paths                 show the currently active search paths
+   :show language              show the currently active language flags
+   :show targets               show the current set of targets
+   :show <setting>             show value of <setting>, which is one of
+                                  [args, prog, editor, stop]
+   :showi language             show language flags for interactive evaluation
+
+ The User's Guide has more information. An online copy can be found here:
+
+   https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghci.html
+
+ghci> :quit
+Leaving GHCi.
+PS C:\Users\night> ghci
+GHCi, version 9.2.5: https://www.haskell.org/ghc/  :? for help
+ghci> :load[!] [*]<01-Haskell.lhs>
+unknown command ':load[!]'
+use :? for help.
+ghci> :load[!] [*]<module> 01-Haskell.lhs
+unknown command ':load[!]'
+use :? for help.
+ghci> :load [01-Haskell.lhs]
+Couldn't read "[01-Haskell.lhs]" as [String]
+ghci> :load 01-Haskell.lhs
+
+<no location info>: error: can't find file: 01-Haskell.lhs
+Failed, no modules loaded.
+ghci> :load C:\Users\night\Downloads\01-Haskell.lhs
+[1 of 1] Compiling Main             ( C:\Users\night\Downloads\01-Haskell.lhs, interpreted )
+Ok, one module loaded.
+ghci> i :: Int
+-35
+ghci> n :: Integer
+25
+ghci> c
+'Z'
+ghci> b :: Bool
+True
+ghci> s
+"Hello, world!"
+ghci> f
+
+<interactive>:11:1: error:
+    * No instance for (Show (Integer -> Integer))
+        arising from a use of `print'
+        (maybe you haven't applied a function to enough arguments?)
+    * In a stmt of an interactive GHCi command: print it
+ghci> f :: Integer -> Integer
+
+<interactive>:12:1: error:
+    * No instance for (Show (Integer -> Integer))
+        arising from a use of `print'
+        (maybe you haven't applied a function to enough arguments?)
+    * In a stmt of an interactive GHCi command: print it
+ghci> g
+
+<interactive>:13:1: error:
+    * No instance for (Show (Integer -> Integer -> Integer))
+        arising from a use of `print'
+        (maybe you haven't applied a function to enough arguments?)
+    * In a stmt of an interactive GHCi command: print it
+ghci> g :: Integer -> Integer -> Integer
+
+<interactive>:14:1: error:
+    * No instance for (Show (Integer -> Integer -> Integer))
+        arising from a use of `print'
+        (maybe you haven't applied a function to enough arguments?)
+    * In a stmt of an interactive GHCi command: print it
+ghci> i = 12
+ghci> :type n
+n :: Integer
+ghci> f n = 2*n + 1
+ghci> f
+
+<interactive>:18:1: error:
+    * No instance for (Show (Integer -> Integer))
+        arising from a use of `print'
+        (maybe you haven't applied a function to enough arguments?)
+    * In a stmt of an interactive GHCi command: print it
+ghci> f :: Integer -> Integer
+
+<interactive>:19:1: error:
+    * No instance for (Show (Integer -> Integer))
+        arising from a use of `print'
+        (maybe you haven't applied a function to enough arguments?)
+    * In a stmt of an interactive GHCi command: print it
+ghci> f n
+51
+ghci> g m n
+
+<interactive>:21:3: error: Variable not in scope: m :: Integer
+ghci> 7 ^ 222
+40903915558252355961885564235233827390274916808670721972378015470397485101670867316479654900404204284975885535566242786061025593172032118590958393531614633803778811048702555046770492868049
+ghci> 19 'divmod' 3
+
+<interactive>:23:4: error:
+    * Syntax error on 'divmod'
+      Perhaps you intended to use TemplateHaskell or TemplateHaskellQuotes
+    * In the Template Haskell quotation 'divmod'
+ghci> 19 divmod 3
+
+<interactive>:24:4: error:
+    * Variable not in scope: divmod
+    * Perhaps you meant `divMod' (imported from Prelude)
+ghci> 19 divMod 3
+
+<interactive>:25:1: error:
+    * Could not deduce (Integral a0)
+        arising from a type ambiguity check for
+        the inferred type for `it'
+      from the context: (Integral a, Num t,
+                         Num ((a -> a -> (a, a)) -> t -> t1))
+        bound by the inferred type for `it':
+                   forall {a} {t} {t1}.
+                   (Integral a, Num t, Num ((a -> a -> (a, a)) -> t -> t1)) =>
+                   t1
+        at <interactive>:25:1-11
+      The type variable `a0' is ambiguous
+      These potential instances exist:
+        instance Integral Integer -- Defined in `GHC.Real'
+        instance Integral Int -- Defined in `GHC.Real'
+        instance Integral Word -- Defined in `GHC.Real'
+        ...plus one instance involving out-of-scope types
+        (use -fprint-potential-instances to see them all)
+    * In the ambiguity check for the inferred type for `it'
+      To defer the ambiguity check to use sites, enable AllowAmbiguousTypes
+      When checking the inferred type
+        it :: forall {a} {t1} {t2}.
+              (Integral a, Num t1, Num ((a -> a -> (a, a)) -> t1 -> t2)) =>
+              t2
+ghci> 19 'divMod' 3
+
+<interactive>:26:4: error:
+    * Syntax error on 'divMod'
+      Perhaps you intended to use TemplateHaskell or TemplateHaskellQuotes
+    * In the Template Haskell quotation 'divMod'
+ghci>     3 + 2
+5
+ghci>     19 - 27
+-8
+ghci>     div 19 3
+6
+ghci>     19 `div` 3
+6
+ghci>     mod 19 3
+1
+ghci>     19 `mod` 3
+1
+ghci>     19 `divMod` 3
+(6,1)
+ghci>     7 ^ 222
+40903915558252355961885564235233827390274916808670721972378015470397485101670867316479654900404204284975885535566242786061025593172032118590958393531614633803778811048702555046770492868049
+ghci>     (-3) * (-7)
+21
+ghci>     2*i + 3
+27
+ghci>     i + n
+37
+ghci> True and False
+
+<interactive>:38:1: error:
+    * Couldn't match expected type `(t0 Bool -> Bool) -> Bool -> t'
+                  with actual type `Bool'
+    * The function `True' is applied to two value arguments,
+        but its type `Bool' has none
+      In the expression: True and False
+      In an equation for `it': it = True and False
+    * Relevant bindings include it :: t (bound at <interactive>:38:1)
+ghci> True True && False
+
+<interactive>:39:1: error:
+    * Couldn't match expected type `Bool -> Bool'
+                  with actual type `Bool'
+    * The function `True' is applied to one value argument,
+        but its type `Bool' has none
+      In the first argument of `(&&)', namely `True True'
+      In the expression: True True && False
+ghci> True (&&) False
+
+<interactive>:40:1: error:
+    * Couldn't match expected type `(Bool -> Bool -> Bool)
+                                    -> Bool -> t'
+                  with actual type `Bool'
+    * The function `True' is applied to two value arguments,
+        but its type `Bool' has none
+      In the expression: True (&&) False
+      In an equation for `it': it = True (&&) False
+    * Relevant bindings include it :: t (bound at <interactive>:40:1)
+ghci> not True
+False
+ghci> True && False
+False
+ghci> True || False
+True
+ghci> True == True
+True
+ghci> True >= False
+True
+ghci> True > False
+True
+ghci> True <= False
+False
+ghci> True < False
+False
+ghci> if True then False
+
+<interactive>:49:19: error:
+    parse error (possibly incorrect indentation or mismatched brackets)
+ghci> if True then False else False
+False
+ghci> (n,c)
+(25,'Z')
+ghci> type (n,c)
+
+<interactive>:52:11: error:
+    parse error (possibly incorrect indentation or mismatched brackets)
+ghci> :type (n,c)
+(n,c) :: (Integer, Char)
+ghci> :fst (n,c)
+unknown command ':fst'
+use :? for help.
+ghci> fst (n,c)
+25
+ghci> :type fst
+fst :: (a, b) -> a
+ghci> e = (((6, (6, 5)), 6), 6)
+ghci> fst (fst (snd (fst e)))
+
+<interactive>:58:1: error:
+    * Could not deduce (Num ((a, b0), b1))
+        arising from a type ambiguity check for
+        the inferred type for `it'
+      from the context: Num ((a, b), b2)
+        bound by the inferred type for `it':
+                   forall {a} {b} {b2}. Num ((a, b), b2) => a
+        at <interactive>:58:1-23
+      The type variables `b0', `b1' are ambiguous
+    * In the ambiguity check for the inferred type for `it'
+      To defer the ambiguity check to use sites, enable AllowAmbiguousTypes
+      When checking the inferred type
+        it :: forall {a} {b1} {b2}. Num ((a, b1), b2) => a
+ghci>

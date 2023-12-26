@@ -1,0 +1,23 @@
+FORUM
+
+That's alright, hopefully my card games can help with future work on ludemes. 
+
+EMAIL
+
+Dr. Piette, 
+
+I hope that this email finds you well. Over the summer I found success in rendering three card 
+games in Ludii, as well as a few abstracts, which I posted to the Forum under the name 
+brimstonetrader. With these, I experimented with available AIs, and successfully avoided 
+cheating, but found that they were not very effective in these games when I altered their 
+contexts to remove AI access to hidden data. A short write-up summarizing my findings is 
+available at this link: https://brimstonetrader.github.io/blog/Hiding_Information_From_The_AIs.pdf . 
+
+For my Senior Capstone, I have decided to continue to work on Ludii. My major goal is to 
+implement an AI that performs well and "honestly" in games with hidden information with the 
+LudiiExampleAI repository. I plan to use determinization, letting each game tree search assume 
+many possible contexts for games of hidden information. I'm interested both in its performance in 
+card games, and puzzles in puzzles with hidden information like Minesweeper. Do you or Dr. 
+Soemers know of any prior work within Ludii toward this? 
+
+From Noah Morris

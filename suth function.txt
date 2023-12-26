@@ -1,0 +1,81 @@
+> suth :: Distinction -> FuncClass -> Bool -> Integer -> Integer -> Arith
+> suth DaD ANY False n k =  Lit (Left (n ^ k))
+> suth DaD SUR False n k = (Bin Times (Fact (Lit (Left n))) (Bin Stir (Lit (Left k)) (Lit (Left n))))
+> suth DaD INJ False n k = (Bin Fall (Lit (Left n)) (Lit (Left k)))
+> suth DaD BIJ False n _ =  Fact (Lit (Left n))
+> suth DaI ANY False n k =  case (n<k) of True -> (sumHelper M.empty "i" 1 n (Bin Stir (Lit (Left k)) (Var "i"))) False -> (sumHelper M.empty "i" 0 n (Bin Stir (Lit (Left n)) (Var "i")))
+> suth DaI SUR False n k = (Bin Stir (Lit (Left k)) (Lit (Left n)))
+> suth DaI INJ False n k =  case (n<k) of True -> (Lit (Left 1)) False -> (Lit (Left 0))
+> suth _ BIJ False n k   =  case (n<k) of True -> (Lit (Left 1)) False -> (Lit (Left 0))
+> suth IaD ANY False n k = (Bin Choose (Lit (Left (n+k-1))) (Lit (Left k)))
+> suth IaD SUR False n k = (Bin Choose (Lit (Left (k-1))) (Lit (Left (n-1))))
+> suth IaD INJ False n k = (Bin Choose (Lit (Left n)) (Lit (Left k)))
+> suth IaI ANY False n k =  case (n<k) of True -> (sumHelper M.empty "i" 1 n (Bin Part (Lit (Left k)) (Var "i"))) False -> (Partition (Lit (Left n)))
+> suth IaI SUR False n k = (Bin Part (Lit (Left k)) (Lit (Left n)))
+> suth IaI INJ False n k =  case (n<k) of True  -> (Lit (Left 1)) False -> (Lit (Left 0))
+> suth DaD ANY True n k =  (Bin Fall (Lit (Left (n+k-1))) (Lit (Left k)))
+> suth DaD SUR True n k =  (Bin Choose (Lit (Left (k-1))) (Lit (Left (n-1))))
+> suth DaI ANY True n k =  (sumHelper M.empty "i" 1 n (Bin Times (Bin Choose (Lit (Left k)) (Var "i")) (Bin Fall (Lit (Left (k-1))) (Bin Minus (Lit (Left k)) (Var "i")))))
+> suth DaI SUR True n k =  (Bin Times (Bin Choose (Lit (Left k)) (Lit (Left n))) (Bin Fall (Lit (Left (k-1))) (Lit (Left (k-n)))))
+> suth _   _   _    _ _ =  (Lit (Left 0))
+
+
+
+> factorial :: Integer -> Integer -> Integer
+> factorial 0 k = k
+> factorial n k = factorial (n-1) (k*n)
+>
+> choose :: Integer -> Integer -> Integer
+> choose n k = ((factorial n 1) `div` ((factorial (n-k) 1)*(factorial k 1)))
+>
+> fall :: Integer -> Integer -> Integer
+> fall n k = ((factorial n 1) `div` (factorial (n-k) 1))
+>
+> stir :: Integer -> Integer -> Integer
+> stir n k = case (interpArith M.empty (sumHelper M.empty "i" 0 k (Bin Times (Bin Times (Bin Raise (Lit (Left (-1))) (Var "i")) (Bin Choose (Lit (Left k)) (Var "i"))) (Bin Raise (Bin Minus (Lit (Left k)) (Var "i")) (Lit (Left n)))))) of
+>   Left _ -> 1000000012
+>   Right x  -> (round ((1 / (realToFrac (factorial k 1))) * x))  
+>
+> part :: Integer -> Integer -> Integer
+> part _ 1 = 1
+> part n k | n < k = 0 
+> part n k = (part (n-1) (k-1)) + (part (n-k) (k))
+>
+> partition :: Integer -> Integer
+> partition 0 = 1
+> partition 1 = 1
+> partition 2 = 2
+> partition 3 = 3
+> partition 4 = 5
+> partition 5 = 7
+> partition 6 = 11
+> partition n = (partition (n-1)) + (partition (n-2)) - (partition (n-5)) 
+>             - (partition (n-7)) + (partitionHelper0 (n-12) 0) 
+
+PROOF:
+
+0    1     11   111   1111   11111     111111
+           2    21    211    2111      21111
+                3     22     221       2211
+                      31     311       3111
+                      4      41        411
+                             23        321
+                             5         222
+                                       51
+                                       42
+                                       33
+                                       6 
+
+
+
+> partitionHelper0 :: Integer -> Integer -> Integer
+> partitionHelper0 i c = if (i<0) then 0 else ((partition i) + (partitionHelper1 (i - 3 - c) (c+1)))
+>
+> partitionHelper1 :: Integer -> Integer -> Integer
+> partitionHelper1 i c = if (i<0) then 0 else ((partition i) - (partitionHelper2 (i - 5 - (2*c)) (c)))
+>
+> partitionHelper2 :: Integer -> Integer -> Integer
+> partitionHelper2 i c = if (i<0) then 0 else ((partition i) - (partitionHelper3 (i - 3 - c) (c+1)))
+>
+> partitionHelper3 :: Integer -> Integer -> Integer
+> partitionHelper3 i c = if (i<0) then 0 else ((partition i) + (partitionHelper0 (i - 5 - (2*c)) (c)))

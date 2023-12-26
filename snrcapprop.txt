@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Capstone Proposal}
+\author{Noah Morris}
+\date{August 29, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Background/Motivation}
+
+A finite game can be represented as a massive Markov Chain, with states for every possible position. There exists a set of transition probabilities that represent optimal play on both sides. This is called a \emph{Nash Equilibrium}. Getting to it by checking all possible probability distributions requires a massive and infeasible amount of time and power, but getting to an ``intelligent," or ``demonstrably better than random" set of edges is something that many smart people have made a lot of progress on over the past fifty years. A common modern algorithm is ``Monte-Carlo Tree Search", which creates a Tree of all possible ways that a game can play out, selecting some arbitrary amount of options, and exploring those that look promising, evaluating game positions via how likely they are to result in a win.
+
+A General Game System has two important parts. First, the programming language, or ``syntax" which allows a user to define a game (like Tic-Tac-Toe, Chess, Poker, or Yahtzee) as a list of players, components, and rules. Then, once a game has been written, an embedded AI (usually controlled by something like Monte Carlo Tree Search) engages in intelligent play. Applications to game designers, game players, and AI researchers are plentiful. In 2017, the Ludii General Game System was released, with a succinct and readable syntax, and support for over a dozen general algorithms, such as Bandit Tree Search, Alpha-Beta Pruning, and the aforementioned MCTS. Soon after, Dr. Goadrich, working with Hendrix students, released a General Games System called CardStock, which is focused around rendering card games. There has been steady progress on it over the past five years, and it now features over thirty games, which its AIs simulate and collect data about.
+
+Over this summer I had an essential question: why is there a thousand games implemented in Ludii, none of which use cards? The project is a massive anthropological resource, which aims to ``model the full range of traditional strategy games in a single playable database." Ludii did not have any games with cards, and very limited general selection of games involving randomness, until this summer. I wrote Agram, Hearts, and 98, as well as Minesweeper, which was the second puzzle game in this format to use hidden information (after The Monty Hall Problem). In doing this, I did a lot of experimenting, determining why their currently implemented ``Deck" data structure wasn't working, and finding alternatives that allowed for randomly shuffling a collection of items. I found that Ludii had implemented the operation of ``set Hidden" to only effect the GUI, which meant that the AI was essentially able to see what every card was. I edited the code of the AI to not do this, and found it to play horribly, close to random in very simple games. 
+
+\section{What I Will Do}
+
+My primary goal for my capstone is to write a new AI for Ludii that will perform better than random play in games of chance. I currently have the version of Ludii that allows for user-written AIs, and I plan to use it to implement something similar to CardStock's algorithm for move selection in Java, which will function with hidden information. I included a graph in my paper summarizing my findings over the summer, plotting the standard Ludii MCTS forced not to cheat playing against random selections. The two were very close: I will consider myself successful if I can render an AI in Ludii which is more successful than this.
+
+An ancillary goal is to create more games that expand the capabilities of what Ludii can do. Particularly, I'd like to get Uno, Bottle Imp, Pairs, The Game (2015), Coup, Solitaire, Blackjack, and Same Game. 
+
+\section{Timeline}
+
+I plan to devote 10 hours a week to this class, including class time. I also commit to doing a year-long thesis, and Dr. Goadrich has agreed to be my advisor. 
+
+A29 - DRAFT PROPOSAL                
+S5  - PROPOSAL                      
+S26 - 10 MINUTE UPDATE PRESENTATION 
+O3  - DRAFT ABSTRACT                      
+O10 - DRAFT INTRODUCTION                  
+O26 - DRAFT BACKGROUND                    
+N9  - DRAFT 1ST HALF PAPER                
+N21 - DRAFT 2ND HALF PAPER, 
+      1ST HALF PAPER
+D5  - FINAL PRESENTATION
+
+\end{document}
+\

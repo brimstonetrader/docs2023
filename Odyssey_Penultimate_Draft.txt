@@ -1,0 +1,212 @@
+The first available stipend pay date in a fiscal year is in mid-June, so you should plan accordingly. Most funding requests include either a stipend or itemized expenses, but some projects include both. Stipends are most appropriate for projects involving unpaid experiences or on-campus research. They are intended to cover expenses. Decide whether your project will require a stipend, funds to cover expenses, or both. Stipends are processed and paid by the Hendrix Payroll Office. The typical amount is $3,200 for 8 weeks, with 30-40 hours of work per week, but may be adjusted with a $11 per hour estimate for shorter time periods. Hendrix College pays FICA taxes (Social Security and Medicare) on stipends. Calculate the FICA amount (7.65% of your total stipend amount; e.g., $3,200 x 7.65% = $244.80) and enter it to cover the Hendrix portion. Your own taxes will be deducted from the stipend, meaning that you will net about $2,400 from a $3,200 award.
+
+
+A flat rate of $900 for the entire summer includes utilities for shared occupancy. You must apply through ResLife for summer housing.
+
+
+Travel includes airfare, ground transportation (bus, taxi, Uber/Lyft, shuttle, etc.), rental car or mileage reimbursement, parking fees, etc. Airfare may be purchased in advance collaboratively with the Odyssey Office using a Hendrix credit card. Mileage for travel by personal vehicle is reimbursed at the current standard IRS rate. All other travel expenses will be covered on a reimbursement basis with itemized receipts. Food expenses may be covered on a per diem basis at a maximum amount of $35 per day; you are implored to request less than the $35/day max if you will be in an area where food costs will be lower. If some of your meals will be covered, you may request a partial per diem to support meals not included in your program or you may request an amount up to which you will be reimbursed with itemized receipts. Per diem checks are issued in advance of your travel and do not require itemized receipts. Off-campus lodging expenses are only covered on a reimbursement basis and only with itemized receipts. The Odyssey Office will not make lodging reservations for you or pay for lodging in advance.
+
+Odyssey Proposal Development Worksheet
+
+This worksheet is a tool for you to use in drafting your Odyssey project proposal and in working with your project supervisor to finalize your project plans. You are also encouraged to use the Budget Worksheet in developing your project budget, if you will be requesting Odyssey funding. Be sure to review the Odyssey website for additional helpful information, including an overview of the funding process.
+
+Note: You may share this worksheet, and the budget worksheet, if applicable, with the Odyssey Office if you are requesting a draft proposal review in advance of final submission. This proposal development worksheet, however, IS NOT to be submitted as your final proposal. When you are ready to submit your final proposal, you must do so using the online proposal form.
+
+Project Details
+
+Type of Project
+    
+    XIndividual Project
+
+Name (primary proposer’s name only, if a group project): Click or tap here to enter text.
+
+    XNoah Morris
+    
+Hendrix ID # (primary proposer’s only, if a group project): Click or tap here to enter text.
+
+    X570733
+
+Hendrix Email Address (primary proposer’s only, if a group project): Click or tap here to enter text.
+
+    Xmorrisnv@hendrix.edu
+
+Expected Graduation Month and Year (for every participant, if a group project): Click or tap here to enter text.
+
+    XMay 2024
+
+Academic Major(s) (for every participant, if a group project): Click or tap here to enter text.
+
+    XMathematics and Computer Science
+
+Odyssey Category
+
+    ☐Artistic Creativity
+    ☐Global Awareness
+    ☐Professional & Leadership Development
+    ☐Service to the World
+    XUndergraduate Research
+    ☐Special Projects
+
+Project Title:
+
+    XAbstract Strategic and Stochastic Software Implementation
+
+Start Date (When will project activities begin?):
+End Date (By what date will all project activities be finished?):
+
+    XMay 22 - July 21
+
+Project Abstract (250-word limit)
+
+	XAn abstract strategy game is a game like checkers, chess, or tic-tac-toe. They generally have a compact ruleset, no discernable theme, two players, no random elements or hidden information, and are difficult for humans to play really well. There exists a programming syntax, Ludii, which generalizes this form, and allows for the creation of many different kinds of abstract strategy games. One of the limiting factors I mentioned earlier, to abstracts generally and to Ludii specifically, is stochasticity, or, randomness. The Die Ludeme (what they call objects) is simple and effective. Ludii has in its source code a Card Ludeme, but, egregiously, it has not been implemented, ever, according to Ludii's "Concept Search."
+
+	Cards are essential to many games, but implementing a random partition, and hidden hands for each player, fleshing out the scarce Ludemes for both hidden information and randomness in the rigid abstract engine, is a large, tough task. Dr. Goadrich, Hendrix CS Professor, created a general engine for card games in C# called "CardStock." With this, he has done a lot of heuristic analysis and generalization, but the software is not yet workable in Java, which Ludii runs in. I would like to spend the summer of 2023 doing Undergraduate Research under the guidance of Dr. Goadrich, refactoring and implementing things in Ludii, seeking to understand both it and CardStock, creating a variety of games, and changing the source code of Ludii to bring wider capabilities and broader accessibility.    
+
+Project Plans (500-word limit)
+Give details on how you will see the project through. Use your background research to set the scene, introduce the organizations or locations involved, and describe your reasons for doing this Odyssey. How will you get there? Where will you stay? What steps will you take to explore your topic?
+
+    XI will be mainly working on my own, with guidance and oversight from Dr. Goadrich. CardStock is implemented in C#, with game syntax called RECYCLE, and in-house AI utilizing Monte-Carlo Tree Search to play at variable skill levels, and heuristic data collection that allows for broad categorical analysis. I will be not only learning the capabilities of this syntax and analysis, making plenty of games as test cases and to flesh out Ludii's library, but also working with the source code itself, refactoring and generalizing concepts to allow for broader utility and efficiency. I will, in addition, read through available documentation thoroughly, and spend a good deal of time considering and toying with the general abstract-game-generalizing syntax of both Ludii and ReCYCLE.
+
+    Here are the broad categories of card game (an "X" means an example has been created in CardStock):
+    
+    X    ADDING       	(like cribbage)
+   	 DECK-BUILDING	(like magic, likely out of our scope this summer)
+    X    TRICK-TAKING 	(like spades. the biggest category)
+    X    COLLECTING   	(like war or ers)
+    X    COMPARING    	(like poker)
+    X    DRAW-DISCARD 	(like rummy)
+   	 MATCHING     	(like my personal favorite, dominos. a domino ludeme exists
+   				   	and has been implemented for the     
+   					   "boneyard" ruleset, but not Jamaican style which is my preference. Implementing this, and perhaps
+   					   generalizing this Ludeme, is one of the first things I plan to do.)
+   	 RACING       	(rare. best eg i could find "milles borne")
+    X    SHEDDING     	(like uno)
+   	 SOCIAL DEDUCTION (like mafia)
+   	 
+    As this demonstrates, CardStock already is very capable of rendering most possible styles of card game. My initial goal this summer will be to understand the underlying RECYCLE syntax, and my main goal, that I wll spend the bulk of my time working towards, will be figuring out how to replicate it within Ludii. I will pull the Ludii source code from Github, as well as the CardStock source code, and use it not just to implement games, but to change the underlying structure, so this family of games can be implemented in Ludii, and the overall system becomes much more able to run more complex games.
+
+    Pulling and working with both repositories can and will be accomplished here, in Conway, on Hendrix campus. I will stay in Huntington over the summer, in my current housing assignment, and work 30 hours a week in the Snoddy Computer Lab for the eight weeks (If possible, at least). I will be spending much of my time reading through the code documentation, creating games in the Ludii syntax, and refactoring it to allow for more general results. I'll work in Java to interact with the source code of Ludii, as well as to create games within it. Once the end is near, I will write a paper in LaTeX summarizing my findings, and justifying the changes that I made to the Ludii abstract syntax. Dr. Goadrich and I will present what we accomplish publicly, likely on campus.
+
+
+
+Learning Goals (500-word limit)
+Include any details about category specific criteria (such as hours, reflection, presentation) and how you plan to meet them.
+Learning goals for each participant are recommended for group projects.
+If you are seeking funding for an official Hendrix internship, be sure to read these requirements and address them in your goals.
+
+    XI plan to work for 30 hours a week during the time period specified above, working within Ludii with the goal of implementing a general system for managing card games into it. I will document my efforts into a research paper typeset in LaTex, and present on my results on campus in the fall, and potentially off-campus. I hope to learn a lot about general game syntaxes, C#, implementing software, and to broadly gain insight into why programming languages are structured the way they are.
+    
+    I have at this point fully finished my math major, and the particular skills I hope to utilize and strengthen in this project are:
+    
+    1. Linear Algebra, due to the inherent similarities between abstract games played on graphs and matrix operations.
+    
+    2. Combinatorics, (I wrote my thesis on this) due to its titular importance in Combinatoric Game Theory, the "grand unified theory" of abstract games.
+    
+    3. Complex Numbers, due to their many applications in formally expressing 2D transformations.
+    
+    I am currently working toward a Computer Science major, and most obviously I hope to gain real-world experience doing research solving a specific, interesting problem at the intersection of creating a programming language (CSCI 360, which I'm in this semester, is about this) and game design (CSCI 370, which I'm also in this semester, is about this). I hope to learn how to properly do research in a CS context, a very important skill, as I'd like to apply for Graduate School fellowships and entry-level jobs at the intersection of Math and CS after I graduate next year. I'm confident that working closely with Github, open-source code, and Java, will prove good practice for future coding, and mathematics.
+
+
+Odyssey Category (500-word limit)
+Include any category specific criteria (such as hours, reflection piece, or public presentation) and how you plan to meet them. Consult the Odyssey Categories menu at www.hendrix.edu/odyssey for more information, if necessary.
+
+    XI plan to work 30 hours a week for the aforementioned nine weeks. I will spend this time reading the docs, implementing software, and changing the source code of both Ludii and CardStock to make both more general. I will document my results, and the following semester, Dr. Goadrich and I will be able to present on campus, and I will make my work public via GitHub.  Dr. Goadrich and I will be in contact with the people who created Ludii, and if the changes I make end up being large scale and beneficial, I will present the paper I write at their annual Abstract Games Conference.
+
+
+
+Additional Information (500-word limit)
+Include additional information or elaborate on anything that you need to here. This might include project-specific requirements that are requested by your project supervisor. If you are seeking funding, you can use this space to provide further details about the financial support you need to complete the project. Be sure to explain how you can safely undertake the project in consideration of COVID-19 and any other concerns applicable to your project.
+
+
+    XI hope to end this research project with a deep understanding of the process of abstracting games, and broadly of the process of working within existing code, and changing it to suit my needs. I think that this knowledge will be important in future CS work, as I will almost certainly be working within already written code.
+    
+    In the more recent future, for my CS capstone the semester following this, I plan to use C# to implement a video game with a similar abstract-strategy syntax that the user can fiddle with to suit their needs. It will be less powerful but more intuitive than Ludii: my goal is for no code to be needed from the user, just a Scratch-ish drag-and-drop interface a 10-year-old (like my 10-year-old brother) could figure out, and for it to be capable of running Hex, Othello, Chess, Dominos, Lines of Action and Amazons (and everything in between). I will then publish this interface publicly with Unity, utilizing skills built this semester in CSCI 370 and this summer in Ludii. Working with an existing C# general games syntax, and maneuvering its ideas into an existing syntax in a different language, will undoubtedly prepare me for this in many ways, while being a markedly distinct task. All of my work over the summer will be on top of or within the much more thoroughly organized environment of Ludii.
+
+    The funding that I requested is the standard stipend for a summer research project, as well as on-campus housing, as I plan to live in Conway, and work out of the Bailey Library.
+
+
+
+Organizational Support
+If your project involves an outside organization, state whether or not they have already approved your participation. If yes, you will need to upload documentation of such to your online proposal form.
+
+    ☐Yes
+    XNo
+    ☐Other Click or tap here to enter text.
+
+Check all that apply:
+
+    XI have addressed all the relevant criteria for my category, including learning goals and contact information for other agencies or individuals associated with this project.
+    XI have included a justification of category choice (especially for SP).
+    XFor AC or UR: I give details of my public presentation plans.
+    ☐For PL, SW, or SP: I will keep an hours log to meet the category requirement.
+    ☐For GA, PL, SW, or SP: I addressed the nature of my reflection plans.
+
+Are you planning to request funding?
+
+    XYes
+    ☐No
+
+If yes, continue below.
+If no, stop here.
+
+Budget Details
+
+You are strongly encouraged to use the Budget Worksheet in developing your project budget; you will have the option to upload this worksheet with your online proposal, but it is not required. You will, however, be required to answer the following questions as part of your online proposal.
+
+For group projects, be sure you enter the total requested amounts for all participants in the project.
+
+Total requested amount for stipends. Leave blank if this does not apply to your project.
+Guidelines for stipends:
+X Standard per-person stipend for 8 weeks / 240+ hours is $3,200. Use $10/hour for shorter timeframes.
+
+    X$3,200
+
+X Total requested amount for FICA taxes. You must include this if you are requesting a stipend above.
+Guidelines for FICA taxes:
+FICA taxes are equal to 7.65% of the total stipend amount requested. For example, enter $183 if you are requesting the standard 8-week stipend amount for one person of $2,400.
+
+    X$183
+
+On-campus housing total cost. Leave blank if this does not apply to your project.
+Guidelines for stipends and on-campus housing:
+Standard per-person housing allowance for summer lodging on campus is $900.
+
+    X$900
+    
+On-campus housing non-Odyssey contribution, if any.
+Please include the total amount that you are not requesting of Odyssey here.
+
+    X0$
+
+On-campus housing requested from Odyssey.
+This should be equal to the total minus any non-Odyssey contributions from the two questions above.
+
+    X$900
+
+
+
+Total requested amount from Odyssey
+This should be equal to the grand total requested from Odyssey for stipends; on-campus housing; travel, food and off-campus lodging; and for additional expenses above.
+
+    X$3,483
+
+Enter the number of participants for which funding is requested.
+
+    X1
+
+Please list the title, Odyssey category, and completion status of every project you have previously received funding for, if any.
+Faculty should list their funded projects for the last three years only.
+
+    XN/A
+
+Project Supervisor Name (must be a Hendrix supervisor; faculty & staff proposers should enter NA):
+Click or tap here to enter text.
+
+    XMark Goadrich
+
+Supervisor Email Address (must be a Hendrix address; put one e-mail address only; do not use any symbols or spaces; faculty & staff proposers should enter kolev@hendrix.edu):
+
+    Xgoadrich@hendrix.edu
+
+
+

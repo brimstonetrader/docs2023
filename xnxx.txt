@@ -1,0 +1,45 @@
+> parseArithAtom :: Parser Arith
+parseArithAtom =
+      Lit <$> integer
+  <|> ToF True <$ reserved "True"
+  <|> ToF False <$ reserved "False"
+  <|> Var <$> identifier
+  <|> parseLet
+  <|> parens parseArith 
+  <|> If <$> (reserved "if" *> parseArith) <*> (reserved "then" *> parseArith) <*> (reserved "else" *> parseArith)
+
+parseLet :: Parser Arith
+parseLet = Let
+  <$> (reserved   "let" *> identifier)
+  <*> (reservedOp "="   *> parseArith)
+  <*> (reserved   "in"  *> parseArith)
+
+parseArith :: Parser Arith
+parseArith = buildExpressionParser table parseArithAtom
+  where
+    table = [ [ Infix (Bin Times <$ reservedOp "*") AssocLeft
+              , Infix (Bin Div   <$ reservedOp "/") AssocLeft
+              ]
+            , [ Infix (Bin Plus  <$ reservedOp "+") AssocLeft
+              , Infix (Bin Minus <$ reservedOp "-") AssocLeft
+              ]
+            , [ Infix (Bin Less <$ reservedOp "<") AssocNone
+              , Infix (Bin Equal <$ reservedOp "==") AssocNone
+              ]
+            ]
+
+arith :: Parser Arith
+arith = whiteSpace *> parseArith <* eof
+
+-- Interpreter
+
+type Env = M.Map String Integer
+
+data InterpError where
+  UnboundVar :: String -> InterpError
+  DivByZero  :: InterpError
+  TypeError  :: InterpError
+
+showInterpError :: InterpError -> String
+showInterpError (UnboundVar x) = "Unbound variable " ++ x
+showInterpError DivByZero      = "Division by zero"

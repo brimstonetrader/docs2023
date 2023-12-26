@@ -1,0 +1,123 @@
+Sudoku was invented by Howard Garns, a modest architect from Indiana who died a decade before anyone figured out that he'd made it. His coworkers, in interviews, noted that he would draw weird number-crosswords based on nines on the company's drawing boards. They only caught brief glimpses of it, as he usually tried to hide it from people. He sent some in to a local magazine anonymously, Dell Pencil Puzzles and Word Games, but never saught credit nor profit in his lifetime. The puzzle became popular in Japan, rechristened "Sudoku", by the publisher Nikoli, which publishes many similar, less popular logic games. It didn't take root in the rest of the world, until Wayne Gould, a retired judge from New Zealand who spent six years on an algorithm that generated puzzles by the thousands, started offering unique ones to newspapers across the world for free, and giving their solutions at his website. His Sudoku books became very popular, selling like hotcakes to an enthusiastic public. He was named one of "The World's Most Influential People" by TIME in 2006.
+
+Sudoku is, at its core, a game of deduction that asks a solver to recreate an easily-verified mathematical structure from an incomplete set of elements within it. This set of elements consists of nine numbers, meaning each square of the grid is deduced to be one of nine elements. This makes Sudoku a nonary-determination puzzle, the only nonary-determination puzzle that I am aware of. Galaxies, or, "Tentai Show", is a grid-based logic puzzle that is also popular in Japan thanks to Nikoli. It is a binary determination puzzle played on the interior gridlines of an $nxn$ grid, where each gridline may be "on" or "off". It has a similar joyous euphoria to the process of solving, varying difficulty by both size and number of dots, and a similar capability to be entirely mapped via the mathematical strategy of Combinatorics.
+
+In a completed Galaxies puzzle, a solver is presented with a grid with some number of points marked with stars, centered around each of which the solver draws a rotationally symmetric region of the grid, using only square gridlines. These regions fully partition the grid into polyominos. Here is an unsolved and solved one, side by side.
+
+\includegraphics{uns11.png}
+\includegraphics{s11.png}
+
+
+I'd like to be able to generate these very quickly, calling from a list so we know things are unique. To prove they're fun, try this one without a solution.
+
+\includegraphics{unssss.png}
+
+To save on space, and keep our syntax straight, we will have a few standardized ways of describing completed grids. The first will be pictoral representations, which should be fairly self evident, and will look similar to the puzzles above. We will sometimes notate $nxn$ grids as bit strings of length $2(n)(n-1)$, where each bit refers to the status of a gridline, and is mapped from left to right, top down, like in the diagram below.
+
+\includegraphics{unssss.png}
+
+We will also, similarly, refer to grids as strings of integers of length $nxn$, where each int refers to a square by which group it's in, with group indices being assigned in order, beginning with 1, like in the diagram below. 
+
+
+\section{Introductory Visualization}
+
+Like with any ambition, we must start small. 
+
+How would we do this in an n by 1 grid? Everything's rotationally symmetric now, so we'll ignore all that while we're in this dimension. The question is best answered by asking a  follow-up question.
+
+How many ways can you partition an integer, provided order matters?
+
+Let's do the first few manually.
+\newline
+1 can be [1]. \newline
+2 can be [2], or [1, 1]. \newline
+3 can be [3], [1, 2], [2, 1], [1, 1, 1]. \newline
+4 can be [4], [1, 3], [3, 1], [2, 2], [1, 1, 2], [1, 2, 1], [2, 1, 1], [1, 1, 1, 1]. \newline
+
+1, 2, 4, 8. You don't suppose this is just $2^{n-1}$, do you?
+
+Let's start thinking of these numbers as one-dimensional grids. 3 will look like 1
+
+OOO
+
+and its partitions will look like
+
+OOO, OO O, O OO, O O O
+
+There are 2 spaces in between the Os. for any given number, there will be $n - 1$ spaces. each of these can be turned on or off, meaning there are two possible states for each connection. Thus, each list of numbers adding up to $n$ can be represented with a binary string of length $n-1$, with each 1 meaning that the previous number has concluded. So, for any sequence of zeroes and ones, we can generate a solved 1-dimensional galaxy. 
+
+\section{Binary Manipulation}
+
+We can't extend this to 2 dimensions. It won't quite carry over, as we now must account for regions being contiguous. Let's, again, start small, with a 2x2 grid. There are 8 rotationally symmetric options, and 4 that aren't, shown below, with numbers denoting group membership. 
+
+\[
+  \left[ {\begin{array}{ccccccccccc}
+    1 & 1 & 0 & 1 & 2 & 0 & 1 & 1 & 0 & 1 & 2\\
+    1 & 1 & 0 & 1 & 2 & 0 & 2 & 2 & 0 & 3 & 2\\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+    1 & 1 & 0 & 1 & 2 & 0 & 1 & 2 & 0 & 1 & 2\\
+    2 & 3 & 0 & 1 & 3 & 0 & 3 & 3 & 0 & 3 & 4\\
+  \end{array} } \right]
+\]
+
+And the non-rotationally symmetric ones.
+
+\[
+  \left[ {\begin{array}{ccccccccccc}
+    1 & 2 & 0 & 1 & 2 & 0 & 1 & 1 & 0 & 1 & 1\\
+    1 & 1 & 0 & 2 & 2 & 0 & 2 & 1 & 0 & 1 & 2\\
+  \end{array} } \right]
+\]
+
+We've got 4 "splits" at our disposal, so there's $2^{4} - 12 = 4$ "illegal" partitions. They are those with only one line drawn, as that don't split nothing.
+
+If we scale up to 3x3, things get a little more complex. Let's try two methods. 
+
+There are 12 total lines, meaning potentially up to 4096 partitioned grids. Let's label them like this.
+
+\includegraphics{numbered.png}
+
+Using what we learned from 2x2s, we can assemble binary strings, with the caveat that none of the following sequences of 4 can add to 4.
+
+[1, 2, 3, 4], [4, 5, 6, 7], [7, 8, 9, 10], [10, 11, 12, 1]
+
+\section{A Different Approach, To Check The Answer}
+
+Let's draw that numeric group-assignment thing, but orient from the center instead of the top right. So the center is always number 1. We're at
+
+000
+
+010
+
+000
+
+If we go above the center, it may be 1 or 2. If we go left of that, it may be what the last one was, or something new. Below could be last, new, or 1. 12 possible outcomes so far, we multiply the amount of options for each space together. the bottom right corner is last or new, left of that 3, up from that 2, and last, 3 options. Multiplying all of these, we get 1296 total arrangements. I put these into a dataframe, and found 1054 unique ones, due to repeats with 1s.
+
+\section{Scaling Up}
+
+\section{Arrays of Polyominos}
+
+So let's talk about rotational symmetry. Here's a quick way to tell if a polyomino is rotationally symmetric. If you compress it back down to 1 dimension, it becomes a palindrome. Like so.
+
+XXO    \hspace{35mm}             OOO
+
+OXO  =  XXOOXOOXX     \hspace{6mm}   XXO = XXOXX
+
+OXX    \hspace{35mm}                  XXO
+
+To be safe, you want to have a buffer around it, so the polyomino doesn't touch the right edge. It would be nice if we had a registry for these, so we could define each galaxy as an ordered list of integers, which code for symmetric polyominos. 
+
+
+I currently reason with them via formal system, with two possible things, $X$ and $\cap$. $\cap$ represents a vertical indent, and $X$ represents a unit of the polyomino. We can write a small $X$ underneath a $\cap$, provided it is either adjacent to or separated by $\cap$ from another $X$. Let's run through a few.
+
+$X$, $XX$, $X\cap X$, $XXX$, $X\cap X \cap X$, $X_X \cap X$, $X \cap_X X$
+
+
+
+\section{Finding Centroids}
+
+\section{Computing The List}
+
+\section{Conclusion}
+
+\end{document}

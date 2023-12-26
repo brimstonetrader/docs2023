@@ -1,0 +1,33 @@
+stanford - pa  - JO     - https://journalism.stanford.edu/
+mit      - cm  - CS     - https://oge.mit.edu/programs/computational-science-and-engineering-sm/
+
+
+
+
+uchic    - ch  - CAM    - https://cam.uchicago.edu/
+uwash    - se  - ACM    - https://amath.washington.edu/master-science-applied-and-computational-mathematics
+berk     - bk  - CS     - https://grad.berkeley.edu/program/eecs/  (SCI and THY)
+columbia - nyc - CS/JO  - https://www.cs.columbia.edu/education/ms/journalism/
+iowa     - ic  - CW     - https://writersworkshop.uiowa.edu/
+gwu
+vand
+iit
+utoronto
+
+
+
+
+
+
+uofchi
+mich
+ga tech
+uwis
+rutgers
+utoronto
+usydney
+usc
+iit
+johns hopkins
+uf
+usf
