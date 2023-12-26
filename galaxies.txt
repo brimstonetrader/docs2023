@@ -1,0 +1,42 @@
+pip install ipywidgets
+import ipywidgets as widgets
+from ipywidgets import GridspecLayout, ToggleButton, Button, Layout, jslink, IntText, IntSlider
+import numpy as np
+
+
+n=9
+m=(2*n)-1
+
+
+grid = GridspecLayout(50,50, height="1000px", width='1000px')
+def create_button():
+    return ToggleButton(value=False, layout=Layout(height='10px', width='10px'))
+def create_special_button():
+    return ToggleButton(value=False, layout=Layout(height='10px', width='10px'))
+
+output = widgets.Output()
+def on_button_clicked(b):
+    i = b[0] 
+    j = b[1]
+    coeffi = (5*(np.floor(i / 5)))
+    coeffj = (5*(np.floor(j / 5)))
+    if ((i%5) == 4):
+        grid[i, coeffj + 1].style.button_color = 'green'
+        grid[i, coeffj + 2].style.button_color = 'green'
+        grid[i, coeffj + 3].style.button_color = 'green'
+    else:
+        grid[coeffi + 1, j].style.button_color = 'green'
+        grid[coeffi + 2, j].style.button_color = 'green'
+        grid[coeffi + 3, j].style.button_color = 'green'
+
+
+for i in range(5*n-1):
+    for j in range(5*n-1):
+        if ((i%5) == 4) and ((j%5) in [1,2,3]):
+            grid[i, j] = create_button()
+            grid[i, j].style.button_color = 'black'
+        if ((i%5) in [1,2,3]) and ((j%5) == 4):
+            grid[i, j] = create_button()
+            grid[i, j].style.button_color = 'black'
+
+

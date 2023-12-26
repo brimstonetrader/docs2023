@@ -1,0 +1,3 @@
+zoom in/out patches
+missing home bug
+better top-text

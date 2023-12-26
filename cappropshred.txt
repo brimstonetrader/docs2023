@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Capstone Proposal}
+\author{Noah Morris}
+\date{August 29, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Background/Motivation}
+
+A finite game can be represented as a massive Markov Chain, with states for every possible position. There exists a set of transition probabilities that represent optimal play on both sides. This is called a \emph{Nash Equilibrium}. Getting to it by checking all possible probability distributions requires a massive and infeasible amount of time and power, but getting to a ``intelligent," or ``demonstrably better than random" set of edges is something that many smart people have made progress on over the past fifty years. A common modern algorithm is ``Monte-Carlo Tree Search", which creates a Tree of all possible ways that a game can play out, selecting some arbitrary amount of options, and exploring those that look promising, evaluating game positions via how likely they are to result in a win.
+
+There exists a class of programming languages entangled with artificial intelligence algorithms that have come to be known as ``General Game Systems." The programming language allows a user to define a game (like Tic-Tac-Toe, Chess, Poker, or Yahtzee), and then an embedded AI (usually controlled by something like Monte Carlo Tree Search) engages in intelligent play. Applications to game designers, game players, and AI researchers are plentiful. 
+
+In 1998, \emph{Zillions of Games}, the first General Game System, debuted, with a programming language allows a user to define a game (like Tic-Tac-Toe, Chess, Poker, or Yahtzee) an AI that can adapt to any abstract-strategy game in its database, which users are free to add to. It had many limits, and, by modern standards, poor AI performance, but it was an important precursor. In 2005, Stanford put out a style for writing games that are given to a “general AI”, the ``.gdl" format. It was more robust in functionality, but very syntactically unwieldy. In 2017, the Ludii General Game System was released. It has a much more succinct and readable syntax, and support for over a dozen general algorithms, such as Bandit Tree Search, Alpha-Beta Pruning, and the aforementioned MCTS. Soon after, Dr. Goadrich, working with Hendrix students, released a General Games System focused around rendering card games. There has been steady progress on it over the past five years, and it now features over thirty games, including Coup (which I wrote).
+
+Over this summer I had an essential question: why is there a thousand games in Ludii, none of which use cards? The project is 
+
+
+
+
+\section{What I Will Do}
+
+\section{Timeline}
+
+\section{Goals}
+
+\end{document}

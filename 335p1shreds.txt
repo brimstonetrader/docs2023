@@ -1,0 +1,62 @@
+
+        HashMap<Optional<S>, Histogram<S>>[] hms = new HashMap[allLabels().size()];
+        for (L l : label2symbol2symbol.keySet()) {
+            hms
+        }
+        float n = (float) 1.0;
+        float d = (float) (hm.size()+1);
+        float pn = (float) 1.0;
+        float pd = (float) 1.0;
+        for (int i=0; i<sequence.size();i++) {
+            if (hm.containsKey(sequence.get(i))) {
+                n += hm.get(sequence.get(i)).getCountFor(sequence.get(i + 1));
+            }
+            pn *= n;
+            pd *= d;
+    	}
+    	return pn/pd;
+    }
+	
+	    public double probability(ArrayList<S> sequence, L label) {
+        HashMap<Optional<S>, Histogram<S>> hm = label2symbol2symbol.get(label);
+    	float p = (float) 1.0;
+        for (int i=0; i<sequence.size();i++) {
+            if (hm.containsKey(sequence.get(i))) {
+                float n = hm.get(sequence.get(i)).getCountFor(sequence.get(i+1));
+                float d = (float) 0.0;
+                for (Optional<S> o : hm.keySet()) {
+                    d += hm.get(o).getTotalCounts();
+                }
+                p *= (n+1 / d+1);
+                System.out.println((String) p);
+            }
+    	}
+    	return p;
+    }
+	
+	
+	
+	    public double probability(ArrayList<S> sequence, L label) {
+        float[] ps = new float[label2symbol2symbol.keySet().size()];
+        for (int i = 0;i<label2symbol2symbol.keySet().size();i++) {
+            float d = (float) 1.0;
+            for (int j=0; j<sequence.size();j++) {
+                if (label2symbol2symbol.get(i).containsKey(sequence.get(j))) {
+                    d *= 1+label2symbol2symbol.get(i).get(sequence.get(j)).getCountFor(sequence.get(j + 1));
+                }
+            }
+            ps[i] = d;
+        }
+        float n = (float) 1.0;
+        for (int j=0; j<sequence.size();j++) {
+            if (label2symbol2symbol.get(label).containsKey(sequence.get(j))) {
+                n *= 1+label2symbol2symbol.get(label).get(sequence.get(j)).getCountFor(sequence.get(j + 1));
+            }
+        }
+        float den = (float) 1.0;
+        for (float d : ps) {
+            den += d;
+        }
+
+    }
+    	return n/den;

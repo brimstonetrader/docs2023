@@ -1,0 +1,513 @@
+Warning: number of games to play (50) is not divisible by the number of permutations of list of AIs (24)
+Warming up...
+Finished warming up!
+=====================================================
+Completed 1 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=1, mean=0.333333 (+/-0).
+P1: N=1, mean=0.333333 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=0, mean=0 (+/-0).
+Game Durations: N=1, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=0, mean=0 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=1, mean=0.333333 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.333333 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=0, mean=0 (+/-0).
+Game Durations: N=1, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=0, mean=0 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=1, mean=1 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=1, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=1, mean=0.333333 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=0.333333 (+/-0).
+P4: N=0, mean=0 (+/-0).
+Game Durations: N=1, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=0, mean=0 (+/-0).
+=====================================================
+=====================================================
+Completed 2 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=2, mean=0.333333 (+/-0).
+P1: N=2, mean=0.333333 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=0, mean=0 (+/-0).
+Game Durations: N=2, mean=30 (+/-0).
+P1: N=2, mean=30 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=0, mean=0 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=2, mean=0.666667 (+/-0.65332).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.333333 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=2, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=2, mean=0.5 (+/-0.97998).
+P1: N=0, mean=0 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=2, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=2, mean=0.5 (+/-0.32666).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=1, mean=0.333333 (+/-0).
+P4: N=0, mean=0 (+/-0).
+Game Durations: N=2, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=0, mean=0 (+/-0).
+=====================================================
+=====================================================
+Completed 3 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=3, mean=0.555556 (+/-0.435547).
+P1: N=2, mean=0.333333 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=1 (+/-0).
+P4: N=0, mean=0 (+/-0).
+Game Durations: N=3, mean=30 (+/-0).
+P1: N=2, mean=30 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=0, mean=0 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=3, mean=0.5 (+/-0.498981).
+P1: N=1, mean=0.166667 (+/-0).
+P2: N=1, mean=0.333333 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=3, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=3, mean=0.555556 (+/-0.576174).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=1, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=3, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=3, mean=0.388889 (+/-0.288087).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=1, mean=0.333333 (+/-0).
+P4: N=1, mean=0.166667 (+/-0).
+Game Durations: N=3, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 4 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=4, mean=0.5 (+/-0.32666).
+P1: N=2, mean=0.333333 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=1 (+/-0).
+P4: N=1, mean=0.333333 (+/-0).
+Game Durations: N=4, mean=30 (+/-0).
+P1: N=2, mean=30 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=4, mean=0.458333 (+/-0.362161).
+P1: N=1, mean=0.166667 (+/-0).
+P2: N=2, mean=0.333333 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=4, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=2, mean=30 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=4, mean=0.666667 (+/-0.461967).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=2, mean=0.5 (+/-0.97998).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=4, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=2, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=4, mean=0.375 (+/-0.205519).
+P1: N=1, mean=0.333333 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=1, mean=0.333333 (+/-0).
+P4: N=1, mean=0.166667 (+/-0).
+Game Durations: N=4, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 5 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=5, mean=0.466667 (+/-0.261328).
+P1: N=3, mean=0.333333 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=1 (+/-0).
+P4: N=1, mean=0.333333 (+/-0).
+Game Durations: N=5, mean=30 (+/-0).
+P1: N=3, mean=30 (+/-0).
+P2: N=0, mean=0 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=5, mean=0.5 (+/-0.292174).
+P1: N=1, mean=0.166667 (+/-0).
+P2: N=3, mean=0.444444 (+/-0.217773).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=5, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=3, mean=30 (+/-0).
+P3: N=0, mean=0 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=5, mean=0.733333 (+/-0.380948).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=3, mean=0.666667 (+/-0.65332).
+P4: N=1, mean=1 (+/-0).
+Game Durations: N=5, mean=30 (+/-0).
+P1: N=0, mean=0 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=3, mean=30 (+/-0).
+P4: N=1, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=5, mean=0.3 (+/-0.216682).
+P1: N=1, mean=0.333333 (+/-0).
+P2: N=1, mean=0.666667 (+/-0).
+P3: N=1, mean=0.333333 (+/-0).
+P4: N=2, mean=0.083333 (+/-0.16333).
+Game Durations: N=5, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=1, mean=30 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=2, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 10 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=10, mean=0.416667 (+/-0.202248).
+P1: N=3, mean=0.333333 (+/-0).
+P2: N=3, mean=0.5 (+/-0.498981).
+P3: N=2, mean=0.5 (+/-0.97998).
+P4: N=2, mean=0.333333 (+/-0).
+Game Durations: N=10, mean=30 (+/-0).
+P1: N=3, mean=30 (+/-0).
+P2: N=3, mean=30 (+/-0).
+P3: N=2, mean=30 (+/-0).
+P4: N=2, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=10, mean=0.516667 (+/-0.185107).
+P1: N=3, mean=0.611111 (+/-0.474626).
+P2: N=3, mean=0.444444 (+/-0.217773).
+P3: N=1, mean=0.333333 (+/-0).
+P4: N=3, mean=0.555556 (+/-0.435547).
+Game Durations: N=10, mean=30 (+/-0).
+P1: N=3, mean=30 (+/-0).
+P2: N=3, mean=30 (+/-0).
+P3: N=1, mean=30 (+/-0).
+P4: N=3, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=10, mean=0.633333 (+/-0.265826).
+P1: N=1, mean=1 (+/-0).
+P2: N=2, mean=0.5 (+/-0.32666).
+P3: N=4, mean=0.5 (+/-0.565792).
+P4: N=3, mean=0.777778 (+/-0.435547).
+Game Durations: N=10, mean=30 (+/-0).
+P1: N=1, mean=30 (+/-0).
+P2: N=2, mean=30 (+/-0).
+P3: N=4, mean=30 (+/-0).
+P4: N=3, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=10, mean=0.433333 (+/-0.18985).
+P1: N=3, mean=0.666667 (+/-0.377194).
+P2: N=2, mean=0.666667 (+/-0).
+P3: N=3, mean=0.277778 (+/-0.108887).
+P4: N=2, mean=0.083333 (+/-0.16333).
+Game Durations: N=10, mean=30 (+/-0).
+P1: N=3, mean=30 (+/-0).
+P2: N=2, mean=30 (+/-0).
+P3: N=3, mean=30 (+/-0).
+P4: N=2, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 20 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=20, mean=0.516667 (+/-0.143957).
+P1: N=5, mean=0.4 (+/-0.130664).
+P2: N=5, mean=0.566667 (+/-0.351824).
+P3: N=5, mean=0.6 (+/-0.380948).
+P4: N=5, mean=0.5 (+/-0.292174).
+Game Durations: N=20, mean=30 (+/-0).
+P1: N=5, mean=30 (+/-0).
+P2: N=5, mean=30 (+/-0).
+P3: N=5, mean=30 (+/-0).
+P4: N=5, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=20, mean=0.466667 (+/-0.11754).
+P1: N=5, mean=0.466667 (+/-0.316709).
+P2: N=6, mean=0.444444 (+/-0.137732).
+P3: N=4, mean=0.333333 (+/-0).
+P4: N=5, mean=0.6 (+/-0.32006).
+Game Durations: N=20, mean=30 (+/-0).
+P1: N=5, mean=30 (+/-0).
+P2: N=6, mean=30 (+/-0).
+P3: N=4, mean=30 (+/-0).
+P4: N=5, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=20, mean=0.616667 (+/-0.17269).
+P1: N=4, mean=0.75 (+/-0.312753).
+P2: N=6, mean=0.5 (+/-0.223151).
+P3: N=6, mean=0.666667 (+/-0.413196).
+P4: N=4, mean=0.583333 (+/-0.48999).
+Game Durations: N=20, mean=30 (+/-0).
+P1: N=4, mean=30 (+/-0).
+P2: N=6, mean=30 (+/-0).
+P3: N=6, mean=30 (+/-0).
+P4: N=4, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=20, mean=0.4 (+/-0.142978).
+P1: N=6, mean=0.611111 (+/-0.262234).
+P2: N=3, mean=0.5 (+/-0.32666).
+P3: N=5, mean=0.2 (+/-0.122225).
+P4: N=6, mean=0.305556 (+/-0.297203).
+Game Durations: N=20, mean=30 (+/-0).
+P1: N=6, mean=30 (+/-0).
+P2: N=3, mean=30 (+/-0).
+P3: N=5, mean=30 (+/-0).
+P4: N=6, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 30 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=30, mean=0.494444 (+/-0.111282).
+P1: N=9, mean=0.37037 (+/-0.119003).
+P2: N=6, mean=0.527778 (+/-0.297203).
+P3: N=7, mean=0.5 (+/-0.293908).
+P4: N=8, mean=0.604167 (+/-0.213292).
+Game Durations: N=30, mean=30 (+/-0).
+P1: N=9, mean=30 (+/-0).
+P2: N=6, mean=30 (+/-0).
+P3: N=7, mean=30 (+/-0).
+P4: N=8, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=30, mean=0.455556 (+/-0.107298).
+P1: N=8, mean=0.4375 (+/-0.275646).
+P2: N=9, mean=0.444444 (+/-0.180568).
+P3: N=6, mean=0.388889 (+/-0.108887).
+P4: N=7, mean=0.547619 (+/-0.254175).
+Game Durations: N=30, mean=30 (+/-0).
+P1: N=8, mean=30 (+/-0).
+P2: N=9, mean=30 (+/-0).
+P3: N=6, mean=30 (+/-0).
+P4: N=7, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=30, mean=0.588889 (+/-0.138088).
+P1: N=6, mean=0.527778 (+/-0.341738).
+P2: N=8, mean=0.541667 (+/-0.21161).
+P3: N=9, mean=0.648148 (+/-0.300399).
+P4: N=7, mean=0.619048 (+/-0.300019).
+Game Durations: N=30, mean=30 (+/-0).
+P1: N=6, mean=30 (+/-0).
+P2: N=8, mean=30 (+/-0).
+P3: N=9, mean=30 (+/-0).
+P4: N=7, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=30, mean=0.461111 (+/-0.125964).
+P1: N=7, mean=0.666667 (+/-0.246932).
+P2: N=7, mean=0.547619 (+/-0.282575).
+P3: N=8, mean=0.375 (+/-0.220431).
+P4: N=8, mean=0.291667 (+/-0.220431).
+Game Durations: N=30, mean=30 (+/-0).
+P1: N=7, mean=30 (+/-0).
+P2: N=7, mean=30 (+/-0).
+P3: N=8, mean=30 (+/-0).
+P4: N=8, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 40 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=40, mean=0.504167 (+/-0.098198).
+P1: N=10, mean=0.366667 (+/-0.106687).
+P2: N=10, mean=0.616667 (+/-0.218045).
+P3: N=10, mean=0.433333 (+/-0.213373).
+P4: N=10, mean=0.6 (+/-0.207743).
+Game Durations: N=40, mean=30 (+/-0).
+P1: N=10, mean=30 (+/-0).
+P2: N=10, mean=30 (+/-0).
+P3: N=10, mean=30 (+/-0).
+P4: N=10, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=40, mean=0.429167 (+/-0.08899).
+P1: N=10, mean=0.383333 (+/-0.228662).
+P2: N=11, mean=0.484848 (+/-0.178672).
+P3: N=9, mean=0.351852 (+/-0.085121).
+P4: N=10, mean=0.483333 (+/-0.185107).
+Game Durations: N=40, mean=30 (+/-0).
+P1: N=10, mean=30 (+/-0).
+P2: N=11, mean=30 (+/-0).
+P3: N=9, mean=30 (+/-0).
+P4: N=10, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=40, mean=0.608333 (+/-0.113731).
+P1: N=9, mean=0.537037 (+/-0.254069).
+P2: N=10, mean=0.566667 (+/-0.195996).
+P3: N=11, mean=0.651515 (+/-0.258546).
+P4: N=10, mean=0.666667 (+/-0.217773).
+Game Durations: N=40, mean=30 (+/-0).
+P1: N=9, mean=30 (+/-0).
+P2: N=10, mean=30 (+/-0).
+P3: N=11, mean=30 (+/-0).
+P4: N=10, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=40, mean=0.458333 (+/-0.105753).
+P1: N=11, mean=0.575758 (+/-0.212904).
+P2: N=9, mean=0.537037 (+/-0.223004).
+P3: N=10, mean=0.35 (+/-0.178587).
+P4: N=10, mean=0.366667 (+/-0.222086).
+Game Durations: N=40, mean=30 (+/-0).
+P1: N=11, mean=30 (+/-0).
+P2: N=9, mean=30 (+/-0).
+P3: N=10, mean=30 (+/-0).
+P4: N=10, mean=30 (+/-0).
+=====================================================
+=====================================================
+Completed 50 games.
+
+Agent 1 (MCTSStoHIWOR)
+Winning score (between 0 and 1) : N=50, mean=0.49 (+/-0.08317).
+P1: N=14, mean=0.428571 (+/-0.122102).
+P2: N=12, mean=0.569444 (+/-0.190552).
+P3: N=12, mean=0.416667 (+/-0.177558).
+P4: N=12, mean=0.555556 (+/-0.181313).
+Game Durations: N=50, mean=30 (+/-0).
+P1: N=14, mean=30 (+/-0).
+P2: N=12, mean=30 (+/-0).
+P3: N=12, mean=30 (+/-0).
+P4: N=12, mean=30 (+/-0).
+
+Agent 2 (Random)
+Winning score (between 0 and 1) : N=50, mean=0.48 (+/-0.087373).
+P1: N=12, mean=0.430556 (+/-0.214501).
+P2: N=13, mean=0.5 (+/-0.177383).
+P3: N=12, mean=0.430556 (+/-0.130033).
+P4: N=13, mean=0.551282 (+/-0.17886).
+Game Durations: N=50, mean=30 (+/-0).
+P1: N=12, mean=30 (+/-0).
+P2: N=13, mean=30 (+/-0).
+P3: N=12, mean=30 (+/-0).
+P4: N=13, mean=30 (+/-0).
+
+Agent 3 (Random)
+Winning score (between 0 and 1) : N=50, mean=0.573333 (+/-0.099721).
+P1: N=12, mean=0.541667 (+/-0.209416).
+P2: N=12, mean=0.527778 (+/-0.169801).
+P3: N=13, mean=0.653846 (+/-0.229383).
+P4: N=13, mean=0.564103 (+/-0.19759).
+Game Durations: N=50, mean=30 (+/-0).
+P1: N=12, mean=30 (+/-0).
+P2: N=12, mean=30 (+/-0).
+P3: N=13, mean=30 (+/-0).
+P4: N=13, mean=30 (+/-0).
+
+Agent 4 (Random)
+Winning score (between 0 and 1) : N=50, mean=0.456667 (+/-0.091355).
+P1: N=12, mean=0.555556 (+/-0.198347).
+P2: N=13, mean=0.461538 (+/-0.166046).
+P3: N=13, mean=0.397436 (+/-0.167623).
+P4: N=12, mean=0.416667 (+/-0.210858).
+Game Durations: N=50, mean=30 (+/-0).
+P1: N=12, mean=30 (+/-0).
+P2: N=13, mean=30 (+/-0).
+P3: N=13, mean=30 (+/-0).
+P4: N=12, mean=30 (+/-0).
+=====================================================

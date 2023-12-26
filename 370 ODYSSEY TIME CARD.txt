@@ -1,0 +1,73 @@
+TIME CARD || NOAH MORRIS || 2023 || CSCI 370  || "SP" CREDIT 
+
+3/31  03:30 - 06:00 PM  WROTE PARTS OF DESIGN DOCUMENT
+4/5   06:30 - 08:00 PM  GROUP MET
+4/7   05:00 - 07:00 PM  MET AND REVISED DESIGN DOCUMENT
+4/9   04:00 - 07:00 PM  CREATED INITIAL FINITE STATE MACHINE
+4/10  01:00 - 02:00 PM  VIBE/VC WITH MR. RUNDER
+4/12  02:00 - 04:30 PM  FSM MOVEMENT
+      05:30 - 08:30 PM  CLOCK ALIGNMENT
+4/13  11:00 - 12:00 PM  ATTEMPTED TASK MANAGEMENT
+4/13  09:30 - 10:30 PM  AESTHETIC CONSULTING
+4/16  07:00 - 09:00 PM  FOUND SOME DECENT SOURCES AND READ A WHILE ABT ARKANSAS TRANSIT.
+4/17  01:30 - 02:45 PM  WROTE SLIDE OUTLINES BASED ON NOTES I'D TAKEN FROM ^-- THAT RESEARCH
+4/19  10:00 - 02:00 AM  REROUTING OF FSM, BEGAN ROADSANDTRAILS.CS 
+4/22  05:30 - 09:00 PM  RUNTIME PLAYER MANIPULATION OF TILEMAP VIA MOUSE INPUT;
+					    FSM CONVOLUTION
+4/23  04:00 - 05:00 PM  GROUP MEETING
+4/24  02:30 - 11:00 PM  3DIZED SO NAVMESH WOULD BAKE PROPERLY (A PAIN, BUT WORK NONETHELESS);
+^--(1.5 HR OF BREAKS    REROUTED FSM SCRIPT TO UTILIZE NAVMESH;
+    ON THIS ONE = 7)    FIGURED OUT HOW TO HAVE DYNAMIC TILES AND STATIC NAVMESH SIMULTANEOUSLY;
+					    ZOOM IN AND OUT
+4/28  04:30 - 07:00 PM  TOYED WITH GRID ALIGNING ALGORITHM FOR NAVMESH;
+						LINE TRACER FUNCTION FOR ROADS, ABANDONED DUE TO THE WHILE LOOPS KEPT CRASHING UNITY AND IT SEEMED IMPRUDENT; 
+					    TYPESET TIMECARD
+4/29  04:00 - 08:00 PM  SUCCESSFUL 3D DYNAMIC NAVMESH MANIPULATION WITH 2D DYNAMIC USER-INPUT OF TILES;
+						DESIGN DOCUMENT REVISION, CONSIDERATE OF DISCO TRAY
+4/30  07:30 - 10:00 PM  SETTLED ON SOUNDTRACK;
+						STARTED ON WALL AND ROAD TILES, EXTENDING THE TRAIL
+5/1   10:00 - 12:00 PM  ADDED MONEY;
+						SET BOUNDS;
+						FIXED DISAPPEARING HOUSE GLITCH
+	  04:00 - 06:00 PM  SCORE DISPLAY;
+						UNWALKABLE -> WALKABLE VIA TILES ON NAVMESH;
+						WROTE TUTORIAL AND CREDIT SCENES
+	  07:00 - 11:00 PM  FINISHING TOUCHES AND BUGTESTING;
+						MAPPED TIME CONTROLS TO BUTTONS, REMOVING NEED TO CLICK;
+						REVISED ART SLIDES;
+						POSTED THE GAME TO ITCH
+						
+					   
+					   
+_______________________________________________________________________________					   
+55.25                   TOTAL OUT-OF-CLASS HOURS SPENT WORKING ON FINAL PROJECT
+-------------------------------------------------------------------------------
+
+A Complete final project will
+->  demonstrate participation in all SME and group meetings
+->  include a complete design document, with appropriate revisions throughout the project
+->  develop a viable first prototype with appropriate aesthetics and at least one scene
+->  revise into a second prototype with multiple levels, and the start/credit/help scenes
+->  facilitate playtesting and report on the results and future timeline for completion
+->  iterate a final prototype that is polished and published on itch.io
+->  present your prototype and development process to your SME and local educators
+->  contain significant and regular contributions on Github
+->  include an hours log with 30+ hours of work documented
+
+
+INFORMATION FROM GITKRAKEN AND TEAMS CHATLOG
+
+revised dd  -> https://docs.google.com/document/d/1A4Wx6nAw4eWaiRoqgIPhALcLfF81bPl5i-na3ifat1Q/edit?usp=sharing
+other links -> https://docs.google.com/document/d/1Y_D7Q5YWkegMZDvUwSvEbo-TlBFm4OEt5pt_-mTj99c/edit?usp=sharing
+other links -> https://github.com/brimstonetrader/transim3d/
+other links -> https://github.com/brimstonetrader/transim/
+other links -> https://brimstonetrader.itch.io/transim
+
+
+cd C:\Users\night\Downloads\ludi
+java -jar Ludii-1.3.10.jar
+
+
+
+
+"1000000000111000000001" ++ replicate (fromIntegral s) '0'

@@ -1,0 +1,17 @@
+1106 in Context.Java -->
+
+/**
+ * @return Reference to components list.
+ */
+public Component[] components()
+{
+	if (subcontext != null)
+		return subcontext.components();
+
+	return game.equipment().components();
+}
+
+
+currently my goal is to implement a deterministic model that exhibits optimal behavior in the Monty Hall problem. I have changed 
+
+Common/res/img/svg is where all the pictures are

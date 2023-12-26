@@ -1,0 +1,153 @@
+Y'all are giving Doc D a raise for a reason! She's really good at arranging activities, assignments, concepts, etc. I don't think I missed a single day - lectures and in-class guided-exploration type things (which were really nice! i was hesitant toward these at first but breaking into groups and manually proving (with immediate guidance and assistance when needed) things like the G.C.I.F. and Liouville helped hammer home the concepts and strengthen intuition.) always bore something incredible, and class-time was instrumental for understanding the material.
+
+I feel like in terms of hours put in and the weight I'd put on them for building understanding, problem sets could have been weighted a bit higher. They were worth like 1% of grade each which seems off. The amount of assignments, though, was good, and the textbook and etc. were all good enough to not change.
+
+Us math kids were abuzz this whole semester. Pace was fast and good. 
+
+The vibes in the room were great. Whole bunch of nostalgic seniors, eagerly drying off our wands and wizard uniforms like Prospero/Shakespeare in Henry VIII for easily the most intersectional and theoretically intimidating math class I've ever had. By the nature of the material! Downes was great as always. Y'all should keep this class around. 
+
+Each of them very much so. I spent plenty of hours this semester computing derivatives and integrals onto a sheet of paper or dry erase board. Dr. Downes demonstrated many proofs, to varying levels of formality as situations called for it. We (the students) went through plenty of proofs ourselves, both guided and alone, to where I feel better now about proving things in a continuous context (Analysis doesn't seem quite as much like a threat). The class felt like a natural stream of ideas, being discovered by pure curiosity. The first ten minutes of the first day were just building up what the real number line is, and everything up to the MacLaurin Series and Residues sprung out of that. I think this class should be called Calculus 4. Its applications are evident everywhere Calc is, and that's y'all's most popular class. 
+
+Downes let us handwrite solutions instead of LaTex, which didn't really have a negative impact on my notation or terminology. I think LaTex is very good and cool and has a lot of great use-cases for college-level math, but weekly drills on paper instead of typeset made more sense for a more Calculus-style problem-solving class like this. I remember I asked if we got a unanimous vote if we could switch the term "modulus" to "magnitude", and Downes was like, "nah, anyone who's gonna be saying some shit you wanna hear abt \mathbf{C} is gonna be calling it modulus." She was right. I know what an analytic is now, and bounded. 
+
+The weekly problem sets most of all. If it was a week where I was busy or lazy or something and got behind ()
+
+
+
+
+
+Skip to main content
+Hendrix College
+202223 2S Course Feedback
+MATH_490__F1 : AdvTop:Complex Variables
+Carol Ann Downes
+
+Course Feedback
+Carol Ann Downes - The classroom teacher’s use of class time contributed to my learning of the course material.
+Carol Ann Downes
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Assignments for this course contributed to my understanding of the course material.
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+This course contributed to the development of my academic skills.
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Carol Ann Downes - The classroom teacher followed clearly explained grading procedures.
+Carol Ann Downes
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Carol Ann Downes - The classroom teacher returned graded work in time to be useful to students.
+Carol Ann Downes
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Carol Ann Downes - The classroom teacher was available to assist students outside of classes.
+Carol Ann Downes
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+The learning goals for this course were clearly articulated.
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Carol Ann Downes - The classroom teacher facilitated my progression toward the learning goals.
+Carol Ann Downes
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Overall, this course contributed to my liberal arts experience.
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+Overall, taking this course was a positive learning experience.
+Strongly disagree
+Disagree
+Neither agree nor disagree
+Agree
+Strongly Agree
+Comments:
+How many hours per week on average outside of class time did you spend studying and completing assignments for this class?
+030
+This course has increased my abilities to employ the methodologies used in mathematics (e.g., calculation, proof, discovery of new mathematics, and application). 
+Strongly Agree
+Agree
+Neutral
+Disagree
+Strongly Disagree
+Comments:
+This course has increased my ability to produce clear, coherent written solutions to problems, including using proper mathematical notation and terminology.  
+Strongly Agree
+Agree
+Neutral
+Disagree
+Strongly Disagree
+Comments:
+What activities or assignments facilitated your learning? (Be specific.)
+This course has strengthened my framework for connecting concepts and ideas from different areas of mathematics as introduced in my previous courses.
+Strongly Agree
+Agree
+Neutral
+Disagree
+Strongly Disagree
+Comments:
+Describe how this course challenged your conception of and/or your attitude toward mathematics. Please briefly explain your answer below.
+Positively
+Neutrally
+Negatively
+Comments:
+What expectations did you have for the course at the onset? Were those expectations met? Why or why not?
+What advice would you give future students of this course? (By answering this question, you are allowing me to quote this anonymous response on my syllabus.)
+© 2023 Watermark Insights, LLC and its affiliates. All rights reserved.
+
+    Terms & Conditions Privacy Policy Accessibility Policy 
+
+
+Ack! Goad, the number one thing is this: I really enjoy this discipline, and I feel that the way that you arranged my experience of learning Unity was thorough, very good, way better than anything else I can think of. The labs, lectures, office hours, everything had natural and intuitive progression. The lectures were jam-packed with information (approachable information though! relaxed enough atmosphere that I never felt like taking a mental health day). I'd taken cracks at learning Unity, in the past, but always found it beyond my un-assisted capabilities. Now, I think C# is very cool and enjoyable, I could, given a couple minutes and Google, explain what any option on the Unity homescreen does and suggest a usecase. The main way that I learned was through the labs. They were the most essential part. The final project is turning out really cool, and if I wind up continuing it with Disco Tray, I'm confident that I could just keep on making things better. 
+
+As I stated before, this couldn't occur in a few months in a vacuum. Class materials were REALLY helpful, an appropriate amount was provided so as to be comprehensible but capable of answering most questions one might have. I do not think that I am a good or great video game developer, but I feel that I know a lot about it now, enough to know that I want to continue doing and learning about this type software development stuff, and that as I do that, I'll get better.
+
+
+
+
+
+(FOR ME RN: C# > PYTHON > HASKELL > JAVA , BUT I GRANT THAT ALL ARE AMAZING, CAPABLE TOOLS WORTH USING)
+
+
+
+
+
+360
+
+Y'all all could learn a thing or two from the Baba Yaga himself. Listen. Mans is teaching some really complex theoretical concepts, building them from scratch in such an engaging way. Lord! This class felt like what, in my head, and in movies, coding in college in the 80s seemed like. Three heads gathered around one computer, talking their way through the minutae of the Essential Hierarchies. That was fun! I learned a lot, and it felt more like math than coding. Not even the less fun math like calculus or analysis, it felt like some of that really spiritually engaging stuff like set group theory doing combinatorics that. He left a lot of room for us to be creative. I was skeptical at first of classtime occasionally being used to work on modules, but now I think it's a smart move. The way projects and modules are laid out in the base schedule is gas, taking up the proper amount of time. I was, again, initially skeptical of what Yorgey's token policy would do to my capability to get things in. I go to office hours a lot, and was never hard-up fiending over some tokens. As the semester unfolded, I found that I did, often, use tokens to turn things in late, but that group assignments would always be halfway finished or more by the due date, and the energy of the out-of-class meetings the couple nights before it's due to get through the last bit of the modules were always pretty nice, for me, but maybe I just lucked out on group members. The few late modules would be done within the week by inertia, in my case. The last three individual assignments were my main token investment, and it was nice. I budgeted the proper time, shifting things around, and got the work done. The ability to do that, to set personal deadlines and boundaries without the spectre of temporal punishment, was interesting. Something I think I learned something from, although I'd grant that this approach can only really work in CS, Creative Writing, Art, and any other discipline one might argue is analogous to cooking.

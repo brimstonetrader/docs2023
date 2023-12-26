@@ -1,0 +1,12 @@
+INST CA : [NUMBER OF STATES]   :: Natural     
+          [NUMBER OF DIMENS]   :: 1D OR 2D OR TORUS OR MOBIUSTRIP     
+		  
+		  [NEIGHBORHOOD]       :: [Double] where each double represents the weight of a particular neighbor. each successive element spirals from Moore 					neighborhood like 
+
+				234
+				1X5  etc.
+				876
+				
+		  [INITIAL CONDITIONS] :: [Natural]	begins with "default", then spirals from center for Particular Formations
+		  
+		  [TRANSITIONS]  :

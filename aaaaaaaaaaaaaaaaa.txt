@@ -1,0 +1,14 @@
+anything else y'all think we should have for the second prototype? i can work on the trails and roads as well.
+
+(  ) - path drawing for trails and roads, mph 
+(me) - continuing work on FSM AI, with in-game clock and multiple possible transit modes
+(  ) - drag and drop menu, with options for office, residence, social space, and parking lot
+(  )     light customization, something like name or color, for all but parking lots
+(  ) - to schedule a meeting with mr. runder after the second prototype is due
+(  ) - to give alyssa her assignment on tuesday, with both
+(  )	 general assets (road, trees, train, cars, bikes, etc)
+(me)     transportation slides
+(  ) - get a placeholder, light ambient urban soundtrack, road noise or Autobahn or smth
+(  ) - placeholder empty town with train tracks and river
+
+let's go red team let's go *clap* *clap*

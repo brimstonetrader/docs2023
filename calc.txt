@@ -1,0 +1,503 @@
+Project 2: Calculator
+=====================
+
+For this project, you will implement the guts of a (fancy) calculator.
+I have provided you with a simple read-eval-print interface (in
+[CalcREPL.hs](CalcREPL.hs)) that lets the user type in expressions to
+be evaluated.  You will ultimately provide a function of type `String
+-> String` which accepts the user's input and produces a response.  Of
+course, your `String -> String` function should be decomposed into
+multiple phases, just like all of the language implementations we have
+been considering (such as parsing, pretty-printing, interpreting, and
+so on).  This project intentionally gives you much less guidance than
+the first project in terms of what specific data types and functions
+you should write, and how to decompose your solution.  However, you
+can of course use the modules we have done as templates to help guide
+you.
+
+Getting started
+---------------
+
+- Download the [provided zip file](calc.zip), which should contain several
+  files including [`CalcREPL.hs`](CalcREPL.hs),
+  [`Calc.lhs`](Calc.lhs), [`Parsing2.hs`](Parsing2.hs), and a
+  few configuration files such as `calc.cabal` and `stack.yaml`.
+
+- Extract the contents of the zip file.
+
+- If you do not have Haskell working on your computer you can use
+  `replit.com` to complete this project. Simply upload all the
+  provided files to a new `replit.com` project.
+
+- While working on your calculator, to load it into `ghci` (e.g. in
+   order to try out a function), you can use the `stack repl` command.
+
+- To compile and run your calculator, you can use the command `stack run`
+  (this should be typed at a terminal/shell prompt, not at a ghci
+  prompt).
+
+      cd Downloads/360/calc
+      stack repl
+      :l Calc
+
+    - You should get a calculator prompt where you can enter expressions (though
+      it will not do anything yet).
+
+    - Simply exit the calculator and rerun `stack run` every time
+      you want to test changes you have made to `Calc.lhs`.
+
+Level 1
+-------
+
+Your calculator must support the following features:
+
+- Floating-point numbers (represented as `Double` values)
+- Standard arithmetic operations `+`, `-`, `*`, `/`, and `^`
+  as well as prefix negation
+- Display appropriate error messages to the user instead of crashing
+- Display appropriate startup and `:help` messages which
+  explain/illustrate the features of the calculator.
+
+For example, a sample interaction with your calculator might look like
+this:
+
+    > 2+3
+    5
+    > (((3*5)   -   9)  + -8.3)
+    -2.3000000000000007
+    > 2 ^ 2 ^ 2 ^ 2
+    65536.0
+    > (3+3)*3
+    18.0
+    > 3+
+    (line 1, column 3):
+    unexpected end of input
+    expecting end of "+", number, or "("
+
+Your calculator must never crash with a runtime error or
+pattern-match failure.
+
+Get started by editing the starter code below and adding to it as
+appropriate!
+
+General notes and hints
+-----------------------
+
++ You can use the `reserved` token parser to parse things like
+  function names, names of constants or units, *etc.*
++ You can use the `naturalOrFloat` token parser to parse literal
+  values that can either be an integer or a floating-point value. Note
+  it does not handle negatives; that should be taken care of
+  automatically by your prefix negation operator.
++ You can use `fromIntegral` to convert from `Integer` to `Double`.
++ You should use the `parse` function to run your parser.  If it
+  returns an error wrapped in a `Left` constructor, you can simply
+  call `show` on the resulting error to turn it into a `String`
+  appropriate for displaying to the calculator user.
++ The `parseSome` function can be used as before for experimenting
+  with parsers in GHCi.
++ Exponentiation for `Double` values in Haskell is done with the
+  `(**)` operator.  (The `(^)` operator is only for integers.)
+
+Starter code
+------------
+
+> {-# LANGUAGE GADTs #-}
+> {-# OPTIONS_GHC -Wall #-}
+>
+> module Calc where
+>
+> import           Parsing2
+> import qualified Data.Map as M
+> import Prelude hiding ((<$>), (<$), (<*>), (<*), (*>))
+
+
+Edit this description and replace it with your own!  It gets printed
+when the calculator interface first starts up.
+
+> description :: String
+> description = unlines
+>   [ "WELCOME TO THE WIRE MATRIX"
+>   , "WE HAVE BEEN EXPECTING YOU"
+>   , "FLOATING POINT ARITHMETIC"
+>   , "COMBINATORICS OF N->K FOR NATURALS @ THE suth FUNCTION"
+>   , "WE DON'T TAKE KINDLY TO TRANSCENDENTALS"
+>   , "NEVERTHELESS WE HAVE NAUGHTY, ALGEBRAIC TRIG"
+>   , "FOR ACCESS TO THE FABLED CHART"
+>   , "GIVE ME A FUNCTION, :help, :suthhelp, or :quit."
+>   ]
+
+Edit this help message and replace it with your own! It gets printed
+when the user types `:help`.  Adding some well-chosen examples could
+be a good way to concisely show off the different features of your
+calculator.
+
+> helpMsg :: String
+> helpMsg = unlines
+>   [ "floating point values (https://www.youtube.com/watch?v=dQhj5RGtag0)"
+>   , "negation, standard arithmetic operators + - * / ^ ."
+>   , "e's about 2.7, I heard pi is close to 4."
+>   , "they both take a Natural input, which reflects the degree of precision you want."
+>   , "phi's the golden ratio. You can call fib(a)"
+>   , "for the a'th term of the sequence, and fib(a,b,c)"
+>   , "for the c'th term of a fibonacci-style sequence."
+>   , "with starting terms a and b."
+>   , "c is the speed of light in miles per hour."
+>   , "to find a square root, raise to power of 1/2."
+>   , "e and pi are both defined as sums. You input."
+>   , "a Natural to dictate the degree of precision warranted."
+>   , "ex. e 5 = 1/0! + 1/1! + 1/2! + 1/3! + 1/4!"
+>   , "sin(x) and cos(x) and tan(x) are sort of right."
+>   , "the following operations only work on Naturals"
+>   , "sum i b n func is sum_{i=b}^{n} func"
+>   , "fact x is factorial (fact 6 -> 720)"
+>   , "choose n k is n choose k (choose 6 3 -> 20)"
+>   ]
+
+
+> suthHelpMsg :: String
+> suthHelpMsg = unlines
+>   [ "Look if you really want to know"
+>   , "about The Chart..."
+>   , "click this Overleaf link"
+>   , "https://www.overleaf.com/read/nbzrcyjnnxmk"
+>   ]
+
+
+This is the main function that is called by `CalcREPL` to evaluate
+user input.
+
+> calc :: String -> String
+> calc s = case parse arith s of
+>   Left pErr  -> show pErr
+>   Right e    ->
+>     case interpArith M.empty e of
+>       Left iErr -> show (showInterpError iErr)
+>       Right v   -> (displayArith e) ++ " = " ++ (show v)
+
+// This parses the string, returning an error if need be, then interprets the 
+// arith, again, throwing an error if need be.
+
+
+> displayArith :: Arith -> String
+> displayArith (Lit (Left x)) = (show x)
+> displayArith (Neg a) = "-" ++ (displayArith a)
+> displayArith (Fact a) = (show a) ++ "!"
+> displayArith (E a)    = "e{" ++ (show a) ++ "}"
+> displayArith (Pi a)    = "pi{" ++ (show a) ++ "}"
+> displayArith (Partition a) = "P(" ++ (show a) ++ ")"
+> displayArith (Fib a)      = "Fib(1,1," ++ (show a) ++ ")" 
+
+> displayArith (Bin Plus a1 a2)  = "(" ++ (displayArith a1) ++ " + " ++ (displayArith a2) ++ ")"
+> displayArith (Bin Minus a1 a2) = "(" ++ (displayArith a1) ++ " - " ++ (displayArith a2) ++ ")"
+> displayArith (Bin Times a1 a2) = "(" ++ (displayArith a1) ++ " * " ++ (displayArith a2) ++ ")"
+> displayArith (Bin Div a1 a2)   = "(" ++ (displayArith a1) ++ " / " ++ (displayArith a2) ++ ")"
+> displayArith (Bin Raise a1 a2) = "(" ++ (displayArith a1) ++ " ^ " ++ (displayArith a2) ++ ")"
+> displayArith (Var x)           = x
+> displayArith (Let x a1 a2)     = "Let" ++ x ++ "=" ++ (displayArith a1) ++ "in" ++ (displayArith a2)
+> displayArith (Lit (Right _)) = ""
+
+// I have put parentheses around the operations, but other than that am just displaying the Arith
+// before it gets interpreted in addition to after.
+
+>
+> data Arith where
+>   Lit       :: (Either Integer Double) -> Arith 
+>   Neg       ::  Arith   -> Arith
+>   Fact      ::  Natural -> Arith
+>   Partition ::  Natural -> Arith
+>   E         ::  Natural -> Arith
+>   Pi        ::  Natural -> Arith
+>   Trig      ::  Pytho -> Arith 
+>   Fib       ::  Natural -> Arith
+>   Bin       ::  Op      -> Arith       -> Arith   -> Arith
+>   NBin      ::  NOp     -> Arith       -> Arith   -> Arith
+>   Var       ::  String  -> Arith
+>   Let       ::  String  -> Arith       -> Arith   -> Arith
+>   Sum       ::  String  -> Integer     -> Integer -> Arith -> Arith
+>   FibGen    :: (Either Integer Double) -> (Either Integer Double) -> Natural -> Arith
+>   deriving (Show)
+>
+> data Pytho where
+>   Sin :: Pytho
+>   Cos :: Pytho
+>   Tan :: Pytho
+>
+> data Op where
+>   Plus  :: Op
+>   Minus :: Op
+>   Times :: Op
+>   Div   :: Op
+>   Raise :: Op
+>   deriving (Show, Eq)
+>
+> data NOp where
+>   Stir   :: NOp
+>   Fall   :: NOp
+>   Choose :: NOp
+>   Part   :: NOp
+>    
+>   
+>
+> -- Parser
+>
+> lexer :: TokenParser u
+> lexer = makeTokenParser $ emptyDef
+>   { reservedNames = ["let", "in", "sum", "from", "to", "choose", "fall", "part"] }
+>
+> parens :: Parser a -> Parser a
+> parens     = getParens lexer
+>
+> reservedOp :: String -> Parser ()
+> reservedOp = getReservedOp lexer
+>
+> reserved :: String -> Parser ()
+> reserved   = getReserved lexer
+>
+> double :: Parser Double
+> double     = getFloat lexer
+>
+> natural :: Parser Integer
+> natural    = getNatural lexer
+>
+> naturalOrFloat :: Parser (Either Integer Double)
+> naturalOrFloat = getNaturalOrFloat lexer 
+>
+> negative :: Parser Arith
+> negative = ((oneOf "-") *> parseArithAtom)
+>
+> whiteSpace :: Parser ()
+> whiteSpace = getWhiteSpace lexer
+>
+> identifier :: Parser String
+> identifier = getIdentifier lexer
+>
+> parseArithAtom :: Parser Arith
+> parseArithAtom =
+>       (Neg <$> negative) 
+>   <|> Lit <$> naturalOrFloat
+>   <|> Var <$> identifier
+>   <|> parseLet
+>   <|> parseSum
+>   <|> parens parseArith
+>
+> parseSum :: Parser Arith
+> parseSum = Sum
+>   <$> (reserved   "sum" *> identifier)
+>   <*> (reservedOp "from"   *> integer)
+>   <*> (reservedOp "to"   *> integer)
+>   <*> (reserved   "in"  *> parseArith)
+>
+> parseLet :: Parser Arith
+> parseLet = Let
+>   <$> (reserved   "let" *> identifier)
+>   <*> (reservedOp "="   *> parseArith)
+>   <*> (reserved   "in"  *> parseArith)
+>
+> parseArith :: Parser Arith
+> parseArith = buildExpressionParser table parseArithAtom
+>   where
+>     table = [ 
+>               [ Infix (Bin Raise <$ reservedOp "^") AssocRight],
+>               [ Prefix (Neg <$ reservedOp "-")],
+>               [ Infix (Bin Times <$ reservedOp "*") AssocLeft
+>               , Infix (Bin Div   <$ reservedOp "/") AssocLeft
+>               ]
+>             , [ Infix (Bin Plus  <$ reservedOp "+") AssocLeft
+>               , Infix (Bin Minus <$ reservedOp "-") AssocLeft
+>               ]
+>             ]
+>
+> arith :: Parser Arith
+> arith = whiteSpace *> parseArith <* eof
+>
+> -- Interpreter
+>
+> type Env = M.Map String Double
+>
+> data InterpError where
+>   UnboundVar :: String -> InterpError
+>   DivByZero  :: InterpError
+>
+> showInterpError :: InterpError -> String
+> showInterpError (UnboundVar x) = "Unbound variable " ++ x
+> showInterpError DivByZero      = "Division by zero"
+>
+> interpArith :: Env -> Arith -> Either InterpError Double
+> interpArith _ (Lit i)           = case i of
+>   (Left j)                      -> Right (realToFrac j)
+>   (Right j)                     -> Right j
+> interpArith e (Neg a)           = (*) <$> (Right (-1.0))   <*> interpArith e a
+> interpArith e (Bin Plus e1 e2)  = (+) <$> interpArith e e1 <*> interpArith e e2
+> interpArith e (Bin Minus e1 e2) = (-) <$> interpArith e e1 <*> interpArith e e2
+> interpArith e (Bin Times e1 e2) = (*) <$> interpArith e e1 <*> interpArith e e2
+> interpArith e (Bin Div e1 e2)   =
+>   interpArith e e2 >>= \v ->
+>   case v of
+>     0 -> Left DivByZero
+>     _ -> (/) <$> interpArith e e1 <*> Right v
+> interpArith e (Bin Raise e1 e2) = (**) <$> interpArith e e1 <*> interpArith e e2
+> interpArith e (Var x)           =
+>   case M.lookup x e of
+>     Nothing -> Left $ UnboundVar x
+>     Just v  -> Right v
+> interpArith e (Let x e1 e2)     =
+>   interpArith e e1 >>= \v ->
+>   interpArith (M.insert x v e) e2
+>
+> interpArith e (Sum i beg end expr) = sumHelper e i beg end expr
+>
+> sumHelper :: Env -> String -> Integer -> Integer -> Arith -> Either InterpError Double
+>   sumHelper e i beg end expr = if (beg == end) then 
+>     (sumHelper e i end end expr >>= \v ->
+>     interpArith (M.insert i end) expr) else
+>     (sumHelper e i beg steps expr >>= \v ->
+>     case (interpArith (M.insert i beg) expr) of
+>       (Left err) -> (Left err)
+>       (Right i)  -> )
+>
+>
+> eTaylor :: Integer -> Double -> Double
+> eTaylor (-1) e = e
+> eTaylor x e = eTaylor (x-1) (e + (1 / fact(x)))
+>
+> phi :: Arith
+> phi = (Bin Div (Bin Plus (Lit (Left 1)) (Bin Raise (Lit (Left 5)) (Lit (Left 0.5)))) (Lit (Left 2)))
+> 
+> data Distinction where
+>   DaD  :: Distinction
+>   IaD  :: Distinction
+>   DaI  :: Distinction
+>   IaI  :: Distinction
+>   deriving (Show, Eq)
+>
+> data FuncClass where
+>   ANY  :: FuncClass
+>   SUR  :: FuncClass
+>   INJ  :: FuncClass
+>   BIJ  :: FuncClass
+>   deriving (Show, Eq)
+>
+> suth :: Distinction -> FuncClass -> Bool -> Natural -> Natural -> Arith
+> suth DaD ANY False n k = (Bin Raise n k)
+> suth DaD SUR False n k =  
+> suth _ = 0
+
+
+e = sum 0->inf 1/i!
+pi = sum 0->inf 4/(2i+1)
+
+or 3.1415926535897926462
+
+
+Sum[\(40)Divide[4,2n+1]Power[\(40)-1\(41),n]\(41),{n,0,∞}] = pi
+
+Level 2
+-------
+
+To complete this project to Level 2, in addition to the requirements
+for Level 1:
+
+- Re-display a nicely formatted version of the user's input as
+  confirmation of each computation.  For example, a sample interaction
+  with your calculator might now look like this:
+
+    ```
+    > 2+3
+    2.0 + 3.0
+      = 5.0
+    > (((3*5)  -   9)  + -8.3)
+    3.0 * 5.0 - 9.0 + -8.3
+      = -2.3000000000000007
+    > 2 ^ 2 ^ 2 ^ 2
+    2.0 ^ 2.0 ^ 2.0 ^ 2.0
+      = 65536.0
+    > (3+3)*3
+    (3.0 + 3.0) * 3.0
+      = 18.0
+    ```
+
+- Ensure that your code uses [good Haskell style](https://kowainik.github.io/posts/2019-02-06-style-guide).
+
+- Make sure your code is simplified as much as possible, for example,
+  without redundant pattern-matching.
+
+- Turn on `{-# OPTIONS_GHC -Wall #-}` and make sure your code generates no warnings.
+
+- Write informative, grammatically correct comments explaining your
+   code, its operation, and any choices you made along with the
+   reasons for those choices.
+
+Level 3
+-------
+
+To complete this project to Level 3, in addition to the requirements
+for Level 2, you must complete *at least two* extensions.  You may
+pick from the following list of suggested extensions (ordered roughly
+from easier to harder), or propose your own.
+
+1. Add support for the constants $\pi$ and $e$, along with at least
+   five functions such as sine, cosine, tangent, log, floor, ceiling,
+   round, square root, or absolute value.  For example, a sample
+   interaction might look like this:
+
+    ```
+    > sin(pi/6)
+    sin(π / 6.0)
+      = 0.49999999999999994
+    > cos(tan(log(abs(-2))))
+    cos(tan(log(abs(-2.0))))
+      = 0.6744026976311414
+    > ((1 + sqrt(5))/2)^2 - 1
+    ((1.0 + sqrt(5.0)) / 2.0) ^ 2.0 - 1.0
+      = 1.618033988749895
+    ```
+
+e, pi, i, phi, c, sin, cos, tan, log, fractional exponents, floor, ceiling, |-x| = x, sum and product, Fib(a,b)
+
+
+5. You should also feel free to propose your own extensions; just be
+   sure to run them by me to make sure you choose something with an
+   appropriate level of difficulty.
+
+How many mappings of n to k are there?
+(if 2 top -> (n < k) btm -> (k <= n))
+
+           reg/func              onto/surj     1-1/inj        bij 
+ 
+d.d          n^k                  n!*S(k,n)      n_k            n!
+
+d.i      sum 1-n S(k,i)          S(k,n)         0             0 (unless n=k then 1)
+         sum 0-n S(n,i)                         1             
+
+i.d     (n+k-1 choose k)   (k-1 choose n-1)   (n choose k)    0 (unless n=k then 1)
+
+i.i      sum 1-n P(k,i)           P(k,n)         1             0 (unless n=k then 1)
+         P(n)                            
+
+OM 
+                   reg                                  onto
+
+d.d              (n+k-1)_k                       (k-1 chooose n-1)k!
+
+d.i   sum i-n (k choose i)((k-1)_(k-i))       (k choose n)((k-1)_(k-n))
+
+
+
+
+P(n) = total partitions of n
+
+P(n,k) = total partitions of n into k parts
+
+
+S(m,n) = S(m-1,n-1) + nS(m-1,n)
+
+1
+0  1
+0  1  1
+0  1  3  1
+0  1  7  6  1
+0  1  15 25 10 1
+...
+
+Also S(n,k) = (1/k!) (sum_i=0^k (-1)^i {k choose i} (k-i)^n) 

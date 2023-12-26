@@ -1,0 +1,32 @@
+How would Disco Tray Studios benefit from having you as a member? What particular qualities and attitudes would you bring to bear on the mission described above?
+
+What project involving programming (completed inside or outside the classroom) gave you the largest sense of accomplishment overcoming adversity? Please provide a link to this project.
+
+	The link here is to my draft: the final will be here in two weeks, and in spite of this it is still what I am most proud of. My math thesis, about fifty pages of math and code analyzing rotational symmetry and partitions of nxn grids. I remember when I took up the problem there were slight rumblings that I'd hit a wall of NP-Hardness, but ultimately I got a lot of really interesting stuff out of it. Further, the classical Zoomer (b. 2000-2018) curse of phone addiction, exacerbated by COVID, did not skip me over purely because I never used social media habitually. My deep, passionate, Covid-brained, >4 hour a day addiction began with Sudoku, pivoted quickly to Nonograms which I found more "essential", then pivoted to Galaxies, which seemed to have a thrall over me that couldn't be reckoned with or explained, a strategy so ephemeral as to be indescribable, and a mathematical structure so elegant you don't really need numbers to tell its story. A shimmering, truly beautiful, pure class of objects: the absolute pinnacle of discrete geometry. Thoroughly and formally going through the mathematics, understanding what I was up against, and ultimately building algorithms to count and generate them, felt like overcoming something much bigger than myself: David and Goliath, Kaspar Hauser going outside. I still play them occasionally for recreation, but now I am in control.
+
+https://www.overleaf.com/project/63fb9d4c3ba840617519c08c	
+Describe a situation when you were on a team, and the work did not go as planned. How did you assist in resolving the situation? How might you approach similar problems in the future?
+
+Are there particular social, community, or educational issues you hope to address through your participation?
+
+	My favorite humanity is creative writing, and I'd love to work that in somewhere. I would also be exceedingly interested in creating any sort of math-education based software. I was born in Conway and grew up in the Central Arkansas area. I would be very interested in giving back to my community in a broad sense.
+	
+How do you manage your schedule of classwork, outside responsibilities, and life? How will you make sure to set aside the 10 hours per week needed for working at Disco Tray Studios?
+
+	I keep a thoroughly organized text file, with my obligations and time commitments set up in a nice rigid order. Here is a sample.
+
+	370 3/30: THU 9:45  AM - BRING WALKABLE CITIES
+	490 3/30: THU 1:15  PM - HW9 REVISIONS
+	307 3/30: THU 2:45  PM - EXPL. 8
+	MHC 3/30: THU 8:00  PM
+	360 3/30: THU 11:59 PM - MODULE 9 DUE
+
+	The first column notates class meetings, and the last is assignments that are due at that time. If an assignment is due at a different time than the class meets, a different event is created, like the last column. I check and update this text file in Notepad++ before and after I start working in a day. I am confident that I can make time for this. I have two other small-scale campus jobs in the Math Help Center and Hendrix Profile, and I am very confident that I can make the 10 hours a week, and at any given moment, I can show you where in the week the ten hours will be.
+	
+	I have a lot of sort of superstitious strategies for maintaining focus while working on math or CS. I keep my phone far away, Do Not Disturb, and don't check it even when I'm on a break. If I'm listening to music, I use my analog CD player, so I don't need to interact with distraction-laden Spotify, or even Windows Media Player Legacy. I have a tendency to start writing on paper or a whiteboard whenever the possibility arises. All of this is in the pure interest of making my work as good as it can be.
+	
+What other commitments will you have in the 2023-2024 academic year?
+
+	1st sem. algorithms, senior seminar, advanced fiction, and around 8-10 hours a week at Profile and Math Help Center
+
+	2nd sem. CSO, computational humanities, music production, and writing for life, although I've got some preliminary aspirations to do an independent study on quantum computing instead of one of those electives.

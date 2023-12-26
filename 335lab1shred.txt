@@ -1,0 +1,152 @@
+\begin{center}
+\begin{tabular}{|c|c|c|c|} 
+  
+  French & Spanish & English & German \\
+  (1, 0, *16, *18) & (1, 0, *6, 0)        & (0, 0, 1, 0)        & (0, 0, 1, 0) \\
+  \hline
+  (1, *18, *24, *22) & (*8, 1, *14, *23)    & (*11, *35, 1, *-13) & (*22, 0, *20, 1) \\
+  \hline
+  (1, 0, *9, 0) & (1, 0, *5, *12)      & (*9, 0, 1, 0)       & (0, 0, 1, 0)  \\
+  \hline
+  (1, 0, *10, 0) & (0.55, 0, 0.44, *17) & (*14,*32,1,*18)     & (1, 0, *16, *18)  \\
+  \hline
+  (1, *, *16, *18) & (0.75, 0, 0.25, *4)  & (*14, 0, 1, *12)    & (*6, 0, 1, 0)  \\
+  \hline
+  (1, 0, *13, 0) & (*10, 1, *13, *19)   & (*10, 0, 1, *18)    & (0, 0, 1, 0) \\
+  \hline
+  (0, 0, 1, 0) & (*12, 1, *14, *15)   & (*15, 0, 1, 0)      & (*18, *29, *19, 1) \\
+  \hline
+  (1, *7, *10, *16) & (*14, 1, *19, *32)   & (*15, *29, 1, *13)  & (*15, *21, *12, 1) \\ 
+  \hline  
+\end{tabular}
+\end{center}
+
+  \item[$\varowedge $] &  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood.
+  \item[$\varovee   $] &  You don't want me anymore, so I'll just walk right out that door.
+  \item[$\varoplus  $] &  That knock a cop off unconscious molotov cocktailing sound, bomb a snitch.
+  \item[$\varotimes $] &  Bragging about how you had it all dialed? Well, what's up now when your stuff is gone?
+  \item[$\varodot   $] &  Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn.
+  \item[$\varocircle$] &  We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world.
+  \item[$\varobar   $] &    As I look over this beautiful land, I can't help but realize that I am alone.
+  \item[$\varominus $] &  I light my torch and burn it, I am the beast I worship.
+
+
+
+
+The eight sentences, in English, were sourced mostly from Death Grips. The rest are direct translations sourced from Google Translate. The Java model was trained extensively on English, Spanish, French, and German, and as such it predicted the following for those sentences. 
+
+The model, initially was only trained on those languages. I used Google Translate again for English to Xhosa and Swahili. I expected them to score similarly, but not exceedingly so, as Swahili has many loanwords from Arabic, and Xhosa is mostly spoken in South Africa, far from any Arabic-speaking countries, in addition to being tonal and utilizing "click" consonants (c,x, and q mark central, lateral, and post-alveolar clicks respectively). 
+
+For my other two languages, I chose two from the U.S. that were artificially created less than 50 years ago. While it'd be easy to imagine the two would have a 
+lot in common, they have opposite design philosophies. The first, Lojban, was developed in 1987 by a commitee of academics seeking a language that was truly 
+syntactically unambiguous. After a lot of infighting and a couple of lawsuits (the linguists, set theorists, and AI researchers did not get along) the language 
+was instantiated, and the language has a website with a dictionary, several published works, and a translator. I ranthe model without training it, and found it 
+to think the sentences were         Then, I trained the model on a translation of Kafka's The Metamorphosis, after which it guessed this
+
+The other conlang that I chose was Toki Pona. In contrast to the years of academic energy and discussion that went into Lojban, Toki Pona was invented by one linguist as a personal project over less than a year. It has 120 words, total, and seeks to reduce complex concepts to simple ones. For example, the translation of "teacher" is "jan pi pana sona", which means "PERSON THAT GIVES KNOWLEDGE". This language is much more difficult to translate by algorithm than any of the others that I selected. The one implementation of an English to Toki Pona translator that I found on the internet was an AI coding project with a lot of available data and lackluster results. Nevertheless, I retrieved enough toki pona to test the model on it, and a novel-length .txt file, "Jan Sitata", to train the model.
+
+
+
+
+trois chambres dans un bon quartier en feu comme une margarita en bois
+tu ne veux plus de moi alors je vais juste passer cette porte
+cela fait tomber un flic inconscient du bruit dun cocktail molotov bombarde
+vous vous vantez de la façon dont vous avez tout composé  eh bien que 
+trop de temps passé dans le labyrinthe vous rendra fou je me sens si mal je suis là depuis 
+nous ne voulons pas de votre argent sale nous n’avons pas besoin de votre 
+en contemplant ce magnifique pays je ne peux mempêcher de réaliser que je suis seul
+jallume ma torche et je la brûle je suis la bête que jadore
+
+german
+drei schlafzimmer in guter nachbarschaft in flammen wie eine margarita aus holz
+du willst mich nicht mehr also gehe ich einfach durch die tür hinaus
+das macht einen polizisten bewusstlos molotow-cocktail-geräusch bombardiert einen spitzel
+prahlen sie damit dass sie alles geschafft haben was passiert jetzt wenn deine sachen weg sind
+wenn man zu viel zeit im labyrinth verbringt wird man wahnsinnig mir geht es so schlecht ich bin schon so lange dort dass ich mich nicht mehr daran erinnern kann wer ich bin oder wo ich stehe aber am ende schätze ich ist es mir völlig egal
+wir wollen ihr schmutziges geld nicht wir brauchen ihr unschuldiges blutvergießen nicht wir wollen nur ihre welt zerstören
+wenn ich über dieses wunderschöne land schaue wird mir bewusst dass ich allein bin
+ich zünde meine fackel an und verbrenne sie ich bin das tier das ich anbete
+
+xhosa
+amagumbi okulala amathathu kwindawo elungileyo evutha njengemargarita eyenziwe ngomthi
+awusandifuni ngoko ndiza kuphuma kanye ngala mnyango
+oko kunkqonkqoza ipolisa likhuphe isandi se-molotov se-cocktail ibhombu i-snitch
+ukuqhayisa ngendlela oyicofe ngayo yonke kulungile yintoni ngoku xa izinto zakho zimkile
+ixesha elininzi elichithwe kwi-maze liyakukuphambanisa ndiziva ndimbi kakhulu ndihleli ixesha elide andikhumbuli ukuba ndingubani okanye ndime phi kodwa ekugqibeleni ndiyacinga ukuba andiziniki nje
+asifuni mali yakho imdaka asifuni gazi lakho limsulwa sifuna nje ukuphelisa umhlaba wakho
+njengoko ndijonga lo mhlaba mhle andikwazi kuzibamba ndiqonde ukuba ndindedwa
+ndilayita itotshi yam ndiyitshise ndilirhamncwa endilinqulayo
+
+
+ENGLISH
+SPANISH
+FRENCH
+GERMAN
+
+XHOSA
+SWAHILI
+TOKI PONA
+LOJBAN
+
+The eight sentences, in English, were sourced mostly from Death Grips. The rest are direct translations sourced from Google Translate. The Java model was trained extensively on English, Spanish, French, and German, and as such it predicted the following for those sentences. 
+
+The model, initially was only trained on those languages. I used Google Translate again for English to Xhosa and Swahili. I expected them to score similarly, but not exceedingly so, as Swahili has many loanwords from Arabic, and Xhosa is mostly spoken in South Africa, far from any Arabic-speaking countries, in addition to being tonal and utilizing "click" consonants (c,x, and q mark central, lateral, and post-alveolar clicks respectively). 
+
+For my other two languages, I chose two from the U.S. that were artificially created less than 50 years ago. While it'd be easy to imagine the two would have a 
+lot in common, they have opposite design philosophies. The first, Lojban, was developed in 1987 by a commitee of academics seeking a language that was truly 
+syntactically unambiguous. After a lot of infighting and a couple of lawsuits (the linguists, set theorists, and AI researchers did not get along) the language 
+was instantiated, and the language has a website with a dictionary, several published works, and a translator. I ranthe model without training it, and found it 
+to think the sentences were         Then, I trained the model on a translation of Kafka's The Metamorphosis, after which it guessed this
+
+The other conlang that I chose was Toki Pona. In contrast to the years of academic energy and discussion that went into Lojban, Toki Pona was invented by one linguist as a personal project over less than a year. It has 120 words, total, and seeks to reduce complex concepts to simple ones. For example, the translation of "teacher" is "jan pi pana sona", which means "PERSON THAT GIVES KNOWLEDGE". This language is much more difficult to translate by algorithm than any of the others that I selected. The one implementation of an English to Toki Pona translator that I found on the internet was an AI coding project with a lot of available data and lackluster results. Nevertheless, I retrieved enough toki pona to test the model on it, and a novel-length .txt file, "Jan Sitata", to train the model.
+
+\begin{tabular}{ | m{5em} | m{1cm}| m{1cm} | } 
+  \hline
+  
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+  Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship. \\ 
+  \hline
+\end{tabular}
+
+ENGLISH
+Three bedrooms in a good neighborhood, on fire like a margarita made out of wood. & You don't want me anymore, so I'll just walk right out that door. & That knock a cop off unconscious molotov cocktailing sound, bomb a snitch. & Bragging about how you had it all dialed? Well, what's up now when your stuff is gone? & Too much time spent in the maze will drive you mad, I feel so bad, been there so long I can't remember who I am, or where I stand, but in the end I guess I just don’t give a damn. & We don't want your filthy money, we don't need your innocent bloodshed, we just wanna end your world. & As I look over this beautiful land, I can't help but realize that I am alone. & I light my torch and burn it, I am the beast I worship.
+
+SPANISH
+Tres dormitorios en un buen barrio, ardiendo como una margarita de madera. & Ya no me quieres, así que simplemente saldré por esa puerta. & Eso deja inconsciente a un policía con un sonido de cóctel molotov y bombardea a un soplón. & ¿Presumir de cómo lo tenías todo marcado? Bueno, ¿qué pasa ahora que ya no tienes cosas? & Pasar demasiado tiempo en el laberinto te volverá loco, me siento tan mal, he estado allí tanto tiempo que no puedo recordar quién soy o dónde estoy, pero al final supongo que me importa un carajo. & No queremos su dinero sucio, no necesitamos su derramamiento de sangre inocente, sólo queremos acabar con su mundo. & Mientras observo esta hermosa tierra, no puedo evitar darme cuenta de que estoy solo. & Enciendo mi antorcha y la quemo, soy la bestia a la que adoro.
+
+FRENCH
+Trois chambres dans un bon quartier, en feu comme une margarita en bois. & Tu ne veux plus de moi, alors je vais juste passer cette porte. & Cela fait tomber un flic inconscient du bruit d'un cocktail Molotov, bombarde un vif d'or.
+& Vous vous vantez de la façon dont vous avez tout composé ? Eh bien, que se passe-t-il maintenant quand vos affaires sont parties ? & Trop de temps passé dans le labyrinthe vous rendra fou, je me sens si mal, je suis là depuis si longtemps que je ne me souviens plus de qui je suis, ni où je me situe, mais à la fin, je suppose que je m'en fous. & Nous ne voulons pas de votre argent sale, nous n’avons pas besoin de votre effusion de sang innocent, nous voulons juste mettre fin à votre monde. & En contemplant ce magnifique pays, je ne peux m'empêcher de réaliser que je suis seul. & J'allume ma torche et je la brûle, je suis la bête que j'adore.
+
+GERMAN
+Drei Schlafzimmer in guter Nachbarschaft, in Flammen wie eine Margarita aus Holz. & Du willst mich nicht mehr, also gehe ich einfach durch die Tür hinaus. & Das macht einen Polizisten bewusstlos, Molotow-Cocktail-Geräusch, bombardiert einen Spitzel. & Prahlen Sie damit, dass Sie alles geschafft haben? Was passiert jetzt, wenn deine Sachen weg sind? & Wenn man zu viel Zeit im Labyrinth verbringt, wird man wahnsinnig. Mir geht es so schlecht, ich bin schon so lange dort, dass ich mich nicht mehr daran erinnern kann, wer ich bin oder wo ich stehe, aber am Ende schätze ich, ist es mir völlig egal. & Wir wollen Ihr schmutziges Geld nicht, wir brauchen Ihr unschuldiges Blutvergießen nicht, wir wollen nur Ihre Weltzerstören. & Wenn ich über dieses wunderschöne Land schaue, wird mir bewusst, dass ich allein bin. & Ich zünde meine Fackel an und verbrenne sie, ich bin das Tier, das ich anbete.
+
+XHOSA
+Amagumbi okulala amathathu kwindawo elungileyo, evutha njengemargarita eyenziwe ngomthi. & Awusandifuni, ngoko ndiza kuphuma kanye ngala mnyango. & Oko kunkqonkqoza ipolisa likhuphe isandi se-molotov se-cocktail, ibhombu i-snitch. & Ukuqhayisa ngendlela oyicofe ngayo yonke? Kulungile, yintoni ngoku xa izinto zakho zimkile? & Ixesha elininzi elichithwe kwi-maze liyakukuphambanisa, ndiziva ndimbi kakhulu, ndihleli ixesha elide andikhumbuli ukuba ndingubani, okanye ndime phi, kodwa ekugqibeleni ndiyacinga ukuba andiziniki nje. & Asifuni mali yakho imdaka, asifuni gazi lakho limsulwa, sifuna nje ukuphelisa umhlaba wakho. & Njengoko ndijonga lo mhlaba mhle, andikwazi kuzibamba ndiqonde ukuba ndindedwa. & Ndilayita itotshi yam ndiyitshise, ndilirhamncwa endilinqulayo.
+
+SWAHILI
+
+Vyumba vitatu vya kulala katika kitongoji kizuri, vinawaka moto kama margarita iliyotengenezwa kwa kuni. & Hunitaki tena, kwa hivyo nitatoka tu kwenye mlango huo. & Kwamba kubisha askari mbali fahamu molotov cocktailing sauti, bomu snitch. & Unajisifu jinsi ulivyopiga simu zote? Vipi, sasa mambo yako yanapoisha? & Wakati mwingi unaotumiwa kwenye maze utakukasirisha, najisikia vibaya sana, nimekuwa huko kwa muda mrefu sana siwezi kukumbuka mimi ni nani, au mahali ninaposimama, lakini mwishowe nadhani sitoi huzuni. & Hatutaki pesa zako chafu, hatuhitaji umwagaji damu wako usio na hatia, tunataka tu kumaliza ulimwengu wako. & Ninapotazama ardhi hii nzuri, siwezi kujizuia kutambua kwamba niko peke yangu. & Ninawasha tochi yangu na kuichoma, mimi ndiye mnyama ninayemwabudu.
+
+TOKI PONA
+
+tomo lape tu wan li lon ma tomo pona. seli li sama akesi suli pi kasi kiwen. sina wile ala e mi. & tan ni la mi tawa noka tomo ni. ni li pakala lili e kalama akesi pi telo loje mute. tomo kiwen li pakala mute. & sina mute li toki e ona ali kepeken nasin seme? pona, tenpo ni la seme li kama weka tan ma? mi pilin ike tan ni: tenpo suli ni la mi ken ala awen sona e mi. & tomo lape tu wan li lon ma tomo pona. seli li sama akesi suli pi kasi kiwen. sina wile ala e mi. & tan ni la mi tawa noka tomo ni. ni li pakala lili e kalama akesi pi telo loje mute. tomo kiwen li pakala mute. & sina mute li toki e ona ali kepeken nasin seme? pona, tenpo ni la seme li kama weka tan ma? & mi pilin ike tan ni: tenpo suli ni la mi ken ala awen sona e mi anu tomo mi. taso mi pilin ike tan ni: mi pilin ike tan ni. & mi pilin ike tan ni taso. mi pilin ike tan ni: mi pilin ike tan mi. mi wile ala e mani lili sina. tomo lape tu wan li lon ma tomo pona. 
+
+LOJBAN
+
+ci lo ckana kumfa ne'i lo xamgu jbixa'u .i lo fagri cu simsa lo margarita noi zbasu lo mudri & do ba'o djica tu'a mi .i ja'o mi ba zi cadzu le vorme & ta pu daspo lo pulji lo ka nalvi'o se tirna be lo lakta be lo sance vau jbama lo sakta & mi'o tavla fi lo nu do mo'oi mo'oi se cmene ro ra .o'o ma fasnu ca lo nu lo do se srana cu mo & .i dukse lo temci poi zvati lo malsorgle cu jai fengu do .i mi cinmo lo ka xlali .i ba'o mu'i nai mi morji lo du'u makau mi zvati .i ku'i ca jalge mi na kurji & mi'ai na djica lo nu do toljinsa jdini .i mi'ai na nitcu lo nu do jdini ciblu .i mi'ai djica lo nu mulgau lo do munje & ca lo nu mi catlu lo vi melbi tumla kei mi na ka'e sidju gi'e jimpe lo du'u mi nonkansa. & mi fagri lo mi jelca gi'e jelca .i mi danlu gi'e se jaamu mi
+

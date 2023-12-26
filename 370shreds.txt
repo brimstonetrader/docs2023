@@ -1,0 +1,370 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+// This is a refrence to Drag and Drop in Unity - 2021 Tutorial 
+// https://www.youtube.com/watch?v=Tv82HIvKcZQ
+
+public class Roads_and_Trails : MonoBehaviour
+{
+    private Vector3 _dragOffset;
+    private Camera _cam;
+    public Tilemap tilemap;
+    public Tile road;
+    public Tile trail;
+
+    void Awake() 
+    {
+        _cam = Camera.main;
+    }
+
+    void onMouseDown() 
+    {
+        _dragOffset = transform.position - GetMousePos();
+        if(Input.GetKey(KeyCode.Mouse0))
+         {
+             tilemap.SetTile(Intizer(GetMousePos()), road);   
+         }
+         if(Input.GetKey(KeyCode.Mouse1))
+         {
+             tilemap.SetTile(Intizer(GetMousePos()), trail);   
+         }
+    }
+    
+    void OnMouseDrag() 
+    {
+        transform.position = GetMousePos() + _dragOffset;
+    }
+
+    Vector3 GetMousePos()
+    {
+        var mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        return mousePos;
+    }
+
+    Vector3Int Intizer(Vector3 floatnasty) {
+        float someFloat = 42.7f;
+        int xi = (int)Math.Round(floatnasty.x); 
+        int yi = (int)Math.Round(floatnasty.y); 
+        int zi = (int)Math.Round(floatnasty.z); 
+        return (new Vector3Int (xi,yi,zi));
+    }
+
+}
+
+
+
+using System.Net.WebSockets;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//Given our analog clock, we will scale a day into six minutes. 
+//Big ups to https://medium.com/c-sharp-progarmming/make-a-basic-fsm-in-unity-c-f7d9db965134
+
+public class FSM_Human : MonoBehaviour
+{
+    public Rigidbody rigidbody;
+    public SpriteRenderer spriteRenderer;
+    public TimeClock clock;
+    BaseState currentState;
+
+    public float duration = 5;
+    private float time;
+    public int c = 0;
+    private int r;
+    public string state = "vibe";
+    private Vector2 homeLoc;
+    private Vector2 vibeLoc;
+    private Vector2 workLoc;
+
+
+    void Start()
+    {
+        currentState = GetInitialState();
+        if (currentState != null)
+            currentState.Enter();
+    }
+
+
+    void Update()
+    {
+        if (currentState != null)
+            currentState.UpdateLogic();
+        
+    }
+
+    void LateUpdate()
+    {
+        if (currentState != null)
+            currentState.UpdatePhysics();
+    }
+
+    public IEnumerator Switch(float timer) {
+        print("yes");
+        if (timer <= 240) {
+            ChangeState(new BaseState("Home", this));
+            yield return new WaitForSeconds(1f);
+        }
+        else if (timer == 1000) {
+            ChangeState(new BaseState("Vibe", this));
+            yield return new WaitForSeconds(1f);
+        }
+        else if (timer <= 120) {
+            ChangeState(new BaseState("Work", this));
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public void ChangeState(BaseState newState)
+    {
+        if (newState.name == "Home") {
+            StartCoroutine(LerpPosition(new Vector2(0,1), new BaseState("Home", this)));
+        }
+        if (newState.name == "Work") {
+            StartCoroutine(LerpPosition(new Vector2(1,0), new BaseState("Work", this)));
+        }
+        if (newState.name == "Vibe") {
+            StartCoroutine(LerpPosition(new Vector2(1,-1), new BaseState("Vibe", this)));
+        }
+    }
+
+    IEnumerator LerpPosition(Vector2 targetPosition, BaseState newState)
+    {
+        float time = 0;
+        Vector2 startPosition = transform.position;
+        currentState.Exit();
+        currentState = new BaseState("Flux", this);
+        state = "Flux";
+        spriteRenderer.color = Color.black;
+        currentState.Enter();
+        while (time < duration)
+        {
+            transform.position = Vector2.Lerp(startPosition, targetPosition, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = targetPosition;
+        currentState.Exit();
+        currentState = new BaseState(newState.name, this);
+        state = newState.name;
+        if (state=="Work") {spriteRenderer.color = Color.red;}
+        if (state=="Home") {spriteRenderer.color = Color.blue;}
+        if (state=="Vibe") {spriteRenderer.color = Color.yellow;}        
+        currentState.Enter();
+
+        
+    }
+
+
+    protected virtual BaseState GetInitialState()
+    {
+        return new BaseState("Vibe", this);
+    }
+
+    private void OnGUI()
+    {
+        string content = currentState != null ? currentState.name : "";
+        GUILayout.Label($"<color='black'><size=40>{content}</size></color>");
+    }
+}
+
+
+
+public class BaseState
+{
+    public string name;
+    protected FSM_Human stateMachine;
+
+    public BaseState(string name, FSM_Human stateMachine)
+    {
+        this.name = name;
+        this.stateMachine = stateMachine;
+    }
+
+    public virtual void Enter() { }
+    public virtual void UpdateLogic() { }
+    public virtual void UpdatePhysics() { }
+    public virtual void Exit() { }
+}
+
+public class Flux : BaseState
+{
+  private FSM_Trans _sm;
+
+  public Flux(FSM_Trans stateMachine) : base("Flux", stateMachine) {
+    _sm = stateMachine;
+  }
+
+  public override void UpdateLogic()
+  {
+    base.UpdateLogic();
+    stateMachine.ChangeState(_sm.vibeState);
+  }
+
+  public override void UpdatePhysics()
+  {
+    base.UpdatePhysics();
+    Vector2 vel = _sm.rigidbody.velocity;
+    vel.x = 2 * _sm.speed;
+    _sm.rigidbody.velocity = vel;
+  }
+
+  public override void Enter()
+  {
+    base.Enter();
+    _sm.spriteRenderer.color = Color.black;
+  }
+
+}
+
+public class Vibe : BaseState
+{
+    private FSM_Trans _sm;
+
+    public Vibe(FSM_Trans stateMachine) : base("Vibe", stateMachine) {
+      _sm = stateMachine;
+    }    
+    public override void Enter()
+    {
+        base.Enter();
+        _sm.spriteRenderer.color = Color.green;
+    }
+}
+
+public class Work : BaseState
+{
+    private FSM_Trans _sm;
+
+    public Work(FSM_Trans stateMachine) : base("Work", stateMachine) {
+      _sm = stateMachine;
+    }
+    public override void Enter()
+    {
+        base.Enter();
+        _sm.spriteRenderer.color = Color.red;
+    }
+}
+
+public class Home : BaseState
+{
+    private FSM_Trans _sm;
+    public float time;
+
+    public Home(FSM_Trans stateMachine) : base("Home", stateMachine) {
+      _sm = stateMachine;
+    }
+
+    
+    public override void UpdateLogic()
+    {
+        base.UpdateLogic();
+        time = 0;
+        if ((time % 360) == 120) {
+            stateMachine.ChangeState(_sm.fluxState);
+        }
+    }
+    public override void Enter()
+    {
+        base.Enter();
+        _sm.spriteRenderer.color = Color.blue;
+    }
+}
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+//This was a reference to Making an analog clock or stopwatch
+// - including speeding up time with Unity https://www.youtube.com/watch?v=hNTpi-pkh7w
+
+public class TimeClock : MonoBehaviour
+{
+
+    public Image imageSecondHand;
+    public Image imageMinuteHand;
+    public Image imageHourHand;
+
+    public Button speedUp;
+    public Button slowDown;
+    public Button normal;
+
+    private bool isTimer = false;
+    public float timer = 0.0f;
+    private float timerSpeed = 100.0f;
+    [SerializeField]
+    private int days = 0;
+    private int r = 0;
+
+    public FSM_Human fsm;
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        isTimer = true;
+        DisplayTime();
+        print("Creating timer");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(isTimer)
+        {
+            timer += Time.deltaTime * timerSpeed;
+            DisplayTime();
+            print("Timer Speed" + timerSpeed);
+        }
+    }
+
+    void DisplayTime() 
+    {
+        if(timer >= 60.0f * 60.0f * 24.0f)
+        {
+            timer -= 60.0f * 60.0f *24.0f;
+            days++;
+        }
+        int hours = Mathf.FloorToInt(timer / (60.0f * 60.0f));
+        int minutes = Mathf.FloorToInt(timer / 60.0f - hours * 60);
+        int seconds = Mathf.FloorToInt(timer - minutes * 60 - hours * 60.0f * 60.0f);
+        int seconds2 = seconds;
+        if (seconds2 == 5) {
+            fsm.Switch(timer);
+            seconds2 -= 5;
+        }
+
+        if (hours > 12)
+            hours -= 12;
+
+        imageHourHand.transform.localEulerAngles = new Vector3(0,0,hours / 12.0f * -360.0f);
+        imageMinuteHand.transform.localEulerAngles = new Vector3(0,0,minutes / 60.0f * -360.0f);
+        imageSecondHand.transform.localEulerAngles = new Vector3(0,0,seconds / 60.0f * -360.0f);
+    }
+
+
+    public void SpeedingUp()
+    {
+        timerSpeed *= 2.0f;
+        print("Speeding UP");
+    }
+
+    public void SlowingDown()
+    {
+        timerSpeed *= 0.5f;
+        print("Slowing DOWN");
+    }
+
+    public void Normal()
+    {
+        print("Normal");
+    }
+
+}

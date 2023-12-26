@@ -1,0 +1,76 @@
+You will complete a substantial, individual capstone project which should tie together multiple things you have learned throughout your time at Hendrix. The capstone project could take many forms. Some ideas include:
+
+    Developing a substantial piece of software, either on your own or for a client
+
+    Writing an expository paper summarizing and synthesizing an area of research
+
+    Making significant contributions to an open-source project
+
+    Writing a tutorial or other documentation for a technology or piece of software
+
+    Undertaking an independent research project
+
+You are encouraged to talk with me or another member of the computer science faculty to discuss potential ideas for your project.
+
+You may optionally undertake a year-long thesis project, which must be a research project, and is a prerequisite for graduating with distinction. You must discuss this with a potential faculty mentor and commit to a year-long thesis by Tuesday, September 5. The student and advisor will work together to create an Odyssey proposal for UR credit.
+
+Note that after September 5 you may not “upgrade” a semester project into a year-long thesis; however, the opposite is always an option: if you start out doing a year-long thesis but decide by the end of the semester that you do not wish to continue, you may “downgrade” it to a semester capstone project with no penalty.
+
+    Tuesday 29 August: First draft of project proposal due (1 page).
+
+    Your project proposal should be about 1-2 pages, and should answer the questions:
+        What is the background to your project, that is, what is the problem or question that motivates your project?
+        What do you propose to do? Be specific.
+        What is the timeline for your project? What are the different components and when will you aim to have them done? Be specific: your timeline should be in bullet point form with specific dates. Your timeline will almost certainly change over the course of the semester but it is helpful to start with something concrete.
+        What are your goals? In other words, how will you know if your project is successful?
+
+    In addition, if you wish to do a year-long thesis project you should indicate this in your proposal.
+
+    A complete project proposal must include all the above components, and give a thorough sense of the scope and goals of the proposed project. You must also revise your proposal based on feedback (see the next bullet).
+
+    Tuesday 5 September: Revised project idea (1 page) and work plan due. Last day for committing to a year-long thesis project.
+
+    After receiving feedback on your initial proposal, you should turn in a revised version that takes the feedback into account.
+
+    Along with your revised proposal, you should turn in a “work plan”, up to 1 page explaining how you will make time to work on your capstone or thesis project. Be as specific as possible, and be creative in coming up with very specific ways to help yourself succeed. Some examples:
+
+        Horrible: “I will work on my project 5 hours per week.”
+
+        Bad: “I will work on my project from 2-4pm every Tuesday and from 9-noon every Sunday.”
+
+        Better: “Every Tuesday from 2-4pm, I will go to the park near my house which is a good distraction-free place for me to work. If it is raining I will sit at my desk instead. I will turn off my phone and put Teams in “Do Not Disturb” mode. For the first 4 weeks of the semester I will spend those two hours doing background reading; I will print papers I want to read ahead of time and write notes in the margins as I read. On Sundays, …” and so on.
+
+    To receive credit, a work plan must be at the level of detail of the “Better” example or higher.
+
+
+I work in either a study room at the library or at home. In both cases my tactics for focus are similar. I keep my phone on "Do-Not-Disturb" mode and hide it in a drawer or backpack pocket so it is out of sight and mind. I call my parents and aunt often enough that I am not concerned that they worry or get offended (they do the same thing when working). I have a big stack of bootleg punk, EDM, and rap CDs that I listen to with a '90s player, which I have found helps me. Music coming out of a phone or computer easily distracts me, even through Windows Media Player (drowning in choices), but an 80-minute run lets me segment my time effectively, especially one that I have come to know well (such as Soul Glo's Diaspora Problems). Other than this, I strictly forbid ancillary media consumption during work-time, like television or podcasts. My working hours this semester are 
+
+
+(breaks factored in)
+SUNDAY  -                                2-7.5 - 5 hrs
+MONDAY  -         (alg 10-11)   9-10,11-12,1-6 - 6 hrs
+TUEDAY  -   (ferr block 8-11)      11-12,1-5.5 - 5 hrs
+WEDDAY  - (alg 10-11, dt 2-4)   9-10,1-2,4-6.5 - 4 hrs
+THRDAY  -   (ferr block 8-11)      11-12,1-5.5 - 5 hrs
+FRIDAY  -         (alg 10-11) 9-10,11-12,1-4.5 - 5 hrs
+SHBDAY -                               DAY OF REST
+
+5+6+5.5+2+5.5+6 = 30
+
+-8   (maximum disco tray hours)
+-6.5 (algorithms)
+-7.5 (ai)
+
+8 hours per week I will work on my thesis. Specifically, I like to work in the library in a study carrel before 2 PM, and at my apartment after 2. Last year, with my math thesis, I distinguished my time between "doing" (doing math, brainstorming, or writing code) and "scripting" (making a LaTex paper, reading and citing sources). I dedicated 70% of my available time to enacting, and 30% of my time to transcribing. Given that, following this, I am far better at manipulating LaTex to my whims, but I plan to utilize more sources, I plan to keep these percentages where they are. Many of my sources I have already read through enough times to understand. 
+
+
+
+
+
+
+
+
+* ghci> 4.5+8+6.25+7+7.5+9.25+9+8+6+6
+71.5
+ghci> 71.5/10
+7.15

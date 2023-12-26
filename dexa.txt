@@ -1,0 +1,52 @@
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (15,15);
+\fill[color=black] (9.0, 14.5) circle (0.2);
+\fill[color=black] (10.5, 9.5) circle (0.2);
+\fill[color=black] (14.0, 4.5) circle (0.2);
+\fill[color=black] (10.0, 8.5) circle (0.2);
+\fill[color=black] (10.0, 1.5) circle (0.2);
+\fill[color=black] (5.0, 1.5) circle (0.2);
+\fill[color=black] (13.0, 0.5) circle (0.2);
+\fill[color=black] (10.0, 0.5) circle (0.2);
+\fill[color=black] (4.0, 8.5) circle (0.2);
+\fill[color=black] (5.0, 9.5) circle (0.2);
+\fill[color=black] (14.0, 10.5) circle (0.2);
+\fill[color=black] (14.5, 3.5) circle (0.2);
+\fill[color=black] (12.5, 1.5) circle (0.2);
+\fill[color=black] (5.0, 10.5) circle (0.2);
+\fill[color=black] (6.5, 5.5) circle (0.2);
+\fill[color=black] (11.5, 2.5) circle (0.2);
+\fill[color=black] (2.5, 0.5) circle (0.2);
+\fill[color=black] (1.0, 14.5) circle (0.2);
+\fill[color=black] (3.5, 7.5) circle (0.2);
+\fill[color=black] (6.5, 8.5) circle (0.2);
+\fill[color=black] (6.0, 11.5) circle (0.2);
+\fill[color=black] (1.5, 6.5) circle (0.2);
+\fill[color=black] (6.0, 3.5) circle (0.2);
+\fill[color=black] (6.0, 4.5) circle (0.2);
+\fill[color=black] (8.5, 0.5) circle (0.2);
+\fill[color=black] (5.0, 14.0) circle (0.2);
+\fill[color=black] (4.5, 11.5) circle (0.2);
+\fill[color=black] (4.0, 12.5) circle (0.2);
+\fill[color=black] (6.5, 12.5) circle (0.2);
+\fill[color=black] (8.0, 1.5) circle (0.2);
+\fill[color=black] (5.5, 12.5) circle (0.2);
+\fill[color=black] (0.5, 12.5) circle (0.2);
+\fill[color=black] (13.5, 3.5) circle (0.2);
+\fill[color=black] (1.0, 13.5) circle (0.2);
+\fill[color=black] (3.0, 14.0) circle (0.2);
+\fill[color=black] (4.0, 4.0) circle (0.2);
+\fill[color=black] (4.0, 6.0) circle (0.2);
+\fill[color=black] (3.5, 11.0) circle (0.2);
+\fill[color=black] (5.5, 6.0) circle (0.2);
+\fill[color=black] (5.5, 8.0) circle (0.2);
+\fill[color=black] (6.5, 14.0) circle (0.2);
+\fill[color=black] (7.5, 0.5) circle (0.2);
+\fill[color=black] (9.5, 7.5) circle (0.2);
+\fill[color=black] (10.5, 2.5) circle (0.2);
+\fill[color=black] (14.0, 5.5) circle (0.2);
+\fill[color=black] (14.5, 1.0) circle (0.2);
+\fill[color=black] (14.5, 2.5) circle (0.2);
+\end{tikzpicture}
+\end{center}

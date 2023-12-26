@@ -1,0 +1,4 @@
+alg | cso
+dt  |  fp
+ss  |  ch
+af  |  mp

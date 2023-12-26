@@ -1,0 +1,193 @@
+import numpy as np
+
+def gaussian(n):
+
+    c = np.random.randint(np.ceil(n), np.ceil(1.6*n))
+    #We are creating an n*n grid with around c total regions, and c centroids.
+
+    stage = n ** 2
+    #Half of the regions go into $n^2-en cells, 
+    #the other half, smaller, in en cells.$
+
+    mu = stage / c
+    sigma = 0.25*n
+    gaussian = [0]
+    #We will decide the sizes of our regions via normal distribution, where the mean 
+    #is the amount of cells divided by the amount of regions, and sigma = 0.45n 
+    #(no cosmic reason, experimenting just showed that to be good).
+
+
+    while abs((2*n*n) - sum(gaussian)) > (2*n/3):
+        gaussian = np.random.normal(mu, abs(sigma), int(c)*2)
+
+    #Because this is random we need to put the normal distribution in a box, and not
+    #let it out until it's within 2n/3 of where we want it, total-size-wise.
+
+    return(gaussian)
+
+def get_neighbors(unit, realestate, cx, cy):
+    options = []
+    for i in range(len(unit)):
+        x = unit[i][0]
+        y = unit[i][1]
+        if (not ((x+1,y) in unit)) and (((2*cx)-x+1,(2*cy)-y) in realestate) and (((2*cx)-x-1,(2*cy)-y) in realestate):
+            options.append((unit[i][0]+1, unit[i][1]))
+        if (not ((x, y+1) in unit) and ((x, y+1) in realestate) and (((2*cx)-x, (2*cy)-y-1) in realestate)):
+            options.append((unit[i][0], unit[i][1]+1))
+    return options
+
+def starsystem(n):
+    normal = gaussian(n)
+    np.sort(normal)
+    realestate = []
+    for i in range(n):
+        for j in range(n):
+            realestate.append((float(i), float(j))) 
+    regions = []
+    centroids = []
+    for k in range(len(normal)):
+        if len(realestate) == 0:
+                return regions
+        r_1 = np.random.randint(len(realestate))
+        unit = [realestate[r_1]]
+        cx = unit[0][0]
+        cy = unit[0][1]
+        realestate.remove(unit[0])
+        size = int(normal[k] - 1)
+        if size%4 == 0:
+            if ((cx+1, cy+1) in realestate) and ((cx, cy+1) in realestate) and ((cx+1, cy) in realestate):
+                unit.append((cx+1, cy+1))
+                realestate.remove((cx+1, cy+1))
+                unit.append((cx, cy+1))
+                realestate.remove((cx, cy+1))
+                unit.append((cx+1, cy))
+                realestate.remove((cx+1, cy))
+                cx += 0.5
+                cy += 0.5
+                size -= 3
+        elif size%2 == 1:
+            if (cx+1, cy) in realestate:
+                unit.append((cx+1, cy))
+                realestate.remove((cx+1, cy))
+                cx += 0.5
+                size -= 1
+        for l in range(int(np.floor(size/2))):
+            if len(realestate) == 0:
+                return regions
+            options = get_neighbors(unit, realestate, cx, cy)
+            if len(options) > 0:
+                r_2 = (l+len(realestate)) % len(options)
+                mirror = options[r_2]
+                rirrom = ((2*cx) - mirror[0], (2*cy) - mirror[1])
+                if (mirror in realestate) and (rirrom in realestate):
+                    unit.append(mirror)
+                    realestate.remove(mirror)
+                    unit.append(rirrom)
+                    realestate.remove(rirrom)
+        regions.append(unit)
+    return(regions)
+
+def fillinthe(rest, n):
+    dummy = []
+    for i in range(n):
+        for j in range(n):
+            dummy.append((i,j))
+
+    for i in range(len(rest)):
+        region = rest[i]
+        for j in range(len(region)):
+            dummy.remove(region[j])
+    while len(dummy) > 0:
+        x = dummy[i][0]
+        y = dummy[i][1]
+        if ((x,y+1) in dummy) and ((x+1,y) in dummy) and ((x+1,y+1) in dummy):
+            rest.append([(x,y),(x,y+1),(x+1,y),(x+1,y+1)])
+            dummy.remove((x+1,y))
+            dummy.remove((x,y+1))
+            dummy.remove((x+1,y+1))
+        elif ((x,y+1) in dummy) and ((x-1,y) in dummy) and ((x-1,y+1) in dummy):
+            rest.append([(x,y),(x,y+1),(x-1,y),(x-1,y+1)])
+            dummy.remove((x+1,y))
+            dummy.remove((x,y-1))
+            dummy.remove((x+1,y-1))
+        elif ((x,y-1) in dummy) and ((x+1,y) in dummy) and ((x+1,y-1) in dummy):
+            rest.append([(x,y),(x,y-1),(x+1,y),(x+1,y-1)])
+            dummy.remove((x+1,y))
+            dummy.remove((x,y-1))
+            dummy.remove((x+1,y-1))
+        elif ((x,y-1) in dummy) and ((x-1,y) in dummy) and ((x-1,y-1) in dummy):
+            rest.append([(x,y),(x,y-1),(x-1,y),(x-1,y-1)])
+            dummy.remove((x-1,y))
+            dummy.remove((x,y-1))
+            dummy.remove((x-1,y-1))
+        elif (x,y+1) in dummy:
+            rest.append([(x,y),(x,y+1)])
+            dummy.remove((x,y+1))
+        elif (x,y-1) in dummy:
+            rest.append([(x,y),(x,y-1)])
+            dummy.remove((x,y-1))
+        elif (x+1,y) in dummy:
+            rest.append([(x,y),(x+1,y)])
+            dummy.remove((x+1,y))
+        elif (x-1,y) in dummy:
+            rest.append([(x,y),(x-1,y)])
+            dummy.remove((x-1,y))
+        else:
+            rest.append([(x,y)])
+    return(rest)
+
+def display(galaxy, n):
+    gridlines = [True] * (2*n*(n-1))
+    for g in range(len(galaxy)):
+        region = galaxy[g]
+        print(region)
+        for r in range(len(region)):
+            cellx = region[r][0]
+            celly = region[r][1]
+            if ((cellx+1, celly) in region):
+                gridlines[int(cellx + (celly * (n-1)))] = False
+            if ((cellx, celly+1) in region):
+                gridlines[(n*(n+1))+int(cellx + (celly * (n)))] = False
+    s1 = ""
+    for i in range(n-1):
+        s1 += str(i % 10) + "_"
+    s1 += str(n % 10)
+
+    ui = ([s1] + [[]] + [s1])
+
+    for i in range(n-1):
+        for j in range((2*n)-1):
+            if j%2 == 1:
+                if gridlines[int(np.ceil(j/2))] == True:
+                    ui[1] += ["|"]
+                elif gridlines[int(np.ceil(j/2))] == False:
+                    ui[1] += [" "]
+            elif j%2 == 0:
+                if gridlines[(n*(n-1)) + int(np.floor(j/2))] == True:
+                    ui[1] += ["_"]
+                elif gridlines[(n*(n-1)) + int(np.floor(j/2))] == False:
+                    ui[1] += [" "]
+    ui[1] += ["_"]
+    for i in range(n-1):
+        if gridlines[((n-1) ** 2) - 1 + i] == True:
+            ui[1] += ["|"]
+        elif gridlines[((n-1) ** 2) - 1 + i] == False:
+            ui[1] += [" "]
+        ui[1] += ["_"]
+    
+    gui = [ui[0]]
+    sublists = [ui[1][(i):(i+2*n-1)] for i in range(0, len(ui[1]), 2*n-1)]
+    strings = [''.join(sublist) for sublist in sublists]
+    gui += strings
+    gui += [ui[0]]
+    return(gui)
+
+
+
+def universe (n, g):
+    for i in range(g):
+        rest = starsystem(n)
+        galaxy = fillinthe(rest, n)
+        return(display(galaxy, n))
+
+universe(9,1)

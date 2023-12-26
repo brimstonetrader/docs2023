@@ -1,0 +1,36 @@
+GRAD SCHOOLS
+
+University of Chicago
+Cornell
+University of Washington
+Maastricht University - Ancillary Ludii base per https://www.cost.eu/actions/CA22145/#tabs+Name:Management%20Committee
+GWU
+Columbia
+MIT
+Utrecht
+UMemphis - CS (fellowships strong here)
+Fraunhofer Heinrich Hertz Institute
+
+JOBS
+
+https://www.cost.eu/actions/CA22145/
+
+Scientific Background
+Maximum 150 words: please describe here in a brief manner your scientific background relevant for the COST Action.
+
+I have almost earned a double major in Mathematics and Computer Science, writing one thesis on Combinatorics and one on Ludii. Over the summer of 2023, I received a research grant, working on representing randomness and hidden information in Ludii, doing additional research on other General Game Systems.
+
+Motivation
+Maximum 150 words: please describe here in a brief manner your motivation to join the COST Action.
+
+I have adored abstract games like those in Ludii for my entire life, and would be delighted to assist in the expansion of this general engine. I want to 
+
+Working Group Contribution
+Maximum 150 words: please describe here how you plan to contribute to the Working Group(s).
+
+Working Groups
+X 1. Search, Planning, Learning, and Explainability
+  2. Cultural Heritage of Games
+X 3. Automated Game and Puzzle Design
+X 4. Mathematics in Games
+  5. Implementation, Dissemination, and Education

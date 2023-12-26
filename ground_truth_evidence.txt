@@ -1,0 +1,21 @@
+EVIDENCE:
+
+PRE
+ 25 This land out here was "acquired" in the Louisiana Purchase.
+ 25 There is conflict in the northern territories. It can lead to a war.
+ 25 I would like this area to become part of the United States. Some folks might disagree.
+ 25 The Mississippi River has recently had a steamboat on the river. 
+-25 There are some magical creatures in the woods around here. 
+-25 Have you seen the river people yet? They come out from the depths of the river at night. 
+-25 Man claims to sail up the entire river in one day from South to North.
+-25 You can fly from St. Louis to Virginia in the year 1812. 
+
+POST
+ 25 Tenskwatawa predicted a natural disaster would happen and it did! His prophecy actually came true.
+ 25 A volcano erupted and caused all of the ground to shake. 
+ 25 There continues to be smaller moments of the ground shaking. 
+ 25 The earthquakes caused the river to flow backwards for a bit. 
+ 25 The earthquake has caused houses to burn down. 
+-25 Someone is planning to build an arch in St. Louis. This seems really impractical.
+-25 Man saves family from the river, but the family does not exist for further questioning. 
+-25 A HUGE monster caused the earthquakes to happen. 

@@ -1,0 +1,47 @@
+THE FERMI PARADOX:
+
+
+
+The Milky Way galaxy is huge, with billions of stars capable of supporting an intelligent life form, in an Earth-like carbon-based mammalian manner or otherwise. A space-faring civilization, even at the slow pace of currently known space travel, could spread throughout the galaxy in a few million years. The galaxy is at least 10 billion years old. So where are the aliens? Are they al just invisible? Where is any trace, debris, radio signal, or Aricebo-style message? Are they hiding? Aestivating? Or are we a lot more special than we realize? I asked Professors Lars Seme and Wenjia Liu, who teach a class together on the topic of Science Fiction, the hypotheses they choose to entertain.
+
+SEME:
+
+I hope that the answer is that space is big, but that we've only been looking for less than a hundred years, which is a very small length of time on a galactic scale. So, within the next couple eons, presuming humans are still around and searching, the answer will come, and we will at least know whether or not we are alone. I fear that the answer is that, due to the sheer size of the galaxy, and how much of it is truly empty, interstellar travel is impossible. The energy requirements, and the hard barrier formed by the speed of light, certainly seem to suggest that a galactic empire couldn't exist within the known laws of physics. Now, a Dyson Sphere? That's theoretically possible, sure, but the real issue is making that energy accessible to a device that is actively moving away from the sphere. Even if you manage that, and all of the other very hard problems within long-term space travel, excluding any hyperspace-wormhole stuff, the great cosmic speed limit will always remain.
+
+LIU:
+
+I'm partial to the "Dark Forest'' hypothesis, as suggested by sci-fi author Liu Cixin, that surviving alien civilizations must be paranoid and silent, or get swept away by some currently unknown massive destructive force. It is also worth noting that modern String Theory suggests 10 dimensions, and we currently only have the ability to intentionally travel across three. It is possible that travel across one of those higher dimensions is much more efficient, and the more popular option for advanced civilizations. Lastly, of course, there's the Zoo Hypothesis, that aliens intentionally make themselves unknown to us, so they can monitor our growth in isolation, making us like zoo animals, or lab rats. There's no way to really know, but those possible solutions make sense to me.
+
+
+
+
+
+
+P vs. NP:
+
+
+
+The most essential unsolved problem in theoretical computer science. A problem (for example, a Sudoku grid) falls into the category of problems known as "NP" if its solution can be verified in polynomial time, which means efficiently, or, informally, "quickly". If someone hands you an attempted Sudoku solution, you only need to check each filled-in square once to verify it. The amount of time to check a Sudoku of a particular size doesn't grow that much for grids larger than 9x9, making it verifiable quickly. The unsolved problem here is whether or not the fact that a problem belongs to category "NP", always implies that that problem also belongs to another category of problems, called "P". This means that the problem is then also solvable quickly, and not in exponential time, which is, for our purposes, "slow". A proof either way, that NP implies P, or that NP doesn't imply P, would have massive ramifications for any situation involving any sort of algorithm. I asked Computer Science Professors Brent Yorgey and Mark Goadrich about this.
+
+GOADRICH:
+
+I think P is not equal to NP. If it was, we would have found a way by now, but the problem is by nature inconclusive. This, to me, makes the field of CS far more interesting. Having an open problem at the core of a discipline exposes the limitations that formalization can impose on the discipline's process of problem solving. I am reminded of Godel's Incompleteness Theorem, which proves that there can be no fully coherent mathematical system, that is, paradoxes can always show up. The idea that computers have hard, unshakeable limits, like humans do, gives me hope for a future that must always be reliant on both styles of problem solving, that is, human-style, dynamic, and computer-style, methodical.
+
+YORGEY:
+
+I believe that P does not equal NP. Intuitively, I don't see it, although intuition isn't always accurate in this field. Further, there are hundreds of NP-Complete problems, such as "Traveling Salesman" or "The Boolean SAT Problem" which have had decades of intensive effort put into them, with no polynomial-time solving algorithm in sight. If even one was solved, then all would be possible, and P would equal NP, but none have been yet found. Maybe we aren't clever enough as a species, but I take the absence of proof as evidence that there is something fundamental at play. If P=NP was formally disproven, it would be a historic day, but life wouldn't change all that much. If it were proven, basically all encryption would instantly break, and most industrial algorithms would be rebuilt from the ground up. I see a third option, however, where P does equal NP, but the polynomials get so arbitrarily large that the proof doesn't change much at all, in the real world. Our algorithms are getting good, for problems like "SAT'', with rarer and rarer cases taking exponential time. I have hope for the future of computing, but I think this essential limit will always remain.
+
+
+JFK:
+
+
+
+November 22, 1963. Dallas, Texas. A president is shot to death by a sketchy 24-year-old doofus who just got back from the U.S.S.R., where he lived, married a local, and spoke fluent Russian. This dude, Lee Harvey Oswald, had many odd ties to the CIA, what with his close friend George De Mohrenschildt (a confirmed CIA asset), and military service at Atsugi in 1957 (A U.S. Air Force Base in Japan that hosted CIA psychedelic mind-control experiments in line with MK-ULTRA). He also has weird ties to the mafia, Castro, and so on. Lee was murdered two days after the crime, on live TV, having adamantly sworn innocence at every chance, by a seedy strip club guy named Jack Ruby, who himself died a few years later after successfully keeping his mouth shut, so we never really got to hear Lee's side of the story. Did he act alone? History Professors Jonathon Hancock and Deborah Skok say...
+
+HANCOCK:
+
+I should preface with the fact that I specialize in early American history, and have not immersed myself in the granular specifics of the incident itself. Nevertheless, I think that events of great importance like this, which capture the public imagination in this cross-generational way, have dynamic narratives which morph along with our understanding of the present. The assassination has been and will be reassessed and reinterpreted, but historians tend to be skeptical towards conspiratorial thought without explicit evidence. Oswald was certainly sketchy, and I'd grant that a lot of questions surrounding his background and the Zapruder film don't have easy answers. Nevertheless, I find the continued interest in the question itself, as a sociological phenomenon, to be the more interesting aspect of the situation.
+
+SKOK:
+
+The Kennedy assassination is the massive, alluring rabbit hole at the center of Modern American Political History. There are thousands of books at this point that have been written on the topic, hundreds of movies, and more online content than anyone could quantify. This glut of information is a double-edged sword, as much of it is based on very tenuous evidence. The Warren Commission, which LBJ established to investigate the assassination, was itself pretty shoddy, and left many ambiguities in its verdict that Oswald acted alone. This lends legitimacy to many flimsy narratives, as they seem "on par" with the truth. I'm fairly confident that most of the ephemeral trivia that hovers around this event is hearsay, and that a "definitive" answer will never surface. It's worth noting, however, the CIA and FBI's  shady domestic activities throughout the 20th century. I would believe almost anything about the CIA, just based on their documented history, especially in this particular time period. Truthfully, I grant that many individuals and groups had something to gain from the death of JFK. I don't know who all was involved, but a couple of important things to keep in mind here are Occam's Razor, and the fact that it's much harder to keep a conspiracy under wraps for 50 years, than to actually do one.

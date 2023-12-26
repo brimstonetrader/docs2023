@@ -1,0 +1,3 @@
+360: (group table generator) xor (stereographic number line, fast approximate calculations) xor (complex graph generator, voronoi)
+370: Metroplan (transit housing occupation) simulator
+307: ()

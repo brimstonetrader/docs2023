@@ -1,0 +1,28 @@
+1. Suppose we've a computer that performs 10^10 operations per second. Per hour, it can do 60*60*10^10 = 3.6*10^13 computations. This is the limit of our patience. 
+
+1.1. For an algorithm that scales to its input like Θ(n^2), the largest feasible n-put is (3.6*10^13)^0.5 = 6,000,000
+
+1.2. Θ(n^3): (3.6*10^13)^(1/3) = 33,019
+
+1.3. Θ(100n^2): In this context, the "100" is constant, and theta notation is technically incorrect. Nevertheless, 
+(3.6*10^11)^0.5 = 600,000
+
+1.4. Θ(n*log2(n)): Let 
+
+> log2 :: Integer -> Integer
+> log2 1 = 1
+> log2 x = 1+(log2 (x // 2))
+
+> (//) :: Integer -> Integer -> Integer
+> a // b = a `div` b
+
+> findSolution :: Integer -> Integer -> Integer
+> findSolution min max = if
+
+
+
+1.5. Θ(n^3):
+
+1.6. Θ(n^3):
+
+1.7. Θ(n^3):

@@ -1,0 +1,70 @@
+package checkers.searchers;
+
+import checkers.core.Checkerboard;
+import checkers.core.CheckersSearcher;
+import checkers.core.Move;
+import core.Duple;
+
+import java.util.Optional;
+import java.util.function.ToIntFunction;
+
+public class NegaMaxSearch extends CheckersSearcher {
+    private int numNodes = 0;
+    private int depthLimit = 6;
+    private int alpha = 6; //Maximal gain I can obtain for myself.
+    private int beta  = 6; //Maximal gain opponent may obtain at my expense.
+
+    public NegaMaxSearch(ToIntFunction<Checkerboard> e) {
+        super(e);
+    }
+
+    @Override
+    public int numNodesExpanded() {
+        return numNodes;
+    }
+
+    public int getAlpha() { return alpha; }
+
+    public int getBeta() { return beta; }
+
+    @Override
+    public int getDepthLimit() { return depthLimit; }
+
+    public Duple<Integer,Optional<Move>> NegaMax(Checkerboard c, int depthLimit, int alpha, int beta) {
+        Optional<Move> bestMove  = Optional.empty();
+        numNodes++;
+        if (depthLimit == 0 || c.gameOver()) return new Duple<>(getEvaluator().applyAsInt(c),bestMove);
+        int bestScore = Integer.MIN_VALUE;
+        int multiplier = 1;
+        Duple<Integer, Optional<Move>> choice;
+        for (Checkerboard nextBoard : c.getNextBoards()) {
+            if (nextBoard.getCurrentPlayer() != c.getCurrentPlayer()) {
+                choice = NegaMax(nextBoard, depthLimit - 1, -beta, -alpha);
+                multiplier *= -1;
+            }
+            else {
+                choice = NegaMax(nextBoard, depthLimit-1, alpha, beta);
+            }
+            int nextScore = multiplier * choice.getFirst();
+            Optional<Move> nextMove = choice.getSecond();
+            if (bestScore < nextScore) {
+                bestScore = nextScore;
+                bestMove = nextMove;
+            }
+        } return new Duple<>(bestScore,bestMove);
+    }
+
+    @Override
+    public Optional<Duple<Integer, Move>> selectMove(Checkerboard board) {
+        Optional<Move> bestMove  = Optional.empty();
+        int bestScore = Integer.MIN_VALUE;
+        for (Checkerboard nextBoard : board.getNextBoards()) {
+            Duple<Integer, Optional<Move>> judgement = NegaMax(nextBoard, depthLimit, 2^31 - 1, -2^31);
+            if (bestScore < (-1 * judgement.getFirst())) {
+                bestScore = judgement.getFirst();
+                bestMove = judgement.getSecond();
+            }
+        }
+        return bestMove.isEmpty() ? Optional.empty() : Optional.of(new Duple<>(bestScore, bestMove.get()));
+    }
+}

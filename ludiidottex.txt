@@ -1,0 +1,56 @@
+P(N), A SISYPHEAN ORDER
+
+
+
+cd C:\Users\night\Downloads\ludi
+java -jar Ludii-1.3.10.jar
+
+WEEK 1:
+READ OVER DOCUMENTATION (EMPH CARDSTOCK AT FIRST)
+CREATE CARD GAME WITHIN  CARDSTOCK
+WRITE FORUM POST OR EMAIL TO LUDII TEAM ; ASK ABOUT THE CARDS
+
+WEEK 2: 
+BEGIN WORKING IN LUDII
+CREATE A COUPLE OF CARD GAMES OF VARYING SECTIONS (TRICK TAKING, SHEDDING, ETC.)
+
+
+
+MEET ABOUT 3 TIMES A WEEK.
+
+MON 22            - 9 AM
+MON 29            
+MON 5
+MON 12
+MON 19
+MON 26
+MON -OFF WEEK
+MON 10
+MON 17
+
+MAY 22 - JULY 21
+
+|^3  5/22 MON 9:00 AM - FIRST OFFICIAL MEETING, GATHER DOCS
+
+
+TOPRINT:
+
+file:///C:/Users/night/Downloads/LudiiGameLogicGuide.pdf
+file:///C:/Users/night/Downloads/LudiiUserGuide.pdf
+file:///C:/Users/night/Downloads/COG2021-2.pdf
+file:///C:/Users/night/Downloads/ECAI2020.pdf
+file:///C:/Users/night/Downloads/ACG2019.pdf
+C:\Users\night\Downloads\CardStock.png
+file:///C:/Users/night/Downloads/CARDSTOCK1.pdf
+
+
+cardstockexamples.pdf
+
+http://mark.goadrich.com/articles/issue-2-1-09-recycled.pdf AND 
+
+A Card Game Description Language
+Jose M. Font1, Tobias Mahlmann2, Daniel Manrique1, and Julian Togelius2
+1 Departamento de Inteligencia Artificial, Universidad Politcnica de Madrid. Campus
+de Montegancedo, 28660, Boadilla del Monte, Spain
+
+https://jakubkowalski.tech/Publications/Kowalski2014EmbeddingACard.pdf 

@@ -1,0 +1,160 @@
+THE POST-ROCK KING OF CONWAY COUNTY
+
+Dr. James Dow has been a professor of philosophy here at Hendrix for about a decade, and knows the feel of a throne well. He chairs our unique, interdisciplinary "Study of the Mind/Neuroscience" major, which seeks to build general scientific intuition and encourage rigorous analysis of what "The Mind" is. He lives out in Morrilton, about a half hour from campus, on a sick farm with horses and garlic and chickens, great nearby woods, and, soon, (if all goes according to plan), a recording studio, for his latest venture, as an alternative rock musican.
+
+In February of 2020, about two weeks before every concert in the world was cancelled, Dow and three other humanities professors from the general Central Arkansas area announced that they had formed a band, THISNESS, which plays wonderful Southern-Gothic inflected and philosophically engaged music that's stark, brooding, and visceral, all undergirded by a firm psychedelia-tinged post-rock foundation. Dow named Pink Floyd, Slint, The Black Angels, REM, Smashing Pumpkins, Sonic Youth, Murder Capital, and The Cure as big influences. The man is coherent: he told me he somehow prefers fIREHOSE to the Minutemen. 
+
+Covid probably marked the immediate dissolution of almost every band that had started up in the three or four months beforehand, but Dow and his bandmates treated this retreat as tactical, recording, rehearsing heavily (outdoors and six feet apart), cultivating a lot of material. The dynamics and emotional reality of life under Covid, Dow grants, were very influential to the lyrical content of the songs generated during this time period, some of which are still waiting to be released officially.
+
+Over the past few years, Dow has also been taking Music classes at Hendrix in his spare time, having at this point completed MUSI 100, 180, 202, and an independent study on Radiohead, Music Production, and spent time in the Choir and Wind Ensemble. On Radiohead, he noted that the band has not been very influential to what THISNESS has composed thus far, but that their music fascinates him on an academic level, due to their unique tambre, sound texture, and obviously iconoclastic nature, all of which Dow suggested were typified well in "Like Spinning Plates" off Amnesiac. 
+
+Dow's from Jersey. He's lived in New York, but he found himself at Hendrix because he knew he could do interesting things with our Study of the Mind major. Another point in Arkansas' favor was the capability he has here, to grow lots of his own food, keep animals, and work the land. Dow cares a lot about maintaining a connection to the natural world, and in this case he put his money where his mouth was. Hendrix has given Dow a lot of leeway in cultivating his curriculum, and he expressed gratitude to the school for this. The farm isn't really Dow's project though - the mastermind is Melissa Cowper-Smith, mixed-media visual artist, and partner of Dow. Here they grow pretty much every kind of fruit and vegetable you can think of (check https://wildlandgardens.wordpress.com for specifics), and a lot of other stuff too. They have a sale every April. 
+
+Dow often holds class outside, on sunny, temperate days. He's noted that attentiveness levels don't really change much, but the energy is much more relaxed. During Covid, he was advocating for old-school outdoor auditoriums, to be used as occasional class-holding spaces. If anyone knows of a donor, let him know. 
+
+"As an idealist, what does the post in post rock mean to you?" I'm interested in post-punk, post-rock, it's all great. The underlying motivation behind post-rock has always been to utilize the trappings of the traditional Rock band - bass, drums, guitar, vocals - to create something different, cinematic, large-scale instrumental suites, like Russian Circles, or the inescapable Godspeed You! Black Emporer. The greatest post-rock album, though, Dow and I unanimously and instantaneously decided, must be Slint's "Spiderland", which is very resonant on the EP they dropped this year. Post-punk sort of rose out of necessity: Punk, in the initial, British sense, died about five years after it was born: at that point, all the kids who wanted to be punks had to be post-punks, at least until the Americans started getting Hardcore.
+
+The EP (!!)
+
+They'll probably play a couple other shows in Little Rock this summer. They record at home, and at Dr. Daniel Edquist-Whelan's home studio. They plan for their first full length to come out next year. Tenuous, but he's trying to hold a festival at his farm in the south. His neighbors have said yes. He's also been recording some solo stuff, drum-machines and synths, more post-punk, shoegaze influence. He's been listening to a lot of dark ambient, preparing. THISNESS, and their twangy yet ideological post-rock shows no signs of stopping. Dr. Dow's finna feed you! Get hungry.
+
+Dow doesn't have WiFi at the farm. He noted that this was difficult, but managable during Covid. He noted that this, while admittedly nice for removing distractions, has opened his eyes to the inherent assumption that has manifested in modern public schools that all students have access to wifi, and that assignments often have that as a underlying requirement. To him, this problem has two possible solutions: internet as a human right, or for schools to require that all assignments be doable without WiFi. There are good arguments for both of these. 
+
+
+Three drummers like Spinal Tap.
+
+This simultaneous, "classical" training, has manifested in his music in a lot of fun ways. 
+
+They still practice at the farm usually, on Saturdays, outside, if it's nice. Their next gig is May 6, at Full Moon Records. This place is walking distance from Hendrix, and Dow's got a great track record for cheap ticket prices, so I had better see each and every one of y'all diffident college kids there.
+
+
+
+
+
+
+
+
+
+
+pf:
+
+
+ 
+what can and can't ChatGPT do
+
+In this article I'd like to report on the technical strengths and weaknesses of chatGPT, with regards to the act of doing the coursework of various majors. I could interview Goad Yorgo and/or Ferrer (for background on generative AI, and the second part), McKim (broadly, essay writing. i'm sure she could go on for hours about trends in plagiarism.), Downes (math, another oft-cheated on class, calculus)
+
+
+ChatGPT is not the first large-scale AI neural network to attempt to mimic and engage in human-style conversation, but it is unsettlingly good, and seemingly capable of doing whatever it's told, be it a light, casual, conversation, or six pages of homework copy/pasted in one burst. The technology's rise has been meteoric: OpenAI (the company responsible) made only $35 million dollars in 2022, but was valued at $29 billion at the beginning of 2023. 
+
+It's extremely impressive technology. They realistically simulate technology, and create the impression of understanding. Dr. Gabriel Ferrer, a Professor of Computer Science at Hendrix who teaches both Artificial Intelligence (CSCI 335) and Computational Humanities (CSCI 270), noted that it doesn't quite pass the Turing Test
+
+chatgpt, tell me about your capabilities. 
+
+As an AI language model, I have a wide range of capabilities that allow me to perform various tasks related to natural language processing. Here are some of the things I can do:
+
+Answer questions: I can provide answers to a wide variety of questions on many different topics.
+
+Generate text: I can generate coherent, grammatical sentences and paragraphs on a wide variety of topics, such as news articles, product descriptions, or creative writing.
+
+Translation: I can translate text between multiple languages.
+
+Summarization: I can summarize long pieces of text into shorter, more manageable summaries.
+
+Sentiment Analysis: I can analyze the sentiment of a given text and determine whether it is positive, negative, or neutral.
+
+Chatting: I can engage in conversation and respond to user queries in a natural and engaging manner.
+
+Knowledge Base: I have access to a vast amount of information from various domains, and I can retrieve information from this knowledge base on request.
+
+What can you not do?
+
+As an AI language model, there are some limitations to what I can do. Here are a few things that I cannot do:
+
+Physical tasks: I cannot perform physical tasks such as picking up objects, moving things around, or interacting with the physical world in any way.
+
+Creative tasks: Although I can generate text on a wide variety of topics, I am not capable of creating truly original ideas or works of art.
+
+    Emotional Understanding: I do not have emotions or feelings, and I am not capable of understanding the emotional nuances of human communication.
+
+    Context and Intent: Sometimes, I may struggle to understand the context and intent of a user's input, especially if it's ambiguous or not well-defined.
+
+    Solve non-linguistic tasks: I am designed to process and understand natural language only, and I cannot solve tasks that require specialized knowledge, such as mathematical problems or scientific experiments.
+
+    Bias-Free: Although I am designed to be impartial, I am not entirely free from biases as I learn from the vast corpus of text generated by humans, which could reflect certain biases in language and communication.
+
+While there are some limitations to what I can do, I strive to provide the best possible assistance to users within the scope of my abilities.
+
+
+
+mckim, downes
+
+
+
+dr. dow interview
+
+I've been to this dude's house like three times now. We always throw up deuces when we see each other in public. I also really like post-rock, the esoteric genre Dow plays (I can talk shop for 25-ish minutes about Slint, GYBE, BC;NR, joy division, midi, squid, jockstrap, Wire, whatever.). I think I'd do a good job interviewing the man, taking into account his band, primary text (lyrics), job, and lifestyle. I can easily get an invite to go to this man's house, talk to his wife and kids (likely, incidentally, at his house), talk to his students (easy), bandmates (veebz' husband -- I got that phone # cause I babysat them once. I'm also curious how TikTok is going, ngl, this would give me an excuse to find out.), and sound guys from help desk whove worked with him often (i'm friends with most of the help desk)
+
+
+
+potentially guest musician 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+veebz, dow
+
+-- SUBTEXT -- XXX DONOTREAD XXX
+
+Dow's a classic Ian MacKaye style Gen-Xer. I want to do a very good job of illustrating the somewhat annoying unreality 50-ish Gen-X alt dudes possess. I find them riveting because my father was like that.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+markham street
+interview elizabeth and troy and leslie
+
+-- tabled for next time -- latin america check-in, or, "the pink tide"
+
+Lula (jan 1 2023 pres of brazil) just narrowly beat out bolsonaro, cementing all six top Latin American economies as being run by leftists. This contrasts starkly with the many right-wing regimes the U.S. inflicted throughout the region, only a generation ago. I'm trying to research this so-called "pink tide", 300 to 400 word expository. I'd like to interview Shwartzkopf, yuste-alonso or whoever else in the Spanish department or beyond y'all think might have something interesting to say on the topic. I'm going in purely, blindly (that is, "not knowing a whole lot"), believing that democracy and social welfare are good and autocracy and imperialism are bad. 400-or-so word interview
+
+
+
+
+
+
+
+
+ruth yuste-alonso, stacey schwartzkopf
+

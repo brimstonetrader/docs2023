@@ -1,0 +1,277 @@
+TILING, DIMENSIONS, TOROIDAL 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CELLULAR AUTOMATA
+    DIMENSIONS            - 1 or 2
+    STATES                - N / 1
+    TRANSITIONS           - S x S
+	NEIGHBORHOOD          - SPIRAL NOTATION, WEIGHT DENSITY
+	TILING                - 3       4           6           3.4.6.4
+							4.8.8   3.3.4.3.4   3.3.3.4.4   3.3.3.3.6
+	
+							
+							MAP RENDERER
+CONNECTION
+    CONHEX
+    HEX 
+    SLITHER
+    HAVANNAH
+    SPARKS / TWIXT
+    AYU
+    BREEZE / LINES OF ACTION
+TAFL
+    3 MUSKETEERS
+    BREAKTHRU
+    HALATAFL
+MNK
+    ANXIETY
+    DAY AND NIGHT
+    GOMOKU
+    PENTE
+    BOKU
+    REN
+    FROGPOT / MY POLYOMINO THING
+    GRAVITY / CONNECT 4
+    MINK/TEEKO
+    MIJNLIEFF
+    NEUTREEKO
+    WELLEN-HALMA
+    YAVALATH
+    YINSH
+    ENGINE
+ACQUISITION
+    ATAXX/HEXXAGON
+    BLOOMS
+    CATCHUP
+    DVONNN
+    GO
+    IO
+    PHALANX 
+    REVERSI (OTHELLO)
+    STIGMERGY
+    STORISENDE
+    SYMPLE
+RACING
+    BREAKTHROUGH
+    CAMELOT
+    PARCHEESI
+    QUORIDOR
+    GOUNKI
+    ONAGER / THAT ONE W THE FLING MECHANIC
+    KAMISADO
+    MURUS GALLICUS
+    NO DICE
+    ORDO
+    PARCHEESI
+    SANTORINI
+    STERNHALMA
+    QUEEN BEE
+POINT TALLY
+    ENTROPY
+NEUTRAL OBJECT
+    BOBAIL
+    PHUTBALL
+ANNIHILATION/CHECKERS
+    ALQUERQUE
+    CONSTITUTIONAL
+    DAMEO
+    FANORONA
+    FRISIAN
+    MORABARABA
+    OUST
+    ZERTZ
+PUSH
+    ARIES
+    GIPF
+    MACHISMO / ABALONE / KUBA
+    MOSH PIT / SHOBU
+CHESS
+    960
+    ALICE / BUGHOUSE CHESS
+    CHATURANGA
+    CHAD
+    CHESS+
+    DJAMBI
+    DRAGONFLY
+    ENOCHIAN CHESSTotal
+    FORTRESS CHESS
+    GRAND CHESS
+    HUMAN CHESS/ ARIMAA
+    MAKRUK
+    ROTARY
+    SHATRANJ DIWANA SHAH
+    SHOGI
+    QI GUO XIANG QI
+    XIANGQI
+    YARI SHOGI
+    ENGINE
+EMPIRICAL GAMES
+    AMAZONS
+    KONANE
+    CLOBBER
+    DODO
+    DOMINEERING / ENGINE/CALLISTO
+    MU TORERE
+    NIM
+BASHNI
+    EMERGO
+    LASCA
+    DIPOLE
+    FOCUS
+    FURL
+    TZAAR
+PHALANX
+    MING MANG
+    EPAMINONDAS
+    GRAPPLE / HIVE
+    PENTE
+    DOTS AND BOXES
+    BLOCKADE
+    KAGE
+    QUORIDOR
+    MATTRESS STORE / ENTRAPMENT
+MANCALA
+    OWARE
+    BAO
+    KALAH
+    ENGINE
+FALLING BLOCK GAME
+    TETRIS
+    CANDY CRUSH
+    DR. MARIO
+GRID FILLING PUZZLE
+    SUDOKU
+    JIGSAW
+    POLYFIT
+    NONOGRAMS
+    MOSAIC
+    MINESWEEPER
+    GALAXIES
+TILE IDEAL PUZZLE
+    15
+    flip
+    flood
+    inertia
+    same game
+    netgame
+    pegs
+    rubiks cube
+    sorts
+    solitaire
+    sokoban
+    vexed
+
+
+
+
+
+mancala
+Chess
+elimination - checkers
+empirical - amazons
+Connection - hex
+acquisition - othello
+racing - quoridor
+
+
+
+Grid to play on
+Introduction of blocks (voluntary or involuntary placement)
+Movement of blocks
+Elimination of blocks (forming polyomino)
+
+
+
+GRID FILLING PUZZLE
+    SUDOKU
+    JIGSAW
+    POLYFIT
+    NONOGRAMS
+    MOSAIC
+    MINESWEEPER
+    GALAXIES
+
+
+TILE IDEAL PUZZLE
+    15
+    flip
+    flood
+    inertia
+    same game
+    netgame
+    pegs
+    rubiks cube
+    sorts
+    solitaire
+    sokoban
+    vexed
+HIDDEN INFORMATION
+  	 APPLES TO APPLES
+   	 ACQUIRE
+ BATTLESHIP
+   	 CATAN
+   	 CLUE
+   	 COUP
+             DND
+   	 HEARTS
+             JACKBOX
+   	 MAHJONG
+   	 MAGIC/POKEMON
+   	 MAO
+   	 MILLES BORNE
+   	 OMINOS
+   	 POKER
+   	 QWIRKLE
+   	 SCOPA
+   	 SCRABBLE
+   	 SPADES/BRIDGE
+   	 TICKET TO RIDE
+   	 TIPPEN
+   	 TRAX/CARCASSONE
+   	 UNO
+   	 WEREWOLF
+
+GUESSING GAME
+    MASTERMIND
+    WORDLE
+STUDIO
+    MS PAINT
+    FRACTAL/SPIRAL GENERATOR
+    WORD PROCESSOR
+    ANIMATOR
+    SOCIAL MEDIA
+    JEOPARDY
+    CHATGPT INTEGRATION
+WORD
+    CROSSWORDS
+    ANAGRAMS (NYT BEE)
+    JEOPARDY
+    WORDLE
+    SCRABBLE
+VIDEO GAME
+    PAC-MAN
+    SPACE INVADERS
+    DIG-DUG/MINECRAFT/BIG XKCD
+    SIMULATION GAME SET IN PRIMITIVE TECHNOLOGIES
+    TEXT/IMAGE/ANIMATION ADVENTURE 
+    BABA IS YOU / MANIPULATE ENGINE WITHIN GAME 
+    EARTHBOUND / RPG
+    KID ICARUS / MARIO / METROID / VVVVVV
+    EXCITEBIKE / MARIO KART
+    BALLOON FIGHT WITH ACTUAL FIGHTING
+    RHYTHM / MUSIC CREATION / RHYTHM HEAVEN / ELECTROPLANKTON

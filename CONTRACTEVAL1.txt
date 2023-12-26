@@ -1,0 +1,13 @@
+CONTRACTEVAL1
+
+In CSCI 410, I would like to contract for an A.
+
+O26 - DRAFT BACKGROUND
+N9  - DRAFT 1ST HALF PAPER
+N21 - DRAFT 2ND HALF PAPER,
+            1ST HALF PAPER
+D5  - FINAL PRESENTATION
+
+Thus far, I have been absent once (an unfortunate sleep-in, although I did come in at 9 and give my PowerPoint without making coffee), and not missed any assignments. I've revised one assignment, which you are reading now. I've made progress on three AI models: a "small one", for demonstration purposes, a "medium" external agent, and some "big" changes to the Ludii system to allow non-clairvoyant play from the various already implemented MCTS variants. None are quite where I want them to be, but I've still got plenty of time, and I've made good progress.
+
+I've implemented Golf, and am nearing completion on Uno and Bottle Imp. My outline is pretty thorough, and I'm confident that I will reach 25 pages. I look forward to being able to devote more time per week to my thesis as the other assignments taper off, although I've enjoyed them. I think that I will have interesting findings for the final presentation, and also more interesting work to do over the course of next semester. This project has crystalized my appreciation for language design and AI, and I'm excited to see it through. If I am late doing something, I will get it in within three days, else I will schedule a meeting with Dr. Ferrer to explain why. In general, I do not want to miss out on workshops, so I will avoid this to the fullest extent that I am capable. 

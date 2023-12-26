@@ -1,0 +1,6 @@
+fact :: Integer -> Integer
+fact n = factHelper n n
+
+factHelper :: Integer -> Integer -> Integer
+factHelper n 0 = n
+factHelper n x = (n*x) (x-1)

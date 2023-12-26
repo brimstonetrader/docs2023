@@ -1,0 +1,28 @@
+-- randomnumbers = []
+
+-- a = 823     # set at beginning
+-- b = 5399    # set at beginning
+-- c = 7901    # set at beginning
+--
+-- r = r = int(input("input 4-digit PIN number"))
+-- for i in range(25):
+--     r = ((b*r) + c) % a
+--     randomnumbers.append(r % 256)
+-- print(randomnumbers)
+--
+
+
+lcg :: Integer -> Integer -> [Integer]
+lcg r iter = inst r : lcg (inst r) (iter-1)
+
+inst :: Integer -> Integer
+inst r = (((5399*r)+7901) `mod` 823) `mod` 256
+
+
+randomNumber :: IO Integer
+randomNumber = getStdRandom (randomR (0, 255))
+
+getRand :: Double
+getRand = do
+  n <- randomNumber
+  fromIntegral n / 255.0

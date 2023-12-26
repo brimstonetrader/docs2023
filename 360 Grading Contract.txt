@@ -1,0 +1,28 @@
+I would like to aim for an A, consisting of at least
+
+X    CSCI student info survey
+    Grading contract
+X        Submit grading contract
+X        Grading contract evaluation 1
+X        Grading contract evaluation 2
+    Modules (12)
+X        Module 0
+X        Module 1
+X        Module 2
+X        Module 3
+X        Module 4a
+X        Module 5
+X        Module 6
+X        Module 7
+X        Module 8
+X        Module 9
+X        Module 10
+X        Module 11
+         Module 12 (completed if necessary)
+    Projects
+X        Project 1 (Level 3)
+X        Project 2 (Level 3)
+X        Project 3 (Level 2) (3 if necessary)
+X        FINAL PROJECT (Level 2) (3 if necessary)
+
+X    Swarm scenarios (100%)

@@ -1,0 +1,99 @@
+initial setup
+	tiling(4, 6, 3, 3.12, 3.4.6.4, 4.6.12, 3.6.3.6, 4.8.8, 3.3.4.3.4, 3.3.3.4.4, 3.3.3.3.6)
+	dimensions(x,y)
+	types of available cubes(create list of shapes)
+	initial cube placement(let user place some, or let a random placement happen along certain guidelines)
+	(toggle) definition of group (may define multiple)
+		line
+			broken / unbroken
+		connected region
+			O / O+D
+		connected region from (region) to (region)
+			O / O+D
+		fully surrounded region
+			O / O+D
+			(toggle) value includes boundary
+			(toggle) captures interior
+			(toggle) edges are neutral
+		symmetric region
+			(odd duck to allow for entropy)
+		polyomino(general, particular place, or controlled random)
+			on creation:
+				remove
+				(turn action)
+				immune to capture
+				move is illegal
+				(toggle) display polygon on side
+				(toggle) symmetries		
+		(toggle) subgroups are groups too
+		(toggle) sanctity enforced
+		(toggle) all/homo
+	(toggle) pie rule
+		restriction on first turn (separate movement or laying protocol) or
+		standard pie rule
+		pie rule n times 
+	(toggle) toroidal 2,4,2mobius,4mobius
+loop turn
+	(can be stacked with and, or, not)
+	movement
+		per type of cube
+			group or cube
+			choose 1:
+				linear (x, range, random, mancalan, size of group)
+				orthogonal(x, range, random, infinite, mancalan, size of group)
+				diagonal(x, range, random, infinite, mancalan, size of group)
+				hippogonal((x,y), range, random, infinite, mancalan, size of group)
+				custom (spiral style)
+				switching (x,y)		
+			(toggle) every move must come closer to (location)
+			(toggle) must remain in (location)
+			(toggle) leaping legal over all/homo
+			(toggle) glide till barrier 
+			(toggle) must capture opponent
+			(toggle) fling with all/homo
+			(toggle) when within x manhattan, x genuine distance, (x,y) of type of cube
+			(toggle) pulling/pushing
+			(toggle) towards het/hom group/cube
+			(toggle) not within movement zone of enemy cube
+	laying
+		square, intersection, boundary
+			if on intersection 
+				cubes on squares may not pass through enemy cubes on walls
+				friendly cubes on walls
+					may not be crossed
+					may be crossed, but is removed, changing color of other one
+		finite/infinite hand (if finite, list of cubes)		
+		per type of cube (as well as random and opponent's choice)
+			each turn lay down (n, range) 		
+		(toggle) one per group
+		(toggle) create new group
+		(toggle) within (location)
+		(toggle) not/within (x,y) of het/hom cube/lastlaidcube
+		(toggle) where cube moved from this turn (or intermediate along path)
+	transformation
+		type to type (empty is a type)
+			if y = Empty:
+						(toggle) reintroduction of unboarded pieces (self/opponent)
+			on choice at turn=(x, range)
+			at location
+			on (connection)
+			on cohabitation (attacker type, defender type)
+			on custodian(group or cube, sides)
+			on pushed off board
+		(toggle) free action
+win condition (misere toggle)
+	group formation
+	reach grid location
+	remove certain/all cubes
+	get all cubes into same/different group
+	empirical (amazons, domineering, and combinatoric-style)
+	largest group cascading
+	point tally(x)
+		starting values x vs y
+		add at end of game by
+			groups by type
+			territory by cube type
+				lines of sight
+				looping (go-style capture)
+				asymmetric locational value
+			basic count by cube type

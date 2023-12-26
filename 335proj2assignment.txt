@@ -1,0 +1,87 @@
+Project 2: Vacuum Cleaner
+Overview
+
+By rewarding a robot when it vacuums dirt, and penalizing the robot when it hits an obstacle, we will attempt to use Q-Learning to train a robot to vacuum up the dirt from a floor.
+Files
+
+The csci335 repository contains a robosim package that we will be using in this project. Files you modify are marked with an asterisk (*). It contains the following packages and files:
+
+    robosim.core: Contains numerous files. Those of particular interest are:
+        Simulator:
+        Action:
+        SimObject:
+        Obstacle:
+        Dirt:
+        Robot:
+        Polar:
+        Direction:
+        Controller:
+    robosim.ai*: Package for robot controllers. This is where your Q-Learners will go. Currently contains:
+        RandomController: Moves randomly.
+        ActionHuman: Does nothing. Lets human pilot the robot.
+        BasicAvoider: Drives forward while avoiding obstacles.
+        DirtChaser: Tries to vacuum dirt while avoiding obstacles.
+    robosim.reinforcement: Q-Learning files
+        QTable*: You will complete the following methods in this file:
+            getLearningRate()
+            getBestAction()
+            isExploring()
+            leastVisitedAction()
+            senseActLearn()
+        QTableTest: Unit tests for QTable
+
+Level 1: Implementing Q-Learning
+
+Create an implementation of the Q-Learning algorithm by completing the five methods listed above in the QTable class. All unit tests in QTableTest must pass in order to earn credit.
+Level 2: Obstacle Avoidance
+
+Create a Q-Learner that automatically learns the following task:
+
+    Drive forward as much as possible
+    Avoid hitting objects
+
+To create this Q-Learner, you will need to do the following:
+
+    Determine how the robot’s sensory information will be transformed into an integer set of states.
+    Devise a reward scheme to incentivize the desired behavior.
+    Select an initial combination of the following:
+        Discount rate
+        Learning rate decay constant
+        Target number of visits to control exploration
+        Number of time steps to run the simulator
+    Create a class in the robosim.ai package that implements the Controller interface.
+    Each object of this class should have a QTable instance variable.
+    In your constructor, initialize the QTable with the appropriate values as determined earlier.
+
+Next, create and save three different maps to evaluate the robot’s performance. These maps should include obstacles but need not include any dirt.
+
+Having created the maps, perform the following experiments:
+
+    Run your initial Q-Learner for the specified number of time steps.
+    Record its performance in terms of steps moving forward and number of collisions.
+    Run RandomController and BasicAvoider for the same number of time steps, and record their performance.
+    Identify one or more parameters to vary. Run your Q-Learner with the new parameters, and record its performance.
+    Repeat a third time with another variation of parameters.
+
+Level 3: Housekeeping
+
+Create a new Q-Learner that automatically learns the following task:
+
+    Collect as much dirt as possible
+    Avoid hitting objects
+
+Repeat the methodology and experiments from Level 2, with the following variations:
+
+    Create three new maps that have dirt. You may add dirt to the existing maps or create new maps that contain dirt.
+    Instead of comparing to BasicAvoider, compare to DirtChaser. Still compare as well to RandomController.
+
+Paper
+
+When you are finished with your experiments, write a paper summarizing your findings. Include the following:
+
+    Descriptions of all experiments and parameters.
+    Tables presenting all data collected.
+    Assess the impact of each of the four key experimental parameters and each of the maps.
+    Assess the degree to which the learned behavior represents an improvement on random action selection.
+    Also discuss how well the learned behavior performs in comparison with the hand-crafted controller.
+

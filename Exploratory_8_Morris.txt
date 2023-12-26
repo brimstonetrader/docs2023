@@ -1,0 +1,32 @@
+Noah Morris 
+Hope Coulter
+ENGC 307
+March 29, 2023
+
+-- A note of pure interest. I culled together the stuff I wrote outside on paper in my standard 
+-- code editor. That's why we have a fun font here. A lot, a lot, a a growing number of people 
+-- have, and will continue to, learn English from learning to code. The undergirding, obviously 
+-- unjust assumption of knowledge of English in CS, along with it being one of the few remaining 
+-- paths in USA toward genuine class mobility, assure this. Thus, Computer Grammar will subsume 
+-- Standard Grammar. A quirk! 
+
+-- In Computer Grammar, quotes come before periods. This because the quote function was called 
+-- within the sentence function. The quote function must entirely compile before the sentence 
+-- function does, because it is inside of the sentence function. Otherwise, we would get a parse 
+-- error. That's why coders, and in fifty years everyone, will say "``." instead of ".``"
+
+I rode my bike out to the Hendrix College Nature Preserve at 6:27 PM the night before this 
+assignment was due. I grabbed a nice thick book from the deposit box, "Altered States of 
+Consciousness:" for lack of a term embodying a richer understanding, a real chonker. I get to 
+the dock, where at the right time of year, you can see ten or twelve turtles, or a thick layer of 
+green, or pretty much nothing, like today. I sit on the steps, watching the calm ripples phase into 
+and out of each other. Serenity, what the Buddhists call "Zen." I wonder what I will write about.
+
+I ride up out of the nature preserve, and down the road about fifteen seconds, to an eerie, unmanned
+natural gas station. The pump is weirdly clean, pinpad, card reader mint/like-new. There are few no trespassing signs. The pavement has maybe one or two cracks, and only a little bit of broken glass. A row of bushes full of thorns. Emergency Shutdown button across.
+
+It's 4 bucks a gallon, whatever it is, whatever it does. Two wires going into pump. It's yellow, tubular, melodramatic, like a "Ghostbusters" flood nozzle. That bird sounds like an alarm. All there is to the site is two self-service kiosks, and an odd brick igloo sort of thing. A sign names it: "Beyond 6"
+
+---------------------------------------------------------------------------------
+
+My Godmother Dominique was born in Conway, and lived to 18 in a house located approximately where Market Square East is now. It's hard for me to go over to the side of campus on the other side of Harkrider, with all the gilded, cute little establishments too expensive to reliably feed the students living above them, all of whom displaced my Godmother and her family and many other, predominantly black individuals. Despite this, I go to the woods somewhat frequently, because they are the only woods within biking distance. 

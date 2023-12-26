@@ -1,0 +1,30 @@
+QUILT           
+[transim] 1      prot
+EYE              prot
+
+
+
+[transim]
+EYE
+EXAM 3
+ACAB
+
+alg 10-11 | cso 9:45-11
+dt   2-4  |  dt    2-4
+ss 8-9:30 |  ch   10-11
+af  12-2  |  wl   11-12 
+
+
+
+iowa        -
+cnyc        - 
+uchi        - 
+cornell     - https://tech.cornell.edu/programs/masters-programs/master-in-computer-science/
+berkeley    - 
+gwu         - 
+uwash       - 
+iit         - 
+umem        - https://www.memphis.edu/msci/grad/msprogram.php
+
+mich
+vanderbilt	

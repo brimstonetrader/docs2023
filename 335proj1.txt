@@ -1,0 +1,104 @@
+
+
+
+
+CSCI 335: Fall 2023
+
+Indonesian
+Swahili
+Lojban
+Toki Pona
+ 
+ 
+ 
+Project 1: Language Analysis with Markov Chains
+Overview
+
+When a web browser visits a webpage, there is sometimes an option to automatically translate the text into English from another language. How does the browser detect other languages? One way is to pass the text of the webpage through prebuilt Markov chains for many languages, and determine which language has the highest probability of generating this text.
+
+To replicate this functionality, you will implement the Markov Chain machine learning algorithm, and apply it to the language recognition task.
+
+We can take a step further and use Hidden Markov Models to try to understand the structure of the phonemes in a language’s writing system. To that end, you will use the hmmlearn library to build Hidden Markov Models to explore language structure.
+Files
+
+The csci335 repository contains a learning.markov package that we will be using in this project. Files you modify are marked with an asterisk (*). It contains the following files:
+
+    LanguageGuesser class: A GUI that allows the user to:
+        Train a Markov Chain using a reference text. For your convenience, reference texts in English, Spanish, French, and German are provided in the books directory.
+        Type a sentence, and see a classification and probability distribution for the classification.
+    MarkovChain*: Implements a collection of Markov chains, one for each designated label:
+        count(): Increases the count for the transition from prev to next.
+        probability(): Returns the probability of the chain for label generating sequence.
+        labelDistribution(): Returns a map with keys that are labels and values representing the probability of a sequence corresponding to that label.
+        bestMatchingChain(): Calls labelDistribution() and returns the label with the highest probability.
+    MarkovLanguage: Extends MarkovChain with some utility methods to assist with language classification.
+    SimpleMarkovTest: Unit tests featuring some simple examples.
+    MajorMarkovTest: Unit tests trained using the four provided books.
+
+A student asks: 
+
+Hey Dr. Ferrer, I'm struggling on how to get started with the count for the Markov Chain project and which data structure to use for count.
+
+The key data structure is declared at the top of MarkovChain.java. Here is the declaration:
+
+private LinkedHashMap<L, HashMap<Optional<S>, Histogram<S>>> label2symbol2symbol = new LinkedHashMap<>();
+
+The outer hash map has as its key the language of the chain, and as its value an inner hash map. The inner hash map has as keys the first character in a pair, and as its values a Histogram object. Each Histogram is basically a wrapping of HashMap specialized for counting - examine the source code to see how it works.
+
+To complete the count method:
+	
+Check if label has a hash map. If not, create one for it and put it in the outer hash table.
+	
+Check if prev has a Histogram. If not, create one for it and put in the inner hash table.
+	
+Use the bump() method to increase the count for next.
+
+The Hidden Markov Model Language Analysis Kaggle notebook contains Python code that we will use for exploring Hidden Markov Models. You should clone this notebook for your own use.
+Assessing performance
+
+    Obtain four sentences in each of English, Spanish, French, and German, and test and record how well LanguageGuesser classifies each sentence.
+        You may obtain sentences by searching for them on the web, writing them yourself, using Google Translate, etc.
+    Select four other languages, and obtain four sentences in each of them.
+        Each language must have a writing system that employs Latin characters.
+        Run each sentence through LanguageGuesser. Given how it was trained, how plausible are its guesses?
+
+Hidden Markov Models
+
+    We can use Hidden Markov Models to try to gain deeper insight into the dynamics of a sequence.
+    Follow the instructions in the the Hidden Markov Model Language Analysis Kaggle notebook to build a Hidden Markov Model of the dynamics of English text.
+
+Paper
+
+When you are finished with your experiments, write a paper summarizing your findings. Include the following:
+
+    The URL for the private GitHub repository containing your code.
+    A table containing the 32 sentences you gathered. The first column should give the language, the second column the sentence, the third column the best matching language, and the fourth through seventh columns should give the probability of each of English, Spanish, French, and German.
+    An analysis of the performance of your implementation based on the data recorded in the table.
+    An analysis of the plausibility of the classifications of the sentences from languages other than those on which it was trained.
+    Based on the performance of Markov chains for the language classification task, for what other kinds of tasks do you believe this approach would be useful? Carefully explain your answer.
+    What do the two states in the Hidden Markov Model represent?
+
+Assessment
+
+    Level 1:
+        Create a working implementation of the LanguageGuesser program.
+        Share the repository with the instructor.
+        Assess its performance with sentences in English, Spanish, French, and German.
+        Submit a paper describing the results of the above.
+    Level 2:
+        Assess the performance of LanguageGuesser with the four alternative languages.
+        Complete the Hidden Markov Model notebook implementation.
+        Submit a paper including all items mentioned above.
+    Level 3:
+        For each of the four additional languages, obtain a book-length text file, and train the Markov Chain on all eight languages. Then reassess its performance and include this reassessment in your paper.
+            I highly recommend selecting languages that have close relationships, in order to investigate the ability of the Markov chain to distinguish similar data sets.
+            Some examples of closely related languages:
+                English and Scots
+                Dutch and Afrikaans
+                Finnish and Estonian
+                Polish and Slovak
+                Samoan and Maori
+                The languages Portuguese, Galician, Spanish, Catalan, Provencal, and French developed from different points along a dialect continuum of languages descended from Latin. Any two consecutive languages within this list would be an interesting test case.
+        Create Hidden Markov Models for Spanish, French, and German, and repeat the two-state experiment we performed for English. In your paper, analyze the similarities and differences among their outcomes.
+
+Copyright © Hendrix Computer Science 2023

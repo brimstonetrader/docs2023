@@ -1,0 +1,1088 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Thesis Draft}
+\author{Noah Morris}
+\date{March 8, 2023}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{tikz}
+
+\linespread{1.6}
+\parindent=2em
+\parskip=8pt
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\begin{document}
+
+\maketitle
+
+\section{INSPIRATION}
+ \hspace{2em} Sudoku was invented by Howard Garns, a modest architect from Indiana who died a decade before anyone attached his name to it. His coworkers, in interviews, noted that he would draw weird number crosswords based on nines on the company's drawing boards. They only caught brief glimpses of it; he usually tried to hide it from people. He sent some in to a local magazine anonymously, Dell Pencil Puzzles and Word Games, but sought neither credit nor profit in his lifetime. 
+\par The puzzle became popular in Japan, rechristened "Sudoku", by the publisher Nikoli, which publishes many similar pen-and-paper logic games. They heard about it from Dell, under the name "Number Place". You could safely find Sudoku throughout much of Japan by the late 1980s, but it didn't take root in the rest of the world until the 21st century, when Wayne Gould, a retired judge from New Zealand, spent six years on an algorithm that generated them, and started offering unique ones to newspapers across the world for free, with solutions at his website. His Sudoku books became very popular, selling like hotcakes to an enthusiastic public. He was named one of "The World's Most Influential People" by TIME in 2006. It would be cool to have that happen to you, for just coming up with an algorithm like that.
+\par Sudoku is, at its core, a game of deduction that asks a solver to recreate a mathematical structure from an incomplete set of elements within it. This set of elements consists of nine numbers, meaning each square of the grid is deduced to be one of nine elements. This makes Sudoku a nonary-determination puzzle, the only nonary-determination puzzle that I am aware of.  Galaxies are grid-based logic puzzles also popular in Japan thanks to Nikoli. They are binary determination puzzles, where each gridline may be "on" or "off", played on an $n * n$ grid. They have a similar joyous euphoria with the process of solving, varying difficulty by both size and number of dots, are less well known, and have a similar capability to be entirely mapped via the mathematical strategy of Combinatorics. I play them on a 15 by 15 grid. Let's try to find some structure under the hood, and generate a lot of these.
+
+\section{TERMINOLOGY}
+
+\par This project is fundamentally about grids, like this one.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (3,3);
+\end{tikzpicture}
+\end{center}
+
+\par A \textbf{n*n grid} is a two-dimensional square array of length and width \textbf{n}. 
+
+\par In this project, the interior squares, of which there are $n^2$, will be referred to as \textbf{cells}. A cell is \textbf{located} at an \textbf{index}, which is a tuple denoting its row and column. The "first" cell, for us, will be that cell located at (1, 1), or, $[c_{1} \hspace{1mm} @ \hspace{1mm} (1,1)]$. The second, $[c_{2} \hspace{1mm} @ \hspace{1mm} (2,1)]$, the $n^2$th, $[c_{n^2} \hspace{1mm} @ \hspace{1mm} (n,n)]$. We can fill in the above grid like
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (3,3);
+\draw[black] (0.5, 0.5) node {(1,3)};
+\draw[black] (1.5, 0.5) node {(2,3)};
+\draw[black] (2.5, 0.5) node {(3,3)};
+\draw[black] (0.5, 1.5) node {(1,2)};
+\draw[black] (1.5, 1.5) node {(2,2)};
+\draw[black] (2.5, 1.5) node {(3,2)};
+\draw[black] (0.5, 2.5) node {(1,1)};
+\draw[black] (1.5, 2.5) node {(2,1)};
+\draw[black] (2.5, 2.5) node {(3,1)};
+
+
+\end{tikzpicture}.
+\end{center}
+
+
+The interior points touching the corners of four cells, of which there are $(n-1)^2$, will be \textbf{intersections}. Their indeces are the mean of the indeces of all four of their neighboring squares. Because we started indexing at the top left, no other reason, let intersection $i$ touch cell $c$ at $(x,y)$ from the northwest. $i$'s index is $(x + \frac{1}{2}, y + \frac{1}{2})$. Like so: 
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,black,very thin] (0,0) grid (3,3);
+\draw[black] (1, 1) node {$(\frac{3}{2},\frac{5}{2})$};
+\draw[black] (2, 1) node {$(\frac{5}{2},\frac{5}{2})$};
+\draw[black] (1, 2) node {$(\frac{3}{2},\frac{3}{2})$};
+\draw[black] (2, 2) node {$(\frac{5}{2},\frac{3}{2})$};
+\end{tikzpicture}.
+\end{center}
+
+
+The lines connecting two intersections, or dividing two cells, of which there are $2(n)(n-1)$, will be \textbf{gridlines}. They generate their indeces in much the same way. It is notable that, for $j,k \in \mathbf{N} \hspace{1mm} | \hspace{1mm} j,k > n$, vertical lines are located at $(j + \frac{1}{2}, k)$, and horizontal lines are located at $(j, k + \frac{1}{2})$.
+
+\section{GALAXIES}
+
+\hspace{2em} An unsolved Galaxies puzzle bears some number of \textbf{centroids}. These can be on cells, intersections, or gridlines. Thus, for an $n*n$ grid there are $(n^2) + (n-1)^2 + 2(n)(n-1) = (2n-1)^2$ possible centroid locations. Here is a solved galaxies puzzle:
+
+\begin{tikzpicture}
+\draw[step=1cm,gray,very thin] (0,0) grid (7,7);
+\fill[color=black] (1,6) circle (0.2);
+\fill[color=black] (0.5,0.5) circle (0.2);
+\fill[color=black] (0.5,3) circle (0.2);
+\fill[color=black] (1.5,3) circle (0.2);
+\fill[color=black] (2.5,1) circle (0.2);
+\fill[color=black] (3,4.5) circle (0.2);
+\fill[color=black] (5.5,4.5) circle (0.2);
+\fill[color=black] (6.6,4.5) circle (0.2);
+\fill[color=black] (4.5,1) circle (0.2);
+\fill[color=black] (6,1) circle (0.2);
+\draw[color=black,thick] (0,0) rectangle (1,1);
+\draw[color=black,thick] (5,0) rectangle (7,2);
+\draw[color=black,thick] (4,0) rectangle (5,2);
+\draw[color=black,thick] (1,0) rectangle (4,2);
+\draw[color=black,thick] (6,4) rectangle (7,5);
+\draw[color=black,thick] (0,1) rectangle (1,5);
+\draw[color=black,thick] (0,5) rectangle (2,7);
+\draw[color=black,thick] (1,2) rectangle (2,4);
+\draw[color=black,thick] (0,0) rectangle (7,7);
+\draw[color=black,thick] (4,2) -- (4,4) -- (5,4) -- (5,5) -- (4,5) -- (4,7);
+\draw[] (9.5,3.5) node {$\begin{bmatrix}
+a & a & b & b & c & c & c\\
+a & a & b & b & c & c & c\\
+d & b & b & b & b & c & e\\
+d & f & b & b & c & c & c\\
+d & f & b & b & c & c & c\\
+d & g & g & g & h & i & i\\
+j & g & g & g & h & i & i
+\end{bmatrix}$};
+\end{tikzpicture}
+
+A completed Galaxies puzzle consists of a full \textbf{partition} of the n*n grid. A partition means you divide a thing into groups. Note how each cell above has a distinct group of other cells, fenced off by "on" gridlines. We will frequently notate this as an $n*n$ matrix, with group membership going least to greatest from the top down, like the one up there. 
+
+
+
+
+
+For an integer $n$, a partition is a list of integers $[a_1, ..., a_m] \hspace{1mm} | \hspace{1mm} \sum_{i=1}^{m} a_i = n$. This question for large values of $n$ is very hard when order doesn't matter, requiring a bunch of polynomial multiplication and Eulerian approximations and stuff like that. In galaxies, order does matter. We'll see how much this helps us soon, when we stop defining stuff and actually start doing math. 
+
+Now, partitioning a grid is very easy, even if you're making sure there's only one centroid per region. To truly solve a Galaxies puzzle, each region of the partition must be \textbf{$180^\circ$ rotationally symmetric} about a centroid, using every centroid.  In a region $R$ that is rotationally symmetric about a centroid $c$ at $(x, y)$, there are an even number of cells within the region not housing the centroid, $R^*$. Further, for every cell $[g \hspace{1mm} @ \hspace{1mm} (a, b) \in R^*]$, there exists a cell $[h \hspace{1mm} @ \hspace{1mm} (c, d) \in R^*]$, for which $(\frac{a+c}{2}, \frac{b+d}{2}) = (x, y)$. A centroid can border 1, 2, or 4 cells. When those cells bordering the centroid are skipped, a symmetric region always has an even number of cells, which can be "paired off" by this $[g \leftrightarrow h]$ correspondence. We will notate the number of pairs of cells a symmetric region has, not including its center cell, with $\lambda$. 
+
+The concept is easier to understand visually. Two of the below shapes are symmetric, two are not.
+
+\begin{tikzpicture}
+\draw[step=5em,white,very thin] (0,0) grid (14,3);
+\fill[color=red] (0,0) rectangle (1,1);
+\fill[color=red] (0,1) rectangle (1,2);
+\fill[color=red] (1,1) rectangle (2,2);
+\fill[color=red] (2,1) rectangle (3,2);
+\fill[color=red] (1,2) rectangle (2,3);
+
+\fill[color=brown] (4,2) rectangle (5,3);
+\fill[color=brown] (4,1) rectangle (5,2);
+\fill[color=brown] (5,1) rectangle (6,2);
+\fill[color=brown] (6,1) rectangle (7,2);
+\fill[color=brown] (6,0) rectangle (7,1);
+
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    
+\fill[color=blue] (8,2) rectangle (9,3);
+\fill[color=blue] (8,1) rectangle (9,2);
+\fill[color=blue] (9,2) rectangle (10,3);
+\fill[color=blue] (9,1) rectangle (10,2);
+
+\fill[color=green] (11,2) rectangle (12,3);
+\fill[color=green] (11,1) rectangle (12,2);
+\fill[color=green] (11,0) rectangle (12,1);
+\fill[color=green] (12,2) rectangle (13,3);
+\fill[color=green] (12,0) rectangle (13,1);
+
+\end{tikzpicture}
+
+The symmetric shapes are blue and brown. You could manually find the centroid, and affirm a correspondence for both, but for now just imagine rotating them $180^{\circ}$. In this case, $blue(\lambda) \hspace{1mm} = 0$, $brown(\lambda) \hspace{1mm} = 2$.
+
+In the context of grids, which is distinct from the case earlier, with integers, we define a partition as a assignment of cells into non-empty \textbf{regions}, in such a way that every cell is included in exactly one region. In addition, within 2D space, groups are \textbf{connected}, meaning there exists a path crossing adjacent cells fully contained within the region, for every pair of cells within the region. Each region is surrounded by gridlines which are \textbf{on}, which we will call \textbf{walls}, but between cells of the same region they are \textbf{off}, or, \textbf{lawns}. This nitty-gritty definition makes it seem unappealing, pedantic, but the intuition behind this is not very difficult to understand, and the process of solving doesn't really \emph{feel} like math. We just need to think of them like this if we want to count, categorize, generalize, or make them.
+
+The goal of this project is to be able to generate these very quickly, calling from a list so we know things are unique, or perhaps eventually stochastically, if we really get to understanding them.  To begin with, we'll need to figure out how many ways there are to partition a n*n grid, hopefully with a helpful bijection, likelierly with some clunky algorithm. Then, we'll need an algorithm that goes through a well-partitioned grid and makes sure all its regions are rotationally symmetric, and then one that finds the centroids and displays them for us. Then we'll have Galaxies! This project will be accomplished in Python, and we will go through each algorithm manually, at close having a playable video game. I haven't done it yet, but I could put the python code into Unity, and export the game onto itch.io or something. 
+
+\section{THE FIRST DIMENSION}
+
+\hspace{1em} How would we do this in an n by 1 grid? Everything's $180 ^{\circ}$ rotationally symmetric here, so we'll ignore that for now. The question is best answered by going back to that more boring one, from earlier.
+
+How many ways can you partition an integer, provided order matters? Partition, again, means "create a list of numbers whose sum is $n$", and "order matters" means that [1, 2] and [2, 1] are distinct, for example. Surely anyone would agree with the following statement:
+
+\begin{tikzpicture}
+ \draw[step=3em, white](0,0) grid (8,1);
+ \draw[](0,0) rectangle (1,1);
+ \draw[](1,0) rectangle (3,1);
+ \draw[](3.5,0.5) node {$\neq$};
+ \draw[](4,0) rectangle (5,1);
+ \draw[](5,0) rectangle (7,1);
+ \end{tikzpicture}.
+
+Let's do the first few manually.
+
+1 can be [1].
+
+2 can be [2], or [1, 1].
+
+3 can be [3], [1, 2], [2, 1], [1, 1, 1].
+
+4 can be [4], [1, 3], [3, 1], [2, 2], [1, 1, 2], [1, 2, 1], [2, 1, 1], [1, 1, 1, 1].
+
+1, 2, 4, 8. You don't suppose this is just $2^{n-1}$, do you?
+
+Hmm. So all those partitions of three look like 
+
+\begin{tikzpicture}
+\draw[step=0.5cm,black,very thin] (0,0) grid (1.5,0.5);
+\draw[very thin] (2,0) -- (2,0.5);
+\draw[step=0.5cm,black,very thin] (2,0) rectangle (3,0.5);
+\draw[step=0.5cm,black,very thin] (3,0) rectangle (3.5,0.5);
+\draw[step=0.5cm,black,very thin] (4,0) rectangle (4.5,0.5);
+\draw[step=0.5cm,black,very thin] (4.5,0) rectangle (5.5,0.5);
+\draw[step=0.5cm,black,very thin] (6,0) rectangle (7.5,0.5);
+
+\end{tikzpicture} 
+
+in real life.
+
+
+There are 2 gridlines in the region, in any of those partitions. For any $n \in N$, there will be $n - 1$ gridlines in the $n*1$ grid. Each of these gridlines can be turned on or off, meaning there are two possible states for each one. Thus, each list of numbers adding up to $n$ can be represented with a binary string of length $n-1$, with each 1 meaning that the previous number has concluded. So, for any sequence of size $n$ consisting of zeroes and ones (these will be henceforth referred to as \textbf{bit strings}), we can generate a solved 1-dimensional galaxy of size $n-1$, converting zeroes to lawns, and ones to walls. 
+
+\section{THE SECOND DIMENSION}
+
+This is more difficult. Connection becomes a bigger issue. The best $2^{\hspace{0.5mm} \# \hspace{0.5mm} gridlines}$ can be is a remedial upper bound. There's trivially one valid galaxy for a 1*1 grid, but potentially $2^{((2n-1)^{2})} = 16$ partitions for a $2*2$. They are detailed below, with the eight valid galaxies on top, then the valid partitions. The final four are merely "silly squares", which don't matter to me and shouldn't matter to you. 
+
+\begin{centering}
+
+\subsection{GALAXIES}
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0,0) grid (0.6,0.6);
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.1,0.6);
+\draw[step=0.3cm,black,very thin] (2.1,0) rectangle (2.4,0.6);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0.3) rectangle (3.3,0.6);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0) -- (1.2, 0.6);
+\draw[very thin] (1.2, 0.3) -- (0.9, 0.3);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.1,0.6);
+\draw[step=0.3cm,black,very thin] (2.1,0) rectangle (2.4,0.6);
+\draw[very thin] (2.1, 0.3) -- (2.4, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0.3) rectangle (3.3,0.6);
+\draw[very thin] (3.0, 0.3) -- (3.0, 0.6);
+\draw[step=0.3cm,black,very thin] (3.6,0) rectangle (4.2,0.3);
+\draw[step=0.3cm,black,very thin] (3.6,0.3) rectangle (4.2,0.6);
+\draw[very thin] (3.9, 0.3) -- (3.9, 0);
+\end{tikzpicture}
+
+\subsection{PARTITIONS}
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0.3) -- (1.2, 0.6);
+\draw[very thin] (1.2, 0.3) -- (1.5, 0.3);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.4,0.6);
+\draw[very thin] (2.1, 0.3) -- (2.1, 0);
+\draw[very thin] (2.1, 0.3) -- (2.4, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.6);
+\draw[very thin] (3, 0.3) -- (3.0, 0);
+\draw[very thin] (3, 0.3) -- (2.7, 0.3);
+\draw[step=0.3cm,black,very thin] (3.6,0) rectangle (4.2,0.6);
+\draw[very thin] (3.9, 0.3) -- (3.6, 0.3);
+\draw[very thin] (3.9, 0.3) -- (3.9, 0.6);
+\end{tikzpicture}
+
+\subsection{SILLY SQUARES}
+
+\begin{tikzpicture}
+\draw[step=0.3cm,black,very thin] (0,0) rectangle (0.6,0.6);
+\draw[very thin] (0.3, 0.3) -- (0.3, 0);
+\draw[step=0.3cm,black,very thin] (0.9,0) rectangle (1.5,0.6);
+\draw[very thin] (1.2, 0.3) -- (1.2, 0.6);
+\draw[step=0.3cm,black,very thin] (1.8,0) rectangle (2.4,0.6);
+\draw[very thin] (1.8, 0.3) -- (2.1, 0.3);
+\draw[step=0.3cm,black,very thin] (2.7,0) rectangle (3.3,0.6);
+\draw[very thin] (3.3, 0.3) -- (3.0, 0.3);
+\end{tikzpicture}
+
+
+\end{centering}
+
+\par The reason that we do not care about silly squares is that they are inherent contradictions. Consider a wall between two cells as a designator that "these two cells do not share a group", and a lawn as a designator that "these two cells do share a group".
+
+Without loss of generality, \begin{tikzpicture} \draw[step=0.3cm,black,very thin] (0,0) rectangle (0.6,0.6);  \draw[very thin] (0.3, 0.3) -- (0.3, 0); \draw[] (0.15,0.15) node {3}; \draw[] (0.16,0.42) node {1}; \draw[] (0.45,0.15) node {4}; \draw[] (0.44,0.42) node {2}; \end{tikzpicture} is stating that both “3 in group with 1 in group with 2 in group with 4 $\rightarrow$ 3 in group with 4” and “3 not in group with 4”, and is contradicting itself. With this and not much else in mind, we can posit \textbf{The Simple Grid Conjecture}: A grid is partitioned when none of its intersections touch only one wall. We will attempt to prove this later.
+
+Hmm. Uhh. One more thing. If we notate these as matrices, can we order them from least to greatest, in alphabetical order? Yes we can. 
+
+\begin{center}$
+\begin{bmatrix}
+a & a\\
+a & a
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+a & b
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+b & a
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+b & b
+\end{bmatrix} \begin{bmatrix}
+a & a\\
+b & c
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+a & a
+\end{bmatrix} 
+$
+
+$\begin{bmatrix}
+a & b\\
+a & b
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+a & c
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+b & b
+\end{bmatrix}\begin{bmatrix}
+a & b\\
+c & b
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+c & c
+\end{bmatrix} \begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix} 
+$\end{center}
+
+Let's scale up.
+
+\section{n=3, COMPUTER}
+\definecolor{dkgreen}{rgb}{0,0.5,0.2}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0,0.6,0.3}
+
+
+
+\begin{lstlisting}
+figaro = []
+for i in range(4096):
+    s = bin(i)[2:]
+    while len(s) != 12:
+        s = "0" + s
+    figaro.append(s)
+
+print("There are " + str(len(figaro)) + " elements of this list right now.")
+print("The number '151' in base-10 translates to " + bin(151)[2:] + " in binary.") 
+print("The 152nd element of this list containing zero is " + figaro[151] + ".")
+    }    
+}
+\end{lstlisting}
+
+The above algorithm curates a list of all integers from 0 to 4095 in base-2. 
+The printlines' output:
+\newline
+
+\begin{lstlisting}
+There are 4096 elements of this list right now.
+The number '151' in base-10 translates to 10010111 in binary.
+The 152nd element of this list containing zero is 000010010111.
+\end{lstlisting}
+
+Let's put numbers on the gridlines like so:
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (3,3);
+\draw(2.5,1) node [black] {8};
+\draw(2.5,2) node [black] {6};
+\draw(2,2.5) node [black] {5};
+\draw(2,1.5) node [black] {7};
+\draw(2,0.5) node [black] {9};
+\draw(1.5,1) node [black] {10};
+\draw(1.5,2) node [black] {4};
+\draw(1,2.5) node [black] {3};
+\draw(1,1.5) node [black] {1};
+\draw(1,0.5) node [black] {11};
+\draw(0.5,1) node [black] {12};
+\draw(0.5,2) node [black] {2};
+\end{tikzpicture}
+\end{center}
+
+Let the $i$'th element of a given 12-element  bit string represent the gridline in the above diagram marked as $i$. Here is an example.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[] (0, 1.5) node {[011011001110] = };
+\draw[step=0.7em,black,very thin, xshift = 5em] (0,0) rectangle (3,3);
+\draw[very thin, xshift = 5em] (0,2) -- (1,2); 
+\draw[very thin, xshift = 5em] (1,3) -- (1,2); 
+\draw[very thin, xshift = 5em] (2,3) -- (2,2); 
+\draw[very thin, xshift = 5em] (2,2) -- (3,2); 
+\draw[very thin, xshift = 5em] (1,0) -- (1,1); 
+\draw[very thin, xshift = 5em] (1,1) -- (2,1); 
+\draw[very thin, xshift = 5em] (2,1) -- (2,0); 
+\end{tikzpicture}
+\end{center}
+
+By this logic, $figaro()$ has all possible $3*3$ grid partitions, and a bunch of useless junk. Let's get rid of the junk.
+
+\begin{lstlisting}
+for i in range(len(figaro)):
+    grid = figaro[i]
+    for j in range(4):
+        if (int(grid[(3 * j) + 0]) + int(grid[(3 * j) + 1]) + int(grid[(3 * j) + 2]) + int(grid[((3 * j) + 3) % 12]) == 1):
+            figaro[i] = "blunt"
+
+treebytree = []
+for i in range(4096):
+    if figaro[i] != "blunt":
+        treebytree.append(figaro[i])
+
+print("There are " + str(len(treebytree)) + " elements of this list right now.")
+\end{lstlisting}
+
+Above, we iterate through each of the 4096 strings, checking that the slices spanning from 1 to 4, 4 to 7, 7 to 10, and 10 to 1 (wrapping back around with a modulus function), all do not add to one. If at least one does, the string is removed from the list. This is because the corresponding grid violates the Simple Grid Conjecture. The list \emph{treebytree} contains every possible partition. The code's output is:
+\newline
+
+\begin{lstlisting}
+    There are 1442 elements of this list right now.
+\end{lstlisting}\section{n=3, HUMAN}
+
+Suppose a five-cell polyomino, with four cells entirely surrounding one center cell. There are four total interior gridlines to this shape, allowing for only 16 possible outcomes, which are as follows. 
+\begin{center}
+\begin{tikzpicture}
+\draw[step=.5cm,white,very thin] (0,0) grid (1.5,1.5);   
+\draw[very thin, xshift = 0cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 0cm] (0.5,0.5) -- (0.5,1);
+\draw[very thin, xshift = 0cm, yshift = 0cm] (1,1) -- (1,0.5) -- (0.5,0.5);
+\draw[very thin, xshift = 2cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 0cm] (1, 1) -- (0.5, 1) -- (0.5, 0.5) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 0cm] (0.5, 0.5) -- (0.5, 1) -- (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 6cm, yshift = 0cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 0cm] (0.5, 0.5) -- (1, 0.5) -- (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 0cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 2cm] (0.5,0.5) -- (0.5,1) -- (1, 1);
+\draw[very thin, xshift = 2cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 2cm] (0.5,1) -- (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 2cm] (1, 0.5) -- (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 6cm, yshift = 2cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1); 
+\draw[very thin, xshift = 6cm, yshift = 2cm] (0.5, 0.5) -- (1, 0.5) -- (1, 1);
+\draw[very thin, xshift = 0cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 0cm, yshift = 4cm] (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 2cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 4cm] (1, 1) -- (1, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1); 
+\draw[very thin, xshift = 4cm, yshift = 4cm] (0.5, 0.5) -- (1, 0.5);
+\draw[very thin, xshift = 6cm, yshift = 4cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 4cm] (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 0cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  \draw[very thin, xshift = 2cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 2cm, yshift = 6cm] (0.5, 0.5) -- (0.5, 1) -- (1, 1) -- (1, 0.5) -- (0.5, 0.5);
+\draw[very thin, xshift = 4cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 4cm, yshift = 6cm] (0.5, 0.5) -- (0.5, 1);
+\draw[very thin, xshift = 4cm, yshift = 6cm] (1, 0.5) -- (1, 1);
+\draw[very thin, xshift = 6cm, yshift = 6cm] (0,1) -- (0,0.5) -- (0.5,0.5) -- (0.5,0) -- (1,0) -- (1,0.5) -- (1.5,0.5) -- (1.5,1) -- (1,1) -- (1,1.5) -- (0.5,1.5) -- (0.5,1) -- (0,1);  
+\draw[very thin, xshift = 6cm, yshift = 6cm] (1, 1) -- (0.5, 1);
+\draw[very thin, xshift = 6cm, yshift = 6cm] (1, 0.5) -- (0.5, 0.5);
+\end{tikzpicture}
+\end{center}
+
+Any corner cell has three neighbors, the two adjacent cells and the center cell. Each of these three-cell regions can be in one of three important states:
+
+\noindent 0. Entirely Grouped (One Group, 2 Lawns) 
+
+\noindent 2. Partially Grouped (Two Groups, 1 Wall, 1 Lawn) 
+
+\noindent 3. Entirely Separated (Three Groups, 2 Walls)    
+
+
+A corner cell whose neighborhood (defined as a standard Moore neighborhood, all cells orthogonally or diagonally adjacent to a given cell) aligns to Case 0 will have 2 possible groupings - with the group it is surrounded by, or alone. Case 1 implies 3 possible groupings, with the group horizontally adjacent, vertically adjacent, and alone. Case 2 implies 4 possible groupings, with the group horizontally adjacent, vertically adjacent, alone, and the fourth choice of merging the two groups it is adjacent to. Thus, we can fill in the above diagram with the numbers that their cases align to. We must multiply together the outcomes of the corner spaces to get the total amount of 3x3 partitions of a given cross formation. Once we add all 16 cross formation counts together, We will have the total number of possible 3x3 partitions.
+
+
+In sum, $(16) + ((2) * (81)) + (256) + ((4) * (36)) + ((4) * (72)) + ((4) * (144)) = 1,442$.
+
+\section{n=3, HYBRID}
+
+Suppose a grid region composed of seven cells, spanning all but two diagonally opposite corners of a 3x3 grid. This grid region contains two intersections, with no neighboring gridlines in common. Thus, there are 144 ways to partition the region. The remaining two corners have the same spread of possible cases and resulting possible outcome spaces as detailed in the above proof. As each corner can align to Case 0, 1, or 2, there are nine possible scenarios, spread in terms of likelihood by squaring the outcome space of the 2x2s, as demonstrated below.
+
+$(\frac{4}{12} + \frac{6}{12} + \frac{2}{12})^2 = (\frac{16}{144} + (2)\frac{24}{144} + (2)\frac{8}{144} + \frac{36}{144} + (2)\frac{12}{144} + \frac{4}{144})$
+
+$1_{1_{1_{1_{1_{1_{1_{\hspace{12mm} (w,w),(w,w) \hspace{3mm} (w,w)(l,w) \hspace{3mm} (l,w),(l,w) \hspace{4mm} (l,l),(w,w) \hspace{4mm} (l,l),(l,w) \hspace{4mm} (l,l)(l,l)}}}}}}}$
+
+Our cases from last time, to refresh, were
+
+$(l,l) \rightarrow 2$
+
+$(l,w) \cap (w,l) \rightarrow 3$
+
+$(w,w) \rightarrow 4$
+
+We can set up the multiplication like last time, multiplying the numerators of our probabilities by the value of its two remaining corners.
+
+$4  * 2^2$
+
+$24 * 2*3$
+
+$16 * 3^2$
+
+$36 * 2*4$
+
+$48 * 3*4$
+
+$16 * 4^2$
+
+$(4 * 4) + (24 * 2*3) + (16 * 8) + (36 * 9) + (48 * 3*4) + (16  * 16)$
+
+Two off! Why? Perhaps Python holds the answer.
+
+\begin{lstlisting}
+#The below code is exceedingly inefficient and the reason for this is 
+#that strings are a bad choice for a data structure for this project. 
+#We will be abandoning them for lists when we scale up, which will 
+#have many positive effects. Nevertheless, this function is doing the 
+#same thing as the one we did earlier by hand, creating all grids in 
+#bit string notation.
+
+import numpy as np
+ 
+qs = ["0000", "0101", "1010", "1111", "0011", "0110", "1100", "1001", 
+"1110", "1101", "1011", "0111"]
+
+#[qs] is a list of all the binary representations of partitions a 2*2 
+#grid. [fum] is a list of all possible strings from combining two legal 
+#strings from [qs]. It finds them by adding floor(i / 12) (which 
+#essentially rounds a number down) to i modulus 12, or, the whole number 
+#remainder of i/12. Mapping ordered pairs of two elements as chosen from 
+#a 12-element set with the integers 0 to 143 is one-to-one and onto by 
+#this algorithm.
+
+fum = []
+
+gum = []
+
+for i in range(144): 
+    fum.append(qs[i % 12] + qs[int(np.floor(i / 12))])
+
+#This is a laughable analog implementation of the above algorithm that 
+#added to 1444. I include it because its solution is puzzling.
+
+for i in range(144):
+    if (int(int(fum[i][3])) + int(fum[i][5])) == 0:
+        if (int(fum[i][4]) + int(fum[i][6])) == 0:
+            gum.append(fum[i] + "0000")
+            gum.append(fum[i] + "0011")            
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1111")
+        elif (int(fum[i][4]) + int(fum[i][6])) == 1:
+            gum.append(fum[i] + "0001")
+            gum.append(fum[i] + "0010")            
+            gum.append(fum[i] + "0011")
+            gum.append(fum[i] + "1101")
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")            
+        elif (int(fum[i][4]) + int(fum[i][6])) == 2:    
+            gum.append(fum[i] + "0000")
+            gum.append(fum[i] + "0010")            
+            gum.append(fum[i] + "0001")
+            gum.append(fum[i] + "0011")
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1101")            
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")          
+    elif (int(fum[i][3]) + int(fum[i][5])) == 1:
+        if (int(fum[i][4]) + int(fum[i][6])) == 0:
+            gum.append(fum[i] + "0100")
+            gum.append(fum[i] + "0111")            
+            gum.append(fum[i] + "1000")            
+            gum.append(fum[i] + "1011")            
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1111")
+        elif (int(fum[i][4]) + int(fum[i][6])) == 1:
+            gum.append(fum[i] + "0101")
+            gum.append(fum[i] + "0110")            
+            gum.append(fum[i] + "0111")
+            gum.append(fum[i] + "1001")            
+            gum.append(fum[i] + "1010")            
+            gum.append(fum[i] + "1011")            
+            gum.append(fum[i] + "1101")
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")            
+        elif (int(fum[i][4]) + int(fum[i][6])) == 2:    
+            gum.append(fum[i] + "0100")
+            gum.append(fum[i] + "0110")            
+            gum.append(fum[i] + "0101")
+            gum.append(fum[i] + "0111")
+            gum.append(fum[i] + "1000")
+            gum.append(fum[i] + "1010")            
+            gum.append(fum[i] + "1001")
+            gum.append(fum[i] + "1011")
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1101")            
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")          
+    elif (int(int(fum[i][3])) + int(fum[i][5])) == 2:    
+        if (int(fum[i][4]) + int(fum[i][6])) == 0:
+            gum.append(fum[i] + "0000")
+            gum.append(fum[i] + "0011")            
+            gum.append(fum[i] + "0100")
+            gum.append(fum[i] + "0111")            
+            gum.append(fum[i] + "1000")            
+            gum.append(fum[i] + "1011")            
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1111")
+        elif (int(fum[i][4]) + int(fum[i][6])) == 1:
+            gum.append(fum[i] + "0001")
+            gum.append(fum[i] + "0010")            
+            gum.append(fum[i] + "0011")
+            gum.append(fum[i] + "0101")
+            gum.append(fum[i] + "0110")            
+            gum.append(fum[i] + "0111")
+            gum.append(fum[i] + "1001")            
+            gum.append(fum[i] + "1010")            
+            gum.append(fum[i] + "1011")            
+            gum.append(fum[i] + "1101")
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")            
+        elif (int(fum[i][4]) + int(fum[i][6])) == 2:    
+            gum.append(fum[i] + "0000")
+            gum.append(fum[i] + "0010")            
+            gum.append(fum[i] + "0001")
+            gum.append(fum[i] + "0011")
+            gum.append(fum[i] + "0100")
+            gum.append(fum[i] + "0110")            
+            gum.append(fum[i] + "0101")
+            gum.append(fum[i] + "0111")
+            gum.append(fum[i] + "1000")
+            gum.append(fum[i] + "1010")            
+            gum.append(fum[i] + "1001")
+            gum.append(fum[i] + "1011")
+            gum.append(fum[i] + "1100")
+            gum.append(fum[i] + "1101")            
+            gum.append(fum[i] + "1110")
+            gum.append(fum[i] + "1111")       
+
+
+print("There are " + str(len(gum)) + " strings in this list.")
+\end{lstlisting}
+
+This is the output:
+
+\begin{lstlisting}
+    There are 1442 strings in this list.
+\end{lstlisting}
+
+Weird!
+
+\section{TOROIDALITY}
+
+To show n=3 $\rightarrow$ 1442, we would need to prove the Simple Grid Conjecture, which I will not.
+
+Envision the smallest grid region that could exist on both sides of a gridline. If its height is 2 or less, it will have to bend back on itself, causing a "lonely intersection", violating the conjecture. Same goes for width. Thus, the smallest possible group that could border itself whilst bearing no lonely intersections will have height and width 3. This region is pictured below, along with its seven like-minded associates. Subtracting these off from the main total gives 1434 grid partitions for $n=3$
+
+Groups that border themselves are \textbf{toroidal}. This means that they completely surround some natural number of interior cells of a separate group. There exist valid toroidal groups, five in a 3x3 grid, but they cannot be notated as proper Galaxies, as they do not include their center. Thus, for the purposes of this project, they are worthless, and we will be removing all grids containing toroidal groups, except for the technically valid ones that contain their entire center. This leaves \textbf{1429} partitions of a 3x3 grid. 
+
+\section{n=4, COMPUTER}
+
+Let's put numbers to the intersections on the $4*4$ grid. There's $24$ total gridlines, as shown below.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,lightgray,very thin] (0,0) grid (4,4);
+\draw(3.5,3) node [black] {7};
+\draw(3.5,1) node [black] {19};
+\draw(3.5,2) node [black] {23};
+\draw(3,3.5) node [black] {5};
+\draw(3,2.5) node [black] {8};
+\draw(3,1.5) node [black] {17};
+\draw(3,0.5) node [black] {20};
+\draw(2.5,3) node [black] {6};
+\draw(2.5,1) node [black] {18};
+\draw(2.5,2) node [black] {11};
+\draw(2,3.5) node [black] {21};
+\draw(2,2.5) node [black] {9};
+\draw(2,1.5) node [black] {12};
+\draw(2,0.5) node [black] {24};
+\draw(1.5,1) node [black] {15};
+\draw(1.5,3) node [black] {3};
+\draw(1.5,2) node [black] {10};
+\draw(1,3.5) node [black] {1};
+\draw(1,2.5) node [black] {4};
+\draw(1,1.5) node [black] {13};
+\draw(1,0.5) node [black] {16};
+\draw(0.5,3) node [black] {2};
+\draw(0.5,2) node [black] {22};
+\draw(0.5,1) node [black] {14};
+\end{tikzpicture}
+\end{center}
+
+Gridlines 1-20 can be toggled to lawns and walls in $12^5$ ways. This is because [1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16], [17,18,19,20] all have 12 possible partitions, and none of the $12^5$ combinations violate the Simple Grid Conjecture immediately. Some leave lonely intersections with one remaining unassigned gridline, or empty intersections but for the unassigned. In both situations, the unassigned gridline has only one possible case. If there are two or three walls at its intersection, there are two possible cases. With this, we can write some Python code.
+
+\begin{lstlisting}
+qs = [[0,0,0,0], [0,1,0,1], [1,0,1,0], [1,1,1,1], [0,0,1,1], [0,1,1,0], [1,1,0,0,], [1,0,0,1], [1,1,1,0], [1,1,0,1], [1,0,1,1], [0,1,1,1]]
+#All 2x2 grids
+
+fours = []
+order = [2,5,8,
+         3,9,12,
+         7,10,16,
+         11,14,17]
+#The final gridlines' neighbors, organized.
+for i in range(12 ** 5):
+    proxylist = [qs[i % 12] + qs[int(np.floor(i / 12)) % 12] + qs[int(np.floor(i / 144)) % 12] + qs[int(np.floor(i / 1728)) % 12] + qs[int(np.floor(i / 20736))]]
+    
+    #all unique lists of five elements of q. There are 12^5 total. 
+
+    for j in range(4):
+        b = len(proxylist)
+        
+        if (proxylist[0][order[(3*j)]] + proxylist[0][order[(3*j)+1]] + proxylist[0][(3*j)+2]) == 0:
+            for k in range(b):
+                proxylist[k].append(0)
+
+        #When all neighboring gridlines are lawns, the last remaining gridline
+        #must also be a lawn.
+    
+        elif (proxylist[0][order[(3*j)]] + proxylist[0][order[(3*j)+1]] + proxylist[0][(3*j)+2]) == 1:
+            for k in range(b):
+                proxylist[k].append(1)
+
+        #When one neighboring gridline is a wall, the last remaining gridline
+        #must also be a wall.
+
+        else:
+            b = len(proxylist)
+            for k in range(b):
+                newlist = proxylist[k] + [0]
+                proxylist[k].append(1)
+                proxylist.append(newlist)
+
+        #In any other case, the gridline could be either a lawn or a wall. 
+
+    fours += proxylist
+\end{lstlisting}
+
+I saved the list generated by the above code to a pandas DataFrame. This allows for easier algorithmic manipulation.
+
+The DataFrame has length $1,632,816 (2x2x2x2x3x3x17x23x29)$ possible partitions, which might contain invalid regions which border themselves. We will use a tactic of conversion to our clearer notation, although when we generalize we will have to do a proof.
+
+\begin{lstlisting}
+    dw = pd.DataFrame(columns=list("1234567890abcdef"))
+
+def identity (dg, vertz, horiz, c):
+    if (dg[4*c] == 0):
+        dg[4*c] = max(dg) + 1
+        return dg
+    else: 
+        return dg
+
+# We want to convert a binary list of length (2*n*(n-1)) to a integer 
+# list of length (n*n). To begin with, we check that the first cell
+# in a row is not zero, and if it is, assign it to be in a new group.
+
+def vertical (dg, vertz, c):
+    for j in range(3):
+        if vertz[(3*c) + j] == 1:
+            dg[(4*c) + j + 1] = max(dg) + 1
+        else:
+            if dg[(4*c) + j + 1] != 0:
+                collision(dg, dg[(4*c) + j + 1], max(dg) + 1)
+            dg[(4*c) + j + 1] = dg[(4*c) + j]
+    return dg
+
+# We check whether the vertical gridlines in a given row are lawns
+# or walls, and assign groups accordingly.
+
+def horizontal (dg, horiz, c):
+    for j in range(4):
+        if base[horiz[(4*c) + j]] == 0:
+            dg[(4*c) + j + 4] = dg[(4*c) + j]   
+    return dg
+
+# If a horizontal gridline is a lawn, the cell underneath is 
+# assigned to the group of the cell above.
+
+def collision(dg, s, l):
+    for i in range(len(dg)):
+        if dg[i] == l:
+            dg[i] = s
+    return dg
+
+# In the event a grid region seems to contain members with
+# two different group markers, we iterate through the grid
+# setting all instances of either to the lower value.
+
+
+i = np.random.randint(1, len(df))
+
+base = df.loc[i].tolist()
+
+vertz = [base[0], base[20],base[4], 
+            base[3], base[8], base[7], 
+            base[12],base[11],base[16], 
+            base[15],base[23],base[19]]
+
+horiz = [base[1], base[2], base[5], base[6],
+            base[21],base[9], base[10],base[22],
+            base[13],base[14],base[17],base[18]]
+
+dg =   [1,0,0,0,
+        0,0,0,0,
+        0,0,0,0,
+        0,0,0,0]
+
+vertical(dg, vertz, 0)
+for i in range(3):
+    horizontal(dg, horiz, i)
+    identity(dg, vertz, horiz, i+1)
+    vertical(dg, vertz, i+1)
+print(dg)
+dw.loc[len(dw)] = dg
+\end{lstlisting}
+
+
+
+\section{Generalizing This Method}
+
+That proof, if we tried to do it with a cross like last time, would be way, way too long. Silly to do as a human. What's the point of me?
+
+Hmm. Uhh...
+
+So let's say we've grabbed some random valid partition off of this list, or generated one with our stochastic generation model for $n$. How can we make sure all its regions are symmetric? Or even better, how can we make a symmetry check system inherent to our grid-making software?
+
+Suppose we've got our list of integers as generated by the above function, and we know that the largest group in it is some variable $z$.
+
+
+
+Suppose a valid galaxy of length and width $n$, that is, a partitioned grid into $180^{\circ}$ rotationally symmetric regions. Suppose we notate it by least-to-greatest group membership, creating a matrix of integers. To draw a specific example without loss of generality, 
+
+\begin{center} $
+\begin{tikzpicture} \draw[step=1mm,black,very thin] (0,0) rectangle (4,4); \draw[step=1cm,black,very thin] (0,3) rectangle (1,4);                       \draw[step=1cm,black,very thin] (0,0) rectangle (4,1);                      \draw[step=1cm,black,very thin] (3,1) rectangle (4,3);                                \draw[black] (2,4) -- (2,2) -- (1,2) -- (1,1);                                   \end{tikzpicture} = \begin{bmatrix} 1 & 2 & 3 & 3\\ 2 & 2 & 3 & 4\\ 2 & 3 & 3 & 4\\ 5 & 5 & 5 & 5 \end{bmatrix}$ \end{center}
+
+Let's say that each cell has an index, ordering them from 1 to $n$, denoting which row and column they are located in. The four by four case is
+\begin{center}
+    $\begin{bmatrix} 1.1 & 1.2 & 1.3 & 1.4\\ 2.1 & 2.2 & 2.3 & 2.4\\ 3.1 & 3.2 & 3.3 & 3.4\\ 4.1 & 4.2 & 4.3 & 4.4 \end{bmatrix}$
+\end{center}
+We can now think of a partitioned region as an ordered list of indeces, that forms a subset of the list of all possible tuples of integers from 1 to n. If we are given a region, in this list format, that we know is rotationally symmetric, finding the centroid is as simple as taking the mean of both sides of the tuple independently.
+
+Let's call a general region, or list of tuples, $R$, and let $R$ be rotationally symmetric. Recall that each cell $g$ at $(a.b) \in R$ which is centered around centroid $c$ at $(x.y) \in R$ has a "mirror image" $h$ at $(c.d) \in R$ for which $(\frac{a+c}{2}, \frac{b+d}{2}) = (x, y)$. To illustrate this, split $R$ into three lists, $s_1, c_0, s_2$. There are three cases for what $c_0$ consists of. 
+
+Case 1: the centroid is 
+
+\section{A General Case Algorithm}
+
+Let's examine the $2*2$ case more closely.
+
+There is one way to partition the $1*1$ grid.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.5cm,black,very thin] (0,0) grid (0.5,0.5);
+\end{tikzpicture}
+\end{center}
+
+If we add a block on the side, we can either have one group or two. On the bottom, there are similarly two options. Four total.
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (7.5,0.6);
+\draw[very thin] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3);
+\draw[very thin, xshift = 4cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin, xshift = 6cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0);
+\end{tikzpicture}
+\end{center}
+
+
+Let's go back to the n*1 case, and modify it slightly. Picture a line of cells that's $2n-1$ cells long, as opposed to $n$.  This region has $2^{n-1}$ valid partitions, as does the below one, with a bend.
+
+
+\begin{tikzpicture}
+    \draw[step = 1cm, black] (0,0) grid (1,5);
+    \draw[step = 1cm, black] (0,4) grid (5,5);
+    \draw[] (2.75,2.2) node {for $n=5$}; 
+\end{tikzpicture}
+
+These partitions are very easy for a computer to generate, by modifying the above "\emph{figaro}" algorithm. 
+
+\begin{lstlisting}
+def framer(n): 
+
+  # n is the side length of the grid. We want to make a list 
+  # composed of all partitions of the region formed by the
+  # leftmost vertical n*1 region and the upmost horizontal region, 
+  # total size of both 2n - 1, and, by what we determined in the 
+  # first dimension, total partitions = $2^{2n-2}$ . 
+
+    edge = []
+
+
+
+    for i in range(2 ** (2*(n - 1))):
+        bitstringofi = bin(i)[2:]
+
+# This iterates through every number from 0 to 2^(2n-2) in binary. 
+# This is still 1-dimensional in terms of how we count it,
+# despite it being a bit long, because the interior cells have two
+# adjacent neighbors, and the two exterior cells only have one.
+
+        while len(bitstringofi) < (2*(n-1)):
+            bitstringofi = "0" + bitstringofi
+        frame = [1]
+        for j in range((2*n)-2):
+            if bitstringofi[j] == "0":
+                frame.append(frame[-1])
+# If zero, lawn.
+            else:
+                frame.append(frame[-1] + 1)
+# If one, wall
+        edge.append(frame)
+    return(edge)
+
+# framer(3) = 
+# [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2], [1, 1, 1, 2, 2], [1, 1, 1, 2, 3], 
+# [1, 1, 2, 2, 2], [1, 1, 2, 2, 3], [1, 1, 2, 3, 3], [1, 1, 2, 3, 4], 
+# [1, 2, 2, 2, 2], [1, 2, 2, 2, 3], [1, 2, 2, 3, 3], [1, 2, 2, 3, 4], 
+# [1, 2, 3, 3, 3], [1, 2, 3, 3, 4], [1, 2, 3, 4, 4], [1, 2, 3, 4, 5]]
+\end{lstlisting}
+
+Here, we get all bit strings of length $2^{2(n-1)}$, with Python's convenient "bin()" function. Then, we cycle through the "frame", setting elements to the same or different groups by the index of the bit string. This creates all possible frames, sort of. We might change them later. To see why, we must go back to the $2*2$s.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (7.5,0.6);
+\draw[very thin, xshift = 6cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[] (0.47,0.1) node {$a$};
+\draw[xshift = 2cm] (0.47,0.1) node {$b$};
+\draw[xshift = 4cm] (0.47,0.1) node {$c$};
+\draw[xshift = 6cm] (0.47,0.1) node {$d$};
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3);
+\draw[very thin, xshift = 4cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0);
+\end{tikzpicture}
+\end{center}
+
+There are two possible groups that the cell we place at $a$ could belong to, while maintaining a valid partition: With the group, and without, like so.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (1.5,0.6);
+\draw[very thin, xshift = 0.9cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[] (0, 0) rectangle (0.6, 0.6);
+
+
+\draw[xshift = 2cm] (0, 0.3) node {=};
+\draw[xshift = 3.6cm] (0, 0.3) node {$\begin{bmatrix}
+1 & 1\\
+1 & 1
+\end{bmatrix} \begin{bmatrix}
+1 & 1\\
+1 & 2
+\end{bmatrix} \rightarrow$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}
+        if (nw == ne) and (nw == sw):
+            return([[nw, ne, sw, nw], [nw, ne, sw, (nw+1)]])
+
+\end{lstlisting}
+
+Cells $b$ and $c$ have the same spread of cases. With the group above, with the group to the left, or totally alone. We can treat them the same way in our algorithm.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (6.3,0.6);
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 0cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3);
+\draw[xshift = 0cm] (0.3, 0) -- (0.3, 0.3) -- (0, 0.3);
+\draw[xshift = 0cm] (0.3, 0) -- (0, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 1cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.6, 0) -- (0.3, 0);
+\draw[xshift = 1cm] (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.6, 0.3);
+\draw[xshift = 1cm] (0, 0) -- (0.3, 0);
+
+
+
+\draw[] (3.05, 0) -- (3.05, 0.6);
+
+\draw[very thin, xshift = 4.5cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3);
+\draw[xshift = 4.5cm] (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 3.5cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3);
+\draw[xshift = 3.5cm] (0.3, 0) -- (0, 0) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[xshift=3.5cm] (0.3, 0.3) -- (0.3, 0.6);
+\draw[very thin, xshift = 5.5cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) ;
+\draw[xshift = 5.5cm] (0, 0) -- (0.3, 0) -- (0.3, 0.3) -- (0.3, 0.6);
+\draw[xshift = 5.8cm] (0, 0) rectangle (0.3, 0.3);
+
+\draw[xshift = 6.5cm] (0, 0.3) node {=};
+\draw[xshift = 3.2cm, yshift = -1.5cm] (0, 0.3) node {$\begin{bmatrix}
+1 & 1\\
+2 & 1
+\end{bmatrix} \begin{bmatrix}
+1 & 1\\
+2 & 2
+\end{bmatrix} \begin{bmatrix}
+1 & 1\\
+2 & 3
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+1 & 1
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+1 & 2
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+1 & 3
+\end{bmatrix}\rightarrow$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}
+    if (nw == ne) or (ne == sw):
+        return([[nw, ne, sw, ne], [nw, ne, sw, sw], [nw, ne, sw, (max([ne, sw]) + 1)]])
+
+\end{lstlisting}
+
+Now, in the case of $d$, we've got four possible partitions: the three available to $b$ and $c$, and to merge $b$ and $c$ into one group. We can just return 0, and have another function take care of that, once we have access to more than three cells of the grid.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.3cm,white,very thin] (0,0) grid (5.5,0.6);
+\draw[very thin, xshift = 2cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.3, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 0cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3);
+\draw[xshift = 0cm] (0.3, 0.6) -- (0.3, 0) -- (0.3, 0.3) -- (0, 0.3);
+\draw[xshift = 0cm] (0.3, 0) -- (0, 0) -- (0.6, 0) -- (0.6, 0.3);
+\draw[very thin, xshift = 1cm] (0, 0) -- (0, 0.6) -- (0.6, 0.6) -- (0.6, 0.3) -- (0.6, 0) -- (0.3, 0);
+\draw[xshift = 1cm] (0, 0) -- (0, 0.3) -- (0.3, 0.3) -- (0.6, 0.3) ;
+\draw[xshift = 1cm] (0, 0) -- (0.3, 0);
+\draw[step=0.3cm, very thin, black, xshift = 3cm] (0, 0) grid (0.6, 0.6);
+
+
+\draw[xshift = 4cm] (0, 0.3) node {=};
+\draw[xshift = 2.1cm, yshift = -1.5cm] (0, 0.3) node {$\begin{bmatrix}
+1 & 2\\
+3 & 2
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+3 & 3
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+3 & 4
+\end{bmatrix} \begin{bmatrix}
+1 & 2\\
+2 & 2
+\end{bmatrix}\rightarrow$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}
+    else: 
+        return([[nw, ne, sw, ne], [nw, ne, sw, sw], [nw, ne, sw, (max([ne, sw]) + 1)], [0]])
+
+\end{lstlisting}
+
+To merge, we need access to the whole grid, not just the 2x2 section we're analyzing. In that case, we return 0, calling a different function once we have access to the full list again. 
+
+
+
+
+it would appear from this, if we know the group membership of a cell $c$'s northwest, northeast, and southwest neighbors, we can figure out all possible partitions for that region including $c$ with that base partition.
+
+
+\begin{lstlisting}
+def se(nw, ne, sw):
+    if (nw == ne) and (ne == sw):
+        return([[nw, ne, sw, nw], [nw, ne, sw, (nw+1)]])
+    if (nw == ne) or (ne == sw):
+        return([[nw, ne, sw, ne], [nw, ne, sw, sw], [nw, ne, sw, (max([ne, sw]) + 1)]])
+    else: 
+        return([[nw, ne, sw, ne], [nw, ne, sw, sw], [nw, sw, sw, sw], [0]])
+
+
+\end{lstlisting}
+
+
+This takes in a northeast, northwest, and southeast group index, and returns the list of all possible partitions including the southeastern cell. If a merger needs to take place, we return zero. We'll need to account for that once we have access to the full grid. We can apply this function repeatedly to our frames to fill in the rest of them. This algorithm will tell us our amount for n.
+
+
+
+
+\end{document}

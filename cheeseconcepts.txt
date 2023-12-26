@@ -1,0 +1,34 @@
+American - Seek, Makes you slower
+Colby - Seek
+Mozz - Evade, Makes you faster
+Swiss - Evade
+
+
+evade - high points - neutral
+random - they are fast - make you fast
+seek - make you slow
+
+Swiss - Will avoid you, worth 3 points
+
+colby - makes you faster, 2 points
+
+american - followsteer, 1 point, run speed -0.1
+
+Mozz - The king. 5 points, makes you bigger. avoids you and faster.
+
+swiss - 
+
+
+
+
+
+
+
+
+path follow
+separation
+cohesion
+alignment
+
+
+https://penusbmic.itch.io/free-dungeon-ruins-tileset/download/eyJpZCI6Njg3ODM4LCJleHBpcmVzIjoxNjc3NzE5OTU3fQ%3d%3d%2ebqsBfpTi4FF5wiSAfSCG6yTqG5c%3d

@@ -1,0 +1,19 @@
+africana
+anthropology
+arabic
+biology 
+chemistry
+chinese          
+computer science 
+english
+french
+hindi
+math
+music
+philosophy
+physics
+portuguese
+politics    
+psychology  
+sociology
+spanish         

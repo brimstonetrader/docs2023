@@ -1,0 +1,207 @@
+(define "SetHiddenEach"  
+   (set Hidden What #1 to:P2)  (set Hidden What #1 to:P3)  (set Hidden What #1 to:P4)
+   (set Hidden What #2 to:P1)  (set Hidden What #2 to:P3)  (set Hidden  What #2 to:P4)
+   (set Hidden What #3 to:P1)  (set Hidden What #3 to:P2)  (set Hidden What #3 to:P4)
+   (set Hidden What #4 to:P1)  (set Hidden What #4 to:P2)  (set Hidden What #4 to:P3)              
+)
+
+(define "Tally"
+    (if (or (= (% #1 13) 11) (= (% #1 13) 12)) 10 (% #1 13))
+
+)
+
+//------------------------------------------------------------------------------
+
+(game "Golf" 
+    (players 3) 
+    (equipment { 
+        (board (rectangle 1 44)) 
+        (piece "Square1"   Shared)
+        (piece "Square2"   Shared)
+        (piece "Square3"   Shared)
+        (piece "Square4"   Shared)
+        (piece "Square5"   Shared)
+        (piece "Square6"   Shared)
+        (piece "Square7"   Shared)
+        (piece "Square8"   Shared)
+        (piece "Square9"   Shared)
+        (piece "Square10"  Shared)
+        (piece "Square11"  Shared)
+        (piece "Square12"  Shared)
+        (piece "Square13"  Shared)
+        (piece "Square14"  Shared)
+        (piece "Square15"  Shared)
+        (piece "Square16"  Shared)
+        (piece "Square17"  Shared)
+        (piece "Square18"  Shared)
+        (piece "Square19"  Shared)
+        (piece "Square20"  Shared)
+        (piece "Square21"  Shared)
+        (piece "Square22"  Shared)
+        (piece "Square23"  Shared)
+        (piece "Square24"  Shared)
+        (piece "Square25"  Shared)
+        (piece "Square26"  Shared)
+        (piece "Square27"  Shared)
+        (piece "Square28"  Shared)
+        (piece "Square29"  Shared)
+        (piece "Square30"  Shared)
+        (piece "Square31"  Shared)
+        (piece "Square32"  Shared)
+        (piece "Square33"  Shared)
+        (piece "Square34"  Shared)
+        (piece "Square35"  Shared)
+        (piece "Square36"  Shared)
+        (piece "Square37"  Shared)
+        (piece "Square38"  Shared)
+        (piece "Square39"  Shared)
+        (piece "Square40"  Shared)
+        (piece "Square41"  Shared)
+        (piece "Square42"  Shared)
+        (piece "Square43"  Shared)
+        (piece "Square44"  Shared)
+        (piece "Square45"  Shared)
+        (piece "Square46"  Shared)
+        (piece "Square47"  Shared)
+        (piece "Square48"  Shared)
+        (piece "Square49"  Shared)
+        (piece "Square50"  Shared)
+        (piece "Square51"  Shared)
+        (piece "Square52"  Shared)
+        (piece "Square53"  Shared)
+        (piece "Square54"  Shared)
+        (hand Each size:5) 
+         (map "Stock" {(pair P1 48) (pair P2 53) (pair P3 58)})
+          })   
+                
+            
+            
+            (rules
+                (start {
+                (place Random (sites (union {(array {4..47}) (array {49..52}) (array {54..57})})) 
+                                            {"Square1"  "Square2"  "Square3"  "Square4"  "Square5" 
+                                             "Square6"  "Square7"  "Square8"  "Square9"  "Square10"
+                                             "Square11" "Square12" "Square13" "Square14" "Square15"
+                                             "Square16" "Square17" "Square18" "Square19" "Square20"
+                                             "Square21" "Square22" "Square23" "Square24" "Square25" 
+                                             "Square26" "Square27" "Square28" "Square29" "Square30"
+                                             "Square31" "Square32" "Square33" "Square34" "Square35" 
+                                             "Square36" "Square37" "Square38" "Square39" "Square40"
+                                             "Square41" "Square42" "Square43" "Square44" "Square45" 
+                                             "Square46" "Square47" "Square48" "Square49" "Square50"
+                                             "Square51" "Square52"})                                                                                      
+                (place "Square53" 1)
+                (place "Square54" 0)
+                (forEach Player (set Hidden What (sites (array {4..43})) to:Player))
+                (set Hidden What (sites {54..57}) to:P1)  (set Hidden What (sites {49..52}) to:P1) 
+                (set Hidden What (sites {44..47}) to:P2)  (set Hidden What (sites {54..57}) to:P2) 
+                (set Hidden What (sites {44..47}) to:P3)  (set Hidden What (sites {49..52}) to:P3) 
+                })
+
+                    (play
+                                 (move Select (from (sites Hand Mover))
+                                 (then (remove (last From) 
+                                 (then (set Hidden What (sites (array {(+ 4 (count Turns))})) False to:Mover
+                                 (then (fromTo (from (+ 4 (count Turns))) (to (last From))))))))
+                           )
+                   )
+                    (end {(if  (< 38 (count Turns)) 
+                            (byScore {(score P1 (+ {("Tally" (what at:44)) ("Tally" (what at:45)) ("Tally" (what at:46)) ("Tally" (what at:47))}))
+                                              (score P2 (+ {("Tally" (what at:49)) ("Tally" (what at:50)) ("Tally" (what at:51)) ("Tally" (what at:52))}))
+                                              (score P3 (+ {("Tally" (what at:54)) ("Tally" (what at:55)) ("Tally" (what at:56)) ("Tally" (what at:57))}))} misere:True))}
+                    )
+                )
+            
+        )
+    
+        
+//------------------------------------------------------------------------------        
+        
+        (metadata    
+            (graphics {
+                (piece Foreground "Square1"  image:"A"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square2"  image:"2"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square3"  image:"3"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square4"  image:"4"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square5"  image:"5"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square6"  image:"6"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square7"  image:"7"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square8"  image:"8"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square9"  image:"9"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square10" image:"1"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:-0.4)
+                (piece Foreground "Square10" image:"0"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:0.4)
+                (piece Foreground "Square11" image:"J"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square12" image:"Q"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square13" image:"K"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square14" image:"A"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square15" image:"2"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square16" image:"3"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square17" image:"4"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square18" image:"5"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square19" image:"6"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square20" image:"7"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square21" image:"8"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square22" image:"9"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square23" image:"1"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:-0.4)
+                (piece Foreground "Square23" image:"0"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:0.4)
+                (piece Foreground "Square24" image:"J"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square25" image:"Q"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square26" image:"K"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square27" image:"A"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square28" image:"2"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square29" image:"3"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square30" image:"4"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square31" image:"5"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square32" image:"6"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square33" image:"7"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square34" image:"8"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square35" image:"9"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square36" image:"1"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:-0.4)
+                (piece Foreground "Square36" image:"0"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:0.4)
+                (piece Foreground "Square37" image:"J"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square38" image:"Q"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square39" image:"K"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square40" image:"A"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square41" image:"2"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square42" image:"3"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square43" image:"4"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square44" image:"5"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square45" image:"6"  fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square46" image:"7"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square47" image:"8"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square48" image:"9"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square49" image:"1"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:-0.4)
+                (piece Foreground "Square49" image:"0"  fillColour:(colour Hidden) edgeColour:(colour Black)  scale:0.4 offsetX:0.4)
+                (piece Foreground "Square50" image:"J"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square51" image:"Q"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+                (piece Foreground "Square52" image:"K"  fillColour:(colour Hidden) edgeColour:(colour Black)   scale:0.6)
+    
+                (piece Foreground "Square53" image:"None" fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (piece Foreground "Square54"              fillColour:(colour Hidden) edgeColour:(colour Black) scale:0.6)
+                (show Edges Hidden)                                                  
+                (show Symbol "Hexagon" (sites Board) fillColour:(colour 185 130 85) edgeColour:(colour 225 182 130)) 
+                (board Placement scale:27.5 offsetX:-0.5) //35
+                (stackType None)
+                (hiddenImage "Null")
+                (board Background image:"square.svg" fillColour:(colour 185 130 85) edgeColour:(colour 185 130 85) scale:1.45)
+            })
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

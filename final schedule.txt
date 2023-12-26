@@ -1,0 +1,38 @@
+alg ss af ai    
+cso ch wl qi        
+						
+						
+						TODO OVER SPRING BREAK
+						
+						|^3     odyssey proposal
+						370 (r) lab3 	 
+						370     remedial transit ideas (read trevor's books)
+						360 (r) proj1
+						304     remedial BOX, OIL ideas
+						370 	lab5
+						360 	proj2
+						360 	mod8
+						
+						
+						WHAT'S TO COME
+						
+						360 - 
+						370 - metroplan (be stern with these boys)
+						304 - i'll probably make out w 30-40 pages on a topic
+						490 - same shit as always
+						497 - no further work; might need to give a talk
+						
+						
+						
+						360 final ideas
+						
+						- group table generator
+						- cube battle
+						- terminal tatham (sudoku, nonograms, galaxies, generalized falling block game, etc.)						
+						- drum machine
+						- matrix algebra
+						- graph rendering based off node connections
+
+Without loss of generality, the above arrangement is stating that both “3
+in group with 1 in group with 2 in group with 4 → 3 in group with 4” and “3
+not in group with 4”, and is contradicting i

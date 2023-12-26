@@ -1,0 +1,457 @@
+An essential fact about every current student at Hendrix, and the broad cohort of people sometimes referred to as "Generation Z," is that we believe our personal financial struggle to be meaningless. This does not mean that we are not poor. In January of 2021, an oft-maligned subsect of the world population, namely, those known as "Redditors," pulled off a silly little scam in the Stocks App, orchestrating a radical artificial inflation of GameStop. The stated goal on the website was vaguely to bring down the big banks, the ones that caused the 2008 Recession, making themselves richer, and others, such as the Redditors, poorer. No one was removed from a position of power over the whole GameStop thing, of course, but a significant number of Redditors made many thousands of dollars, off of essentially an internet game. This premise, of a recreational forum allowing for such stupidly easy money for anyone "in the know," did a nice job of cratering any respect we may have had for the sheer act of wealth accumulation. This was only the most egregious example of the "free money" concept Larry David taught us is called "crypto." 
+
+Crypto was invented by an anonymous person who claimed to be named "Satoshi."
+
+
+In November of 2022, FTX Trading Ltd. (or, "Futures Exchange"), a general online cryptocurrency exchange and hedge fund, collapsed overnight, suddenly locking millions of customers out of billions of dollars in assets.
+
+
+Money was siphoned off by Fried and many other executives, often put into real estate and "personal items".
+
+	FTX then used its clients’ crypto assets, through its sister company’s Alameda Research trading arm, to generate cash through borrowing or market making. The cash FTX borrowed was used to bail out other crypto institutions in the summer of 2022.
+
+	At the same time, FTX was using the cryptocurrency it was issuing, FTT, as collateral on its balance sheet. This represented a significant exposure, due to the concentration risk and the volatility of FTT.
+
+	FTX's financials showed that there was a "back door" in the books, created with "bespoke software," according to Reuters. It was described as a way that Bankman-Fried could alter the firm's financial records without raising any alerts.
+
+The growth of FTX was meteoric, with the timeline from beginning to end spanning less than three years.
+
+
+	It’s a dual role that SBF has been happy to embrace. For years, the crypto industry was dominated by political ideologues, shameless grifters and rich guys with yachts. Mr. Bankman-Fried is hoping to put a new face on the still-chaotic world of digital assets. He lives modestly for a billionaire and has pledged to give away virtually his entire fortune, which currently stands at $21.2 billion, according to Forbes. A growing force in political fund-raising, he has a super PAC that recently gave more than $10 million to a Democratic congressional candidate who supports some of his philanthropic priorities.
+
+	Now Mr. Bankman-Fried is trying to leverage his fame to set policy in Washington, at a moment when the risks of crypto trading are growing increasingly stark; he makes regular trips to the Capitol from his base in the Bahamas, meeting with regulators and testifying in Congress. If he’s successful, he could become one of the most influential figures in the new era of technological experimentation that supporters call web3, writing the rule book for a slew of risky investment products that are increasingly reshaping the internet, finance and even the arts.
+
+	But his detractors say his advocacy is driven by self-interest. His political contributions have prompted complaints that he’s distorting the competitive landscape to advance his own agenda. And the charm offensive in Washington has alarmed consumer advocates who argue that FTX is exacerbating the volatility in crypto markets and putting investors at risk.
+	
+	It remains unsettled whether the tokens are securities, commodities or something else entirely.
+	
+	FTX is headquartered in the Bahamas partly because 80 percent of its $1.1 billion in global revenue stems from a trading instrument that remains illegal in the United States. On the FTX platform, investors can borrow money to make enormous bets on the future prices of cryptocurrencies, leading to potentially astronomical gains — or catastrophic losses. These kinds of risky trades are hugely popular worldwide. Mr. Bankman-Fried is now urging the trading commission to permit such leveraged bets in the United States, which would set a useful precedent for other crypto firms offering experimental products.
+
+	Even as the market crashed this week, Mr. Bankman-Fried was busy making that case. On Thursday, he was in Washington for a hearing in front of the House Agriculture Committee, where he defended FTX’s trading proposal and held forth on the importance of federal crypto regulation.
+
+	“It would serve a lot of interests at once,” he said. “That’s what we would love to be a part of doing.”
+	
+	After leaving Jane Street in 2017, Mr. Bankman-Fried started Alameda Research, a crypto trading firm. The industry was booming. Entrepreneurs launched new coins practically every day, as the government rushed to keep up. “Everyone was talking about crypto,” Mr. Bankman-Fried said. “It’s actually something you can access as an individual — you don’t need to be a large corporation with a decade of built-up experience.” He rented office space in Berkeley, where his staff of 20-something traders worked around the clock.
+
+	Mr. Bankman-Fried essentially lived at work; most nights, he slept on a beanbag parked next to his desk. Occasionally, he’d stop by his apartment to take a shower, then change into khaki shorts and jog back to the office, the only exercise he could fit into his schedule. Colleagues were both inspired and perplexed by his commitment. “We’ve always had beds in the office. We always convert the conference room into a bedroom,” said Sam Trabucco, an early Alameda hire. “He never uses them. He likes the beanbag chair.”
+
+	Around the time he started the firm, Mr. Bankman-Fried noticed a quirk in the crypto markets: The price of Bitcoin in Japan was about 10 percent higher than in the United States. That differential presented an opportunity for cross-border arbitrage. Alameda could buy Bitcoin in the States and sell it in Japan, pocketing the profits. This seemingly simple trade was complicated by the financial sector’s deep suspicion of digital assets, which were still considered the domain of hackers and drug dealers.
+
+	Large crypto transfers set off alarm bells at U.S. banks, forcing Alameda to improvise. The young traders were convinced that crypto was the future of money, but the tools they needed to buy and sell it were decidedly old-fashioned. “We spent hours every single day inside banks, like a physical location close to the office, sending manual wires,” recalled Nisha
+	
+	Despite the obstacles, the arbitrage operation netted Alameda $20 million in just three weeks. But Mr. Bankman-Fried soon discovered other limits on the firm’s trading strategy. He was frustrated with the infrastructure on existing crypto exchanges, which he thought were often poorly run.
+
+	In 2018, Mr. Bankman-Fried flew to Macau for a crypto conference. It was the first time since Alameda’s founding that he’d ventured outside a one-mile radius of the Berkeley office. He traveled around Asia, meeting industry colleagues in person for the first time, and began imagining new possibilities for the business in a friendlier regulatory environment.
+
+	A few days after his arrival, he sent a Slack message to his colleagues in California: The firm was losing millions of dollars in expected value by staying in the United States.
+	
+	Within months of the conference, Mr. Bankman-Fried had moved his band of quants to Hong Kong. He eventually delegated control of Alameda to some of his longtime colleagues, and started building a new exchange. The timing of FTX’s founding was perfect: After a crash in prices, the cryptocurrency market was poised for a pandemic boom. Mr. Bankman-Fried and his colleagues soon became enormously wealthy. FTX was processing hundreds of millions of dollars in trades every day, taking a cut of two basis points (or two one-hundredths of 1 percent) on most transactions. Big-name venture-capital firms like Sequoia and SoftBank lined up to invest. FTX and its U.S. affiliate are now valued at a combined $40 billion.
+
+	As his business grew, Mr. Bankman-Fried began to establish a public profile, tweeting about his favorite video games and going on TV to explain crypto to the masses. But he refused to comport himself like a typical CNBC guest. Before one of his first TV appearances, Andy Croghan, a colleague at Alameda and FTX, urged him to clean up his look.
+
+	“I was like, ‘Sam, you’ve got to cut your hair, dude — it looks ridiculous,’” Mr. Croghan said. “And he said, ‘I honestly think it’s negative EV for me to cut my hair. I think it’s important for people to think I look crazy.’”
+	
+	Last year, Mr. Bankman-Fried moved FTX to the Bahamas, where the government has established a relatively friendly regulatory framework for the crypto industry. From his new base, Mr. Bankman-Fried can easily travel to Washington. Virtually all the major crypto companies have lobbyists there, but Mr. Bankman-Fried’s direct involvement is unusual for a chief executive.
+
+“A firm can hire an army of D.C. lobbyists to walk into a congressperson’s office,” said Brett Harrison, the president of FTX’s U.S. arm. “That’s not nearly as effective or as important as the people who are actually running the company. We’ve had such a warm reception.”
+
+The company’s aggressive lobbying in Washington has alarmed consumer advocates. The leveraged futures trading that FTX wants to offer in the United States can be a risky proposition, especially in a market as volatile as crypto. “It’s just something that frankly, people should not be doing,” said Lee Reiners, a former Federal Reserve official who now teaches at Duke Law School. “These are going to be largely unsophisticated traders, and I just don’t think it’s a suitable product for anyone.”
+
+In an interview at the resort in the Bahamas, Mr. Bankman-Fried insisted that FTX’s platform was safe: The company has installed protections for retail investors, he said, and reduced the amount of leverage available to traders.  “We are talking regularly with all of our regulators,” he said. “It would be pretty weird if the regulators were refusing to talk.”
+
+The company’s Washington advocacy is only one element of Mr. Bankman-Fried’s broader agenda. He’s become an increasingly influential figure across the finance industry, and recently bought a 7.6 percent stake in Robinhood, the stock-trading platform. Over the last two years, he’s also been a prolific political fund-raiser. His $5.6 million contribution to Joe Biden’s presidential campaign made him one of the biggest Democratic donors of the cycle. And he’s funding a super PAC, Protect Our Future, which has donated more than $10 million to Carrick Flynn, a first-time candidate running for the House of Representatives in Oregon. The aggressive spending has prompted complaints in that state, where a rival campaign said Mr. Flynn was being bankrolled by “a tax-dodging billionaire in the Bahamas.” (Mr. Flynn did not respond to requests for comment; the primary is scheduled for Tuesday.)
+
+Mr. Bankman-Fried said his contributions have nothing to do with crypto. He’s interested in the race, he said, because Mr. Flynn supports projects he’s funded with his philanthropy, like efforts to prepare for the next pandemic. Last year, Mr. Bankman-Fried gave away $50 million, funding pandemic-related causes and research into artificial intelligence. He’s also supporting climate change mitigation, as well as more idiosyncratic projects, like space-focused research into the “governance of planets.” This year, he plans to give away as much as $1 billion.
+
+“The things that matter most are the things that have long-term impact on what the world will look like,” Mr. Bankman-Fried said. “There are trillions of people who have not yet been born.”
+
+That’s not a universally accepted approach to philanthropy, even among effective altruists. Mr. Singer, whose scholarship helped inspire the movement, said he has gotten to know Mr. Bankman-Fried over the years and called his philanthropy “wonderful and really quite amazing.” But behind the scenes, Mr. Singer has encouraged him to tackle more of the problems bedeviling the world today.
+
+“I’ve urged him to think about giving to an effective charity helping people in extreme poverty,” Mr. Singer said. “I’m not sure I persuaded him of that.”
+
+16 percent of Americans now owning some may 2022
+
+His net worth peaked at $26 billion.[4] In October 2022, he had an estimated net worth of $10.5 billion.[5] By November 8, 2022, amid the bankruptcy of FTX, his net worth was estimated to have dropped 94 percent in a day to $991.5 million 
+
+
+The change comes just days after U.S. Bankruptcy Judge John Dorsey ruled in favor of Miami-Dade County, which had asked to have FTX's name stripped from the stadium in wake of the cryptocurrency trading company's sudden collapse. Termination of the naming rights deal between FTX Trading, which declared bankruptcy in November, and the Florida county "shall be effective immediately upon entry of this order," Dorsey wrote in his decision.
+
+The Heat tweeted its new arena name and said removing FTX "branding elements will be ongoing in coming weeks."
+
+Bankman-Fried contributed more to President Joe Biden’s campaign than anyone except Michael Bloomberg: about $5.2 million
+
+Basically, we’ve seen two approaches to cryptocurrency exchanges so far. One category of operation—companies like Coinbase Global (COIN), which went public in April, and Gemini, founded by Cameron and Tyler Winklevoss in 2014—have set up U.S.-based operations that attempt to comply scrupulously with U.S. regulatory frameworks, even though those are cumbersome and ill-suited to the nascent asset-class. As a result, these companies offer a relatively limited set of offerings—mainly spot-market sales of a select list of cryptocurrencies. (In June 2020, FTX launched a U.S. subsidiary, FTX.US—with offices in Berkeley, Chicago, and Miami—which also takes that conservative approach.)
+
+
+
+ In about eighty years I will be dead, and in another eighty everyone who ever really knew me will be too.  I will be at risk of being forgotten; everyone alive now will be, but most importantly for me, I will be.  I would like to think that I will be remembered.  We all would.
+
+
+--------------------------------------------------------
+
+
+-Beatrice (F) and Benedick (M) and fiances; so are Hero (F) and Claudio (M).  The men are best friends, as are the women.  Claudio believes Hero is cheating on him and breaks of their engagement.  Beatrice tells Benedick, in retaliation for casting shame upon Hero, to kill Claudio.  Benedick eventually relents, and agrees to murder his best friend.
+
+-Stradivarious string instruments are instruments made by Antonio Stradivari.
+-"A well regulated Militia, being necessary to the security of a free State, the right of the people to keep and bear Arms, shall not be infringed."
+
+
+The objects referenced above share three similarities.  
+
+The first is that they're really old.  The first, a summary of a key plot point in William Shakespeare's Much Ado About Nothing, was written sometime in the late sixteenth century.  The second, the most famous string instruments ever made, were constructed sometime around 1700.  And the third, the second amendment to the constitution of the United States of America, was adopted on December 15th, 1791.
+
+The second commonality is that they are revered.  Shakespeare is widely considered to be the best author ever to have lived.  His works are required reading at almost every level of school, the subject of quite a lot of academic research, and the focal point of many theater festivals around the world.  Stradivarius violins sell for a few million dollars each, and cellos an order of magnitude above that--both an order of magnitude above the cost of other professional-level instruments.  The constitution has become the focal point for almost every public policy debate in Washington, by far the most ubiquitously cited source, and it was the interpretation of the constitution that rested at the heart of the recent supreme court case on Obamacare.  The second amendment itself has determined the balance of gun control laws in America, has been used to limit local attempts to ban certain guns and to determine which attempts to limit access to guns are allowed.
+
+The third thing that these three old, revered works share in common is that they are ridiculous.  The plot twist  in Much Ado--typical of Shakespeare--relies on simultaneously one-dimensional and unrealistic characters, illogical plots, and obvious endings.  I mean, come on--kill someone because he thinks, with good reason, that his fiance is cheating on him?  Beatrice is absurdly out of line in an unrealistic way; Benedick is absurd for listening to her, and this is all supposed to be taken in stride.  Professional violinists don't show preferences for Stradivarius violins in double blind tests versus newer instruments.  And we as a country should be able to decide what the best gun control laws are and enact them democratically, instead of listening to vaguely worded commands about gun laws from people who lived two hundred years ago when we were in open rebellion against a foreign occupier and didn't yet have a reliable police force or army.  Instead of making decisions about what laws make sense in a country with internal security, a police force, and an army, we have to constantly make sure that "A well regulated Militia, being necessary to the security of a free State, the right of the people to keep and bear Arms, shall not be infringed."  Whatever the fuck that means.  All of Shakespeare's plays are like that, too, and the problem with the constitution is more general than the second amendment.
+
+I could go on and on about the failings of Shakespeare and the constitution and Stradivarius violins, and at the bottom of this post I do*, but really I shouldn't need to: the Bayesian priors are pretty damning.  About half of the people born since 1600 have been born in the past 100 years, but it gets much worse than that.  When Shakespeare wrote almost all of Europeans were busy farming, and very few people attended university; few people were even literate--probably as low as about ten million people.  By contrast there are now upwards of a billion literate people in the Western sphere.  What are the odds that the greatest writer would have been born in 1564?  The Bayesian priors aren't very favorable.
+
+And take a look at string instrument creation.  Not only does current society have much more expendable income and energy to devote to things like creating instruments, but we now have machines capable of cutting wood with micrometer level precision available to consumers; what are the odds, really, that the best violins have been made by a human hand in 1700?
+
+
+The problem is much more systemic than plays and violins and laws.  Citizen Kane was finally unseated as the best film of all time and bumped to number two--still quite an achievement for an almost unwatchably empty film.  Old wines sell for ridiculous prices despite the lack of correlation between price and taste.  (See here for recently disgraced Jonah Leherer's attempts to salvage expensive win.)  The framers of the constitution are easily the most revered people in America and--importantly--those most often looked to for advice on public policy--despite being, you know, people with slaves who wouldn't understand a thing about the modern economy or technology or society.  I spent a fair chunk of my childhood trying to decide who the best ten baseball players ever were--how does Gehrig compare to Bonds?--even though any of the players from 1920 would flunk if forced to play against modern teams.  Again and again in our culture, the same theme pops up: we fetishize the old.
+
+We like old plays and old movies and old wines and old instruments and old laws and old people and old records and old music.  We like them because they're old and come with stories but we convince ourselves that there's more: we convince ourselves that they really were better.  We don't just read stories about the framing of the constitution at bedtime, we use it as our guide for public policy.  We don't just like to listen to the Beatles but we convince ourselves that they are the best and that anyone who doesn't like them doesn't have good taste in music.  We don't just respect the old; we think that the old is right and that those who prefer the new to the old are wrong.
+
+So why is it that we have become so enamored of things made in 1700?
+
+There are many reasons.  One is that there is a whole lot of inertia in the system.  If Shakespeare is the most respected thing in 1900 then teachers will teach it in 1900 and academics will write about it in 1900 and if you're young in 1900 and want to be "in the know" and want to become an insider in academic literature, then, well, you'd better study Shakespeare; and so it's passed on from generation to generation.  Furthermore, once something acquires a label, it's very hard to dislodge the label--even if the label is as the best author ever and there are more and more authors every day giving the old one a run for its money (and then some).  I think there's one more reason, though, that we fetishize the old.  I was reminded of it about a month ago while in a taxicab heading toward the Atlanta airport, and I saw a billboard advertisement for a Church that said, superimposed on the pastor's face: "In these troubled times, some things never change."
+
+In about eighty years I will be dead, and in another eighty everyone who ever really knew me will be too.  I will be at risk of being forgotten; everyone alive now will be, but most importantly for me, I will be.  I would like to think that I will be remembered.  We all would.  And if we as a society spend so much time looking backward, so much time romanticizing those who died two hundred years ago, so much time replicating traditions born hundreds of years ago, then the future doesn't look quite so divorced from the present.  And the thought that your society and your town and your way of life and maybe even you might be remembered in two hundred years doesn't seem quite so hopeless.
+
+It's easy to get caught up in romanticization of the past and forget that it's the reason that 46% of Americans don't believe in evolution.
+-------------------------------------------
+
+
+This is not, of course, to say that Shakespeare should be banned.  Everyone should be entitled to read what they want.  But our laws should not be based on two hundred year old unchangeable documents, and schools shouldn't base their curriculum around analyzing Shakespeare; and next time you want to go see Citizen Kane playing in your local artsy movie theater, I think I'll pass.
+
+
+
+_________________________________________________________________________________
+
+*: The recent ruling on Obamacare rested on the personalities of two judges--John Roberts and Tony Kennedy.  The reason that such an important case rested on personality instead of law or fact is because the vagueness of the constitution gives the justices free reign to rule as they wish.  Obamacare was originally believed to be extremely unlikely to be overturned, and then underwent a series of transitions in terms of likelihood of being overturned, peaking at almost 80% on Intrade, before being upheld.  And during this time, the constitution did not change; only one of the bumps even came from legal arguments in front of the court.  Instead a year of speculation over the personal opinions of John Roberts and Tony Kennedy occurred.  The constitution not only sets arbitrary and vaguely worded rules from a time when the nation was very different that are now almost impossible to change, but also allows people to judge the legality as they wish on almost any issue--even if they're a judge tasked with deciding whether a law will be upheld.  But, you say, wouldn't we become a police state devoid of free speech if we lost constitutional protections?  Look at the UK, whose constitution's main role is to establish a now-figurehead monarchy.  Look at almost any comparable country--it's not going to rely as much on their constitution as we do on ours.  If we want free speech--which we absolutely do--then let's have a law saying so.
+
+Similarly, Shakespeare's non-comedies fix few of the flaws found in Much Ado About Nothing.  Romeo and Juliet are incredibly flimsy characters, and the plot is absurd.  (For those interested, the number of lines between when Romeo is first made aware of Juliet's existence and when he recites his first love sonnet about her is 32, and none of those involve any action on Juliet's part, let alone interaction between them.)  Sure, you could say that the play is attempting to highlight the immaturity of youth, but at that point you're attempting to cite the one-dimensionalness of the main characters of a work as a strength.
+
+And Shakespeare isn't alone in being a shitty writer from hundreds of years ago.  The most ambitions woman in Pride and Prejudice has a life goal of marrying a rich, handsome man who is also intelligent--the thought that a woman could have a career or even hobby independent from her husband is outside the scope of the book.  And don't get me started on The Canterbury Tales. 
+
+
+
+
+A bank, in simple terms, is an entity where a customer can deposit their money (and get paid interest), or can borrow money (and pay interest to the bank). The way a bank makes money is that it charges more interest to the borrower than what it pays to the depositor. A bank is allowed to lend your money out without your explicit permission. Because of this, governments heavily regulate banks. They are limited as to who they can lend to and how much. They are audited frequently and have robust external oversight. 
+
+A brokerage, in simple terms, is an entity where a customer can deposit their money and buy investment assets, in hopes to grow their money over time. Typically, a customer can open two types of accounts in a brokerage: 
+
+    Cash account: This account can exclusively buy and sell assets
+    Margin account: This account can not only buy and sell assets, it can borrow against those assets. For example, you can deposit $10,000 USD and buy Apple stock. You can then use that Apple stock as collateral and borrow against it. Typically you could borrow up to a certain amount. For a stock like Apple, you could borrow up to 70% of the value of the stock, so in our example, you could borrow up to $7,000 USD, which you could use to buy whatever you want. However, there is a caveat: if Apple stock falls 50%, you would be faced with a margin call: Your account balance is $5,000 USD in Apple stock, but you borrowed $7,000. When this happens the brokerage will call you and ask you to deposit $5,000 USD in collateral so your account is covered. If you don’t have the money, the brokerage has the right to sell your remaining Apple stock to cover your bad debt. However in our example, there is a shortfall of $2,000 USD ($5,000 from the sale of Apple stock - $7,000 loan you took). In that case the brokerage will try to get that $2,000 from you through legal means, but that would cost money and time and they might not be able to recover it. What would happen is that the brokerage would then realize a loss of $2,000 against their capital.
+
+How does a brokerage make money? Typically, there are four ways:
+
+    Charging commissions on trading. You buy $10,000 worth of Apple stock? That trade costs you $10. 
+    Charging a fee on your account. You have $10,000 in your account. The brokerage charges an 1% annual fee for holding your assets, but your trades are free. So if your account balance stays at $10,000 for a year, you would pay $100 for having your assets in there. 
+    They charge for making a market in an asset. In simple terms, they sell the asset to you at a price slightly higher than the purchase price in the open market, or buy the asset from you at a lower price than the sale price in the open market. The best example of this model for making money are currency exchange houses. 
+    Lending. They will lend cash and other assets to margin accounts, and charge an interest fee to the customer that borrows. Like I explained in our Apple example above, this adds considerable risk to the business model, so brokerages that engage in margin lending must have robust risk management processes to ensure that there are no shortfalls in the customers accounts. No brokerage wants to be constantly calling their customers asking for more money. Furthermore, a brokerage must have capital on hand to be able to lend to their customers and to be able to absorb shortfalls. A Brokerage (in most countries) is not allowed to lend customer funds out, unlike a bank. It must hold all customer deposits 1:1. This means that if you deposited $10,000 USD, it must always hold that $10,000 USD. If you deposited 10 Bitcoin it must hold that 10 Bitcoin at all times. 
+
+
+
+
+
+What separated FTX from the rest of the firms that offered similar services was how fast and efficient their platform was, how liquid their market making business was (This means, in simple terms, that FTX was one of the best places to buy and sell cryptocurrencies. It was fast and the prices they offered where some of the best), and their margin lending business. At FTX, you were allowed to deposit cash or cryptocurrencies, then borrow against them. Their systems were so advanced when it came to risk management that the sale of collateral when margin was breached was automatic, no need to call the customer asking for cash to cover. 
+
+
+
+FTT is a cryptocurrency created by FTX as a rewards system for its customers. You were rewarded FTT tokens for trading in FTX (Although you could also just buy the tokens in the open market). Having FTT in your FTX account allowed you to have discounts on trading fees, and FTX allowed you to borrow up to 95% of the value of your FTT tokens in your account. How did the FTT token maintain its value? FTX would use some of its trading profits to buy back FTT in the open market and destroy the tokens. This would theoretically mean that FTT would increase in value the more trading profits FTX generated. FTT token holders theoretically had a partial claim to the future profits of FTX, similar to a stock.
+
+
+
+
+It is assumed that, like many other crypto investment and trading firms, Alameda Research incurred significant losses in their portfolio during the crypto downturn of this year. Alameda traded and invested using loans, and at one point their losses became so big that their lenders asked for their money back, which Alameda did not have. For reasons still unknown to the crypto space, SBF made a decision to bail out Alameda. Now allegedly the hole was so big that SBF’s own money or even FTX’s own capital was not enough to cover these losses (It is assumed that the losses at Alameda could have been over $10 billion USD), so SBF decided to use FTX’s customer funds to bail out Alameda.
+
+Now, how can SBF do this without raising any flags? Transferring billions of dollars in assets from FTX to Alameda would have raised all of the red flags, and it would have leaked to the crypto market fairly quickly. SBF knew that he had to keep this hidden from the majority of the FTX organization. Allegedly, SBF and two other executives of FTX did the following:
+
+    They created a set of bookkeeping separate from FTX’s so that they could accurately keep track FTT tokens out in circulation.
+    They created a back door system that allowed them to withdraw FTT tokens without the oversight of FTX’s internal controls.
+
+With these two systems in place, SBF was able to take out millions of FTT tokens from FTX, lend them to Alameda (in secret, supposedly only a handful of people knew at FTX), then Alameda would deposit the tokens on FTX, use them as collateral to borrow assets and pay back its loans.
+
+This mechanism in it of itself does not fail automatically. As long as FTT maintained a high enough price, the loans Alameda took were collateralized.
+
+However, that all began to change on November 2, when CoinDesk, a crypto journalism website, revealed that the majority of Alameda’s balance sheet was FTT tokens. This raised a lot of eyebrows in the crypto space.
+
+Enter Changpeng Zhao (CZ)
+
+CZ is Binance’s founder and CEO, and one of the leading figures in the crypto space. Binance is one of the largest cryptocurrency exchanges in the world. A few years ago, CZ invested in FTX. Last year, it seems that the relationship between CZ and SBF deteriorated, and SBF decided to buy back CZ’s FTX investment. Part of that buy back was paid in FTT tokens (approximately $500 million USD worth).
+
+On November 6, presumably after CZ learned about Alameda’s balance sheet, he announced on Twitter that he was starting to sell his FTT tokens. This led to a crash in FTT’s price.
+FTT token price chart, 1 year, measured in USD. Source: CoinGecko
+
+This spooked FTX’s clients, and many started to withdraw their balances. If FTX had kept the assets of their clients 1:1, this shouldn’t have been a problem. However, as explained above, FTX loaned customer funds to Alameda, collateralized by FTT tokens. Now those tokens lost their value significantly, and because there weren’t enough FTT tokens in open market circulation, the millions of tokens Alameda had could not be sold on time to cover their loan.
+
+Eventually, FTX did not have enough money to cover client withdrawals. SBF and FTX tried everything to stop the withdrawals, but ultimately nothing worked. Finally, on November 11, FTX filed for bankruptcy.
+
+What Happens Now?
+
+It is yet to be seen how this will settle. It is going to take months or years to uncover exactly what happened, and what can be done to remediate all the stakeholders of this saga. I hope that somehow all the clients of FTX who have their funds frozen on the platform can get their assets back. I hope that a detailed investigation occurs, and if SBF and other FTX and Alameda employees engaged in fraud, they get sentenced for it. Based on the theory that I just described, it seems fairly clear to me that fraud did occur.
+
+Many have compared this event to the fall of Lehman Brothers in 2008. It is similar to Lehman in that the risk management process was very poor when it came to properly assessing the value of certain assets (In the case of Lehman, Mortgage Backed Securities. In the case of FTX, small cryptocurrencies including their own token, FTT)
+
+Others have compared it to the fall of Enron in 2001. It is similar in that both internal accounting controls and external auditing processes at FTX were so poor, that SBF and other FTX executives were able to not only lend FTT tokens off book to Alameda, but lend client funds.
+
+I also found it similar to the fall of LTCM in 1998, in that the executives of FTX and Alameda thought they were smarter than everyone else when it came to risk management, then the market taught them a very expensive lesson. Finally, SBF’s actions bailing out a failing Alameda reminded me of rogue traders (Nick Leeson at Barings Bank, Jerome Kerviel of Societe Generale, and Bruno Iksil of JP Morgan), who all doubled down on their losses in an attempt to make them back, leading to disastrous consequences.
+
+What Happens to Crypto?
+
+There are people out there who believe this is a devastating blow to the crypto space. In reality I think it is good that these bad actors get flushed out. While I do believe that less capital (both individuals and investment firms) will flow into the space in the short term, the engineers working on figuring out ways that the technology can have utility are still working on the space.
+
+I hope that this saga leads to more due diligence in the space from institutional investors. It is embarrassing that prominent venture capital firms like Sequoia and pension funds like the Ontario Teachers Pension Plan did not due their due diligence when it came to internal accounting controls and good governance at FTX. It is likely that they won’t recover a single cent of their investment.
+
+People will always say that this is a story about crypto. In reality, this is a story about lending. It is a story about very poor risk management, poor governance, poor oversight, and poor due diligence. I am interested to see how the crypto ecosystem changes due to FTX’s fall.
+
+ FTX supported nine fiat currencies that investors could deposit and withdraw via a wire transfer: the U.S. dollar, euro, British pound, Australian dollar, Canadian dollar, Swiss franc, Brazilian real, Ghanaian cedi, and Argentine peso.15
+
+Former FTX CEO Sam Bankman-Fried on Jan. 3 pleaded not guilty to criminal charges of fraud, conspiracy, campaign finance law violations, and money laundering in a New York federal court, setting up a legal battle with his former business partners. He is set for trial on Oct. 2. If convicted, Bankman-Fried could face up to 115 years in jail.
+
+
+ As part of their marketing efforts, the parent companies of FTX and FTX US in September 2021 signed Golden State Warriors point guard Stephen Curry to a long-term promotional partnership, providing the NBA star an equity stake in FTX.29
+
+In August 2021, the same companies announced a long-term promotional partnership with venture capitalist and television personality Kevin O'Leary providing the "Shark Tank" host equity stakes in FTX and FTX US along with pay in cryptocurrency.30
+
+Per FTX's website, the company "is proud to partner with the world's most exciting teams, properties, and heroes of their trade to amplify crypto education, involvement, and community impact." As of September 2022, additional partnerships included Major League Baseball, FTX Arena and the Miami Heat, Shaquille O'Neal, and FTX Field (University of California-Berkeley).31 
+
+FTX did not permit residents of the U.S. to trade on its platform. This was in response to strict regulation for the cryptocurrency industry. In August 2022, the Federal Deposit Insurance Corporation (FDIC) served FTX US a cease-and-desist letter citing the company for potentially having made false and misleading statements in violation of the FDIC Improvement Act.36
+
+
+Sam Bankman-Fried, founder of the collapsed cryptocurrency exchange FTX, has been arrested in The Bahamas, the country's attorney general has said.
+
+He is scheduled to appear on Tuesday in a magistrates' court in the Caribbean country's capital, Nassau.
+
+Police said Mr Bankman-Fried, 30, was arrested for "financial offences" against laws in the US and The Bahamas.
+
+Last month, FTX filed for bankruptcy in the US, leaving many users unable to withdraw their funds.
+
+According to a court filing, FTX owed its 50 largest creditors almost $3.1bn (£2.5bn).
+
+Among the most serious allegations against Mr Bankman-Fried is that he used billions of dollars of customer funds to prop up his investment trading company, Alameda.
+
+It is unclear how much people who have funds in the exchange will get back at the end of bankruptcy proceedings - though many experts have warned it may be a small fraction of what they deposited.
+
+In November 2022, FTX, Alameda's sister cryptocurrency exchange, experienced a solvency crisis, and both FTX and Alameda filed for Chapter 11 bankruptcy.[4] That same month, anonymous sources told The Wall Street Journal that FTX had lent more than half of its customer's funds to Alameda, a decision that the sources said Bankman-Fried described as a poor judgment call.[5][1] This was explicitly forbidden by FTX's terms-of-service.[6] On 12 November 2022, The Wall Street Journal reported that anonymous sources had said that Alameda CEO Caroline Ellison said that she, Bankman-Fried and other senior FTX officials were aware of that decision.[7] 
+
+On 8 November 2022, following a liquidity crisis at FTX—a large cryptocurrency exchange—Binance and FTX signed a letter of intent for FTX to be acquired by Binance. The value of Alameda was affected, and was estimated to have dropped over 90 percent following the public disclosure of problems and the FTX acquisition deal.[18] Alameda held a large quantity of FTT, the native token of the FTX exchange, as assets on its books. TechCrunch reported that "the exchange was unusually intertwined with its sister entity, Alameda Research."[19] Principal shareholder Bankman-Fried had an estimated net worth of $10.5 billion in October 2022[20] and it dropped to approximately $1 billion according to the Bloomberg Billionaires Index following the crises and preliminary acquisition agreement on 8 November 2022.[18]
+
+Late in the day on 9 November, The Wall Street Journal reported that Binance was walking away from the FTX acquisition.[21] Binance cited FTX's mishandling of customer funds and pending investigations of FTX as the reasons the firm would not pursue the deal.[22]
+
+On 9 November 2022, Alameda's website was taken down.[23] The next day Bankman-Fried stated that Alameda Research was winding down trading and would close.[24] Alameda Research, along with FTX and more than 130 affiliated entities, filed for Chapter 11 bankruptcy protection in November 2022.[4][25]
+References
+
+In November 2017, Sam Bankman-Fried co-founded Alameda Research as a quantitative trading firm, after he left his job at Jane Street Capital.[8] Per a 2021 interview, the term 'research' was included in the name to avoid scrutiny, with Bankman-Fried saying, "If you named your company like We Do Cryptocurrency Bitcoin Arbitrage Multinational Stuff, no one's going to give you a bank account. [...] But everyone wants a Research Institute."[9][10][time needed]
+
+In January 2018, Bankman-Fried organized an arbitrage trade, to take advantage of the higher price of bitcoin in Japan compared to the price in America.[8][11][12] The company earned between $10 million and $30 million before the price gap closed in early 2018.[13][14] In early 2019, the headquarters of the firm started moving from California to Hong Kong.[14] As of August 2021, Bankman-Fried owned approximately 90 percent of Alameda Research.[8] 
+
+
+The bankruptcy of FTX is the ongoing liquidation of Bahamas-based cryptocurrency exchange FTX, beginning in November 2022. The collapse of FTX, caused by a liquidity crisis of the company's token, FTT, served as the impetus for its bankruptcy. Prior to its collapse, FTX was the third-largest cryptocurrency exchange by volume and had over one million users.
+
+On 2 November 2022, CoinDesk published an article stating that Alameda Research, a trading firm affiliated with FTX and owned by FTX chief executive Sam Bankman-Fried, held a significant amount of FTX's exchange token, FTT.[1][2] Following the allegations, Binance—a competing cryptocurrency exchange and a prior investor in FTX—announced it would sell its FTT, leading the market price of the token to crash.[3] The move also triggered a spike in withdrawals from FTX, causing the exchange to freeze withdrawals and creating a liquidity crisis.[4] On 8 November, Binance signed an offer to acquire FTX, but then withdrew the offer.[5] On 11 November, FTX, Alameda Research, and over 100 affiliated entities declared bankruptcy. Bankman-Fried resigned as FTX CEO and was replaced by John J. Ray III.[6][7]
+
+The collapse of FTX has had a wide impact on cryptocurrency markets, with comparisons made to the Enron scandal and Madoff investment scandal, and was described by federal prosecutors as "one of the biggest financial frauds in American history."[8][9] Following the bankruptcy, the Securities Commission of the Bahamas froze the assets of one of FTX's subsidiaries.[10] Bankman-Fried's net worth, estimated at $16 billion prior to the collapse, was reported as having been wiped out,[11] and several institutional investors of FTX wrote off their investment stakes in the company.[12][13] Some $473 million in funds were later taken from FTX in an "unauthorized transaction".[14] The collapse of FTX has resulted in a ripple effect across the cryptocurrency industry, with the price of Bitcoin falling to its lowest level in two years.[15]
+
+Anonymous sources cited by the Wall Street Journal 10 November 2022 stated that FTX had lent $10 billion from customers' accounts to fund Alameda Research earlier in 2022, a move forbidden by FTX's terms of service. The same sources stated that Bankman-Fried, Alameda Research CEO Caroline Ellison, and other FTX executives were aware of the decision.[16][17][18][19]
+
+FTX and its handling of customer funds is under investigation by the Securities and Exchange Commission (SEC),[a] the Commodity Futures Trading Commission (CFTC) and the Department of Justice (DOJ) in the United States;[20] and a criminal investigation by the Royal Bahamas Police Force and the Securities Commission in the Bahamas.[21] Anonymous sources cited by Reuters said that between $1 billion and $2 billion in consumer funds could not be accounted for.[22]
+Background
+See also: Alameda Research
+
+Sam Bankman-Fried co-founded Alameda Research, a cryptocurrency trading firm, in 2017.[23] In 2019, Bankman-Fried had the idea of starting a cryptocurrency exchange to help bring in revenue to fund Alameda's activities, and founded FTX.[24] Bankman-Fried was the CEO of both companies until he formally stepped down from his position at Alameda in October 2021, promoting traders Caroline Ellison and Sam Trabucco to co-CEOs.[25] Ellison was reported to have a romantic involvement with Bankman-Fried.[26] As of August 2021, Bankman-Fried still owned 90% of Alameda.[23]
+
+The close relationship and potential conflicts of interest between Alameda and FTX drew scrutiny from the rest of the cryptocurrency industry.[27][24] Alameda was once the largest trader on FTX, bringing liquidity to the exchange.[27] Between 1 June 2022 and 22 July 2022, Alameda's known wallets were the largest stablecoin depositors and sources of liquidity to all of FTX's known wallet addresses, accounting for 10% of Tether transfers and 30% of USD Coin transfers on the exchange.[27] According to John J. Ray III, Alameda had a "secret exemption" from FTX's auto-liquidation protocol.[28][29]
+
+Alameda Research suffered a series of losses in May and June 2022, which anonymous sources told The Wall Street Journal resulted in FTX lending the trading firm more than half of its customer funds, a decision that the sources said FTX CEO Sam Bankman-Fried described as a 'poor judgment call'.[30][31] This was explicitly forbidden by FTX's terms-of-service.[19] On 12 November 2022, The Wall Street Journal reported that anonymous sources had said that Alameda CEO Caroline Ellison said that she, Bankman-Fried, Gary Wang, and Nishad Singh were aware of that decision.[17] The same was reported on The New York Times on 14 November 2022.[18] FTX used software to conceal the misuse of customer funds.[28][29]
+
+In the days leading up to the crisis, CoinDesk reported that Alameda Research held a significant amount of FTT, and that these FTT holdings made up a considerable portion of their assets.[32] CoinDesk reported that there were $5.1 billion worth of FTT tokens in circulation, and that Alameda's balance sheet held $3.66 billion of "unlocked FTT", $2.16 billion of "FTT collateral", and $292 million of "locked FTT".[32] Following months of arguments and disagreements between Changpeng Zhao, the CEO of Binance, and Bankman-Fried, tensions between the two had intensified days before the crisis.[33] Zhao's firm Binance had obtained $2.1 billion in Binance USD and FTT coins in 2021, following a deal in which FTX bought back an equity stake held by Binance in FTX, and in early November 2022 it had 23 million FTT tokens, worth about $529 million at the time.[34]
+
+On 7 November 2022, Zhao announced that Binance had intended to sell its holdings in FTT.[35][34] The sale of Binance's holdings in FTT, compounded with the low trading volume of FTT and the enmity between Zhao and Bankman-Fried, resulted in the price of the token plummeting.[36][37][38] Binance had received FTT from FTX in 2021 during a transaction in which FTX bought back Binance's equity stake in FTX.[39] Zhao cited "recent revelations that came to light" as the motivation for selling FTT.[39] Bloomberg and TechCrunch reported that any sale by Binance would likely have an outsized impact on FTT's price, given the token's low trading volume.[40][41] The announcement by Zhao of the pending sale and disputes between Zhao and Bankman-Fried on Twitter led to a decline in the price of FTT and other cryptocurrencies,[42] resulting in $6 billion of customer withdrawals from FTX.[43] FTX became unable to meet the demand for further withdrawals, and on 8 November, Bankman-Fried and Zhao jointly announced Binance had entered into a non-binding agreement to purchase FTX to ensure that customers could recover their assets in a timely manner.[44][45] The deal did not include the sale of FTX.US.[44] Zhao announced on Twitter that the company would complete due diligence soon, adding that all crypto exchanges should avoid using tokens as collateral.[46][47] He also wrote that he expected FTT to be "highly volatile in the coming days as things develop". On the day of that announcement, FTT lost 80 percent of its value.[48]
+Binance acquisition dropped
+
+On 9 November, Bloomberg called the acquisition of FTX by Binance "unlikely" due to the poor state of FTX's finances.[49] Bloomberg also reported that the United States Securities and Exchange Commission and Commodity Futures Trading Commission were investigating the nature of FTX's connections to Bankman-Fried's other holdings and its handling of client funds.[50] Later that day, the Wall Street Journal reported that Binance would not move forward with the deal to acquire FTX.[51] Binance cited FTX's reported mishandling of customer funds and pending investigations of FTX as the reasons for not pursuing the deal.[52] Bankman-Fried said in a Slack message that FTX had learned through the press about Binance's concerns and decision.[53]
+Collapse and further rescue attempts
+
+On 9 November, FTX's website said that it was not processing withdrawals at that time.[43] Bankman-Fried said that although the firm's assets were worth more than its clients' deposits, it would need funds from outside to meet demand for withdrawals due to a lack of liquidity.[54][55] Bankman-Fried stated on 9 November that FTX.US, as a separate company, was "not currently impacted" by the crisis.[56]
+
+On 10 November, Axios reported that FTX approached Kraken for a potential rescue deal.[57] Bankman-Fried made several statements on 10 November, taking responsibility for FTX's failure and indicating that FTX was attempting to raise $10 billion in emergency financing to remain solvent.[58][59][60] Bankman-Fried also announced that Alameda Research would cease trading and end operations.[61] FTX's in-house legal and compliance teams had, for the most part, resigned by 10 November.[62][63] Anonymous sources cited by the Wall Street Journal on 10 November said that Alameda Research owed FTX some $10 billion, as FTX had lent funds placed on the exchange for trading to Alameda so that Alameda could make investments with the money.[16]
+
+Though Bankman-Fried said that FTX.US customers did not have reason to worry on Twitter on 10 November, employees began attempting to sell assets belonging to the firm on the same day.[64] These assets include stock-clearing company Embed Financial Technologies and the naming rights to FTX Arena.[64] Disagreements emerged between remaining executives, with Bankman-Fried and FTX COO Constance Wang resisting urges from Ryne Miller, a member of FTX US's legal team, to end trading on the exchanges.[65] Bankman-Fried continued to seek funding even as Miller informed other executives that he believed there was a "0%" chance of securing further investment.[65] Miller and other executives asked Bankman-Fried to concede control of FTX US to them, which he resisted.[65] On 11 November, Bankman-Fried announced that he had filed FTX US for bankruptcy along with FTX and Alameda.[66] Bankman-Fried continued to seek capital for FTX after the bankruptcy, and claimed without evidence that a potential backer had emerged soon after the filing.[65]
+
+On 12 November, anonymous sources cited by the Wall Street Journal said Alameda CEO Caroline Ellison disclosed to other Alameda employees that she, Sam Bankman-Fried, Gary Wang, and Nishad Singh knew that client deposits were transferred from FTX to Alameda.[67] An anonymous source cited by the New York Times on 14 November said the same.[68] Anonymous sources cited by the Wall Street Journal said the funds were used in part to pay back loans Alameda had taken to make investments.[67] On 10 November, the Securities Commission of the Bahamas froze the assets of one of FTX's subsidiaries, FTX Digital Markets Ltd, "and related parties", and provisionally appointed an attorney as liquidator.[69][70] Japan's Financial Services Agency ordered FTX Japan to suspend some operations.[71][72] The company's Australian subsidiary was placed under administration.[71]
+
+On the same day, a team running the FTX Future Fund, a charitable group bankrolled by Bankman-Fried, announced their collective resignations.[73] Future Fund had committed $160 million in charitable grants and investments by 1 September of that year.[74]
+Bankruptcy
+
+On 11 November, FTX, FTX US, Alameda Research, and more than 100 affiliates filed for bankruptcy in Delaware.[75][73][76] Anonymous sources cited by the New York Times said that the exchange owes as much as $8 billion.[73] The crypto lender BlockFi, which was affiliated with FTX, announced on 10 November that it was suspending operations as a result of FTX's collapse.[73] Bankman-Fried resigned as CEO and was replaced by John J. Ray III, a corporate restructuring specialist who previously oversaw the liquidation of Enron.[75][76][77] As of 12 November, Bankman-Fried told Reuters that he was still in the Bahamas,[78] though other high-ranking FTX employees had begun leaving for Hong Kong, the location of the company's former headquarters, or other locations.[79] Authorities in the Bahamas, including the Royal Bahamas Police Force, questioned Bankman-Fried on 12 November.[80] Despite FTX's bankruptcy, Bankman-Fried continued to attempt to raise money for the firm during the weekend of 12 and 13 November.[81]
+Unauthorized transactions
+
+Late on 11 November, some $473 million in funds were removed from FTX through what Ryne Miller, FTX US's general counsel, characterized as "unauthorized transactions".[82] Miller further announced that FTX and FTX US intended to move remaining funds denominated in cryptocurrency to offline "cold storage".[82] The funds taken from FTX were mostly stablecoins such as Tether, and were quickly exchanged for Ether, a method used by cryptocurrency thieves to thwart attempts to retrieve stolen funds.[83] A person speaking on behalf of FTX in a Telegram chat referred to the "unauthorized transactions" as a "hack" and encouraged users to delete FTX mobile apps as they were compromised.[79] Kraken has since announced its assistance in identifying the perpetrator.[84] On 14 November, Kraken's chief security officer said on Twitter that the firm knew "the identity" of a user who paid transaction fees associated with moving the stolen money through their Kraken account.[85] In an interview with Kelsey Piper published 16 November by Vox, Bankman-Fried blamed an "ex-employee" or malware on a device owned by an ex-employee for the theft.[86]
+
+Between $1 billion and $2 billion in customer funds reportedly could not be accounted for as of 12 November.[87] The Financial Times reported that FTX's balance sheet shortly before the bankruptcy showed $9 billion in liabilities against $900 million in liquid assets, $5 billion in "less liquid" assets, and $3.2 billion in illiquid private equity investments.[88] American columnist Matt Levine described that among its less liquid assets that "[FTX] relied on to be able to pay out customer balances" were two tokens that "it had just made up", referring to the FTX Token and Serum, a separate cryptocurrency accounted for in the balance sheet.[89]
+Contagion fears and impact on cryptocurrency markets
+
+Cryptocurrencies experienced swings and declines in value as news of FTX's collapse first emerged in early November: Tether dropped below its peg price of $1.00 to $0.97[90] and Bitcoin sank to its lowest price in two years.[76] Share prices for publicly traded cryptocurrency companies declined.[91] The price of Solana, which was affiliated with Bankman-Fried, declined as well.[92] The crisis at FTX has inspired an increase in withdrawals from other exchanges.[93] A decline in the value of Cronos, the token of exchange Crypto.com, triggered fears of the potential for a collapse similar to that of FTX and spurred withdrawals from the platform.[94] CEO Kris Marszalek provided assurances that the firm was liquid and that it did not use Cronos in a manner similar to the way FTX used FTT.[94] Bloomberg reported that the collapse of FTX exacerbated institutional skepticism of cryptocurrencies as an asset class.[95]
+
+BlockFi, a cryptocurrency lender, filed for Chapter 11 bankruptcy protection on 28 November; the firm had earlier begun preventing withdrawals.[96][97] The company disclosed "significant exposure" to FTX on 14 November.[97] Another cryptocurrency lender, Genesis, a subsidiary of Digital Currency Group, halted withdrawals on 16 November.[98] This halt caused Gemini, an exchange owned by the Winklevoss twins, to cease allowing redemptions for clients using a service provided through a partnership with Genesis.[99] Another Digital Currency Group subsidiary, Grayscale, saw the value of its flagship offering, the publicly traded Grayscale Bitcoin Trust, decline by 20% over the two weeks preceding 17 November.[100] Grayscale Bitcoin Trust was trading at a discounted price, 42% below the value of its Bitcoin, as of 14 November.[101]
+
+Concerns have also been raised about Silvergate Bank, as FTX was a depositor and could have also been a source of credit exposure. Silvergate has said that it has ample liquidity and no loan exposure to FTX. These concerns have been magnified due to Silvergate's key role as a gateway between its cryptocurrency clients and the wider financial world.[102][103]
+Investigations
+Lawsuits and legal involvement
+
+Following the collapse of FTX, the Royal Bahamas Police Force launched a criminal investigation into the company.[104][19]
+
+Anonymous sources cited by Bloomberg said that the office of the United States Attorney for the Southern District of New York had begun an investigation into FTX's collapse as of 14 November.[17]
+
+The United States House Committee on Financial Services plans to conduct hearings in December on the collapse of FTX, and committee leaders said they would seek testimony from Bankman-Fried.[105]
+
+On 15 November 2022, a class-action lawsuit was filed in Miami against Bankman-Fried and several celebrities, including American football quarterback Tom Brady and comedian Larry David, alleging the company engaged in deceptive practices; they are seeking damages.[106] The lawsuit also named Gisele Bündchen, Steph Curry, Shaquille O'Neal, Udonis Haslem, David Ortiz, Trevor Lawrence, Shohei Ohtani, Naomi Osaka, and Kevin O'Leary.[107]
+
+On 21 December 2022, both Carline Ellison (former CEO of Alameda) and Gary Wang (former Chief Technology Officer of FTX) pled guilty to fraud and other charges and were cooperating with federal investigators in criminal case against Sam Bankman-Fried. In the signed agreements Ellison and Wang agreed to "cooperate fully" and "truthfully and completely disclose all information concerning all matters".[108] On 3 January 2023, Bankman-Fried pled not guilty to fraud and other charges, and a trial was set October 2023.[109]
+Impact
+Effects on other firms
+
+On 16 November 2022, the cryptocurrency brokerage service Genesis suspended withdrawals following FTX declaring bankruptcy, further affecting the industry. The cryptocurrency exchange company Gemini, owned by Cameron and Tyler Winklevoss, announced that it would be pausing withdrawals on its Earn program, which uses Genesis as a lending partner.[110]
+
+The exchange token of Crypto.com, Cronos, lost approximately $1 billion in value in November.[111] On 14 November, Crypto.com's CEO assured users that the exchange was functioning as normal.[111] Commenters and customers remained fearful that Crypto.com could experience a collapse similar to FTX.[112]
+Losses by FTX investors and customers
+
+Institutional investors that stand to lose money due to their stakes in FTX include Tiger Global Management, the Ontario Teachers' Pension Plan, SoftBank Group, BlackRock, Lightspeed Venture Partners, Temasek, and Sequoia Capital.[113][114][12][115][13] Sequoia Capital wrote down its equity in FTX to $0 on 9 November, losing some $214 million.[116] Sequoia released a notice to investors, also published on Twitter, assuring them the firm's stake in FTX represented a small amount of its overall portfolio,[117] and replaced a profile of Bankman-Fried published on the firm's website with a link to the same notice.[118][119][120] The Ontario Teachers' Pension Plan released a similar statement.[121]
+
+BlockFi, a cryptocurrency lender, was reportedly taking steps to file for bankruptcy as of 15 November, having earlier halted withdrawals.[97] The company disclosed "significant exposure" to FTX on 14 November.[97] Another cryptocurrency lender, Genesis, a subsidiary of Digital Currency Group, halted withdrawals on 16 November.[122] This halt caused Gemini to cease allowing redemptions for clients using a service provided through a partnership with Genesis.[123] BlockFi confirmed speculation by filing for Chapter 11 bankruptcy protection in the United States on 28 November.[124]
+
+Cryptocurrency investment firms with assets still held on FTX after its bankruptcy include Galois Capital and Galaxy Digital.[125] Several public figures also invested in FTX or received compensation for promoting the company.[126] These include former couple Tom Brady and Gisele Bundchen, as well as Shaquille O'Neal, Stephen Curry, and Kevin O'Leary.[126] According to anonymous sources cited by The Information, some venture capital firms are considering lawsuits against Bankman-Fried.[127]
+
+Anthony Scaramucci, founder of SkyBridge Capital, announced the firm was attempting to buy back a 30% stake in the business owned by FTX.[128]
+Commentary and reactions
+
+Jim Chanos predicted the collapse of FTX would lead to increased scrutiny and regulation of cryptocurrencies. Chanos further criticized the cryptocurrency sector as "designed to extract fees from really unsuspecting investors".[129] Richard Handler, CEO of American financial firm Jefferies Group, tweeted on 10 November that he had attempted to meet with Bankman-Fried in July and again in September as he perceived he was "in over his head".[130] Handler stated that Bankman-Fried did not respond to the emails sent from Jefferies staff sent on Handler's behalf.[130] The sudden collapse of FTX has been compared to bankruptcy of Lehman Brothers by writers in publications including The New York Times and the Financial Times, with some deeming FTX's collapse as "crypto's Lehman moment".[131][132] Lawrence Summers acknowledged the comparisons to Lehman and further compared the collapse to the Enron scandal, caused by fraud perpetrated by Enron executives.[133] Rostin Behnam, the Chairman of the Commodity Futures Trading Commission, called for Congress to grant the organization more power to regulate cryptocurrencies.[134] Risk management firm Titan Grey published a primer on the commencement and early motions practice of the FTX chapter 11 case, analyzing issues such as creditor privacy, relief from the automatic stay, proposed differential treatment of customers from other creditors, and others.[135]
+Impact on effective altruism
+
+The FTX collapse resulted in scrutiny and a loss of funding for the effective altruism movement, which Bankman-Fried had funded using profits from FTX.[136] Some commentators stated that EA's endorsement of ends–means reasoning and longtermism motivated the leaders of FTX to engage in risky and unethical behavior.[137] However, several leaders of the EA movement, including William MacAskill and Robert Wiblin, condemned FTX's actions.[138]
+
+Prior to the collapse, Bankman-Fried and other senior leaders of FTX and Alameda were altogether worth approximately $16.5 billion, making them the second-largest group of benefactors to the EA movement after Open Philanthropy and Good Ventures.[139] On 10 November, the team running the FTX Future Fund, a charitable group bankrolled by Bankman-Fried, announced that they had resigned earlier that day.[73] Future Fund had committed $160 million in charitable grants and investments by 1 September of that year.[74] 
+
+
+Last week, the cryptocurrency exchange FTX filed for bankruptcy and its chief executive, Sam Bankman-Fried, resigned, a downfall that has stunned crypto insiders and sent shock waves through the industry.
+
+The collapse capped days of whiplash for FTX after its rival and the world’s largest crypto exchange, Binance, pulled out of a deal to acquire the company.
+
+On Thursday, FTX’s new chief executive, John Jay Ray III, said in a bankruptcy filing that he had never seen “such a complete failure of corporate control.” Mr. Ray had helped manage the aftermath of some of the largest corporate collapses in history, including the implosion of Enron in 2001.
+
+
+How did Binance intervene?
+
+On Nov. 8, Binance said it had reached an agreement to bail out FTX by buying the company. But, Mr. Zhao added in the announcement, “Binance has the discretion to pull out from the deal at any time.”
+
+In a concurrent announcement, Mr. Bankman-Fried said the deal would protect customers and allow FTX to finish processing their withdrawals. He tried to dispel rumors of conflict between FTX and Binance, adding, “we are in the best of hands.”
+Why did the deal between Binance and FTX unravel?
+
+On Nov. 9, Binance announced it would no longer buy FTX, saying it had arrived at that decision “as a result of corporate due diligence.” It also cited regulatory investigations and reports of mishandled funds.
+
+“Every time a major player in an industry fails, retail consumers will suffer,” Binance said in a statement. “We have seen over the last several years that the crypto ecosystem is becoming more resilient and we believe in time that outliers that misuse user funds will be weeded out by the free market.”
+
+
+The rules are meant to prevent any conflicts of interest that can arise if a brokerage shares ownership with the exchange where the trades happen, and where the broker or its client stand to make and lose money on trades.
+
+In contrast, Alameda Trading, one of the biggest trading firms on FTX that was at the center of its collapse, was also co-founded by Mr. Bankman-Fried. FTX has been accused of using customer money to prop up Alameda’s trading activity. Given the bankruptcy, it’s likely that FTX customers will never get all of their money back.
+
+If a regulated stock exchange were to suffer the same fate as FTX, the separation of duty at different links in the trading chain means that customer money would be less likely to get caught up in the bankruptcy.
+
+It’s been widely reported that Bankman-Fried, Wang and Ellison all actually lived together in a penthouse apartment on the island. There are also rumours that Bankman-Fried and Ellison were at times involved romantically.
+
+One slightly unnerving element of this entire story is the living-working together situation. Like a cult, 10 of the employees lived and worked together in the Bahamas. Everyone was coupled off, presumably to save on rent, and CoinDesk reported Ellison and Bankman-Fried were in an on-off relationship. The housemates all shared the same therapist, too.
+
+Ellison and Wang’s plea agreements were filed with the Southern District of New York on December 18.
+
+Ellison has been found guilty of seven charges which might land her 110 years in jail. Gary Wang has been found guilty of four charges. They are both currently cooperating with authorities involved in the investigation.
+
+It’s there that Wang and Bankman-Fried funneled funds from Alameda to build its bespoke derivatives exchange. Bankman-Fried told Insider that he is not a good coder: "I don't code. I'm trash. I have not written any of FTX's code base. That's all a lot of other really impressive people at FTX. That's not me at all."
+
+ The big news in crypto this week came via a court filing in Texas.
+
+FTX, the crypto giant that is led by arguably the most powerful person in the industry, is under investigation by Texas regulators for selling unregistered securities.
+
+“The Enforcement Division is now investigating FTX Trading, FTX US, and their principals, including Sam Bankman-Fried,” said Joseph Jason Rotunda, director of enforcement for the Texas State Securities Board.
+
+FTX is not alone here. Just this month we’ve seen Reuters report that Binance is under scrutiny by Federal prosecutors. Bloomberg had the scoop that the SEC is investigating Yuga Labs, the company behind the Bored Apes Yacht Club, and as well as Three Arrows Capital for a “range of possible legal violations.”
+
+Crypto critics have long criticized regulators for allowing the industry to grow unfettered. But with the spate of high-profile investigations we’re now seeing, it appears that a genuine shift may be at hand.
+
+John Reed Stark, a crypto critic who formerly headed the SEC Office of Internet Enforcement, told me that the FTX investigation is “an extraordinary harbinger of the crypto-regulatory enforcement onslaught that lies ahead.”
+
+“You don’t mess with Texas,” said Stark who thinks state regulators throughout the country have been ahead of the curve on cracking down on crypto. But Stark — who has been highly critical of regulators in the past — says the tide is now turning.
+
+“If the crypto ecosystem is not preparing for a US regulatory onslaught then they have got their heads in the sand. FDIC, OCC, SEC, DOL, FBI, US Treasury and IRS have all stepped up their crypto enforcement efforts. And they are just getting started.” 
+
+
+Jane Street’s casual atmosphere appealed to him, too. Jane Street is a “proprietary firm,” Barbara Fried explains, meaning they trade on their own account rather than for clients. “Which means the quotient of bull**** is really, really low. Which was key for Sam. He could go to work in shorts and sandals all year round and nobody cared.”
+
+Bankman-Fried worked there happily for three years. True to the earning-to-give strategy, he gave away more than half his earnings to charity during that period, he says.
+
+Zhao and Bankman-Fried’s relationship began in 2019. Six months after FTX’s launch, Zhao bought 20% of the exchange for about $100 million, a person with direct knowledge of the deal said. At the time, Binance said the investment was “aimed to grow the crypto economy together.”
+
+Within 18 months, however, their relationship had soured.
+
+FTX had grown rapidly and Zhao now viewed it as a genuine competitor with global aspirations, former Binance employees said.
+
+When FTX in May 2021 applied for a license in Gibraltar for a subsidiary, it had to submit information about its major shareholders, but Binance stonewalled FTX’s requests for help, according to messages and emails between the exchanges seen by Reuters.
+
+Between May and July, FTX lawyers and advisors wrote to Binance at least 20 times for details on Zhao’s sources of wealth, banking relationships, and ownership of Binance, the messages show.
+
+In June 2021, however, an FTX lawyer told Binance’s chief financial officer that Binance wasn’t “engaging with us properly” and they risked “severely disrupting an important project for us.” A Binance legal officer responded to FTX to say she was trying to get a response from Zhao’s personal assistant, but the requested information was “too general” and they may not provide everything.
+
+By July of that year, Bankman-Fried had tired of waiting. He bought back Zhao’s stake in FTX for about $2 billion, the person with direct knowledge of the deal said. Two months later, with Binance no longer involved, Gibraltar’s regulator granted FTX a license.
+
+That sum was paid to Binance, in part, in FTX’s own coin, FTT, Zhao said last Sunday - a holding he would later order Binance to sell, precipitating the crisis at FTX.
+
+Seeking to prop up Alameda, which held almost $15 billion in assets, Bankman-Fried transferred at least $4 billion in FTX funds, secured by assets including FTT and shares in trading platform Robinhood Markets Inc, the people said. Alameda had disclosed a 7.6% share in Robinhood that May.
+
+A portion of these FTX funds were customer deposits, two of the people said, though Reuters could not determine their value.
+
+Bankman-Fried did not tell other FTX executives about the move to prop up Alameda, the people said, adding he was afraid that it could leak.
+
+On Nov. 2, however, a report by news outlet CoinDesk detailed a leaked balance sheet that allegedly showed that much of Alameda’s $14.6 billion in assets were held in FTT. Alameda CEO Caroline Ellison tweeted that the balance sheet was merely for a “subset of our corporate entities,” with over $10 billion of assets not reflected. Ellison did not return requests for comment.
+
+That failed to douse growing speculation over what Alameda’s financial health might mean for FTX.
+
+Then Zhao said Binance would sell its entire share in the token, FTT, worth at least $580 million, “due to recent revelations that have come to light.” The token's price collapsed 80% over the next two days and a torrent of outflows from the exchange gathered pace, blockchain data show.
+
+
+In his message to staff this week, Bankman-Fried said the firm saw a “giant withdrawal surge” as users rushed to withdraw $6 billion in crypto tokens from FTX in just 72 hours. Daily withdrawals normally totaled tens of millions of dollars, Bankman-Fried told his employees.
+
+After Zhao’s tweet that Binance would sell its FTT holding, Bankman-Fried projected confidence that FTX would weather its rival’s attacks. He told staff on Slack that withdrawals were “not shockingly, way up,” but they were able to process the requests.
+
+“We’re chugging along,” he wrote. “Obviously, Binance is trying to go after us. So be it.”
+
+But by Monday the situation became dire. Unable to quickly find a backer, or sell other illiquid assets short-notice, Bankman-Fried contacted Zhao, according to a person familiar with the call. Zhao later confirmed that Bankman-Fried had called him.
+
+Bankman-Fried signed a non-binding letter of intent for Binance to buy FTX’s non-U.S. assets. This valued FTX at several billion dollars, two people familiar with the letter said - enough for the exchange to cover all withdrawal requests but a fraction of its January valuation.
+
+Zhao announced the potential deal several hours later, with Bankman-Fried tweeting “a huge thank you to CZ.”
+
+“Let’s live to fight another day,” Bankman-Fried told staff on Slack.
+
+His employees were shocked. Even executives had been in the dark about the Alameda shortfall and takeover plan until Bankman-Fried informed them that morning, two people working with him said. Both people said they had been unaware that the withdrawal situation was so serious.
+
+Then came Binance’s announcement on Wednesday scrapping the takeover. “The issues are beyond our control or ability to help,” Binance said. Zhao tweeted “Sad day. Tried,” with a crying emoji.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
