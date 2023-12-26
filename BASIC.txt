@@ -1,0 +1,748 @@
+ENGLISH PHONEMES:
+
+	22 consonants
+		m
+		n
+		p
+		b
+		d
+		t
+		k
+		g
+		j
+		ch -> q
+		f
+		v
+		th -> θ
+		s
+		z
+		sh -> $
+		zh -> c
+		h
+		l	
+		r
+		y
+		w
+		
+	8 root vowels
+		a  -> flat
+		e  -> eh
+		i  -> bit
+		o  -> hop
+		ə  -> bruh
+		x  -> hook
+		E  -> bee
+		u  -> use
+		
+	5 dipthongs 
+		əx -> woe
+		ei -> reins
+		ai -> banzai
+		ax -> mao
+		oi -> oil
+
+
+COLOR
+  dark, light, clear, *dull
+  white, black, brown, grey, red, orange, yellow, green, blue, *purple, *magenta
+  
+OPERATIONS
+  from|to
+  as
+  for 
+  of
+  than
+  a,the
+  all,any,every
+  much|little
+  no,yes
+  please
+  "thank you"
+  "how are you?"
+  other,rest
+  some
+  such
+  that|this
+  I,he,she,you,we
+  if,because
+  but,though
+  and,or,xor
+  intersection,union,disjunction
+  how,when,where,why,who,when
+  ever
+  again
+  
+  
+DIRECTION/DISTANCE
+  by, across, through
+  here, among, between
+  north,south,east,west
+  front,left,back,right
+  in|out
+  high|low
+  near|far
+  up|down
+  over|under
+  on|off
+  against|with
+  forward|backward/reverse
+  top|bottom
+  length,width,height,depth
+  thrust,lift,weight,drag
+  latitude,longitude
+  inch|foot|mile
+  
+
+TIME
+  Jan..Dec,Sun..Sat
+  about,approximation
+  start|end
+  before|after
+  at
+  until
+  while
+  first,second,next,last  
+  now,still
+  tomorrow,today,yesterday
+  second,minute,hour,day,week,month,year
+  fall,winter,spring,summer
+  armageddon
+  morning|night
+  early|late
+  slow|fast/quick
+  event,circumstance
+  rate,per
+  past|present|future
+  frequent
+  age
+  wait
+  
+ANIMAL,organism
+  meat
+  pet
+  God
+  god
+  hiss,meow,quack,purr,bark,woof
+  BUG
+    ant,*mantis
+    bee,*wasp
+    fly,*firefly,*flea/mite
+    worm,*caterpillar/millipede/centipede,*snail/slug
+    *beetle/locust,*ladybug,*termite/roach
+    *spider,*scorpion    
+    *mosquito,*tick
+    *butterfly/moth,*dragonfly
+    
+  BIRD
+    chicken,*turkey
+    penguin,ostrich,emu/kiwi,flamingo
+    hawk,eagle,vulture
+    owl,crane,heron
+    parrot,toucan
+    duck,goose
+    woodpecker,gull,robin*
+    
+  MAMMAL*
+    cat,*tiger/lion/jaguar/puma/hyena
+    dog,*fox/wolf/coyote
+    horse, *camel/llama/alpaca, *deer, *giraffe
+    cow, *seal/sea lion/manatee/walrus, 
+    *hippo/rhino/elephant
+    *whale/dolphin/orca
+    goat
+    sheep
+    *raccoon,*otter/meerkat/badger/skunk/gopher
+    *squirrel, *beaver,*rabbit,
+    *porcupine/hedgehog/echidna,pangolin/armadillo
+    pig,*aardvark,*platypus
+    rat,*rodent,*shrew/mole/gerbil, *bat
+    monkey, *lemur/ape/gorilla 
+    *bear, *sloth
+    *kangaroo/opposum/koala/marsupial
+        
+  REPTILE* & AMPHIBIAN*
+    snake,eel
+    turtle 
+    lizard, *gator/croc
+    frog, toad
+    
+  FISH   flounder,haddock,halibut,tuna,salmon
+   *starfish,coral,sea cucumber,sea urchin*
+    mollusk, oyster, shell
+    crab/lobster/barnacle
+    shrimp
+    octopus
+    jellyfish
+    manta ray
+    sea horse
+    shark
+    plankton
+  
+  MICROSCOPIC*
+    germ,bacteria,virus
+    amoeba,tardigrade
+    influenza
+    larva,maggot
+    cell, nucleus
+    
+ MONSTERS*
+    angel|demon
+    alien
+    atmospheric ghost light
+    beast
+    dragon/dinosaur
+    elf/fairy/gnome/clown
+    ghost,spirit
+    golem
+    nymph
+    ogre
+    vampire
+    witch/wizard
+    zombie*
+    
+PLANT
+  wood,bark,stump,branch,tree,cedar,fir,pine,bamboo
+  root,seed,leaf[sepal],stick,flower,vine,petal,stalk,stamen
+  tobacco,cannabis,opium,poppy,drug,LSD
+  herb,
+  bush
+  grass
+  fungus,mushroom
+  spore,mycelium,pollen,yeast
+  mold,algae  
+  photosynthesis,growth,bloom
+  rose,tulip,lotus
+  weed,parasite,host
+  cork 
+
+
+FOOD & DRINK
+  taste,*sweet,savory,sour,bitter
+  fruit,apple,pear,
+  berry,strawberry,cherry,fig,
+  orange,lemon,
+  banana,coconut,melon,
+  peach/apricot/plum,mango,
+  grain,bread,rice,pasta,cereal,toast,flour,tortilla
+  dessert,cake,pie,cookie,
+  sugar,cane,*molasses,vanilla,yeast
+  gelatin,jelly,candy,pudding,honey,soda,syrup
+  beverage,coffee,chocolate,tea,juice
+  milk,cheese,butter,*yogurt,mayonnaise
+  alcohol,wine,beer,champagne,cocktail,liquor,vodka,whiskey
+  cook,food,drink,meal
+  soup,salad,sausage,sauce,*sandwich,dumpling,pizza,sushi,taco,wrap,casserole
+  nut,*oats,peanut,*bean,soy,peas
+  potato
+  corn
+  *garlic,onion
+  carrot,squash,beet,turnip/radish
+  *cucumber,bells,jalapeno,
+  *cabbage/lettuce/spinach,brocolli,cauliflower,  
+  spice,salt,*chili,cinnamon,mint,vinegar,ginger,black pepper,mustard,turmeric,sesame,cumin,sumac
+  *breakfast,lunch,dinner
+  vitamin,nutrient,fiber
+  calorie
+  diet
+      
+CLOTHES
+  boot,shoe,sock
+  button,collar,hat
+  coat,shirt,armor
+  dress,skirt,pants
+  umbrella,watch,glove
+  pajamas
+ *leggings
+  bra
+  bonnet/hijab/scarf
+  panties/underwear 
+  glasses,microscope,telescope,lens*
+    
+  
+MATERIALS,stuff
+  solid
+  silk,cotton,leather,cloth,linen,wool,asbestos
+  mountain
+  land
+  earth,moon,star,sun,sky
+  gold,jewel
+  porcelain,chalk
+  brick,concrete,gravel
+  nickel,silver,tin,iron,metal,steel,zinc,platinum
+  brass,copper,
+  stone,rock
+  sulfur
+  powder,sand,dust,ash
+  glass
+  fertilizer,shit
+  ground,soil,dirt
+  mud,clay,dough
+  
+  melting,boiling,freezing,condensating
+  
+  liquid,substance
+  river,stream,sea
+  water,ice  
+  mist,rain,snow
+  gasoline,oil,coal,
+  wax,plastic,rubber,gum
+  ink,paint,glue,blood
+  lava
+  poison,bleach,bug spray
+  deoderant,perfume
+  polish,soap,toothpaste,ammonia
+  acid,vinegar,citrus,coffee
+  
+  gas
+  noise
+  steam,vapor
+  smoke,fume
+  cloud,air,wind 
+  weather,thunder
+  shade,shadow
+  oxygen
+  breath
+  space,vacuum*
+  hurricane,tornado,tsunami,earthquake,flood
+  
+  *lightning
+  radium,uranium,radioactive material  
+  fire,flame,light,
+  laser,ray
+  burn
+  explosion
+  spark
+      
+   
+THINGS*
+  floor,table,shelf,board,tray,roof,
+  seat,bed,couch,bench
+  curtain,wall,cover,edge,bubble,seal,lid,shell,surface
+  door,window,hole,crack,groove,cavity
+  match,lighter,gun,bomb,rocket
+  price,money,tax,payment,profit,check
+  stamp,passport,patent,ticket
+  picture,flag,ornament,sign,variable,pointer,reference
+  video,film,projection
+  square,card,canvas,page,paper,spreadsheet/matrix/table,chart
+  character,letter,mark,symbol
+  word,name
+  note,verse,string,sentence,equation,fact
+  statement,prose,song,story,album,article,mail,
+  encyclopedia,book,guide,website,album
+  information,data,gene,media,AI
+  compass,GPS,map,
+  arch,curve,thread,whip,wire,chain,cord,rope,plot
+  ball,circle,wheel,ring,band,balloon,gear,loop
+  calendar,clock
+  heap,pile,bottle,box,cup,basket,drawer,bag,bucket,battery,luggage,pocket,set,can,sac
+  list,stack,queue
+  coil,spring,spiral
+  bulb,bell
+  pyramid,triangle,Tree
+  waste
+  fountain,geyser
+  brake,switch,pump,faucet,gate,boolean,valve,lever,plug
+  reward,prize,award|punishment
+  machine,camera,radio,phone,TV,computer,microphone,engine,calculator,circuit
+  refridgerator,thermostat,AC/Heat,fan
+  ramp,stairs
+  instrument,piano,*drum,guitar,keyboard
+  pipe,tube,tunnel
+  line,pen,rail,rod,cigarette,queue/stack
+  lock,knot
+  net
+  plow,spade,hammer,pulley,tongss
+  key,pin,needle,blade,hook,wedge,nail,screw,scissors,stitch,arrow
+  bit,point
+  angle,cross,hinge,link,connection,overlap
+  sponge,cushion,pillow
+  brush,comb,toothbrush,filter
+  glitch/bug,error,mistake
+  deficiency,weakness|strength
+  medicine,pill,vaccine,birth control,anesthesia
+  detail,part,quality,side,component,deposit,layer,section
+  Enum/ADT,app
+  combination,compound,fusion,joint,mixture
+  specimen,example,instance,experience,perspective
+  substitution
+  isomorphism,correspondance,dictionary
+  residue,trace,souvenir
+  pool
+  pendulum
+  trap,liability
+    
+PLACES
+  harbor,shore
+  house
+  stage,theater
+  library,office,prison,church,hospital,bank,bar,club,restaurant,museum,embassy
+  school,college,university
+  structure,building
+  station    
+  town,city
+  mine,cave,underground
+  position,level
+  bath,shower
+  farm,field,garden,range
+  road,street,bridge
+  room
+  market,store,retail
+  island
+  colony
+  concert,festival,circus
+  park
+  paradise
+  valley
+  desert
+  cave
+  toilet
+  situation,case
+  environment
+  
+  
+PEOPLE
+  baby
+  boy|girl,child
+  daughter|son
+  family
+  father|mother
+  female|male
+  man|woman
+  married
+  sir|madam
+  relation
+  self
+  sister|brother
+  parent
+  twin,partner
+  friend  
+  military,army
+  expert
+  committee,company,organization,group
+  secretary,servant,porter,
+  engineer,chemist,representative,client,guest
+  owner,general,chief,manager,tycoon/billionaire
+  communist,capitalist,faschist
+  prince,king,princess,queen,royal,president
+  pipsqueak,loser,faggot,wuss
+  asshole,prick,douchebag
+  
+  
+ACTIONS*
+  wash,
+  play,whistle,sport
+  sleep|awake
+  step,motion,move
+  meeting,join
+  walk,run,journey,swim,drive,travel
+  reading,focus
+  talk,laugh,cry
+  discussion,transmission
+  suggestion,recommendation,praise,encourage
+  teaching,lead
+  birth,instantiation,origin,invention,generation
+  fight,competition
+  distribution
+  development,expansion,swelling
+  replication,copy,interpretation,reproduction
+  judge,determining
+  attack,crush,damage,smash,kick
+  destruction,elimination
+  act,behavior
+  hunt,search
+  push,force
+  jump
+  lift|drop,sinking
+  digestion,consuming
+  cook,baking,broiling,roasting
+  barbecuing,grilling,burning
+  braising,simmering
+  freezing,preserving,refridgerating
+  frying,rendering,searing
+  grinding,shredding
+  pickling,poaching
+  blow,discharge,burst,secretion,eruption
+  protest,reaction,resistance
+  writing,print,typing
+  split,cut,shear
+  roll,turn,twist,shake,rotation
+  police,protect,guard
+  slip
+  rub,collision,bump
+  selection,choice
+  greeting,interview,dating/courting
+  test,stretch
+  stop,abortion,suspension,strike
+  modification,change,update
+  dance
+  learning,discovery,experiment,investigation
+
+IDEAS
+  agreement,decision,trust,deal
+  offer,sale
+  debt,help,credit,loan,request,support
+  guarantee,promise
+  knowledge,memory,history,explanation,phylogeny
+  education,interest,presentation
+  news,record,press,propoganda
+  language,syntax
+  chess/go/cubes/deterministic 2 player game
+  stochastic game for <2 players
+  art,design
+  religion,belief
+  music,rhythm
+  science,Biology,Chemistry,Physics,Engineering,Psychology,Mathematics,Algebra,Geometry,Philosophy
+  context,proof,reason
+  use,purpose
+  hygiene
+  business,industry
+  rule,law
+  exchange,trade
+  insurance,protection,armor
+  war|peace
+  lie,cap,bullshit
+  dream,fantasy,fiction
+  curse,crime,theft
+  political
+  country,nation,society,system,empire
+  property,asset,investment,purchase
+  government,
+  love,respect,care
+  path,way
+  process,program,algorithm
+  problem,question,doubt|answer,solution
+  humor,trick
+  race
+  thought,theory,opinion,heuristic,feeling  
+  happy|sad  
+  honor,reputation
+  desire,impulse,need
+  hope
+  pleasure
+  disgust,hate
+  regret,shame,embarrasment,guilt|pride
+  shock,surprise|anticipation,suspense
+  romantic love
+  platonic love
+  yearning
+  lust
+  nostalgia|wanderlust
+  anger
+  fear
+  paranoia,vigilance,anxiety
+  pity
+  envy
+  overwhelmed
+  greed,avarice
+  wonder,curiosity,amazement,smitten|boredom,ennui,sarcasm,disappointment,apathy
+  gratitude
+  
+BODY PARTS
+  arm,finger,foot,hand,knee,leg,thumb,toe,grip,touch
+  body,back,chest,abdomen,face,head,sense,breast
+  hair
+  feather,horn,tail,wing,beak,cartilage,claw,fin,gill,hoof,sucker,thorax
+  sex
+  eye,look,observation,view
+  chin,neck
+  ear,hearing,sound
+  nose,smell
+  lip,mouth,throat,tongue,tooth,bite,kiss,smile,voice
+  bone,skull,brain,heart,mind,muscle,nerve,skin,stomach,vessels,tissue,gland,kidney,liver,lung,soul
+  cough,sneeze,dead,death,disease,feeble,ill,pain,wound,rot
+  
+TRANSPORT
+  carriage,cart,car
+  flight,plane
+  boat,harbor,sail,ship
+  train
+  taxi
+  vessel
+  bus
+  drive,ride
+  bicycle,skateboard
+      
+PHENOMENA*
+  cause|effect
+  authority,control,power
+  balance,order,harmony,sort
+  entropy,chaos
+  loss
+  deviance
+  tendency
+  trouble
+  paradox
+  energy,vibe
+  chance,random
+  traffic,congestion
+  absorption
+  disappearance
+  disturbance
+  friction
+  pressure,stress,strain
+  existence,qualia,consciousness
+  lag,delay
+  repulsion
+  devolution,erosion
+  inheritance
+  metabolism
+  texture
+  flow
+  extinction
+  drift
+  
+  
+MATH
+  exact|approximate
+  addition
+  division
+  times,product
+  subtraction,minus
+  negative
+  slope,direction,vector,derivative
+  wave,sine,cos,tan,periodic,modulus,tide
+  greater,less
+  middle,median,axis,axle,average
+  iteration
+  amount,number,measure,cost,value,supply,
+  mass,scale,degree,size,weight,determinent/gradient,area,density
+  increase|decrease
+  limit
+  row,column
+  continuous|discrete
+  atom,particle,proton,neutron,electron
+  unit,vertex,node
+  prime
+  index  
+  polar
+  coordinate,location,address,dimension
+  logarithm,exponent
+  minimum,
+  maximum,capacity
+  recursion,binomial,recurrance,partition
+  parser,compiler  
+  graph
+  1,2,...
+
+VERBS
+  come
+  get,download
+  give
+  go
+  keep
+  let 
+  make
+  put
+  seem
+  see
+  take
+  be
+  do
+  have
+  say
+  send
+  may
+  will
+  
+  
+  
+  
+POLYMORPHIC:
+  able,possible,probable
+  equal,like,same,similarity
+  different
+  opposite,alternative
+
+COMPARABLE:
+  dependent,individual
+  fertile
+  living
+  broken|fixed
+  cheap
+  new,fresh
+  clean|dirty
+  common,normal,regular|special,strange
+  full,complete,pure,saturated
+  wise,smart
+  open|shut
+  poor|fancy
+  direct
+  violent
+  sensitive|aloof
+  bright
+  quiet|loud
+  ready
+  safe
+  strong
+  sudden
+  tired|active
+  old,mature|young
+  
+DISTINGUISHER:
+  automatic
+  chemical
+  medical  
+  raw
+  electric
+  physical
+  private,secret|public
+  married|separate  
+  
+  
+FORMALS:
+  big|small
+  elastic
+  delicate
+  fat
+  flat
+  hard|soft
+  hollow
+  long
+  loose
+  mixed
+  narrow
+  parallel
+  hanging
+  round
+  sharp
+  smooth|rough
+  sticky,magnetic
+  stiff,rigidity
+  straight|bent
+  tall|short
+  thick|thin
+  tight
+  wide
+  hot,warm|cold
+  wet|dry
+  stable|volatile
+  
+  
+  
+
+EPHEMERALS:
+  divine,sacred,holy
+  beautiful
+  hard|easy
+  certain|random
+  deep|shallow
+  complex|simple
+  conscious
+  cool,awesome,based
+  correct|wrong
+  free
+  gay
+  general|specific,particular
+  good|bad,evil
+  great
+  pedantic
+  healthy
+  important
+  kind|cruel
+  natural
+  necessary|vestigial
+  responsible
+  serious|foolish,silly
+  true|false
+  dear,precious

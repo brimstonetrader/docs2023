@@ -1,0 +1,295 @@
+ALGO M8
+
+TIME: 6 HRS
+
+LEARNED: I certainly did not understand the Ford Fulkerson algorithm as thoroughly before I did this assignment. I am now curious how flow networks could inform my math thesis, whether they can express partitions quickly. 
+
+NEED: I really need to figure out Haskell Dictionaries. I've used them, but I suspect I'm generally wrong about them, because my updates seem more verbose than they need to be. This was the second-hardest assignment thus far for me, after percolation (this is good though I like being challenged). 
+
+
+
+The Ford-Fulkerson algorithm is righteously gooey, vague in delivery from any source. 
+
+ford_fulkerson :: Graph -> Node -> Node -> (Graph, Int)
+ford_fulkerson g source sink = do 
+  residual = new Graph(g)
+  maxflow = 0
+  while Ǝ path p from source to sink ϵ residual:
+    α = min weight along p
+      ∀ Edge e ϵ p:
+        if e is forwards  in g then f(e) += α
+        if e is backwards in g then f(e) -= α
+      Update G_f
+      maxflow += α
+  return (g, maxflow)
+  
+It solves the problem of maximum flow. We define a Flow Network as a weighted graph, where each edge has an additional parameter for its capacity. 
+
+   3/9    3/4
+ A ---> C ----> D
+ \____> B ___/
+  6/7     5/5
+
+
+Each node in the graph is connected to some number of other nodes, including zero. Each connection has an integer parameter, the capacity. The source must have in-degree zero, and the sink must have out-degree zero. 
+
+data FlowNetwork(source, sink, graph, capacity) where
+  this.source   :: Node
+  this.sink     :: Node
+  this.graph    :: Dict(Node : Set(Node))
+  this.capacity :: Dict((Node, Node), Int)
+
+We can create this data structure from a list of edges in Θ(E) time.
+
+init :: Node -> [(Node, Node, Int)] -> Node -> FlowNetwork
+init src edges snk = do
+  g        = new Dict()
+  capacity = new Dict()
+  ∀ (u, v, c) ϵ edges:
+    g[u].add(v)
+    capacity[(u,v)] = c
+  return FlowNetwork(src, snk, g, capacity)
+
+We need a function that determines whether Ǝ a path. It should return a boolean, and optionally the path, and the minimum weight along the path. We can modify BFS to do all three. BFS runs in Θ(V+E), but the only way that a graph can have more vertices than edges (two more, technically, but the constants don't matter) is if it is not one connected component. This is ok for a flow network, but this BFS will skip those, and we can conclude that this algorithm takes Θ(|V| + |E|) = Θ(|E|) (in this case).
+
+|V| - 2 < |E| < |V| * |V| 
+
+
+bfs :: FlowNetwork -> (Bool, [Node], Int)
+bfs fn = do 
+  q                = new Queue()
+  q               += fn.source
+  tree             = new Dict(Node, (Node, Int))
+  tree[fn.source]  = (fn.source, ∞)
+  visited          = new Set(Node)
+  visited         += fn.source
+  while !q.isEmpty():
+    u = q.pop()
+    ∀ v ϵ fn.graph[u]:
+      if v !ϵ visited:
+        visited.add(v)
+        tree.add(v, (u, fn.capacity(u,v)))
+      if v == fn.sink:
+        break
+  n = fn.sink
+  path = []
+  min = ∞
+  b = false
+  if fn.sink ϵ visited:
+    while tree[n] != fn.source: 
+      b = true
+      (m, x) = tree[n]
+      path += (n, m)
+      if x < min:
+        min = x
+  return (b, path, min)
+
+  
+
+
+  
+ford_fulkerson :: FlowNetwork -> (FlowNetwork, Int)
+ford_fulkerson fn = do 
+  on = new Dict(fn.capacity)
+  rn = new FlowNetwork(fn)
+  path = bfs rn
+  maxflow = 0
+  ∀ (u,v) ϵ flow_network.capacity:
+    residual_network.capacity[v,u] = 0 
+  while path[0]:
+    ∀ (u,v) ϵ path[1]:
+      rn.capacity[(u,v)] -= path[2]
+      rn.capacity[(v,u)] += path[2]
+      if (u,v) ϵ fn.capacity:
+        fn.capacity[(u,v)] -= path[2]
+      else: 
+        fn.capacity[(v,u)] += path[2]   
+    maxflow += path[2]
+    path = bfs fn    
+  ∀ k ϵ on:
+    on[k] -= fn.capacity[k]
+  return on, maxflow
+
+The maximum possible flow is certainly not higher than the minimum of the flow going out of the source and the flow coming into the source. Each iteration increases total flow by at least 1. The most costly operation each loop is finding a path, which is Θ(|E|). Thus, the algorithm as a whole is Θ(|E| * min(C_s, C_t)). In addition to the above pseudocode, I have implemented the algorithm in python, in the appendix below.
+
+
+2. 
+
+based :: [(Int, Int)] -> [(Int, Int)] -> Int -> Int 
+based    clients         stations        r      m = do 
+  es = []
+  src = (0,0)
+  snk = (∞,∞) 
+  ∀ s ϵ stations:
+    es += (s, snk, m)
+  ∀ c ϵ clients:
+    es += (src, c, 1)  
+    ∀ s ϵ stations:
+      if ((s[0] - c[0])^2 + (s[1] - c[1])^2)^0.5 < r:
+        es += (c, s, 1)
+  fn = init src es snk
+  if ford_fulkerson(fn)[1] == len(clients):
+    return true
+  else:
+    return false
+    
+We can assemble a two layer flow network, with imaginary source and sink. The source connects to every customer, and has weight 1 for each. If any customer is within a distance of r of some base station, the two are connected with another edge with weight 1. Lastly, each base station gets connected to a sink, with weight m (the load parameter). This runs in polynomial time, particularly Θ(|clients|*|stations| + (|E| * min(C_s, C_t))), which is a polynomial. There must be precisely |clients| + |stations| edges connected to either the source or sink. In the worst case, there will additionally be |clients|*|stations| edges in the middle. The maximum flow is |clients|. This means the total runtime is Θ(|clients|^2 * |stations|).
+
+3. 
+
+We can expand a flow network with vertex weights to a normal flow network with 2 * |V| vertices and |V| + |E| edges. We replace each vertex v with two vertices v_1 and v_2 with an edge between them weighted appropriately. All nodes going in to v get sent to v_1, all nodes that v pointed towards are now pointed towards by v_2. This process, as shown below, takes Θ(|V| + |E|).
+
+
+A -> B -> D          A_1 -> A_2 -> B_1 -> B_2 -> D_1 -> D_2
+\> C                         \> C_1 -> C_2
+
+gprime :: Node -> ([(Node, Int)], [(Node, Node, Int)]) -> Node -> FlowNetwork
+gprime src (vs, es) snk = do
+  g        = new Dict()
+  capacity = new Dict()
+  d        = new Dict()
+  ∀ (v_1, c) ϵ vs:
+    v_2 = generateNewNode()
+    d[v_1] = v_2
+    g[v_1] = new Set(v_2)
+    capacity[(v_1, v_2)] = c
+  ∀ (u, v, c) ϵ edges:
+    g[d[u]].add(v)
+    capacity[(d[u],v)] = c
+  return FlowNetwork(src, d[snk], g, capacity)
+  
+
+4. 
+
+To ensure disjoint paths, we give each vertex and edge weight 1. We can construct a Flow network, joining Moore neighbors, each m ϵ ms to an imaginary source, and each b ϵ boundary to an imaginary sink. The resulting graph has 2n^2 + 2 vertices and (4(n-2)^2 + 3(4(n-1)) + 2(4) + len (ms) + 4(n-1)) = 4n^2 + 8 + m edges. We then turn this to a normal flow network with the function from question three, with 4n^2 + 4 vertices and 6n^2 + 10 + m edges. The runtime, then, is Θ(|E| * min(C_s, C_t)) =  Θ(n^2 * m)
+
+escape :: [(Int, Int)] -> (Bool, [[(Int, Int)]])
+escape ms n = do 
+  vs = [((x,y), c)           <- x ϵ [1..n],      y ϵ [1..n],      c = 1]
+  es = [((x,y), (x+a,y+b),c) <- x ϵ [1..n],      y ϵ [1..n], 
+                                a ϵ [1,1,-1,-1], b ϵ [1,-1,1,-1], c = 1]
+  src = (0,0)
+  snk = (∞,∞)
+  ∀ m ϵ ms:
+    es += (src, m, 1)
+  vs += (src, len ms)
+  vs += (snk, len ms)
+  
+  hrz = [(x,y) <- x ϵ   [1..n], y ϵ [1,n]]
+  vrt = [(x,y) <- y ϵ [2..n-1], x ϵ [1,n]]
+  ∀ b ϵ (hrz ++ vrt):
+    es += (b, snk, 1)
+  if ford_fulkerson(gprime((0,0), (vs, es), (∞,∞)))[1] == len ms:
+    return True
+  else: 
+    return False
+
+  
+∀ s ϵ ∞ Θ
+
+APPENDIX:
+
+from collections import deque, defaultdict
+
+class FlowNetwork:
+    def __init__(self, source, sink, graph, capacity):
+        self.source   = source
+        self.sink     = sink
+        self.graph    = graph
+        self.capacity = capacity
+
+def init(source, edges, sink):
+    flow_network = defaultdict(set)
+    capacity     = {}
+    for u, v, cap in edges:
+        flow_network[u].add(v)
+        capacity[(u,v)] = cap
+    return FlowNetwork(source, sink, flow_network, capacity)
+
+def bfs(flow_network):
+    q = deque()
+    q.append(flow_network.source)
+    tree = {flow_network.source: (flow_network.source, float('inf'))}
+    visited = set()
+    visited.add(flow_network.source)
+
+    while q:
+        u = q.popleft()
+        for v in flow_network.graph[u]:
+            if v not in visited and flow_network.capacity[(u, v)] > 0: 
+                visited.add(v)
+                tree[v] = (u, flow_network.capacity[(u, v)])
+                q.append(v)
+
+    n = flow_network.sink
+    path = []
+    minimum = float('inf')
+    found = False
+
+    if flow_network.sink in visited:
+        while n != flow_network.source:
+            found = True
+            m, x = tree[n]
+            path.append((m,n))
+            if x < minimum:
+                minimum = x
+            n = m
+
+    return found, path[::-1], minimum  
+
+def ford_fulkerson(flow_network):
+    original_network = flow_network.capacity.copy()
+    residual_network = FlowNetwork(flow_network.source, 
+                                   flow_network.sink, 
+                                   flow_network.graph.copy(), 
+                                   flow_network.capacity.copy())
+    path = (True, [], 0)
+    max_flow = 0
+    for (u,v) in flow_network.capacity:
+        residual_network.capacity[v,u] = 0 
+    while path[0]:
+        for (u,v) in path[1]:
+            residual_network.capacity[(u,v)] -= path[2]
+            residual_network.capacity[(v,u)] += path[2]
+            if (u,v) in flow_network.capacity:
+                flow_network.capacity[(u,v)] -= path[2]
+            else:
+                flow_network.capacity[(u,v)] += path[2]
+        max_flow += path[2]
+        path = bfs(residual_network)
+    for k in original_network:
+        original_network[k] -= flow_network.capacity[k]
+
+    return original_network, max_flow
+
+edges = [
+    (0, 1, 10),
+    (0, 2,  5),
+    (1, 2, 15),
+    (1, 3, 10),
+    (2, 3, 10),
+        ]
+
+moreedges = [
+    (0, 1, 10),
+    (0, 2,  5),
+    (1, 2, 15),
+    (1, 3, 10),
+    (2, 3, 10),
+    (1, 4,  8),
+    (3, 4, 20),
+    (2, 5,  9),
+    (4, 5,  7),
+    (5, 6, 10),
+    (4, 6, 15),
+    (3, 6, 15),
+    (0, 7, 12),
+    (7, 8,  8),
+    (9, 6, 15),
+    (8, 6, 10),
+    (5, 3, 20)
+]
+
+source = 0
+sink = 3
+flow_network = init(source, edges, sink)

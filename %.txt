@@ -1,0 +1,44 @@
+
+		public static HashMap<Component, Integer> initInformationMap(Context context, int player) {
+			InformationContext iContext = new InformationContext(context, player);
+			Component[] components = context.components();
+			HashMap<Component, Integer> infMap = new HashMap<>();
+			for (int cid = 0; cid < iContext.state().containerStates().length; cid++)
+			{
+				final ContainerState cs = iContext.state().containerStates()[cid];
+				final Container container = iContext.containers()[cid];
+				if (iContext.game().isCellGame())
+				{
+					for (int cellId = iContext.sitesFrom()[cid]; cellId < iContext.sitesFrom()[cid]
+							+ container.topology().cells().size(); cellId++)
+					{
+						if (!cs.isEmpty(cellId, SiteType.Vertex)) {
+							if (!cs.isHiddenWhat(player, cellId, 0, SiteType.Vertex)) {
+								infMap.add(cs.whatCell(cellId));
+				//				System.out.println(cs.whatCell(cellId));
+							}
+						}
+					}
+					for (int cellId = iContext.sitesFrom()[cid]; cellId < iContext.sitesFrom()[cid]
+							+ container.topology().cells().size(); cellId++)
+					{
+						if (!cs.isEmpty(cellId, SiteType.Vertex)) {
+							if (cs.isHiddenWhat(player, cellId, 0, SiteType.Vertex)) {
+								Integer[] is = informationSet.toArray(new Integer[informationSet.size()]);
+						        Random rndm = new Random();
+						        if (is.length > 1) {
+						        	int rndmWhat = rndm.nextInt(is.length - 1);
+						        	cs.setSite(iContext.state(), cellId, cs.whoCell(cellId), is[rndmWhat], cs.countCell(cellId), cs.stateCell(cellId), cs.rotationCell(cellId), cs.valueCell(cellId), SiteType.Cell);			
+						        	informationSet.remove(is[rndmWhat]); 
+						        	is = informationSet.toArray(new Integer[informationSet.size()]);
+					//				System.out.println(cs.whatCell(cellId));
+						        }
+							} 
+						}
+					}
+				}
+			}
+			
+			
+			return null;
+		}

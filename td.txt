@@ -1,0 +1,20 @@
+335  
+	essay
+382
+	exam
+410
+	golf
+	gather data
+	write abstract
+DIS CO.
+	finish week's tickets
+...
+	ask for rec. letters
+	HASKELL mosaic, polyfit, signpost, yajilin, nurikabe
+	UNITY   3d crosswords
+	HASKELL nim theory, grid partitions, tilings, generating functions, finite simple groups
+	
+
+	Bachelors Degree in Mathematics and Computer Science expected May 2024. Experience implementing agents in Ludii, designing and analyzing games in Ludii. Developed several games with hidden information in Ludii, such as Hearts, 98, and Agram, and currently working on modifications to UCT to be successful in these and other such games without clairvoyance.  I really enjoy Linear Algebra, Game Design, Combinatorics, and Machine-Learning. My mathematics thesis was primarily focused on the titular "Combinatorics of Square Grid Regions", but in conjunction with this I implemented a puzzle generator in Python for Simon Tatham's "Galaxies". 
+	
+	I've spent many hours of my life playing Amazons. I owned a Risk set, when I was about 18, with around 100 wooden cubes for each player, in red, yellow, blue, green, and pink. Risk is pretty boring, so I repurposed the cubes, and my father's old Go board, into a general abstract set. With this, BoardGameGeek, and some books on either side if the board needed to be made smaller, I fell in love with many games at once: Othello, Gomoku, Entropy, Quoridor, Hex, and the hundreds of others I've encountered over the years. I absolutely love General-Game Playing, and ancillarily really enjoy coding. 

@@ -1,0 +1,45 @@
+I. Dr. Chris Camfield
+   camfield@hendrix.edu
+   (501) 450-3877 
+   
+   Faculty
+   
+   Department of Mathematics
+
+   Lars Seme
+   Annabel Mehari
+   Anna Johnson
+   Cake Seeboonruang
+   Allie Ray
+   Lathan Smalley
+   Noah Morris
+   Avery Cagle
+   Kolya Souvorin
+
+   
+II. 
+
+MATHEMATICAL MODELS OF THE SOLAR SYSTEM
+
+
+
+We want to honor the wonderful mathematical coincidence of next March's solar eclipse by providing some fun, interactive activities for the public to learn about the mathematics involved in the cavortions of celestial bodies. We have three in mind. 
+ 
+ORRERY - Humans predict the relative locations of the sun, moon, and planets by modelling their movements over time, through equations, or specialized hardware. We plan to demonstrate this with a miniature orrery model that can spin and replicate the total eclipse when light is casted upon it. This will be a fun, accessible activity through which people of all ages can visualize orbit intersections on the day of the eclipse. We also plan to provide clay, wire, and instructions, so that visitors can make a model to take them home as a souvenir from Hendrix college.
+
+https://www.as.up.krakow.pl/edu/warsztaty/materialy/instrukcje/HumanOrrery.pdf
+
+https://www.bing.com/images/search?view=detailV2&ccid=ASwytakx&id=7373D99AF550F9808F9D0F7A53972B10C83620AB&thid=OIP.ASwytakx0KoOy15_8JOJPwHaFK&mediaurl=https%3A%2F%2Fthumbs.worthpoint.com%2Fzoom%2Fimages4%2F1%2F0816%2F15%2Fminiature-vintage-style-orrery-solar_1_bf09dfddb6e20790219880c3310530ff.jpg&cdnurl=https%3A%2F%2Fth.bing.com%2Fth%2Fid%2FR.012c32b5a931d0aa0ecb5e7ff093893f%3Frik%3DqyA2yBArl1N6Dw%26pid%3DImgRaw%26r%3D0&exph=1080&expw=1549&q=mini+orrery&simid=607990013336236407&form=IRPRST&ck=2B3BA831E552A1773A71561596678346&selectedindex=10&ajaxhist=0&ajaxserp=0&vt=0&sim=11 
+
+
+
+ANTIKYTHERA - The first computer, "The Antikythera Mechanism", was invented around the year -200, in Ancient Greece. It was essentially an automated orrery. It was able to simulate the movement of the sun and moon with math and predict the dates of solar eclipses far in advance. It used many gears to calculate how their orbits intertwined, but used no electricity. A guide exists, now, to recreate the machine, which we plan to do with the lego bricks and many volunteers, and demonstrate on the day of the eclipse. We also plan to hold a movie night, showing a NOVA documentary about the mechanism. 
+
+https://rebrickable.com/mocs/MOC-82737/RTN_LNA/basic-antikythera-mechanism/#details
+
+https://www.scientificamerican.com/article/an-ancient-greek-astronomical-calculation-machine-reveals-new-secrets/
+
+https://www.youtube.com/watch?v=e1Kw3yJoNxw
+
+
+[Insert Budget Here]

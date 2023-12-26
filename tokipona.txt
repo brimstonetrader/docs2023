@@ -1,0 +1,200 @@
+PARTICLES
+	
+	SENTIMENTALS
+	
+	a   - emphasis
+	oke - OK
+	o   - hey! yo!
+	wa  - wow, woah
+	n   - hmmm
+	
+	GRAMMATICALS
+	e    - precedes direct object
+	la   - between context phrase and main sentence
+	li   - between subject and verb
+	sama - same, like, as
+	pi   - of
+	ni   - that, this	
+	
+	INTEROGGATIVES
+	seme - what? which?
+	su   - y/n question marker
+	
+	CONJUNCTIONS
+	taso - but
+	anu  - or, plus, union
+	en   - between multiple subjects, and, times, intersection
+
+ADJECTIVES
+
+	RELATIONALS
+	tawa   - going towards, for
+	kan    - with, among, by means of
+	jasima - mirror, opposite of, inverse, not
+	
+	POSITIONALS
+	lon   - located at, true
+	sewi  - above, divine, beyond, up
+	insa  - inside, between 
+	monsi - behind, back, rear
+	poka  - near, aside, next to
+	
+	TEMPORALS
+	pini - ago, completed
+	awen - enduring, kept, safe
+	kama - coming, future, eventual
+	
+	COLORS
+	kapesi - brown, grey
+	jelo   - yellow
+	loje   - red
+	kule   - colorful
+	laso   - blue, green, cyan
+	pimeja - black
+	walo   - white
+	
+	NUMBERS
+	ala  - 0, no
+	wan  - 1, yes, only
+	tu   - 2
+	san  - 3
+	po   - 4
+	luka - 5 (also hand)
+	ale  - all, many, every, 100
+	mute - many, a lot, more
+	
+	SUBJECTIVES
+	pona - good
+	meso - middle, so-so
+	ike  - bad, negative, irrelevant
+	powe - false, pretend
+	suwi - cute, adorable
+	jaki - disgusting, obscene
+	musi - artistic, entertaining, frivolous
+	nasa - unusual, strange, intoxicated
+	jami - eliciting a positive sensory experience, yummy
+		
+	MEASURABLES
+	ante   - different, other
+	taki   - sticky, magnetic
+	weka   - absent, away, ignored
+	wawa   - strong, powerful
+	anpa   - downward, lowly, subservient
+	sin    - new, fresh, extra
+	suli   - big, large, tall
+	lete   - cold, raw
+	lili   - small, short, young
+	lape   - sleeping, resting
+	moli   - dead, dying
+	mojuna - old, aged
+	palaka - botched, broken, damaged
+
+VERBS
+
+	SOCIALS
+	olin - to love, respect
+	wile - to need, want, desire
+	unpa - to have sex with
+
+	MANIPULATIONALS
+	lanpan - to take, seize
+	pana   - to give, send, emit
+	alasa  - to hunt, forage
+	jo     - to carry, hold, contain
+	moku   - to eat, drink, consume
+	tala   - to battle, challenge
+
+	POLYMORPHICS
+	open - to begin, start, open
+	pake - to stop, cease
+	ken - may, can, to be able to
+	pali - to do, make
+
+	CORPOREALS
+	kalama - to produce sound, recite
+	sona   - to know, know how to
+	toki   - to communicate, say, talk
+	kute   - ear (also to hear,listen)
+	lawa   - mind (also to own,control)
+	oko    - eye (also to see,observe)
+	
+NOUNS
+
+	OTHER BODY PARTS
+	luka   - hand, arm
+	noka   - foot/leg
+	selo   - skin, outer layer, boundary
+	sijelo - body, torso
+	sinpin - face, wall, front
+	uta    - mouth	
+	
+	HUMANS
+	jan    - human, person
+	mama   - parent, ancestor, caretaker
+	tonsi  - nonbinary, queer
+	mije   - man
+	meli   - woman
+
+	PRONOUNS
+	sina - you
+	ona  - he, she, they, it
+	mi   - I, me, we, us
+
+
+	CREATURES
+	
+	suno  - sun, light, lamp
+	mun   - moon, star, satellite, planet
+	
+	soweli - animal, beast, land mammal
+	waso   - bird, bat, flying creature
+	akesi  - reptile, amphibian
+	kala   - fish, sea creature
+	pipi   - bug, insect, spider
+	soko   - fungus, network
+	
+	kasi - plant, vegetation, leaf
+	kili - fruit, vegetable, mushroom
+	pan  - cereal, grain, bread, rice, pasta
+
+
+	PRACTICALS
+	sitelin - image, symbol
+	nimi    - name, word
+	ijo     - thing, object
+	ilo     - tool, device, technology
+	kulupu  - community, society, group
+	mani    - money
+	tomo    - house, home, room, building
+	esun    - market,shop
+	
+	CONCEPTS
+	pilin  - heart, emotion
+	monsut - fear, monster
+	apeja  - guilt, shame
+	nasin  - way, custom, method, road
+	nanpa  - numbers, instances, ordinal suffix
+	tenpo  - time, duration
+
+	FORMS
+	leko   - square thing
+	sike   - round thing
+	linja  - long flexible thing, cord, rope, hair
+	palisa - long hard thing, rod, stick
+	lipu   - flat thing, book, card, paper
+	lupa   - door, hole, opening
+	nena   - bump, mountain, nose, protuberance
+	poki   - container
+	supa   - horizontal surface, table, floor
+	
+	ELEMENTS
+	kon   - air, spirit, essence
+	ma    - earth, land
+	seli  - fire
+	telo  - water, liquid
+	len   - cloth, clothing
+	kiwen - hard object, metal
+	usawi - magic
+	ewe   - rock, gravel
+	ko    - dough, clay, powder, paste
+

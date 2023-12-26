@@ -1,0 +1,14 @@
+//		Trial t = dc.game().playout(dc, null, Integer.MAX_VALUE, null, Integer.MAX_VALUE, Integer.MAX_VALUE, rndm);
+//		int q=0;
+//	    while () {
+//	    	q++;
+//	    	g.apply(dc, dc.game().moves(dc).get(rndm.nextInt(0,Math.min(1,dc.game().moves(dc).count()))));
+//	    	
+////	    	System.out.println(dc.score(1));
+//		}
+//	    while (dc.trial().status().winner() == 0) {
+//    		dc.game().apply(dc, dc.moves(dc).get(rndm.nextInt(0,dc.moves(dc).count())));
+//    	}
+//	    System.out.println(q);
+//	    System.out.println(dc.trial().ranking()[2]);
+//	    System.out.println(dc.trial().ranking()[3]);

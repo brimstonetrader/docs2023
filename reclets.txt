@@ -1,0 +1,115 @@
+rec letters:
+
+GOAD
+
+Hello Dr. Goadrich! As you know, I plan to apply to some graduate schools this year, and would like a recommendation letter from you. The ones that appear to need you to input the information on a portal are UIUC and Georgetown (applying to the CS doctoral program) and GWU (applying to the math doctoral program). I will send you these links at some point in the next month. I also plan to apply to UMemphis and Berkeley (that's my big reach), but they want me to upload pdfs. 
+
+The major reason that I chose the graduate schools I did here is that they all offer research fellowships or assisstantships in math or CS. I am very excited by the prospect of undertaking a large research project intersectional to math and cs, in the form of a thesis, and provided that I am able to secure funding, I am willing to put a lot of time and energy into my studies. 
+
+The particular branches of CS that I am interested in pursuing further are Programming Language Design, AI, and Scientific Computing. A couple particular areas that I'd be very interested in pursuing further are General Game Design, Real Number Approximation, Probabilistic Algorithms, and Quantum Computing (I really enjoy complex analysis and probability, and know the underlying math well, but of course I've never seen one in person). I've found, at Hendrix, that I feel most motivated and engaged in research projects. If I make it into none of these, then I'd be content going off into industry, but I want to learn and do more while the window of opportunity is still open. 
+
+Two of the programs I plan to apply to, UMemphis and GWU, are pure math. In spite of this, I think that my CS experience is relevant, as the two fields are similar.
+
+I want to go deeper into Combinatorics and Graph Theory, and Applied Mathematics. The GWU pure math PhD emphasizes both.  and the many other subdisciplines in mathematics. 
+
+
+I believe that I am not great at math, but that I have a solid enough foundation to be able to improve, and gain from the graduate experience. With or without math graduate school, 
+
+
+
+DR.D
+
+
+
+Hello Dr. Downes! You're on sabbatical, and I'm very sorry to bother you. Will you write me a letter of recommendation? If this isn't feasible by December 7th for you, I understand completely, and can make other plans. 
+
+I plan to apply for five graduate programs this fall, two in Mathematics (GWU Phd in Combinatorics and Graph Theory / Applied Mathematics, UMemphis MS), two in Computer Science (UIUC Phd in Theory and Algorithms, Berkeley Phd in Scientific Computing), and one in Computational / Applied Mathematics (UChicago Phd). I like doing academic research and learning about the way Things Are, and if I can make it into a funded program I want to pursue my interests further. 
+
+Two of these programs (UMemphis and Berkeley) want a pdf submitted by me, the soonest deadline of which is December 11, 2023. The remaining three (UIUC, GWU, and UChicago) want you to put the letter into an online portal, the nearest deadline of which is December 15th. I will send the links to these three portals to you over the next month. 
+
+Ideally, it would mostly focus on my research experience. You could discuss my thesis, the presentation I gave at Rhodes, and my efforts in Prob&Stat, Linear, and Complex. Ideally it'd be more focused on my commitment and work ethic than particular mathematical expertise, and applicable to all disciplines listed above. I can make a more thorough outline/brag sheet if you'd like. If you have any advice or suggestions I would be eager to discuss them whenever convenient for you.
+
+Wishing you well,
+Noah Morris
+
+https://www.memphis.edu/msci/grad/msprogram.php
+https://cs.illinois.edu/research/areas/theory-and-algorithms
+https://math.columbian.gwu.edu/research
+https://cam.uchicago.edu/academics/graduate-programs/phd-program/
+https://www2.eecs.berkeley.edu/Research/Areas/SCI/
+
+https://xkcd.com/2028/
+
+
+	
+	
+	
+	
+	
+	
+Hello Professor Seme! I plan to apply for five graduate programs this fall, two in Mathematics (GWU Phd in Combinatorics and Graph Theory / Applied Mathematics, UMemphis MS), two in Computer Science (UIUC Phd in Theory and Algorithms, Berkeley Phd in Scientific Computing), and one in Computational / Applied Mathematics (UChicago Phd). I like doing academic research and learning about the way Things Are, and if I can make it into a funded program I want to pursue my interests further. With that in mind, will you write me a letter of recommendation? 
+
+Ideally, it would talk about my experience in the math help center and experience with mathematics and computer science. If you'd like, I can write up a brag-sheet and discuss this with you further. You might discuss my attitude as an advisee, experience as a peer learner (most programs above have a teaching assistantship attached), and persistence as a student. Would it be possible for you to write this by December 7th?
+
+Two of these programs (UMemphis and Berkeley) want a pdf submitted by me, the soonest deadline of which is December 11, 2023. The remaining three (UIUC, GWU, and UChicago) want you to put the letter into an online portal, the nearest deadline of which is December 15th. I will send the links to these three portals to you over the next month. Given that I've had you as both a Math professor and CS professor, I'd imagine that one letter would be relevant to all below programs - especially as I've chosen quite mathy CS programs. If you've got any advice, questions, or concerns, I'd be eager to discuss them in office hours. 
+
+Your Advisee, 
+Noah Morris
+
+
+
+https://www.memphis.edu/msci/grad/msprogram.php
+https://cs.illinois.edu/research/areas/theory-and-algorithms
+https://math.columbian.gwu.edu/research
+https://cam.uchicago.edu/academics/graduate-programs/phd-program/
+https://www2.eecs.berkeley.edu/Research/Areas/SCI/
+
+https://xkcd.com/217/
+
+
+
+
+
+
+
+
+
+
+Hello Dr. Goadrich! I plan to apply for five graduate programs this fall, two in Mathematics (GWU Phd in Combinatorics and Graph Theory / Applied Mathematics, UMemphis MS), two in Computer Science (UIUC Phd in Theory and Algorithms, Berkeley Phd in Scientific Computing), and one in Computational / Applied Mathematics (UChicago Phd). I like doing academic research and learning about the way Things Are, and if I can make it into a funded program I want to pursue my interests further. With that in mind, will you write me a letter of recommendation? 
+
+Ideally, it would talk about my experiences in Ludii, Disco Tray, and 370. If you'd like, I can write up a brag-sheet/outline of specific things, both from these contexts and other relevant CS adventures (like my win of the CS Club's Poker AI Tournament, or projects like those linked below). You might discuss my attitude as an advisee, achievement of getting cards to work in Ludii, implementation of the article and fixed score in Ground Truth, and willingness to work (I hear this one is in high demand). I think that this letter would be relevant to all above programs. Would it be possible for you to write this by December 7th?
+
+Two of these programs (UMemphis and Berkeley) want a pdf submitted by me, the soonest deadline of which is December 11, 2023. The remaining three (UIUC, GWU, and UChicago) want you to put the letter into an online portal, the nearest deadline of which is December 15th. I will send the links to these three portals to you over the next month. Given that I've had you as both a Math professor and CS professor, I'd imagine that one letter would be relevant to all below programs - especially as I've chosen quite mathy CS programs. If you've got any advice, questions, or concerns about my choices as listed below, I'd be eager to discuss them in office hours. 
+
+Your Advisee, 
+Noah Morris
+
+
+https://www.memphis.edu/msci/grad/msprogram.php
+https://cs.illinois.edu/research/areas/theory-and-algorithms
+https://math.columbian.gwu.edu/research
+https://cam.uchicago.edu/academics/graduate-programs/phd-program/
+https://www2.eecs.berkeley.edu/Research/Areas/SCI/
+
+https://xkcd.com/2318/
+
+https://brimstonetrader.github.io/archive/fibonacci
+https://brimstonetrader.github.io/archive/rng
+https://brimstonetrader.github.io/archive/ACAB
+
+
+
+
+
+
+
+UMem - Math Masters - In-state resident. - May 15 deadline. 
+https://www.memphis.edu/msci/grad/msprogram.php
+
+UIUC - I am interested in their cs phd, in the specific area of Theory and Algorithms (https://cs.illinois.edu/research/areas/theory-and-algorithms). I think this course of study would draw from my skills in both mathematics and computer science. Most of the faculty interests appeal to me - a few particular ones were "Algorithmic Game Theory" and "Heuristics for NP-Hard Optimization Problems". December 15
+
+GWU - I want to go into the specific research areas (prioritized by GWU's math dept) of "Graph Theory and Combinatorics" and "Applied Mathematics", which are GWU's most staffed subdepartments (https://math.columbian.gwu.edu/research#combinatorics). I've worked heavily on both of these over the course of my theses, and I'm very interested in the overlap between them. I also enjoy peer learning, and think I would be successful under a TA Assisstantship. - January 15th 
+
+UChicago - This is a big reach, I would be surprised if I got in. I want to apply to their phd program for Computational and Applied Mathematics. I am very interested in all of the classes listed in the outline here (https://cam.uchicago.edu/academics/graduate-programs/phd-program/) - January 9, 2024
+
+Berkeley - CS Phd - Probably the biggest reach here. I'm really interested in the degree path for Scientific Computing (https://www2.eecs.berkeley.edu/Research/Areas/SCI/), especially the mathematical Topic Areas like Matrix Computation and Floating Point. I am also very curious about the mathematical underpinnings of Parallel Computing and Animation. - December 11, 2023

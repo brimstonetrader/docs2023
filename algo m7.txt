@@ -1,0 +1,138 @@
+MODULE 7 -- DYNAMIC PROGRAMMING
+
+TIME: 5 HOURS
+
+LEARNED: This was a nice reminder that sometimes programming is oriented around objects because those objects are very consequential. It was fun to get subsetSum up and running in real life, then to fully generalize it.
+
+DOMOREFOR: I should probably go back over my Linear Algebra textbook and drill some rote things like determinants and inverses. 
+
+1a.
+ 
+Ș m=3
+
+ny | 1 | 2 |  The greedy approach returns [ny,sf], c=5. 
+---+---+---+  I consider m, and win, with [ny,ny], c=3.
+sf | 2 | 1 |
+
+1b. 
+
+hqplanner :: [(Int, Int)] -> Int -> Int
+hqplanner costs m = do 
+  int     k     = len list
+  int[][] total = new int[k][2]
+  total[0][0]   = costs[0][0] 
+  total[0][1]   = costs[0][1] 
+  ∀ n ϵ [1..k]:
+    total[n][0] = min(total[n-1][0] + cost[n][0], 
+	                  total[n-1][1] + cost[n][0] + m)
+    total[n][1] = min(total[n-1][1] + cost[n][1], 
+	                  total[n-1][0] + cost[n][1] + m)
+  return min(total[k][0], total[k][1])
+
+To determine the minimal sequence of locations, we can store a 2d array with height 2 and width k. For month 1, we save the first two elements of cost to total, because those are the only costs so far. Each element of total[a][b] will be the minimum cost of an a-long sequence ending in city b. Each update takes the minimum of remaining, adding the month's cost to the total, and moving, adding the cost in that city and the moving cost. Accessing elements of an array is constant time, and I'll go out on a limb and say addition and minimum are as well. Thus, this is θ(k).
+
+1c. 
+
+To find the sequence once we have the cost, we can change the underlying data structure from an int[][] to an (int,[bool])[][]. The initial elements will be (costs[0][0], [false]) and (costs[0][1], [true]). We can append the correct boolean to the list based on the minimums. An example of this update is below.
+
+total[n][0] = if (total[n-1][0][0] + cost[n][0] < total[n-1][1][0] + cost[n][0] + m):
+                (total[n-1][0][0] + cost[n][0], // the cost
+				 total[n-1][0][1] ++ [false])   // the previous sequence of cities ++ new city
+			  else:
+                (total[n-1][1][0] + cost[n][0] + m, 
+				 total[n-1][1][1] ++ [true])
+				
+At the end, we will have the complete sequence.
+
+
+2. 
+
+To build an n long train track of one or three unit track pieces, we can either add a one-unit piece to the end of any n-1 long configuration, or a three-unit piece onto an n-3 configuration. Thus, 
+
+train(n) = train(n-1) + train(n-3)
+
+and
+
+train | #
+------+---
+1     | 1
+2     | 1
+3     | 2
+4     | 3
+5     | 4 
+6     | 6
+7     | 9
+8     | 13
+     ...
+500   | 61639134417791934754071925736763807145358766976372129356153303023463060735785830608
+
+
+3a. 
+
+Consider a connected DAG for which i<j in every node (v_i,v_j). We want the 
+longest path. A greedy approach won't work below: the ascete finds [1,3,4,5],
+which beats the hedonist's [1,2,5]. 
+
+       ___________
+      /           \
+1 -> 2   3 -> 4 -> 5
+ \______/
+ 
+3b. 
+ 
+meanderer :: (Int, Int) -> [Int]
+meanderer graph = do 
+  [int] atlas = new int[1 + len graph]
+  atlas[-1] = 0
+  ∀ x ϵ [len graph - 1..1]:
+    ∀ edge (v_x, v_y) ϵ graph.getOutgoingEdgesFrom(v_x):
+      atlas[x] = if (atlas[x] < atlas[y] + 1) then atlas[y] + 1 
+  return atlas[1]
+  
+Our base data structure, atlas, stores as its ith element the distance of the longest path from v_i to v_n. We begin by setting atlas[-1] to 1, as a base case. Then, we loop through each node in reverse order. For each node, we find all outgoing edges (we know that [∀ (v_x,v_y) x < y] from the question statement) from v_x. For each, if our stored longest path length from v_x to v_n (which starts at zero) is less than the node it's connected to's path length plus one, we set that to be the new maximal path length. Eventually we return the first element of the array, which I set at index 1 for this problem, given that the graph nodes started at 1. This will assess all edges once, doing only arithmetic and hash-lookups for each. The exterior loop only orders the nodes, which we can presume are stored in such a way that accessing them is constant. If there are more vertices than edges, the extraneous vertices will be passed over in constant time. Thus, θ(v+e).
+ 
+The path from v_n to v_n is zero. Each node below v_n is set to the largest connected path length plus one. Thus, by induction, the algorithm will be correct for any node v_i.
+
+3c. Like last time, we can store tuples (int, [int]) instead of just ints in our array so we can add information as we gain it. The base case is now atlas[-1] = (1, [len graph]), and we can add new elements to the front of the list each time a new node gets added to the path. 
+
+4. 
+
+
+closestSubsetBF :: int[] -> int -> int[]    
+closestSubsetBF set x = do 
+  int m = 0
+  int[] o = []
+  ∀ s ϵ set.powerSet:
+    if m < sum s < x+1:
+	  m = sum s
+	  o = s
+  return o
+  
+This is θ(n*2^n) bad. 
+
+b. 
+
+In python, so I can verify that it works.
+
+def subsetSum(xs, s):
+    l = len(xs)
+    table = ([[(0,[]) for i in range(s + 1)] for i in range(l + 1)])  
+    for i in range(1,l+1):  
+        for j in range(1,s+1):  
+            if j < xs[i-1]:  
+                table[i][j] = table[i-1][j]  
+            if j >= xs[i-1]:
+                n = xs[i-1] + table[i - 1][j-xs[i-1]][0]  
+                if  n <= s:
+                    table[i][j] = n,  table[i - 1][j-xs[i-1]][1] + [xs[i-1]] 
+    return table[l][s]  
+
+subsetSum([7,11,22,55,21,312,31,33,53,16],136)
+ -> (133, [31, 33, 53, 16]), 0.0s
+ 
+
+We initialize table(i,j) to (0, []) for all 0 <= j <= s, 0 <= i <= len xs. Then, going top-down left-to-right, provided j >= xs[i-1], we save the value of the closest sum to j containing any elements from xs below xs[i-1] as n. If this value is less than or equal to the sum, we save it to the first element of the tuple. For the second, we concatenate the value of xs[i-1] to the list from the above table entry. For each table entry, we are only doing arithmetic and array lookups, so this is O(nS). If we know that the closest subset sum from int[] ds to int e is d_n, then the closest to (ds ++ d_0) is either d_n or, if d_n + d_0 <= e, d_n + d_0.  
+
+c. 
+
+My dynamic solution checks every possible sum from 1 to k, which can potentially be slower in some situations, like subsetSum([200001,199999],400000), which took almost a full second with dynamic programming, but was instant for brute force. I didn't want to wait for it, but brute force is very much worse at something like subsetSum(list(range(101)), 5050), which DP got in 0.7s.

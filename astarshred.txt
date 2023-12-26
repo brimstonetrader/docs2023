@@ -1,0 +1,101 @@
+using System.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WalkToClick : MonoBehaviour
+{
+    public Vector3     topleft;
+    public Vector3 bottomright;
+    private bool[,] grid;
+    public Collider2D obstacle;
+    
+    void Start()
+    {
+        //Assemble 2D grid of all points, with boolean false if the point 
+        //has something that collides with the player on it.
+        int l = ((float) ((int) 4 *     topleft.x)) / 4;
+        int t = ((float) ((int) 4 *     topleft.y)) / 4;
+        int r = ((float) ((int) 4 * bottomright.x)) / 4;
+        int b = ((float) ((int) 4 * bottomright.y)) / 4;
+        grid = new bool[4*(r - l),4*(t - b)];
+        for (int x = 0; x < 4*(r - l); x++) {
+            for (int y = 0; y < 4*(t - b); y++) {
+                if (obstacle.bounds.Contains(new Vector3(((float) x)/4 + topleft.x, ((float) y)/4 + bottomright.y, 0f))) {    
+                    grid[x,y] = false; 
+                    print("col");
+                }
+                else {
+                    grid[x,y] = true;
+                }
+            }
+        }
+    }
+
+    public List<Vector3> AStar(Vector3 end) {
+
+        (int, int) startc = (((float) ((int) transform.position.x*4)) / 4, ((float) ((int) transform.position.y*4)) / 4);
+        (int, int)   endc = (((float) ((int)                end.x*4)) / 4, ((float) ((int)                end.y*4)) / 4);
+
+        // Node(Node parent, (int, int) coordinate, double heuristic_value)
+        Node s       = new Node(null, startc, 0f);
+        Node e       = new Node(null,   endc, 0f);
+        Node current = null;
+
+        //open contains all nodes, sorted by heuristic value
+        SortedSet<Node>       open = new SortedSet<Node>(new NodeComparer());
+        HashSet<(int, int)> closed = new   HashSet<(int, int)>();
+        open.Add(s);
+
+        while (open.Count > 0 && !(closed.Contains(endc))) {
+            current = open.Min;
+            open.Remove(current);
+            foreach ((int, int) loc in neighbors(current)) {
+                if (!(closed.Contains(loc)) && grid[loc.Item1 - ((int) topleft.x), loc.Item2 - ((int) bottomright.y)]) {
+                    // value = dist from start + dist from end
+                    float g = DistanceEstimate(startc, loc);
+                    float h = DistanceEstimate(endc,   loc);
+                    Node newNode = new Node(current, loc, g+h); 
+                    open.Add(newNode);
+                }
+            }
+            closed.Add(current.position);
+        }
+
+        List<Vector3> path = new List<Vector3>();
+        Node x = e;
+        path.Add(new Vector3((float) x.position.Item1, (float) x.position.Item2, 0f));
+        while (x.parent != null) {
+            x = x.parent;
+            path.Add(new Vector3((float) x.position.Item1, (float) x.position.Item2, 0f));
+        }
+        path.Reverse();
+
+        return path;
+    }
+
+    public (int, int)[] neighbors(Node n) {
+        int x = n.position.Item1;
+        int y = n.position.Item2;
+        (int, int)[] ns = { (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1) };
+        return ns;
+    }
+
+    public float DistanceEstimate((int, int) v1, (int, int) v2) {
+        return Mathf.Abs(v1.Item1 - v2.Item1) + Mathf.Abs(v2.Item2 - v1.Item2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButton(0)) {
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = 0f;
+            if (!obstacle.bounds.Contains(mouseWorldPos)) {
+                List<Vector3> path = AStar(mouseWorldPos);
+                foreach (Vector3 p in path) { print(p.x); print(p.y); }
+            }
+        }
+    }
+}

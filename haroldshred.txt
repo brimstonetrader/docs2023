@@ -1,0 +1,157 @@
+package random;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import game.Game;
+import game.equipment.container.Container;
+import game.types.board.SiteType;
+import gnu.trove.list.array.TIntArrayList;
+import main.collections.FastArrayList;
+import other.AI;
+import other.context.Context;
+import other.context.InformationContext;
+import other.move.Move;
+import other.state.container.ContainerState;
+import other.trial.Trial;
+import utils.AIUtils;
+
+/**
+ * Example third-party implementation of a random AI for Ludii
+ * 
+ * @author Dennis Soemers
+ */
+public class Harold extends AI
+{
+	
+	//-------------------------------------------------------------------------
+	
+	/** Our player index */
+	protected int player = -1;
+	
+	//-------------------------------------------------------------------------
+	
+	/**
+	 * Constructor
+	 */
+	public Harold()
+	{
+		this.friendlyName = "Harold the AI";
+	}
+	
+	//-------------------------------------------------------------------------
+
+	@Override
+	public Move selectAction
+	(
+		final Game game, 
+		final Context context, 
+		final double maxSeconds,
+		final int maxIterations,
+		final int maxDepth
+	)
+	{
+		int numIterations = 0;
+		final InformationContext ic = new InformationContext (context, player);
+		//	System.out.println(player);
+		FastArrayList<Move> legalMoves = game.moves(ic).moves();
+		double[] scoresPerMove = new double[legalMoves.size()];
+		int i = 0;
+		while 
+			(
+				System.currentTimeMillis() < maxSeconds && 	// Respect time limit
+				!wantsInterrupt								// Respect GUI user clicking the pause button
+			)
+		{
+			for (Move move : legalMoves) {
+				Context dc = new Context(generateDeterminizedContext(ic.game(),player,54,ic));
+				dc.game().apply(dc, move);		
+	        	Random rndm = new Random();
+	        	while (!dc.trial().over()) {
+	        		dc.game().apply(dc, dc.moves(dc).get(rndm.nextInt(0,dc.moves(dc).count())));
+				}
+				double[] ranks = dc.trial().ranking(); 			
+	//      	Capped at number of players; .5s exist. 1 is best, 2 is second best, ... 
+				System.out.println(ranks[1]);
+				double myrank = ranks[player];
+				scoresPerMove[i] -= myrank / game.players().count();
+				i++;
+				i %= legalMoves.size();
+			} 
+		}
+		double max = -1_000_000_000_000.0;
+		int maxindex = 0;
+		i=0;
+		for (double d : scoresPerMove) {
+	//		System.out.println(d);
+			if (max < d) {
+				max = d;
+				maxindex = i;
+				i++;
+			}
+		} return legalMoves.get(maxindex);
+	}
+		
+	
+	
+	@Override
+	public void initAI(final Game game, final int playerID)
+	{
+		this.player = playerID;
+	}
+	
+	// This method makes feasible assumptions for all hidden things.
+	public static InformationContext generateDeterminizedContext(Game game, int player, int numCards, InformationContext iContext) {
+		if (game.hiddenInformation() && player >= 1 && player <= iContext.game().players().count())
+		{
+			for (int cid = 0; cid < iContext.state().containerStates().length; cid++)
+			{
+				final ContainerState cs = iContext.state().containerStates()[cid];
+				final Container container = iContext.containers()[cid];
+				HashSet<Integer> informationSet = initInformationSet(numCards);
+				if (iContext.game().isCellGame())
+				{
+					for (int cellId = iContext.sitesFrom()[cid]; cellId < iContext.sitesFrom()[cid]
+							+ container.topology().cells().size(); cellId++)
+					{
+						if (!cs.isEmpty(cellId, SiteType.Vertex)) {
+							if (!cs.isHiddenWhat(player, cellId, 0, SiteType.Vertex)) {
+								informationSet.remove(cs.whatCell(cellId));
+				//				System.out.println(cs.whatCell(cellId));
+							}
+						}
+					}
+					for (int cellId = iContext.sitesFrom()[cid]; cellId < iContext.sitesFrom()[cid]
+							+ container.topology().cells().size(); cellId++)
+					{
+						if (!cs.isEmpty(cellId, SiteType.Vertex)) {
+							if (cs.isHiddenWhat(player, cellId, 0, SiteType.Vertex)) {
+								Integer[] is = informationSet.toArray(new Integer[informationSet.size()]);
+						        Random rndm = new Random();
+						        if (is.length > 1) {
+						        	int rndmWhat = rndm.nextInt(is.length - 1);
+						        	cs.setSite(iContext.state(), cellId, cs.whoCell(cellId), is[rndmWhat], cs.countCell(cellId), cs.stateCell(cellId), cs.rotationCell(cellId), cs.valueCell(cellId), SiteType.Cell);			
+						        	informationSet.remove(is[rndmWhat]); 
+						        	is = informationSet.toArray(new Integer[informationSet.size()]);
+					//				System.out.println(cs.whatCell(cellId));
+						        }
+							} 
+						}
+					}
+				}
+			} 
+		} return iContext;
+	}
+
+	// This set contains all cards which have an unknown location. 
+		public static HashSet<Integer> initInformationSet(int numCards) {
+			HashSet<Integer> informationSet = new HashSet<Integer>();		
+			for (int i=1;i<1+numCards;i++) {
+				informationSet.add(i);
+			} return informationSet;
+		}
+	
+	//-------------------------------------------------------------------------
+
+}

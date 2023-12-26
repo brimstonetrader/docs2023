@@ -1,0 +1,4 @@
+isItRotationallySymmetric :: String -> Bool
+isItRotationallySymmetric bitstring =
+    let gnirtstib = reverse bitstring
+    in gnirtstib == bitstring

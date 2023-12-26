@@ -1,0 +1,80 @@
+NOUNS: 
+
+planning
+midst
+layer
+conflict
+accusation
+involvement
+security
+collection
+cave
+route
+democracy
+customer
+
+
+    Planning:
+        nasin pi toki kepeken tenpo kama
+        [way] [of] [speech, communication] [using] [time] [future]
+
+    Midst:
+        insa pi tenpo tawa
+        [inside] [of] [time] [movement, journey]
+
+    Layer:
+        leko pi sike
+        [block] [of] [circle, round thing]
+
+    Conflict:
+        utala
+        [fight, battle, challenge]
+
+    Accusation:
+        toki ike pi lon e seme
+        [speech, communication] [bad] [of] [true] [what]
+
+    Involvement:
+        pali pi lon
+        [work] [of] [being, existence]
+
+    Security:
+        pali pi pana e nasin
+        [work] [of] [giving] [of] [way]
+
+    Collection:
+        kule pi kama jo
+        [color] [of] [future] [having]
+
+    Cave:
+        anpa pi sike utala
+        [below] [of] [circle, round thing] [conflict]
+
+    Route:
+        nasin pi kama tawa
+        [way] [of] [coming] [movement, journey]
+
+    Democracy:
+        kulupu pi toki kepeken nasin sina
+        [group] [of] [speech, communication] [using] [way] [your]
+
+    Customer:
+        jan tomo pi moku
+        [person] [of] [house] [of] [food]
+        
+BARD:
+
+    Planning: pimeja
+    Midst: sewi li
+    Layer: linja
+    Conflict: jaki
+    Accusation: palisa pimeja
+    Involvement: wile
+    Security: monsuta
+    Collection: suno
+    Cave: nena
+    Route: tenpo
+    Democracy: mani kulupu
+    Customer: mi wile sitelen tomo
+    
+    

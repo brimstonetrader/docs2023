@@ -1,0 +1,36 @@
+> isItRotationallySymmetric :: String -> Bool
+> isItRotationallySymmetric bitstring =
+>     let gnirtstib = reverse bitstring
+>     in gnirtstib == bitstring
+
+> toBinary :: Int -> String
+> toBinary 0 = "0"
+> toBinary 1 = "1"
+> toBinary x = toBinary (x // 2) ++ show (x % 2)
+
+> generateBitStrings :: Int -> [String]
+> generateBitStrings n = [padZeros n (toBinary i) | i <- [0..2^n-1]]
+>     where
+>         padZeros n str
+>             | length str < n = replicate (n - length str) '0' ++ str
+>             | otherwise = str
+
+> noSumToOne :: Int -> [Int]
+> noSumToOne n = do 
+>   let bs = generateBitStrings n 
+>   [m | m <- bs, length (filter (== 1) [ sum [ toInteger [m !! ((3 * j) + k)] | k <- [0..2] ] | j <- [0..3] ]) /= 4]
+
+
+
+> (/%/) :: Int -> Int -> (Int, Int)
+> a /%/ b = a `divMod` b
+
+> (%) :: Int -> Int -> Int
+> a % b = a `mod` b
+
+> (//) :: Int -> Int -> Int
+> a // b = a `div` b
+
+> len :: [a] -> Int
+> len []     = 0
+> len (a:as) = 1+(len as)

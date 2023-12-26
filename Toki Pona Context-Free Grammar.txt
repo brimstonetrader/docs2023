@@ -1,0 +1,246 @@
+TOKI PONA
+
+
+<SENTENCE> := <NOUN> li <ACTION>             | 
+              <NOUN> li <ADJECTIVE>          |
+              <NOUN> li <ACTION>    e <NOUN> |
+              <NOUN> li <OBJECTIVE> e <NOUN> |
+              <SENTENCE> la <SENTENCE>       |
+              <SENTENCE> su       is [sentence] true or false? y/n question marker |
+              <SENTENCE> pali     interoggative
+              
+<INTERJECTION> := a - ah!, !, realization, laughter, bravo
+                  mu - meow, moo, animal noise
+                  n - hmm, 
+                  ajo - hello, hi
+                  tata - goodbye
+                  wa - wow, woah, oh, uh, well, conversational styrofoam
+                  ak - frustation, ouch, fuck (of aversion), sudden fear
+                  ja - yes
+              
+              
+<NOUN> := <ELEMENT> 
+          <FORM>
+          <CONCEPT>
+          <PRACTICE>          
+          <STATIONARY>          
+          <ANIMAL>          
+          <HUMAN>          
+          <NOUN> <ADJECTIVE>
+          <NOUN> pi  <NOUN>              // x of y   (man of steel, pot of coffee)
+          <NOUN> en  <NOUN>              // x and y  (me and you, peas and carrots)
+          <NOUN> anu <NOUN>              // x or y   (me or you, peas or carrots)
+          <NOUN> kan <NOUN>              // x with y (Obama with the government,  
+                                         //           Bill Gates with Microsoft)
+          seme                           // what? which? 
+          
+
+<VERB> := 
+    <ACTION>    := <CORPOREAL>           |
+                   <POLYMORPHIC>         |             
+    <OBJECTIVE> := <MANIPULATION> <NOUN> |
+                   <SOCIAL>       <NOUN> |
+    <VERB> en <VERB>                     |
+    <VERB> anu <VERB>                    |
+    ala <VERB>         // negation       |
+    <VERB> <ADJECTIVE>               
+
+
+<ADJECTIVE> := <SUBJECTIVE>            |
+               <MEASURABLE>            |
+               <EMOTION>               |
+               <AESTHETIC>             |
+               <DETERMINER>            | 
+               <NUMBER>                |
+               <COLOR>                 |
+               <PREPOSITION>  <NOUN>   |
+               <RELATIONAL>            |
+               inan <ADJECTIVE>        | // superlative
+               <ADJECTIVE> sama <NOUN> | // x like a y
+               <ADJECTIVE> tan <VERB>  | // x because of y
+               ala <ADJECTIVE>         | // negation 
+               <ADJECTIVE> <ADJECTIVE> 
+               
+               
+<CONJUNCTION> := sama - same, similar
+                 ante - different, other
+                 anu - or, minus, intersection, minimum
+                 en - and, plus, union, maximum     
+                 taso - but, however                 
+                 tan  - by, from, times, because of, x tan y -> if y then x
+               
+<PREPOSITION> := sewi - above, top
+                 anpa - below, bottom
+                 monsi - back, behind
+                 poka - in front of, next to, beside
+                 insa - inside, between, centered
+                 kama - coming, future, eventual
+                 awen - continuing, present, stay, constant
+                 tawa - toward, past, for
+                 ipa  - part, portion, segment, some
+                
+<COLOR> := loje - red
+           jelo - yellow
+           peta - green
+           laso - blue
+           pimeja - black
+           kapesi - grey, brown
+           walo - white
+           kule - colorful
+
+<NUMBER> := nanpa - number, ordinal suffix
+            lo  - 0, none, empty
+            wan - 1
+            tu  - 2            
+            sa  - 3            
+            po  - 4            
+            ki  - 5            
+
+<EMOTION> := ike - bad, evil, wrong
+             pona - good, nice, right, ethical 
+             soja - happy, excited
+             jaki - dirty, gross, disgusting, sick, infected
+             jami - awesome, cool, goes hard, yummy
+             peto - sad, depressed
+             anomi - bored, annoyed, sarcastic, angsty
+             apeja - guilty, ashamed, embarrased
+             
+             
+             
+<AESTHETIC> := meli - female
+               mije - male
+               tonsi - non-binary, androgynous
+               nasa  - strange, unusual, inebriated, indeterminate
+               suwi  - sweet, innocent, adorable
+               akan  - difficult, complicated, irrational
+               apaso - fancy, honorable
+               puwa - soft, cuddly
+               kiki - sharp, pointy
+               ale  - divine, sacred, beyond
+               meso - normal, regular, average
+               kine - important, powerful, influential
+                 
+               
+<COMPARABLES> := lape   - sleeping, resting
+                 lete   - cold, raw, bleak
+                 taki   - sticky, magnetic, attractive
+                 wawa   - strong, powerful, confident
+                 weka   - absent, away, ignored
+                 pana   - done, completed, finished
+                 moli   - dead, dying
+                 palaka - broken, botched, damaged
+                 sin    - new, fresh, young 
+                 majuna - old, aged, experienced
+                 suli   - big, heavy, tall
+                 lili   - small, short, young 
+                 
+             
+<ACTIVES>    := ken - may, can, to be able to 
+                kute - to hear, obey, listen
+                lakana - to put, bring, set down
+                lukin - to see, look, observe, read
+                moku - to eat, drink, ingest
+                open - to begin, start, open
+                pake - to stop, prevent, end, close
+                pali - to do, make, work on, try, attempt
+                sona - to know
+                tokana - to focus, concentrate, consider
+                utala - to fight, battle, challenge, compete
+                unpa - to fuck, have sex with
+    
+
+<OBJECTIVES> := alasa  - to hunt, search, find, gather
+                amini  - to trust, believe in, expect
+                awase  - to bump, knock, jolt
+                ekon   - to go, travel
+                luji   - to allow, permit, let
+                ilema  - to feel, touch 
+                jo     - to have, contain, own, control
+                kepen  - to use, wield
+                kipi   - to cut, slice, split, divide
+                kosan  - to protect, guard, defend
+                lanpan - to get, receive, acquire, remember, choose
+                olin   - to love, respect
+                pana   - to give, send, emit, pay, help
+                toki   - to say, communicate
+                wile   - to want, desire, need
+                
+
+<CORPOREALS> := lawa - head, mind, leader, plan
+                luka - hand, arm
+                mama - parent, ancestor, caretaker
+                noka - foot, leg
+                oko - eye
+                pata - brother, sibling
+                pilin - heart, personal emotional state 
+                santo - ear
+                sijelo - body, torso, state, self
+                sinpin - face
+                uta - mouth, lips, teeth
+                konwe - animacy, life, existence
+                
+<PRONOUNS> := ijo - thing, event, object, matter, something, stuff
+              ona - he, she, it, they 
+              mi - I, me, we, us
+              sina - you 
+            
+<DETERMINER> :=  ali  - all, every, full, infinite
+                 mute - many
+                 ni - this, that            
+              
+<ANIMALS> := akesi - reptile, amphibian, slimy thing
+             jan - human, person, someone, anyone
+             kala - sea creature, fish
+             pipi - bug, germ, insect, minor annoyance
+             soweli - animal, beast, land mammal
+             waso - bird, winged creature, flying thing 
+             
+<STATIONARIES> := kasi - plant, leaf, vegetation
+                  kili - fruit, vegetable
+                  pan - bread, grain, rice, pasta
+                  soko - mushroom, fungus, network
+                  suno - sun, star, light, light source
+                  mun - moon
+                  naja - sky, space, universe
+                  
+<PRACTICES> := esun - market, shop, business
+               ilo - tool, machine, device, technology
+               jeno - place, position, level, status, reputation
+               kulupu - group, community, society, organization
+               mani - money, savings, wealth, gold, rare metal
+               sitelen - image, picture, representation, writing, symbol
+               tomo - house, home, room, indoor space
+               
+<CONCEPTS> := enko - distance, depth, volume    
+              nasara - theory, guess, hypothesis, opinion 
+              kuntu - humor, comedy, laughter
+              monsuta - fear, dread, danger, monster, anxiety
+              nasin - way, custom, path, method
+              nimi - name, word, statement, quote
+              tenpo - time, moment, period, duration
+              waleja - context, background, reason, purpose
+              
+<FORMS> := leko - square, corner, block
+           linja - long and flexible thing, cord, hair, rope, thread
+           lipu - flat object, book, card, paper, website, record
+           lupa - hole, orifice, door, window
+           nena - bump, hill, mountain, nose, protuberance
+           palisa - long hard thing, stick, branch
+           poki - container, bag, cup, list, set
+           selo - outer form, peel, shell, skin, boundary
+           sike - circle, round thing, ball, wheel, cycle
+           supa - horizontal surface, floor, table
+
+<ELEMENTS> := kalama - sound, noise, tone
+              kemu - rubber, plastic, silicon
+              kiwen - metal, rock, stone
+              ko - clay, dough, goop, sand
+              kon - air, essence, spirit, gas, oxygen, smell
+              len - cloth, fabric, textile, clothing
+              ma - earth, land, dirt, country, zone 
+              namako - salt, powder, embellishment, spice, sugar              
+              pika - electricity
+              seli - fire, heat source, cooking element
+              usawi - magic, ghost
+              ojele - oil, soap, gel, gasoline, wax
+              asite - acid, vinegar, coffee 

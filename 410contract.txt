@@ -1,0 +1,25 @@
+CONTRACTEVAL1
+
+In CSCI 410, I would like to contract for an A.
+
+I plan to write at least 25 new pages of Capstone this semester, likely on further Ludii endeavors. I have already written 10 pages of LaTex on this topic, as well as a bunch of code. I'll do the project proposal too, revise it, and the readings.
+
+I'll critically assess and edit my resume, make a CV, a work plan for the thesis, cover letter, and do any other writing assignments that I neglected to mention.
+
+I will do the classic book presentation, and the summary. I'd like to do "On Undecidable Propositions" by Godel or some selections from "Algorithms in C" or "Set Theory and the Continuum Hypothesis" by Cohen because I've been meaning to read them. The Turing, Lovelace, and Brooks selections on the course website also look very interesting. I'm not picky. I will give a final presentation, a progress update one too, go to feedback meetings, keep my absences excused and scarce, and continue doing grading contract evaluations.
+
+A29 - DRAFT PROPOSAL                
+A31 - RESUME OR CV
+S5  - PROPOSAL                      
+S26 - 10 MINUTE UPDATE PRESENTATION 
+O3  - DRAFT ABSTRACT                      
+O10 - DRAFT INTRODUCTION                  
+O26 - DRAFT BACKGROUND                    
+N9  - DRAFT 1ST HALF PAPER                
+N21 - DRAFT 2ND HALF PAPER, 
+      1ST HALF PAPER
+D5  - FINAL PRESENTATION
+
+When assigned I will do the classic paper presentation.
+
+If I am late doing something, I will get it in within three days, else I will schedule a meeting with Dr. Ferrer to explain why. In general, I do not want to miss out on workshops, so I will avoid this to the fullest extent that I am capable.

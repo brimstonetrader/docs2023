@@ -1,0 +1,23 @@
+COVER LETTERS
+
+	AI
+	
+	I am very interested in making AI accessible to the public. It is easily the economic area with the largest derivative at present, and I am eager to put my skills in linear algebra, combinatorics, software development, and algorithm design towards it. 
+	
+	My introduction to the concept was "Godel, Escher, Bach!", which convinced me of the theoretical potential of the technology, long before I began utilizing it daily. I remember vividly how I felt during my first read of the "Brains and Thoughts" chapter, where Hofstadter establishes, in a loose sense, the way that large groups of theoretical neurons bearing one unit of information each can develop symbols, abstraction and pattern-recognition over time. 
+	
+	The fact that my brain engages in a broadly similar process did not make me feel remotely anxious or small then, and it doesn't now. On the contrary, I have found that understanding a complex structure, even in a small way, only adds to its magic, or inherent beauty. 
+	
+	With [COMPANY] I hope to work on projects that push the boundaries of what I think is possible. I hope to learn about learning in the natural and comprehensive way that comes with implementation. I look forward to hearing back from [COMPANY].
+	
+	SOFTWARE DEVELOPMENT
+	
+	When I was young, I was a bit of a nerd, but not a geek. I didn't really like video games, or using the internet. I liked books, writing, and math. Despite this, as I aged, I found that the creative exuberance inherent to good storytelling and mathematics arises consistently in the realm of Software Development. I enjoy the balance of logical problem-solving and personal expression that all such roles require.	
+	
+	MATHEMATICS
+	
+	I've loved math since I was a kid. I was raised by Gen-X intellectual types, agnostic, never really went to church. Pursuing and furthering mathematics is close to divinity. It is so much larger and mightier than any human being. I find it so primally fulfilling. That's heresay, though.
+	
+	Covid hit when I was 16. 
+	
+	BIG DATA

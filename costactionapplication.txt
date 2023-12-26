@@ -1,0 +1,36 @@
+
+The Working Group structure is subject of approval at the 1st Management Committee Meeting on 24/10/2023.
+	
+Applicant profile details
+
+	Noah Morris, Male, 2003
+	Hendrix College (Conway, United States)
+	morrisnv@hendrix.edu
+	Orcid: 0009-0008-4854-496X
+	Science Field: Computer and Information Sciences
+	Research Area: Mathematics applied to computer science, mathematical aspects of computer science (Confidence Level: core) see more The details listed are coming from your e-COST profile and are necessary for the approval of your WG application.
+	In case you find something is outdated, please go to My profile and update it accordingly.
+
+Working Groups
+
+	X 1. Search, Planning, Learning, and Explainability
+	  2. Cultural Heritage of Games
+	X 3. Automated Game and Puzzle Design
+	X 4. Mathematics in Games
+  	  5. Implementation, Dissemination, and Education
+	
+	
+Scientific Background
+Maximum 150 words: please describe here in a brief manner your scientific background relevant for the COST Action.
+
+	Bachelors Degree in Mathematics and Computer Science expected May 2024. Experience implementing agents in Ludii, designing and analyzing games in Ludii. Developed several games with hidden information in Ludii, such as Hearts, 98, Agram, and Minesweeper. Currently working on modifications to the Ludii UCT to be successful in these and other such games without clairvoyance, instead using information set determinization. My major research interests are Linear Algebra, Programming Language Design, Combinatorics, and Artificial Intelligence. My mathematics thesis was primarily focused on the titular "Combinatorics of Square Grid Regions", but in conjunction with this I implemented a puzzle generator in Python for Simon Tatham's "Galaxies". I've also implemented puzzle generators in Haskell, like Nonograms and Mosaic. I work with Disco Tray Studios designing educational games using Unity. I collaborate with web, app, and other game developers there, using Github and Gitkraken. My website is https://brimstonetrader.github.io/archive/
+
+Motivation
+Maximum 150 words: please describe here in a brief manner your motivation to join the COST Action.
+
+	I've spent many hours of my life playing Amazons. I owned a Risk set, when I was 17 or so, with around 100 wooden cubes for each player, in red, yellow, blue, green, black, and pink. Risk is pretty boring, so I repurposed the cubes, and my father's old Go board, into a general abstract set. With this, BoardGameGeek, and some books on either side to adjust the size, I fell in love with many games: Othello, Gomoku, Entropy, Quoridor, Hex, and so on. I find a game's beauty to be its depth of strategy divided by the complexity of its rules; I never liked Chess or Elden Ring all that much. I absolutely love General-Game Playing, analyzing the sorts of strategies that recur. I am thrilled by all of the quantitative techniques that have recently (in math-years) arisen to do precisely that. 
+	
+Working Group Contribution
+Maximum 150 words: please describe here how you plan to contribute to the Working Group(s).
+
+	I would like to see the Ludii AI function in situations with hidden information without clairvoyance. I know Ludii's project structure and syntax well, and am very aware of its capabilities. I think that it is essential for the "set Hidden" function to impact the context of any given AI for much to be able to arise in automated game and puzzle design. I have made significant strides toward this already, in my fork of the Ludii branch, and have implemented an agent that utilizes Information-Set Determinism for my slate of hidden-information games. I am also very interested in Surreal Numbers and their role in the mathematics of game positions, and how it relates to the more general Nash-style economic game theory.

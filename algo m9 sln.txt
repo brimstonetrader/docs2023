@@ -1,0 +1,163 @@
+1. 
+
+A data structure takes f(k) time to do the kth operation. We want the amortized cost of doing n total operations.
+
+
+a. 
+
+f(k) = i | k % 2^i == 0, k % 2^(i+1) != 0
+
+n         |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 |
+----------+-------------------------------------------------|
+f(n)      |  0 |  1 |  0 |  2 |  0 |  1 |  0 |  3 |  0 |  1 |
+----------+-------------------------------------------------|
+Σ f(1..n) |  0 |  1 |  1 |  3 |  3 |  4 |  4 |  7 |  7 |  8 |
+
+Σ f(1..n) = n - count '1' ϵ str(bin(n)) 
+          = floor(n/2) + Σ f(1..floor(n/2))
+
+This takes Θ(1) time amortized for n operations. 1/2 of all values of f(k) are at least 1, those for which k%4 == 2. Additional operations come into play once every fourth, eighth, sixteenth, thirty-second, and so on, each time adding one to the cost for k in that instance. The expected value of f(n)/n, then, is 
+
+1/2 + 1/4 + 1/8 + 1/16 + ... = 1
+
+b. Consider that this function looks like
+
+
+              
+              ...
+       X       X
+       X       X
+       X       X
+       X       X
+   X   X       X
+ X X   X       X
+XXXXXXXXXXXXXXXXX
+         11111111
+12345678901234567
+
+The gaps between have length 1, 3, 7, 15 and continue following 2^n - 1. This is just right for each "domino" of value n to be knocked down, filling in the horizontal space next to it. This means that, on average, 2 actions happen per $f$, and thusly this is Θ(2) = Θ(1), like the last one. 
+
+
+c. f(k) = k if k is a fibonacci number, 1 otherwise.
+
+f(n)      | 1  |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 |
+----------+----+----+----+----+----+----+----+----+----+----|
+Σ f(1..n) | 1  |  3 |  6 |  7 | 12 | 13 | 14 | 22 | 23 | 24 |
+
+
+n             |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  10 | 
+--------------+----+----+----+----+----+----+----+----+----+----+-----|
+fib(n)        |  1 |  1 |  2 |  3 |  5 |  8 | 13 | 21 | 34 | 55 |  89 |
+--------------+----+----+----+----+----+----+----+----+----+----+-----|
+Σ fib(1..n-1) |  0 |  1 |  2 |  4 |  7 | 12 | 20 | 33 | 54 | 88 | 143 |
+
+Obviously,      Σ fib(0..x) =  fib(x) + Σ fib(1..x-1). 
+                                                           
+For n=2,        Σ fib(0..2) =  fib(2+2) - 1.               
+                                                           
+This means that Σ fib(0..3) = (fib(3) + fib(4)) - 1.       
+                            =  fib(3+2) - 1                
+                                                           
+                                                           
+The next term, Σ fib(1..4), is fib(5) + fib(4) - 1.
+
+This recurrance carries on, because each time we've got an f(n+1) + f(n), which has a well-documented solution in f(n+2). Thus, 
+
+Σ fib(1..n) = fib(n+2)
+
+Σ fib(1..n) / n < 4, then, because fibonacci numbers less than double each time. This means that, supposing every number gets that extra 1 cost per operation, even though it doesn't happen for fib #s,
+
+f(n) < n + (fib(1..x) | fib(x) < n, fib(x+1) > n)
+f(n) < n + (fib(x+2))  
+f(n) < n + 4n
+Θ(5) = Θ(1).  
+
+
+d. 
+
+f(n) = n if (n**0.5) % 1 == 0.0, else 1 
+
+f(n)      | 1  |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 |
+----------+----+----+----+----+----+----+----+----+----+----|
+Σ f(1..n) | 1  |  2 |  3 |  7 |  8 |  9 | 10 | 11 | 20 | 21 |
+
+□(n)        |  1 |  4 |  9 | 16 | 25 | 36 | 49 |  64 |  81 | 100 |
+------------+----+----+----+----+----+----+----+-----+-----+-----|
+Σ(□(1..n-1) |  0 |  1 |  5 | 14 | 30 | 55 | 91 | 140 | 204 | 285 |
+
+Visually, this looks like 
+
+
+        9     16 
+   X    X      X 
+   X    X      X 
+   X    X      X 
+XXXXXXXXXXXXXXXX 
+         1111111 
+1234567890123456 
+
+We can rearrange the formation in the first one into the L looking way on the right, if we suppose n is a square number. There will be n^0.5 many verticals in total, of which (1 - 1/sqrt(2)) are greater than n/2. This means that this is approximately Θ((0.3)(n^0.5)/2), which is Θ(n^0.5).
+
+
+
+
+
+e.  Θ(lg(n)). Consider that, because the tree is perfect, at least half of the nodes must have lg(n) many ancestors. Without considering the potential costs of the rest of the tree, Θ(lg(n)/2) = Θ(lg(n)).
+
+2. 
+
+We want an array with constant prepend, append, and access at any index. We have two arrays which do all but the first of those operations in constant time. We store the lists, xs and ys, as well as the smallest p | 2^p > len list. This lets us double our lists whenever they're full, with one if statement. This takes linear time to the list, but happens rarely enough that the amortized time is still constant, for reasons discussed in class, and 1b. Appending and prepending work on separate lists. Accessing a particular index requires a bit of math on the lengths of the two arrays, but nothing beyond constant time. This can be at most twice the size of the current sequence, so the space complexity is Θ(2n) = Θ(n).
+
+data DEArray where
+  DEArray a :: ([a], [a], Int, Int)
+  
+  DEArray.init = (new a[1], new a[1], 1, 1)
+     
+  DEArray.prepend :: DEArray a -> a -> DEArray a
+    (xs, ys, px, py).prepend a = do 
+      xs.append(a)
+      if len xs == 2 ^ px:
+        xs += new a[2 ^ px]
+        px++ 
+      return (xs, ys, px, py)
+          
+  DEArray.append  :: DEArray a -> a -> DEArray a
+    (xs, ys, px, py).append a =
+      ys.append(a)    
+      if len ys == 2 ^ px:
+        ys += new a[2 ^ py]
+        py++
+      return (xs, ys, px, py)
+      
+  DEArray[k] :: DEArray a -> Int -> a 
+  (xs, ys, _, _)[k] = do 
+        (lx, ly) = (len xs, len ys)
+         if lx < k:
+           return xs[lx - a - 1]
+         elif lx + ly > k:
+           return ys[k - lx]
+         else: 
+           return NULL
+   
+3. 
+
+A stack is like a list: you can check whether its empty in constant time. You can also add something, and you can access the most recent thing to be added, with the side effect of removing that thing from the stack.
+
+data Queue where 
+  Queue a :: (Stack a, Stack a)  
+    
+  (si, so).enqueue(x) =
+    (si.push(x))
+    return (si, so)
+    
+  (si, so).dequeue() =  
+    if so.isEmpty():
+      while !si.isEmpty():
+        s = si.pop()
+        so.push(s)
+    return so.pop()
+    
+Hey! That's a while, I thought that dequeue was supposed to be Θ(1)! Consider the accounting method. We charge four dollars per queue operation. The first we use to push the initial element onto the stack, in constant time. The second and third, we use during whichever while loop switches the element from si to so, to do a pop and push (because this only happens when so is empty, the popped element here will always be the element enqueued longest ago). This only happens once for any particular element. The third dollar is spent to pop the element, taking it off our plate. Because the business never goes bankrupt, this is Θ(4) = Θ(1).
+
+  
+∀ s ϵ ∞ Θ

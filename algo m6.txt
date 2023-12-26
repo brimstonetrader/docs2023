@@ -1,0 +1,173 @@
+COVER SHEET
+
+Took me 3 hours total.
+REVISIONS TOOK 45 MINUTES
+
+This assignment taught me what the Master Theorem was, because I was absent that day. It also taught me how to apply it.
+THIS ASSIGNMENT TAUGHT ME TO CALL AN O(2^N) APPROACH OUT WHEN IT ARISES, AND NOT TRY TO BE COY WITH IT
+
+I should probably study it more, to more thoroughly commit it to memory for the next exam. I should also brush up on my bind notation. I will do both by taking a new Haskell Challenge.
+I WAS THINKING THAT ADDITION TOOK LOG(2) TIME BECAUSE I WAS THINKING OF N IN THAT CONTEXT AS THE LITERAL NUMBER AS OPPOSED TO THE NUMBER OF BITS THAT REPRESENTED IT. THIS LED TO ME BUNGLING THE ASYMPTOTIC EVALUATION ON THE FIBONACCI PROBLEM. ¯\_(ツ)_/¯ THAT'S WHAT TOKENS ARE FOR.
+
+1. A Divide-and-Conquer Algorithm solves problems of size n by recursively solving a 
+subproblems of size n/b, and combining the solutions in O(n^d) time. 
+
+
+                            / O(n^d         ) if a <  b^d
+The Master Theorem: T(n) = {  O(n^d * log(n)) if a == b^d
+                            \ O(n^(log_b(a))) if a >  b^d 
+							
+We've three algorithms, for which d&c[a,b,d] = {A : [5, 2, 1], B : [2, n/(n-1), 0], C : 
+[9, 3, 2]}. The runtimes for each are 
+
+A : O(n^(log_2(5) = 2.32))
+B : An algorithm that solves problems of size n by solving 2 problems of size n-1 and combining them in constant time is O(2^n). 
+
+ZEROTH RECURSIVE LAYER: n
+FIRST RECURSIVE LAYER: 2*(n-1)
+SECOND RECURSIVE LAYER: 2*2*(n-2)
+...
+NTH RECURSIVE LAYER 2*2*...*2
+                    \_______/
+                     2 times itself n times.
+
+C : O(n^2 * log(n))
+
+The best available algorithm is C.
+
+2. 
+
+data Database where
+  db.self([int] ls) = ls.sorted()
+  db.size           = len db.self
+  db.query(int k)   = db.self[k]
+  
+median :: Database -> Database -> Int 
+median dba dbb = 
+  assert dba.size == dbb.size && dba ∩ dbb == [] 
+  int n  = dba.size
+  int i = 2
+  (int, int) b4median = (0,0)
+  while (sum b4median < n-1):
+    int ma = dba.query((n + b4median[0]) // 2)
+    int mb = dbb.query((n + b4median[1]) // 2)  
+    if ma < mb:                                 // if m= median of dba ∪ dbb, we         
+  	  b4median[0] += n // i                 // know ma < m < mb.
+    else:
+      b4median[1] += n // i
+	i *= 2
+  int a = dba.query(b4median[0]+1)
+  int b = dbb.query(b4median[1]+1)
+  return min(a,b) 
+
+A database is a sorted list of numbers. The only operation we afford ourself is "query", which takes an integer k as input and returns the k'th smallest number in the database. We begin with an integer variable, i, set to 2, and a tuple b4median set to (0,0). Our goal is to find the nth largest element among two databases of size n. To do this, we will find that, for some x | 0 <= x <= n, there are x elements before the median in the first database, and n-x-1 elements before the median in the other. To begin with, we query the n//2'th element from both databases. Whichever database had the smaller median gets n//2 added to its side of the tuple, because its median is definitely smaller than the overall median. We then repeat for n//4, n//8, and so on, until we know the cutoff points in both databases. The last query determines the nth element. This algorithm uses O(2(log(n)+1)) = O(log(n)) queries.
+
+
+
+
+3a. The size of the nth fibonacci number is roughly ϕ^n. This means that the 
+nth fibonacci number can be represented by roughly log_2(ϕ^n) = nlog_2(ϕ) ≈ 0.7n bits.
+
+
+3b.
+
+fib :: Int -> Int
+fib n = 
+  [int] ls = [0,1]
+  ∀ i ϵ [2..n]:
+    ls += ls[i-1] + ls[i-2]
+  return ls[n]
+
+O(+) -> Constant for each bitwise place value, so of an n-bit number it's O(n). 
+
+O(*) -> Via Karatsuba, O(n^(log_2(3)))
+
+There will be n-1 total iterations of addition. For fib(n), there are ≈0.7n bits, so adding fib(n) to fib(n+1) is O(0.7n) = O(n). We can conclude that this will take approximately O(n^2), because we're doing a linear time operation on the order of n times.
+
+
+3c.
+
+This is a divide and conquer approach. 
+
+fib :: Int -> Int -> Int
+fib n = 
+  if n%2:
+    n = n-1 // 2
+    a = fib n
+    b = fib (n+1)
+    return a*a + b*b  
+  else:
+    n = n // 2
+    a = fib n
+    b = fib (n+1)
+    return 2*a*b - a*a
+
+On each iteration, we do one addition, two multiplies, and one constant-time bit-shift. 
+
+We're splitting a problem of size n into 2 problems of size n/2. To combine our solutions, we take O(3*n^(log_2(3)) + n). This algorithm is O(n^(log_2(3))), then, by the Master Theorem.
+	 
+4a. 
+
+majorityBruteForce :: (Eq a) => [a] -> Maybe a
+majorityBruteForce (a:bs) =
+  int l = len(bs) // 2
+  int c = 0
+  ∀ b ϵ bs:
+    if a == b:
+	  c++
+  if c >= l: 
+    return Just a
+  else: 
+    return majorityBruteForce bs
+
+This is O(n^2). Below is one iterance, which is O(n).
+
+count :: (Eq a) => Maybe a -> [a] -> Int 
+count x ys = 
+  if Ǝ x:  
+    int c = 0
+    ∀ y ϵ ys:
+      if x == y:
+    	  c++
+    return c
+  return 0
+
+4b. 
+
+The majority element of an array must be the majority element of 
+at least one array resulting from splitting the array into two. 
+Suppose we had a counterexample. Then from 
+
+  xs | majority xs == x
+
+we would have two arrays 
+  
+  xs = gs ++ hs |  (len gs, len hs) == (k,n-k), 
+                   count x gs < ceil(k/2),
+                   count x hs < ceil((n-k)/2),
+                   count x (gs ++ hs) < 1 + n/2. 
+				   
+This is a contradiction, as this means there is not a majority 
+element after all.
+
+
+majority :: (Eq a) => [a] -> Maybe a
+majority cs =
+  ([a], [a]) (as,bs) = splitAt (len cs // 2) cs
+  Maybe a    ma      = majority as
+  Maybe a    mb      = majority bs
+  int        ca      = count ma cs
+  int        cb      = count mb cs
+  if ca > (ceil(len cs / 2)):
+    return ma 
+  if cb > (ceil(len cs / 2)):
+    return mb 
+  else: 
+    return null
+
+This splits a problem of size n into 2 problems of 
+size n/2, and combines them in O(2n) time. This is 
+d&c[2,2,1], and thus is O(nlog(n)).
+
+
+∀∞ϵ

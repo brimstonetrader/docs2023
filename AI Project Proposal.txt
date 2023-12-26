@@ -1,0 +1,67 @@
+
+
+The first implementation I plan to do will be very straightforward. I will use similar methods to those in project 9 to use a pre-trained neural network to translate to Toki Pona. In a more general way, I will design an algorithm that reads a file in of a vocabulary, and translates to any particular "conlang" with <500 words, by structuring it as a prompt to a LLM. 
+
+
+Lastly, I will use a premade dictionary of english words to definitions. With this, 
+
+This problem is essentially very different from most translation systems. Most languages can be translated (in the sort of rough way we've come to expect from our AIs)by assessing each word
+
+I plan to implement a few methods from class in service of this task, and to assess their capaboo
+
+You will also be required to implement at least two alterations to this algorithm, and perform an empirical comparison between the original algorithm and your altered versions. You will also write a paper describing the algorithm, your alterations, your empirical comparison, and (to the extent that it is possible) a theoretical comparison.
+
+
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{AI : Project Proposal}
+\author{nightmustfallnow }
+\date{November 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+If 382 is just applied combinatorics, 335 is applied linguistics. My stock response when a family member starts raving or ranting about GPT and the rest has become "Well, you're already plenty comfortable with the AI, that Google Translate's been here for years!" It is true that for a great many world languages, mostly adequate translations for arbitrary words can be summoned quickly, and that this is the most common way that most people encounter AI. Google Translate, essentially, uses a big pile of translations to determine the most statistically probable translation in a given scenario. I seek to implement an algorithm that translates from English to a language that does not exist in Google Translate, and for which this method cannot work, because there does not exist a large body of translated text.
+
+The language I want to translate, Toki Pona, was invented by a Canadian linguist named Sonja Lang in 2001. It has steadily amassed a dedicated and growing online following, and there are a few CS-friendly text files of definitions that are already available. Currently, the best implemented translator is a huggingface neural network. It uses a probabilistic model with a small body of toki pona text. Toki Pona is a very small language - there are less than 150 words, and a very simple grammar. Complex concepts can be represented, but require more than one word to be distinctively referred to. Because this one is probabilistic, notions like "atomization", "nostalgia", or "facsimile", for which there exist reasonable, meaning-preserving translations with <5 words, are not translated well because they do not exist in the training data. 
+
+
+\begin{verbatim}
+atomization = the act or process of splitting into smaller parts
+
+nasin         kipisi       li                     mute
+[way, method] [cut, split] [noun <- adj particle] [a lot, many]
+
+nostalgia = desire to return in thought or fact to a former time 
+
+wile      weka li    ala tenpo li pini
+[to want] [absent] [not] [time]   [past, ago, completed]
+
+facsimile = an exact copy, as of a book, painting, or manuscript.
+
+ijo      pi   oko            sama
+[object] [of] [eye, to look] [same]
+\end{verbatim}
+
+
+I will implement three versions, and compare them to each other as well as the current best online English -> Toki Pona translator. The first implementation I plan to do will be very straightforward. I will use similar methods to those in project 9 to use a pre-trained neural network to translate to Toki Pona. In a more general way, I will design an algorithm that reads a file in of a vocabulary, and translates to any particular "conlang", by structuring the grammar as a prompt to an LLM, and sending queries through to that model.
+
+ConceptNet is a method MIT uses to find "nearness" of semantic concepts in a linguistic sense, such that "baker" and "pies" are close in a way that "isomorphic" and "chutzpah" are not. It is a large, open-source graph which stores many cross-linguistic concepts as vertices and one of 34 relations. Some example relations are UsedFor (scissors -> cut, clothes -> wear), HasProperty (ice -> cold, paper -> flat), and Synonym. I want to use a subset of this graph and implement BFS, searching only through nodes that I've noted as expressible in Toki Pona, as detailed in [5]. This will be my second iteration. For my third, I want to use the distance metric here to adapt the self-organizing map
+
+\section{Sources}
+\begin{enumerate}
+
+\item \verb|https://linku.la|             
+\item Toki Pona: The Language of Good - Sonja Lang
+\item Linguistics for Non-Linguists   -  Frank Parker \& Kathryn Riley 
+\item \verb|https://github.com/commonsense/conceptnet5/wiki/Relations|
+\item \verb|https://raw.githubusercontent.com/jan-Lope/Toki_Pona_lessons|
+
+\verb|_English/gh-pages/nimi_pi_toki_pona.csv|
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,203 @@
+P2
+
+we can think of a generalized knight's tour on an n-node graph as a permutation of an n-element sequence. We can verify any permutation to fit this mold.
+
+Each step can be coded as a tuple of vertical, horizontal movement
+
+175
+483 -> (1,-2),(1,1),(-2,0), ...
+629 
+
+
+
+HASKELL BOOK:
+	
+	bas
+		floating point
+		continued fractions
+		base neutrality
+		p-adics
+		hypernions
+		primes and the basel problem
+		ulam spiral
+	grp
+		groups
+		graphs and data structures
+		matrices and linear
+		grid partitions
+	rng
+		permutations and sorting
+		sudo rng
+		pdfs 
+		quantum voodoo
+		nonogram
+	nim
+		boolean algebra -> binary xor
+		nimbers
+		mexing
+		surreals
+		games
+	itr
+		recurrance relations
+		recursion
+		number walls
+		mandlebrot set
+		markov chains
+		cellular automata
+	sys
+		formal systems
+		symbols
+		mcts
+	seq
+		top 50 oeis sequences
+	etc
+		ominos and tilings
+		self avoiding walks
+		no 3 in line
+		
+	
+
+HASKELL GAMES:
+
+	SUDOKU
+	GALAXIES
+	POLYFIT
+	SIGNPOST
+	TATAMIBARI
+	YAJILIN
+	NURIKABE
+	NUMBERLINK
+	
+UNITY GAMES:
+
+	3D CROSSWORDS
+	SANDPILE PUZZLE/RPG W ANIMATION -> (METROIDVANIA, PHYSICS/CODING PUZZLE, SANDBOX, RPG, SIMULATION)
+	GGS
+	COMPLEX PLOTTER
+	
+LUDII GAMES:
+
+	BOTTLE IMP
+	OSWALD
+	PHUTBALL
+	INERTIA
+	SAME GAME
+	ENTROPY
+	MATCH THREE
+	COUP
+	THE GAME
+	SOLITAIRE
+	
+	
+LABS IN CLASSES I WON'T BE IN:
+
+	fp | mod2345678
+	
+	dw | lab26
+	
+ENGLISH PHONEMES:
+
+	22 consonants
+		m
+		n
+		p
+		b
+		d
+		t
+		k
+		g
+		j
+		ch -> q
+		f
+		v
+		th -> θ
+		s
+		z
+		sh -> $
+		zh -> c
+		h
+		l	
+		r
+		y
+		w
+		
+	8 root vowels
+		a  -> flat
+		e  -> eh
+		i  -> bit
+		o  -> hop
+		ə  -> bruh
+		x  -> hook
+		-  -> bee
+		u  -> use
+		
+	5 dipthongs 
+		əx -> woe
+		ei -> reins
+		ai -> banzai
+		ax -> mao
+		oi -> oil
+		
+VARIOUS PSEUDOSCIENTIFIC EMOTIONAL TAXONOMIES
+
+ILINX, AGON, ALEA, MIMESIS
+
+	OBJECT         CURIOSITY | BOREDOM
+	                  DESIRE | DISGUST
+				    SURPRISE | ALARM
+	FUTURE              HOPE | FEAR
+	EVENT          GRATITUDE | ANGER
+	                     JOY | SADNESS
+			  	    PATIENCE | ACEDIA  
+			     CONTENTMENT | DISAPPOINTMENT
+	SELF            HUMILITY | PRIDE
+	SOCIAL           CHARITY | AVARICE
+	                SYMPATHY | CRUELTY
+    CATHEXIS            LOVE | HATE								  
+	MODERN      TECHNOSTRESS | EUREKA
+	          TORSHLUSSPANIC | SUICIDAL
+                   NOSTALGIA | WANDERLUST
+                    IDLENESS | OVERWHELMED
+                      NAKHES | SCHADENFREUDE
+					  
+					  
+					  
+					  
+					  
+         JOY       SAD         TRUST       DISGUST    FEAR        ANGER    SURPRISE  ANTICIPATION
+							   
+JOY      ECSTASY               
+							   
+SAD      POIGNANT  GRIEF       
+							   
+TRUST    LOVE      APATHY      ADMIRATION
+							   
+DISGUST  SARCASM   REMORSE     DOUBT       LOATHING
+							   
+FEAR     GUILT     ANGST       SUBMISSION  SHAME      TERROR
+							   
+ANGER    PRIDE     ENVY        DOMINANCE   RESENTMENT NARCISSISM  RAGE
+
+SURPRISE DELIGHT   DISAPPROVAL CURIOSITY   SHOCK      PANIC       HATE     AMAZEMENT    
+
+ANTIC  	 OPTIMISM  PESSIMISM   HOPE        RELUNTANCE ANXIETY     PARANOIA CONFUSION VIGILANCE
+
+
+
+
+
+	
+	JOY              SADNESS         FEAR          ANGER
+	   -RELIEF          -SYMPATHY       -ANXIETY      -ENVY
+	   -THRALL          -SHAME          -FEAR         -DISGUST
+	   -HOPE            -APATHY         -PANIC        -ANGER
+	   -PRIDE           -SADNESS     LOVE             -ACEDIA
+	   -CONTENTMENT     -TRAUMA         -LIKE         -ANNOYANCE
+	   -ZEAL                            -LUST         
+	   -JOY                             -LONG      SURPRISE
+	   
+	   
+	   
+	   
+plus  | or  | max | union
+times | and | min | intersection	   
